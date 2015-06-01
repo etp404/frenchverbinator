@@ -39,16 +39,15 @@ public final class ConjugationParser {
 		for (int ind = 0; ind < templateList.getLength(); ind++) {
 			Element item = (Element)templateList.item(ind);
 			templateToNode.put(
-					new VerbTemplate(item.getAttribute("name")),
+					VerbTemplate.fromString(item.getAttribute("name")),
 					item);
 		}
 	}
 
-	public Conjugation getConjugator(VerbTemplate template, Persons.Person person) {
+	public Conjugation getConjugation(InfinitiveVerb infinitiveVerb, VerbTemplate template, Persons.Person person) {
 		Element element = templateToNode.get(template);
-		String infinitive = ((Element) element.getElementsByTagName("infinitive-present").item(0)).getElementsByTagName("i").item(0).getTextContent();
-		String ending = ((Element) element.getElementsByTagName("indicative").item(0)).getElementsByTagName("i").item(PERSON_TO_INDEX.get(person)).getTextContent();
+		String conjugatedEnding = ((Element) element.getElementsByTagName("indicative").item(0)).getElementsByTagName("i").item(PERSON_TO_INDEX.get(person)).getTextContent();
 
-		return new Conjugation(infinitive, ending);
+		return new Conjugation(infinitiveVerb.toString().replace(template.getEndingAsString(), conjugatedEnding));
 	}
 }

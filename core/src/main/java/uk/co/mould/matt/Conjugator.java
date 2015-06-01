@@ -19,8 +19,7 @@ public final class Conjugator {
 
 	public ConjugatedVerbWithPronoun getPresentConjugationOf(InfinitiveVerb infinitive, Persons.Person person) {
 		VerbTemplate template = verbListParser.getTemplateForVerb(infinitive);
-		Conjugation conjugation = conjugationParser.getConjugator(template, person);
-		String conjugatedVerb = infinitive.conjugate(conjugation.infinitiveEnding, conjugation.ending);
-		return new ConjugatedVerbWithPronoun(person.getPronoun() + conjugatedVerb);
+		Conjugation conjugation = conjugationParser.getConjugation(infinitive, template, person);
+		return new ConjugatedVerbWithPronoun(person.getPronoun(conjugation.conjugatedVerb) + conjugation.conjugatedVerb);
 	}
 }

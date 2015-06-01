@@ -1,10 +1,17 @@
 package uk.co.mould.matt;
 
 public final class VerbTemplate {
-	private String verbTemplate;
+	private String root;
+	private String infiniteEnding;
 
-	public VerbTemplate(String verbTemplate) {
-		this.verbTemplate = verbTemplate;
+	private VerbTemplate(String root, String infiniteEnding) {
+		this.root = root;
+		this.infiniteEnding = infiniteEnding;
+	}
+
+	public static VerbTemplate fromString(String verbTemplateAsString) {
+		String[] verbTemplateSplit = verbTemplateAsString.split(":");
+		return new VerbTemplate(verbTemplateSplit[0], verbTemplateSplit[1]);
 	}
 
 	@Override
@@ -14,12 +21,24 @@ public final class VerbTemplate {
 
 		VerbTemplate that = (VerbTemplate) o;
 
-		return !(verbTemplate != null ? !verbTemplate.equals(that.verbTemplate) : that.verbTemplate != null);
+		if (root != null ? !root.equals(that.root) : that.root != null) return false;
+		return !(infiniteEnding != null ? !infiniteEnding.equals(that.infiniteEnding) : that.infiniteEnding != null);
 
 	}
 
 	@Override
 	public int hashCode() {
-		return verbTemplate != null ? verbTemplate.hashCode() : 0;
+		int result = root != null ? root.hashCode() : 0;
+		result = 31 * result + (infiniteEnding != null ? infiniteEnding.hashCode() : 0);
+		return result;
+	}
+
+	public String getRootAsString() {
+		return root;
+	}
+
+
+	public String getEndingAsString() {
+		return infiniteEnding;
 	}
 }

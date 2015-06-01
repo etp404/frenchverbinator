@@ -7,10 +7,6 @@ public final class InfinitiveVerb {
 		this.infinitiveAsString = infinitiveAsString;
 	}
 
-	public String conjugate(String infinitiveEnding, String ending) {
-		return infinitiveAsString.replace(infinitiveEnding, ending);
-	}
-
 	@Override
 	public String toString() {
 		return infinitiveAsString;

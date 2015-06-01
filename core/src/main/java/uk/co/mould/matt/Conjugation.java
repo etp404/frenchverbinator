@@ -1,12 +1,10 @@
 package uk.co.mould.matt;
 
 public final class Conjugation {
-	public final String infinitiveEnding;
-	public final String ending;
+	public final String conjugatedVerb;
 
-	public Conjugation(String infinitiveEnding, String ending) {
-		this.infinitiveEnding = infinitiveEnding;
-		this.ending = ending;
+	public Conjugation(String conjugatedVerb) {
+		this.conjugatedVerb = conjugatedVerb;
 	}
 
 	@Override
@@ -16,16 +14,12 @@ public final class Conjugation {
 
 		Conjugation that = (Conjugation) o;
 
-		if (infinitiveEnding != null ? !infinitiveEnding.equals(that.infinitiveEnding) : that.infinitiveEnding != null)
-			return false;
-		return !(ending != null ? !ending.equals(that.ending) : that.ending != null);
+		return !(conjugatedVerb != null ? !conjugatedVerb.equals(that.conjugatedVerb) : that.conjugatedVerb != null);
 
 	}
 
 	@Override
 	public int hashCode() {
-		int result = infinitiveEnding != null ? infinitiveEnding.hashCode() : 0;
-		result = 31 * result + (ending != null ? ending.hashCode() : 0);
-		return result;
+		return conjugatedVerb != null ? conjugatedVerb.hashCode() : 0;
 	}
 }

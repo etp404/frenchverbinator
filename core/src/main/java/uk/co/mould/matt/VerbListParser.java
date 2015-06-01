@@ -30,7 +30,7 @@ public class VerbListParser {
 			Element item = (Element)verbsList.item(temp);
 			verbToTemplate.put(
 					new InfinitiveVerb(item.getElementsByTagName("i").item(0).getTextContent()),
-					new VerbTemplate(item.getElementsByTagName("t").item(0).getTextContent()));
+					VerbTemplate.fromString(item.getElementsByTagName("t").item(0).getTextContent()));
 		}
 	}
 
