@@ -1,0 +1,35 @@
+package uk.co.mould.matt;
+
+public final class InfinitiveVerb {
+	private String infinitiveAsString;
+
+	public InfinitiveVerb(String infinitiveAsString) {
+		this.infinitiveAsString = infinitiveAsString;
+	}
+
+	public String conjugate(String infinitiveEnding, String ending) {
+		return infinitiveAsString.replace(infinitiveEnding, ending);
+	}
+
+	@Override
+	public String toString() {
+		return infinitiveAsString;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		InfinitiveVerb that = (InfinitiveVerb) o;
+
+		return !(infinitiveAsString != null ? !infinitiveAsString.equals(that.infinitiveAsString) : that.infinitiveAsString != null);
+
+	}
+
+	@Override
+	public int hashCode() {
+		return infinitiveAsString != null ? infinitiveAsString.hashCode() : 0;
+	}
+
+}
