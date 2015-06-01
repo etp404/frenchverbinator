@@ -1,4 +1,4 @@
-package uk.co.mould.matt;
+package uk.co.mould.matt.data;
 
 public final class InfinitiveVerb {
 	private String infinitiveAsString;

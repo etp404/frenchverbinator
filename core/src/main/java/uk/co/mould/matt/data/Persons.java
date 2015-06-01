@@ -1,4 +1,4 @@
-package uk.co.mould.matt;
+package uk.co.mould.matt.data;
 
 public class Persons {
 	public interface Person {

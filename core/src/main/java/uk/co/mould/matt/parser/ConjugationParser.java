@@ -1,4 +1,4 @@
-package uk.co.mould.matt;
+package uk.co.mould.matt.parser;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -13,6 +13,11 @@ import java.util.Map;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+
+import uk.co.mould.matt.data.Conjugation;
+import uk.co.mould.matt.data.InfinitiveVerb;
+import uk.co.mould.matt.data.Persons;
+import uk.co.mould.matt.data.VerbTemplate;
 
 public final class ConjugationParser {
 

@@ -1,14 +1,18 @@
-package uk.co.mould.matt;
+package uk.co.mould.matt.data;
 
-public final class ConjugatedVerbWithPronoun {
-	private String conjugatedVerb;
+public final class Conjugation {
+	public final String conjugatedVerb;
+
+	public Conjugation(String conjugatedVerb) {
+		this.conjugatedVerb = conjugatedVerb;
+	}
 
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 
-		ConjugatedVerbWithPronoun that = (ConjugatedVerbWithPronoun) o;
+		Conjugation that = (Conjugation) o;
 
 		return !(conjugatedVerb != null ? !conjugatedVerb.equals(that.conjugatedVerb) : that.conjugatedVerb != null);
 
@@ -17,9 +21,5 @@ public final class ConjugatedVerbWithPronoun {
 	@Override
 	public int hashCode() {
 		return conjugatedVerb != null ? conjugatedVerb.hashCode() : 0;
-	}
-
-	public ConjugatedVerbWithPronoun(String conjugatedVerb) {
-		this.conjugatedVerb = conjugatedVerb;
 	}
 }
