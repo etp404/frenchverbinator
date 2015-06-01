@@ -14,11 +14,12 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import uk.co.mould.matt.data.InfinitiveVerb;
 import uk.co.mould.matt.data.VerbTemplate;
 
 public class VerbListParser {
 
-	private final Map<uk.co.mould.matt.data.InfinitiveVerb, VerbTemplate> verbToTemplate;
+	private final Map<InfinitiveVerb, VerbTemplate> verbToTemplate;
 
 	public VerbListParser(File verbsFile) throws ParserConfigurationException, IOException, SAXException {
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -31,7 +32,7 @@ public class VerbListParser {
 		for (int temp = 0; temp < verbsList.getLength(); temp++) {
 			Element item = (Element)verbsList.item(temp);
 			verbToTemplate.put(
-					new uk.co.mould.matt.data.InfinitiveVerb(item.getElementsByTagName("i").item(0).getTextContent()),
+					InfinitiveVerb.fromString(item.getElementsByTagName("i").item(0).getTextContent()),
 					VerbTemplate.fromString(item.getElementsByTagName("t").item(0).getTextContent()));
 		}
 	}

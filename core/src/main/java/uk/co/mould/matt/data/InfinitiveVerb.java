@@ -3,8 +3,12 @@ package uk.co.mould.matt.data;
 public final class InfinitiveVerb {
 	private String infinitiveAsString;
 
-	public InfinitiveVerb(String infinitiveAsString) {
+	private InfinitiveVerb(String infinitiveAsString) {
 		this.infinitiveAsString = infinitiveAsString;
+	}
+
+	public static InfinitiveVerb fromString(String infinitiveAsString) {
+		return new InfinitiveVerb(infinitiveAsString);
 	}
 
 	@Override
