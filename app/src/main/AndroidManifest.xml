@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="matt.mould.co.uk.frenchverbinator" >
+    package="uk.co.mould.matt.frenchverbinator" >
 
     <application
         android:allowBackup="true"

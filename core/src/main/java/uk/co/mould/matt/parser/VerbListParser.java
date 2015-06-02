@@ -2,6 +2,7 @@ package uk.co.mould.matt.parser;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 import java.io.File;
@@ -24,7 +25,7 @@ public class VerbListParser {
 
 	private final Map<InfinitiveVerb, VerbTemplate> verbToTemplate;
 
-	public VerbListParser(File verbsFile) throws ParserConfigurationException, IOException, SAXException {
+	public VerbListParser(InputSource verbsFile) throws ParserConfigurationException, IOException, SAXException {
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 		Document doc = dBuilder.parse(verbsFile);

@@ -3,6 +3,7 @@ package uk.co.mould.matt.parser;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 import java.io.File;
@@ -32,7 +33,7 @@ public final class ConjugationParser {
 
 	private final HashMap<VerbTemplate, Element> templateToNode;
 
-	public ConjugationParser(File conjugationFile) throws ParserConfigurationException, IOException, SAXException {
+	public ConjugationParser(InputSource conjugationFile) throws ParserConfigurationException, IOException, SAXException {
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 		Document doc = dBuilder.parse(conjugationFile);

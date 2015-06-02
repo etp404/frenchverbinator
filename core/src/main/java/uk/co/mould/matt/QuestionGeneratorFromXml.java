@@ -1,5 +1,6 @@
 package uk.co.mould.matt;
 
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 import java.io.File;
@@ -15,7 +16,7 @@ import uk.co.mould.matt.data.Persons;
 import uk.co.mould.matt.parser.VerbListParser;
 
 public final class QuestionGeneratorFromXml implements QuestionGenerator {
-	private final VerbListParser verbParser;
+	private VerbListParser verbParser;
 	private List<Persons.Person> persons = new ArrayList<Persons.Person>(){{
 		add(Persons.FIRST_PERSON_SINGULAR);
 		add(Persons.SECOND_PERSON_SINGULAR);
@@ -26,8 +27,16 @@ public final class QuestionGeneratorFromXml implements QuestionGenerator {
 
 	}};
 
-	public QuestionGeneratorFromXml() throws IOException, SAXException, ParserConfigurationException {
-		this.verbParser = new VerbListParser(new File("res/verbs-fr.xml"));
+	public QuestionGeneratorFromXml(InputSource inputSource) {
+		try {
+			this.verbParser = new VerbListParser(inputSource);
+		} catch (ParserConfigurationException e) {
+
+		} catch (IOException e) {
+
+		} catch (SAXException e) {
+
+		}
 	}
 
 	public Persons.Person getRandomPerson() {

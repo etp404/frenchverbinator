@@ -1,10 +1,14 @@
-package matt.mould.co.uk.frenchverbinator;
+package uk.co.mould.matt.frenchverbinator;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 
+import org.xml.sax.InputSource;
+import uk.co.mould.matt.QuestionGeneratorFromXml;
+import uk.co.mould.matt.QuestionPresenter;
 
 public class QuestionActivity extends Activity {
 
@@ -12,6 +16,13 @@ public class QuestionActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.question_layout);
+		try {
+			QuestionPresenter questionPresenter = new QuestionPresenter(
+					new AndroidQuestionView((ViewGroup)findViewById(R.id.question_view_group)),
+					new QuestionGeneratorFromXml(new InputSource(getResources().openRawResource(R.raw.verbs_fr))));
+			questionPresenter.showQuestion();
+
+		} catch (Exception ignored) {}
 	}
 
 	@Override
@@ -35,4 +46,5 @@ public class QuestionActivity extends Activity {
 
 		return super.onOptionsItemSelected(item);
 	}
+
 }

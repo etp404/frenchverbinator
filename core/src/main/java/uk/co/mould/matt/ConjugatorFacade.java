@@ -1,9 +1,12 @@
 package uk.co.mould.matt;
 
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -18,8 +21,10 @@ public final class ConjugatorFacade {
 
 	public ConjugatorFacade() throws IOException, SAXException, ParserConfigurationException {
 		conjugator = new Conjugator(
-							new VerbListParser(new File("res/verbs-fr.xml")),
-							new ConjugationParser(new File("res/conjugation-fr.xml")));
+							new VerbListParser(
+									new InputSource(new FileInputStream("res/verbs-fr.xml"))),
+							new ConjugationParser(
+										new InputSource(new FileInputStream("res/conjugation-fr.xml"))));
 	}
 
 	public ConjugatedVerbWithPronoun getPresentConjugationOf(uk.co.mould.matt.data.InfinitiveVerb infinitive, uk.co.mould.matt.data.Persons.Person person) {
