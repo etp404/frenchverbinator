@@ -6,7 +6,10 @@ import org.xml.sax.SAXException;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.w3c.dom.Element;
@@ -37,7 +40,11 @@ public class VerbListParser {
 		}
 	}
 
-	public VerbTemplate getTemplateForVerb(uk.co.mould.matt.data.InfinitiveVerb verb) {
+	public VerbTemplate getTemplateForVerb(InfinitiveVerb verb) {
 		return verbToTemplate.get(verb);
+	}
+
+	public List<InfinitiveVerb> getVerbs() {
+		return new ArrayList<InfinitiveVerb>(verbToTemplate.keySet());
 	}
 }
