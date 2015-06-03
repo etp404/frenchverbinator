@@ -27,7 +27,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/editText"
+        android:id="@+id/answerBox"
         android:layout_below="@+id/person"
         android:layout_marginTop="60dp" android:layout_toStartOf="@+id/person"
         android:hint="Answer" android:layout_alignEnd="@+id/person"/>
@@ -35,6 +35,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Submit"
-        android:id="@+id/button" android:layout_below="@+id/editText"
+        android:id="@+id/submitButton" android:layout_below="@+id/editText"
         android:layout_centerHorizontal="true" android:layout_marginTop="53dp"/>
 </RelativeLayout>

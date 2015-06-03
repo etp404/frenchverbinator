@@ -22,4 +22,9 @@ public final class ConjugatedVerbWithPronoun {
 	public ConjugatedVerbWithPronoun(String conjugatedVerb) {
 		this.conjugatedVerb = conjugatedVerb;
 	}
+
+	@Override
+	public String toString() {
+		return conjugatedVerb;
+	}
 }
