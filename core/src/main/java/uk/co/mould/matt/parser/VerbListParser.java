@@ -25,19 +25,23 @@ public class VerbListParser {
 
 	private final Map<InfinitiveVerb, VerbTemplate> verbToTemplate;
 
-	public VerbListParser(InputSource verbsFile) throws ParserConfigurationException, IOException, SAXException {
-		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-		DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-		Document doc = dBuilder.parse(verbsFile);
-		doc.getDocumentElement().normalize();
-		NodeList verbsList = doc.getElementsByTagName("v");
+	public VerbListParser(InputSource verbsFile) {
+		try {
+			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+			Document doc = dBuilder.parse(verbsFile);
+			doc.getDocumentElement().normalize();
+			NodeList verbsList = doc.getElementsByTagName("v");
 
-		verbToTemplate = new HashMap<>();
-		for (int temp = 0; temp < verbsList.getLength(); temp++) {
-			Element item = (Element)verbsList.item(temp);
-			verbToTemplate.put(
-					InfinitiveVerb.fromString(item.getElementsByTagName("i").item(0).getTextContent()),
-					VerbTemplate.fromString(item.getElementsByTagName("t").item(0).getTextContent()));
+			verbToTemplate = new HashMap<>();
+			for (int temp = 0; temp < verbsList.getLength(); temp++) {
+				Element item = (Element)verbsList.item(temp);
+				verbToTemplate.put(
+						InfinitiveVerb.fromString(item.getElementsByTagName("i").item(0).getTextContent()),
+						VerbTemplate.fromString(item.getElementsByTagName("t").item(0).getTextContent()));
+			}
+		} catch (ParserConfigurationException|SAXException|IOException e) {
+			throw new RuntimeException("Could not initiate verbs list parser.");
 		}
 	}
 

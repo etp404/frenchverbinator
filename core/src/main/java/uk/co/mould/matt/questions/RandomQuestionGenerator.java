@@ -1,21 +1,13 @@
-package uk.co.mould.matt;
-
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
-
-import java.io.File;
-import java.io.IOException;
+package uk.co.mould.matt.questions;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
-import javax.xml.parsers.ParserConfigurationException;
 
 import uk.co.mould.matt.data.InfinitiveVerb;
 import uk.co.mould.matt.data.Persons;
 import uk.co.mould.matt.parser.VerbListParser;
 
-public final class QuestionGeneratorFromXml implements QuestionGenerator {
+public final class RandomQuestionGenerator implements uk.co.mould.matt.questions.QuestionGenerator {
 	private VerbListParser verbParser;
 	private List<Persons.Person> persons = new ArrayList<Persons.Person>(){{
 		add(Persons.FIRST_PERSON_SINGULAR);
@@ -27,7 +19,7 @@ public final class QuestionGeneratorFromXml implements QuestionGenerator {
 
 	}};
 
-	public QuestionGeneratorFromXml(VerbListParser verbParser) {
+	public RandomQuestionGenerator(VerbListParser verbParser) {
 		this.verbParser = verbParser;
 	}
 

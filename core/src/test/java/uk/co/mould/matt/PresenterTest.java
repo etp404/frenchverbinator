@@ -9,8 +9,6 @@ import uk.co.mould.matt.data.InfinitiveVerb;
 import uk.co.mould.matt.data.Persons;
 import uk.co.mould.matt.fakes.FakeQuestionGenerator;
 import uk.co.mould.matt.fakes.FakeQuestionView;
-import uk.co.mould.matt.parser.ConjugationParser;
-import uk.co.mould.matt.parser.VerbListParser;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -22,13 +20,13 @@ public final class PresenterTest {
 	private final InfinitiveVerb verb = InfinitiveVerb.fromString(verbString);
 	private final String correctAnswer = "Vous regardez";
 	private FakeQuestionView questionView;
-	private QuestionPresenter questionPresenter;
+	private uk.co.mould.matt.ui.QuestionPresenter questionPresenter;
 
 
 	@Before
 	public void setup() {
 		questionView = new FakeQuestionView();
-		questionPresenter = new QuestionPresenter(
+		questionPresenter = new uk.co.mould.matt.ui.QuestionPresenter(
 				questionView,
 				new FakeQuestionGenerator(person, verb),
 				new FakeConjugator(person, verb, new ConjugatedVerbWithPronoun(correctAnswer)));

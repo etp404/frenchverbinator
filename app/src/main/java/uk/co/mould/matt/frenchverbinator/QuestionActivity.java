@@ -6,13 +6,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import org.xml.sax.InputSource;
 
-import uk.co.mould.matt.QuestionGenerator;
-import uk.co.mould.matt.QuestionGeneratorFromXml;
-import uk.co.mould.matt.QuestionPresenter;
+import uk.co.mould.matt.questions.QuestionGenerator;
+import uk.co.mould.matt.questions.RandomQuestionGenerator;
+import uk.co.mould.matt.ui.QuestionPresenter;
 import uk.co.mould.matt.conjugators.Conjugator;
 import uk.co.mould.matt.parser.ConjugationParser;
 import uk.co.mould.matt.parser.VerbListParser;
@@ -23,32 +22,40 @@ public class QuestionActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.question_layout);
-		try {
-			VerbListParser verbListParser = new VerbListParser(new InputSource(getResources().openRawResource(R.raw.verbs_fr)));
-			QuestionGenerator questionGenerator = new QuestionGeneratorFromXml(verbListParser);
+		VerbListParser verbListParser = new VerbListParser(new InputSource(getResources().openRawResource(R.raw.verbs_fr)));
+		ConjugationParser conjugationParser = new ConjugationParser(new InputSource(getResources().openRawResource(R.raw.conjugation_fr)));
 
-			Conjugator conjugator = new Conjugator(verbListParser, new ConjugationParser(new InputSource(getResources().openRawResource(R.raw.conjugation_fr))));
-			final QuestionPresenter questionPresenter = new QuestionPresenter(
-					new AndroidQuestionView((ViewGroup)findViewById(R.id.question_view_group)),
-					questionGenerator,
-					conjugator);
-			questionPresenter.showQuestion();
+		QuestionGenerator questionGenerator = new RandomQuestionGenerator(verbListParser);
+		Conjugator conjugator = new Conjugator(verbListParser, conjugationParser);
 
-			findViewById(R.id.submitButton).setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					questionPresenter.submitAnswer();
-				}
-			});
+		final QuestionPresenter questionPresenter = new QuestionPresenter(
+				new AndroidQuestionView((ViewGroup)findViewById(R.id.question_view_group)),
+				questionGenerator,
+				conjugator);
 
-			findViewById(R.id.next).setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					questionPresenter.showQuestion();
-				}
-			});
+		setUpSubmitButton(questionPresenter);
 
-		} catch (Exception ignored) {}
+		setUpNextQuestionButton(questionPresenter);
+
+		questionPresenter.showQuestion();
+	}
+
+	private void setUpNextQuestionButton(final QuestionPresenter questionPresenter) {
+		findViewById(R.id.next).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				questionPresenter.showQuestion();
+			}
+		});
+	}
+
+	private void setUpSubmitButton(final QuestionPresenter questionPresenter) {
+		findViewById(R.id.submitButton).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				questionPresenter.submitAnswer();
+			}
+		});
 	}
 
 	@Override

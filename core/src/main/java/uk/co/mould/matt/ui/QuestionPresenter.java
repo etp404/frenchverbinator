@@ -1,4 +1,4 @@
-package uk.co.mould.matt;
+package uk.co.mould.matt.ui;
 
 import uk.co.mould.matt.conjugators.Conjugator;
 import uk.co.mould.matt.data.ConjugatedVerbWithPronoun;
@@ -6,15 +6,15 @@ import uk.co.mould.matt.data.InfinitiveVerb;
 import uk.co.mould.matt.data.Persons;
 
 public class QuestionPresenter {
-	private QuestionView questionView;
-	private QuestionGenerator fakeQuestionGenerator;
+	private uk.co.mould.matt.ui.QuestionView questionView;
+	private uk.co.mould.matt.questions.QuestionGenerator fakeQuestionGenerator;
 	private Conjugator conjugator;
 	private Persons.Person questionPerson;
 	private InfinitiveVerb questionVerb;
 
 
-	public QuestionPresenter(QuestionView questionView,
-							 QuestionGenerator questionGenerator,
+	public QuestionPresenter(uk.co.mould.matt.ui.QuestionView questionView,
+							 uk.co.mould.matt.questions.QuestionGenerator questionGenerator,
 							 Conjugator conjugator) {
 		this.questionView = questionView;
 		this.fakeQuestionGenerator = questionGenerator;

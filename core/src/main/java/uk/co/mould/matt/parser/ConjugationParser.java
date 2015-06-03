@@ -31,22 +31,25 @@ public final class ConjugationParser {
 		put(Persons.THIRD_PERSON_PLURAL, 5);
 	}};
 
-	private final HashMap<VerbTemplate, Element> templateToNode;
+	private final HashMap<VerbTemplate, Element> templateToNode = new HashMap<>();
 
-	public ConjugationParser(InputSource conjugationFile) throws ParserConfigurationException, IOException, SAXException {
-		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-		DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-		Document doc = dBuilder.parse(conjugationFile);
-		doc.getDocumentElement().normalize();
+	public ConjugationParser(InputSource conjugationFile) {
+		try {
+			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+			Document doc = dBuilder.parse(conjugationFile);
+			doc.getDocumentElement().normalize();
 
-		NodeList templateList = doc.getElementsByTagName("template");
+			NodeList templateList = doc.getElementsByTagName("template");
 
-		templateToNode = new HashMap<>();
-		for (int ind = 0; ind < templateList.getLength(); ind++) {
-			Element item = (Element)templateList.item(ind);
-			templateToNode.put(
-					VerbTemplate.fromString(item.getAttribute("name")),
-					item);
+			for (int ind = 0; ind < templateList.getLength(); ind++) {
+				Element item = (Element)templateList.item(ind);
+				templateToNode.put(
+						VerbTemplate.fromString(item.getAttribute("name")),
+						item);
+			}
+		} catch (ParserConfigurationException|SAXException|IOException e) {
+			throw new RuntimeException("Could not initiate conjugation stream");
 		}
 	}
 
