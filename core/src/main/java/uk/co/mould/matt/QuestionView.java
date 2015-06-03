@@ -7,4 +7,6 @@ public interface QuestionView {
 	void setPerson(Persons.Person randomPerson);
 
 	void setVerb(InfinitiveVerb randomVerb);
+
+	void showCorrect();
 }
