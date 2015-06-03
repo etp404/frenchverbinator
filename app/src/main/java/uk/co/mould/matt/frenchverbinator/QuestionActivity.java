@@ -4,11 +4,18 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import org.xml.sax.InputSource;
+
+import uk.co.mould.matt.QuestionGenerator;
 import uk.co.mould.matt.QuestionGeneratorFromXml;
 import uk.co.mould.matt.QuestionPresenter;
+import uk.co.mould.matt.conjugators.Conjugator;
+import uk.co.mould.matt.parser.ConjugationParser;
+import uk.co.mould.matt.parser.VerbListParser;
 
 public class QuestionActivity extends Activity {
 
@@ -17,10 +24,23 @@ public class QuestionActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.question_layout);
 		try {
-			QuestionPresenter questionPresenter = new QuestionPresenter(
+			VerbListParser verbListParser = new VerbListParser(new InputSource(getResources().openRawResource(R.raw.verbs_fr)));
+			QuestionGenerator questionGenerator = new QuestionGeneratorFromXml(verbListParser);
+
+			Conjugator conjugator = new Conjugator(verbListParser, new ConjugationParser(new InputSource(getResources().openRawResource(R.raw.conjugation_fr))));
+			final QuestionPresenter questionPresenter = new QuestionPresenter(
 					new AndroidQuestionView((ViewGroup)findViewById(R.id.question_view_group)),
-					new QuestionGeneratorFromXml(new InputSource(getResources().openRawResource(R.raw.verbs_fr))), null);
+					questionGenerator,
+					conjugator);
 			questionPresenter.showQuestion();
+
+			findViewById(R.id.submitButton).setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					CharSequence answer = ((TextView) findViewById(R.id.answerBox)).getText();
+					questionPresenter.submitAnswer(answer.toString());
+				}
+			});
 
 		} catch (Exception ignored) {}
 	}

@@ -27,16 +27,8 @@ public final class QuestionGeneratorFromXml implements QuestionGenerator {
 
 	}};
 
-	public QuestionGeneratorFromXml(InputSource inputSource) {
-		try {
-			this.verbParser = new VerbListParser(inputSource);
-		} catch (ParserConfigurationException e) {
-
-		} catch (IOException e) {
-
-		} catch (SAXException e) {
-
-		}
+	public QuestionGeneratorFromXml(VerbListParser verbParser) {
+		this.verbParser = verbParser;
 	}
 
 	public Persons.Person getRandomPerson() {
