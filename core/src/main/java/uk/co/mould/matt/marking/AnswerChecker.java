@@ -19,8 +19,22 @@ public class AnswerChecker {
 		this.questionVerb = questionVerb;
 	}
 
-	public boolean check(String answer) {
+	public void check(String answer, Callback callback) {
+		if (isAnswerCorrect(answer)) {
+			callback.correct();
+		}
+		else {
+			callback.incorrect();
+		}
+	}
+
+	public boolean isAnswerCorrect(String answer) {
 		ConjugatedVerbWithPronoun correctAnswer = conjugator.getPresentConjugationOf(questionVerb, questionPerson);
 		return correctAnswer.toString().toLowerCase().equals(answer.toLowerCase());
+	}
+
+	public interface Callback {
+		void correct();
+		void incorrect();
 	}
 }

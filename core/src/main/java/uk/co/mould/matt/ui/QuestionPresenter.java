@@ -29,12 +29,17 @@ public class QuestionPresenter {
 	}
 
 	public void submitAnswer() {
-		if (answerChecker.check(questionView.getAnswer())) {
-			questionView.showCorrect();
-		}
-		else {
-			questionView.showIncorrect();
-		}
+		answerChecker.check(questionView.getAnswer(), new AnswerChecker.Callback() {
+			@Override
+			public void correct() {
+				questionView.showCorrect();
+			}
+
+			@Override
+			public void incorrect() {
+				questionView.showIncorrect();
+			}
+		});
 		questionView.answerMode();
 	}
 
