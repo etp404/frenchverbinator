@@ -19,7 +19,11 @@ public interface QuestionView {
 
 	void enterQuestionMode();
 
-	void showCorrectAnswer();
+	void showCorrection();
+
+	void hideCorrection();
 
 	void setCorrectAnswerValue(ConjugatedVerbWithPronoun presentConjugationOf);
+
+
 }

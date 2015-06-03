@@ -29,6 +29,7 @@ public class QuestionPresenter {
 		questionVerb = fakeQuestionGenerator.getRandomVerb();
 		questionView.setVerb(questionVerb);
 		questionView.enterQuestionMode();
+		questionView.hideCorrection();
 		this.answerChecker.setQuestion(questionPerson, questionVerb);
 	}
 
@@ -42,7 +43,7 @@ public class QuestionPresenter {
 			@Override
 			public void incorrect() {
 				questionView.showIncorrect();
-				questionView.showCorrectAnswer();
+				questionView.showCorrection();
 				questionView.setCorrectAnswerValue(conjugator.getPresentConjugationOf(questionVerb, questionPerson));
 			}
 		});

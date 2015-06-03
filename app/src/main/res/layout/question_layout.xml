@@ -15,6 +15,15 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/result_box"
         android:layout_centerHorizontal="true"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/correctAnswer"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"/>
+
 
     <TextView
         android:layout_width="match_parent"

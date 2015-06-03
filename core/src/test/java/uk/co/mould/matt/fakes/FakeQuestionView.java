@@ -52,8 +52,13 @@ public class FakeQuestionView implements QuestionView {
 	}
 
 	@Override
-	public void showCorrectAnswer() {
+	public void showCorrection() {
 		correctAnswerVisible = true;
+	}
+
+	@Override
+	public void hideCorrection() {
+		correctAnswerVisible = false;
 	}
 
 	@Override

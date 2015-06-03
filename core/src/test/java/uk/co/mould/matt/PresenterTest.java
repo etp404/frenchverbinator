@@ -59,6 +59,15 @@ public final class PresenterTest {
 	}
 
 	@Test
+	public void testThatForQuestionAfterAnIncorrectAnswerCorrectionIsGone() {
+		questionView.answer = "wrong answer";
+		questionPresenter.submitAnswer();
+		questionPresenter.showQuestion();
+
+		assertFalse(questionView.correctAnswerVisible);
+	}
+
+	@Test
 	public void testThatWhenAnswerHasBeenSubmittedUISwitchesToAnswerMode() {
 		questionPresenter.submitAnswer();
 
