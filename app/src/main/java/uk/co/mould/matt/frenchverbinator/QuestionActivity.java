@@ -41,6 +41,13 @@ public class QuestionActivity extends Activity {
 				}
 			});
 
+			findViewById(R.id.next).setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					questionPresenter.showQuestion();
+				}
+			});
+
 		} catch (Exception ignored) {}
 	}
 

@@ -15,4 +15,6 @@ public interface QuestionView {
 	String getAnswer();
 
 	void answerMode();
+
+	void enterQuestionMode();
 }

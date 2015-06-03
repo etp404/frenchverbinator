@@ -63,6 +63,13 @@ public final class PresenterTest {
 		assertTrue(questionView.inAnswerMode);
 	}
 
+	@Test
+	public void testThatWhenQuestionHasBeenRequestedUISwitchesToQuestionMode() {
+		questionPresenter.showQuestion();
+
+		assertTrue(questionView.inQuestionMode);
+	}
+
 	private class FakeConjugator extends Conjugator {
 
 		private Persons.Person personMatchingAnswer;

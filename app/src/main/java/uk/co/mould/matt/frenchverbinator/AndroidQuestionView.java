@@ -1,5 +1,6 @@
 package uk.co.mould.matt.frenchverbinator;
 
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
@@ -44,6 +45,12 @@ public final class AndroidQuestionView implements QuestionView {
 	@Override
 	public void answerMode() {
 		answerBox.setEnabled(false);
-		questionViewGroup.findViewById(R.id.submitButton).setEnabled(false);
+		questionViewGroup.findViewById(R.id.submitButton).setVisibility(View.GONE);
+		questionViewGroup.findViewById(R.id.next).setVisibility(View.VISIBLE);
+	}
+
+	@Override
+	public void enterQuestionMode() {
+
 	}
 }

@@ -26,6 +26,7 @@ public class QuestionPresenter {
 		questionView.setPerson(questionPerson);
 		questionVerb = fakeQuestionGenerator.getRandomVerb();
 		questionView.setVerb(questionVerb);
+		questionView.enterQuestionMode();
 	}
 
 	public void submitAnswer() {

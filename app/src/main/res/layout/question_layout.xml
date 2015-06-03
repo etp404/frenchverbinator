@@ -39,6 +39,13 @@
         android:text="Submit"
         android:id="@+id/submitButton"
         android:layout_centerVertical="true" android:layout_centerHorizontal="true"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Next"
+        android:id="@+id/next"
+        android:layout_centerVertical="true" android:layout_centerHorizontal="true"
+        android:visibility="gone"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
