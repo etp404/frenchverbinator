@@ -21,15 +21,17 @@ public final class PresenterTest {
 	private final String verbString = "regarder";
 	private final InfinitiveVerb verb = InfinitiveVerb.fromString(verbString);
 	private final String correctAnswer = "Vous regardez";
+	private FakeQuestionView questionView;
+	private QuestionPresenter questionPresenter;
 
-	private final FakeQuestionView questionView = new FakeQuestionView();
-	private final QuestionPresenter questionPresenter = new QuestionPresenter(
-			questionView,
-			new FakeQuestionGenerator(person, verb),
-			new FakeConjugator(person, verb, new ConjugatedVerbWithPronoun(correctAnswer)));
 
 	@Before
 	public void setup() {
+		questionView = new FakeQuestionView();
+		questionPresenter = new QuestionPresenter(
+				questionView,
+				new FakeQuestionGenerator(person, verb),
+				new FakeConjugator(person, verb, new ConjugatedVerbWithPronoun(correctAnswer)));
 		questionPresenter.showQuestion();
 	}
 	@Test
@@ -52,6 +54,13 @@ public final class PresenterTest {
 		questionPresenter.submitAnswer();
 
 		assertTrue(questionView.incorrectCalled);
+	}
+
+	@Test
+	public void testThatWhenAnswerHasBeenSubmittedUISwitchesToAnswerMode() {
+		questionPresenter.submitAnswer();
+
+		assertTrue(questionView.inAnswerMode);
 	}
 
 	private class FakeConjugator extends Conjugator {

@@ -13,4 +13,6 @@ public interface QuestionView {
 	void showIncorrect();
 
 	String getAnswer();
+
+	void answerMode();
 }

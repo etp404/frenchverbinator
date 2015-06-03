@@ -35,6 +35,7 @@ public class QuestionPresenter {
 		else {
 			questionView.showIncorrect();
 		}
+		questionView.answerMode();
 	}
 
 	private boolean checkAnswer(String answer) {
