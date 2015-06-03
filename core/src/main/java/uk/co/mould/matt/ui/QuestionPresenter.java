@@ -1,34 +1,31 @@
 package uk.co.mould.matt.ui;
 
 import uk.co.mould.matt.conjugators.Conjugator;
-import uk.co.mould.matt.data.ConjugatedVerbWithPronoun;
 import uk.co.mould.matt.data.InfinitiveVerb;
 import uk.co.mould.matt.data.Persons;
+import uk.co.mould.matt.marking.AnswerChecker;
+import uk.co.mould.matt.questions.QuestionGenerator;
 
 public class QuestionPresenter {
-	private final AnswerChecker answerChecker;
-	private uk.co.mould.matt.ui.QuestionView questionView;
-	private uk.co.mould.matt.questions.QuestionGenerator fakeQuestionGenerator;
-	private Conjugator conjugator;
-	private Persons.Person questionPerson;
-	private InfinitiveVerb questionVerb;
-
+	private AnswerChecker answerChecker;
+	private QuestionView questionView;
+	private QuestionGenerator fakeQuestionGenerator;
 
 	public QuestionPresenter(uk.co.mould.matt.ui.QuestionView questionView,
 							 uk.co.mould.matt.questions.QuestionGenerator questionGenerator,
 							 Conjugator conjugator) {
 		this.questionView = questionView;
 		this.fakeQuestionGenerator = questionGenerator;
-		this.conjugator = conjugator;
-		this.answerChecker = new AnswerChecker();
+		this.answerChecker = new AnswerChecker(conjugator);
 	}
 
 	public void showQuestion() {
-		questionPerson = fakeQuestionGenerator.getRandomPerson();
+		Persons.Person questionPerson = fakeQuestionGenerator.getRandomPerson();
 		questionView.setPerson(questionPerson);
-		questionVerb = fakeQuestionGenerator.getRandomVerb();
+		InfinitiveVerb questionVerb = fakeQuestionGenerator.getRandomVerb();
 		questionView.setVerb(questionVerb);
 		questionView.enterQuestionMode();
+		this.answerChecker.setQuestion(questionPerson, questionVerb);
 	}
 
 	public void submitAnswer() {
@@ -39,14 +36,6 @@ public class QuestionPresenter {
 			questionView.showIncorrect();
 		}
 		questionView.answerMode();
-	}
-
-	private class AnswerChecker {
-		private boolean check(String answer) {
-			ConjugatedVerbWithPronoun correctAnswer = conjugator.getPresentConjugationOf(questionVerb, questionPerson);
-			return correctAnswer.toString().toLowerCase().equals(answer.toLowerCase());
-		}
-
 	}
 
 }
