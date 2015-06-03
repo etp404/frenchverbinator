@@ -1,5 +1,6 @@
 package uk.co.mould.matt.fakes;
 
+import uk.co.mould.matt.data.ConjugatedVerbWithPronoun;
 import uk.co.mould.matt.ui.QuestionView;
 import uk.co.mould.matt.data.InfinitiveVerb;
 import uk.co.mould.matt.data.Persons;
@@ -12,6 +13,8 @@ public class FakeQuestionView implements QuestionView {
 	public boolean inAnswerMode = false;
 	public boolean inQuestionMode = false;
 	public String answer = "default";
+	public boolean correctAnswerVisible = false;
+	public String correctAnswerValue;
 
 	@Override
 	public void setPerson(Persons.Person randomPerson) {
@@ -46,5 +49,15 @@ public class FakeQuestionView implements QuestionView {
 	@Override
 	public void enterQuestionMode() {
 		inQuestionMode = true;
+	}
+
+	@Override
+	public void showCorrectAnswer() {
+		correctAnswerVisible = true;
+	}
+
+	@Override
+	public void setCorrectAnswerValue(ConjugatedVerbWithPronoun presentConjugationOf) {
+		correctAnswerValue = presentConjugationOf.toString();
 	}
 }

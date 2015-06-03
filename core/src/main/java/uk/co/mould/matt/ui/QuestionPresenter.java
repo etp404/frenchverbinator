@@ -7,22 +7,26 @@ import uk.co.mould.matt.marking.AnswerChecker;
 import uk.co.mould.matt.questions.QuestionGenerator;
 
 public class QuestionPresenter {
+	private final Conjugator conjugator;
 	private AnswerChecker answerChecker;
 	private QuestionView questionView;
 	private QuestionGenerator fakeQuestionGenerator;
+	private Persons.Person questionPerson;
+	private InfinitiveVerb questionVerb;
 
 	public QuestionPresenter(uk.co.mould.matt.ui.QuestionView questionView,
 							 uk.co.mould.matt.questions.QuestionGenerator questionGenerator,
 							 Conjugator conjugator) {
 		this.questionView = questionView;
 		this.fakeQuestionGenerator = questionGenerator;
+		this.conjugator = conjugator;
 		this.answerChecker = new AnswerChecker(conjugator);
 	}
 
 	public void showQuestion() {
-		Persons.Person questionPerson = fakeQuestionGenerator.getRandomPerson();
+		questionPerson = fakeQuestionGenerator.getRandomPerson();
 		questionView.setPerson(questionPerson);
-		InfinitiveVerb questionVerb = fakeQuestionGenerator.getRandomVerb();
+		questionVerb = fakeQuestionGenerator.getRandomVerb();
 		questionView.setVerb(questionVerb);
 		questionView.enterQuestionMode();
 		this.answerChecker.setQuestion(questionPerson, questionVerb);
@@ -38,6 +42,8 @@ public class QuestionPresenter {
 			@Override
 			public void incorrect() {
 				questionView.showIncorrect();
+				questionView.showCorrectAnswer();
+				questionView.setCorrectAnswerValue(conjugator.getPresentConjugationOf(questionVerb, questionPerson));
 			}
 		});
 		questionView.answerMode();

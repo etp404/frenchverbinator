@@ -11,6 +11,7 @@ import uk.co.mould.matt.fakes.FakeQuestionGenerator;
 import uk.co.mould.matt.fakes.FakeQuestionView;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public final class PresenterTest {
@@ -44,14 +45,17 @@ public final class PresenterTest {
 		questionPresenter.submitAnswer();
 
 		assertTrue(questionView.correctCalled);
+		assertFalse(questionView.correctAnswerVisible);
 	}
 
 	@Test
-	public void testThatIncorrectAnswerSetsViewToInorrect() {
+	public void testThatIncorrectAnswerSetsViewToIncorrectAndShowsCorrectAnswer() {
 		questionView.answer = "wrong answer";
 		questionPresenter.submitAnswer();
 
 		assertTrue(questionView.incorrectCalled);
+		assertEquals(correctAnswer, questionView.correctAnswerValue);
+		assertTrue(questionView.correctAnswerVisible);
 	}
 
 	@Test
@@ -59,10 +63,13 @@ public final class PresenterTest {
 		questionPresenter.submitAnswer();
 
 		assertTrue(questionView.inAnswerMode);
+		assertTrue(questionView.correctAnswerVisible);
 	}
 
 	@Test
 	public void testThatWhenQuestionHasBeenRequestedUISwitchesToQuestionMode() {
+		questionPresenter.showQuestion();
+		questionPresenter.submitAnswer();
 		questionPresenter.showQuestion();
 
 		assertTrue(questionView.inQuestionMode);

@@ -1,5 +1,6 @@
 package uk.co.mould.matt.ui;
 
+import uk.co.mould.matt.data.ConjugatedVerbWithPronoun;
 import uk.co.mould.matt.data.InfinitiveVerb;
 import uk.co.mould.matt.data.Persons;
 
@@ -17,4 +18,8 @@ public interface QuestionView {
 	void answerMode();
 
 	void enterQuestionMode();
+
+	void showCorrectAnswer();
+
+	void setCorrectAnswerValue(ConjugatedVerbWithPronoun presentConjugationOf);
 }
