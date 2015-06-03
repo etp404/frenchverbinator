@@ -6,6 +6,7 @@ import uk.co.mould.matt.data.InfinitiveVerb;
 import uk.co.mould.matt.data.Persons;
 
 public class QuestionPresenter {
+	private final AnswerChecker answerChecker;
 	private uk.co.mould.matt.ui.QuestionView questionView;
 	private uk.co.mould.matt.questions.QuestionGenerator fakeQuestionGenerator;
 	private Conjugator conjugator;
@@ -19,6 +20,7 @@ public class QuestionPresenter {
 		this.questionView = questionView;
 		this.fakeQuestionGenerator = questionGenerator;
 		this.conjugator = conjugator;
+		this.answerChecker = new AnswerChecker();
 	}
 
 	public void showQuestion() {
@@ -30,7 +32,7 @@ public class QuestionPresenter {
 	}
 
 	public void submitAnswer() {
-		if (checkAnswer(questionView.getAnswer())) {
+		if (answerChecker.check(questionView.getAnswer())) {
 			questionView.showCorrect();
 		}
 		else {
@@ -39,8 +41,12 @@ public class QuestionPresenter {
 		questionView.answerMode();
 	}
 
-	private boolean checkAnswer(String answer) {
-		ConjugatedVerbWithPronoun correctAnswer = conjugator.getPresentConjugationOf(questionVerb, questionPerson);
-		return correctAnswer.toString().toLowerCase().equals(answer.toLowerCase());
+	private class AnswerChecker {
+		private boolean check(String answer) {
+			ConjugatedVerbWithPronoun correctAnswer = conjugator.getPresentConjugationOf(questionVerb, questionPerson);
+			return correctAnswer.toString().toLowerCase().equals(answer.toLowerCase());
+		}
+
 	}
+
 }
