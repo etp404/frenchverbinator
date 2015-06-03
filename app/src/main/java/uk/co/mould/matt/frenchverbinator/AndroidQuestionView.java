@@ -23,4 +23,9 @@ public final class AndroidQuestionView implements QuestionView {
 	public void setVerb(InfinitiveVerb randomVerb) {
 		((TextView)questionViewGroup.findViewById(R.id.verb)).setText(randomVerb.toString());
 	}
+
+	@Override
+	public void showCorrect() {
+
+	}
 }
