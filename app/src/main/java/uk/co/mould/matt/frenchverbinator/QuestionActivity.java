@@ -19,7 +19,7 @@ public class QuestionActivity extends Activity {
 		try {
 			QuestionPresenter questionPresenter = new QuestionPresenter(
 					new AndroidQuestionView((ViewGroup)findViewById(R.id.question_view_group)),
-					new QuestionGeneratorFromXml(new InputSource(getResources().openRawResource(R.raw.verbs_fr))));
+					new QuestionGeneratorFromXml(new InputSource(getResources().openRawResource(R.raw.verbs_fr))), null);
 			questionPresenter.showQuestion();
 
 		} catch (Exception ignored) {}

@@ -6,7 +6,7 @@ import uk.co.mould.matt.data.VerbTemplate;
 import uk.co.mould.matt.parser.ConjugationParser;
 import uk.co.mould.matt.parser.VerbListParser;
 
-public final class Conjugator {
+public class Conjugator {
 
 	private final VerbListParser verbListParser;
 	private final ConjugationParser conjugationParser;

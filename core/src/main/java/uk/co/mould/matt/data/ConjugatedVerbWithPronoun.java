@@ -27,4 +27,5 @@ public final class ConjugatedVerbWithPronoun {
 	public String toString() {
 		return conjugatedVerb;
 	}
+
 }

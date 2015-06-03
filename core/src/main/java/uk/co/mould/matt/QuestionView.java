@@ -9,4 +9,6 @@ public interface QuestionView {
 	void setVerb(InfinitiveVerb randomVerb);
 
 	void showCorrect();
+
+	void showIncorrect();
 }
