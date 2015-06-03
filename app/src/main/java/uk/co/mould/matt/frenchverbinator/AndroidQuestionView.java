@@ -11,10 +11,16 @@ import uk.co.mould.matt.data.Persons;
 public final class AndroidQuestionView implements QuestionView {
 	private ViewGroup questionViewGroup;
 	private TextView answerBox;
+	private View nextButton;
+	private View submitButton;
+	private TextView resultBox;
 
 	public AndroidQuestionView(ViewGroup questionViewGroup) {
 		this.questionViewGroup = questionViewGroup;
 		answerBox = ((TextView) questionViewGroup.findViewById(R.id.answerBox));
+		submitButton = questionViewGroup.findViewById(R.id.submitButton);
+		nextButton = questionViewGroup.findViewById(R.id.next);
+		resultBox = ((TextView)questionViewGroup.findViewById(R.id.result_box));
 	}
 
 	@Override
@@ -29,12 +35,12 @@ public final class AndroidQuestionView implements QuestionView {
 
 	@Override
 	public void showCorrect() {
-		((TextView)questionViewGroup.findViewById(R.id.result_box)).setText("Correct");
+		resultBox.setText("Correct");
 	}
 
 	@Override
 	public void showIncorrect() {
-		((TextView)questionViewGroup.findViewById(R.id.result_box)).setText("Incorrect");
+		resultBox.setText("Incorrect");
 	}
 
 	@Override
@@ -45,12 +51,27 @@ public final class AndroidQuestionView implements QuestionView {
 	@Override
 	public void answerMode() {
 		answerBox.setEnabled(false);
-		questionViewGroup.findViewById(R.id.submitButton).setVisibility(View.GONE);
-		questionViewGroup.findViewById(R.id.next).setVisibility(View.VISIBLE);
+
+		resultBox.setVisibility(View.VISIBLE);
+
+		submitButton.setVisibility(View.GONE);
+		submitButton.setEnabled(false);
+
+		nextButton.setVisibility(View.VISIBLE);
+		nextButton.setEnabled(true);
 	}
 
 	@Override
 	public void enterQuestionMode() {
+		answerBox.setText("");
+		answerBox.setEnabled(true);
 
+		resultBox.setVisibility(View.GONE);
+
+		submitButton.setVisibility(View.VISIBLE);
+		submitButton.setEnabled(true);
+
+		nextButton.setVisibility(View.GONE);
+		nextButton.setEnabled(false);
 	}
 }

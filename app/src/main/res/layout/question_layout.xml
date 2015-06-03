@@ -9,6 +9,12 @@
                 tools:context=".QuestionActivity"
                 android:id="@+id/question_view_group">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/result_box"
+        android:layout_centerHorizontal="true"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -16,7 +22,9 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/verb"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" android:layout_marginTop="44dp"/>
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="44dp"/>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -24,6 +32,7 @@
         android:id="@+id/person"
         android:layout_below="@+id/verb"
         android:layout_centerHorizontal="true"/>
+
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -33,12 +42,14 @@
         android:layout_toStartOf="@+id/person"
         android:hint="Answer"
         android:layout_alignParentEnd="true"/>
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Submit"
         android:id="@+id/submitButton"
         android:layout_centerVertical="true" android:layout_centerHorizontal="true"/>
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -46,10 +57,5 @@
         android:id="@+id/next"
         android:layout_centerVertical="true" android:layout_centerHorizontal="true"
         android:visibility="gone"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:id="@+id/result_box" android:layout_below="@+id/submitButton"
-        android:layout_centerHorizontal="true"/>
+
 </RelativeLayout>
