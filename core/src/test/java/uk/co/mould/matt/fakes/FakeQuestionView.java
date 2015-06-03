@@ -9,6 +9,7 @@ public class FakeQuestionView implements QuestionView {
 	public String verb;
 	public boolean correctCalled = false;
 	public boolean incorrectCalled = false;
+	public String answer;
 
 	@Override
 	public void setPerson(Persons.Person randomPerson) {
@@ -28,5 +29,10 @@ public class FakeQuestionView implements QuestionView {
 	@Override
 	public void showIncorrect() {
 		incorrectCalled = true;
+	}
+
+	@Override
+	public String getAnswer() {
+		return answer;
 	}
 }

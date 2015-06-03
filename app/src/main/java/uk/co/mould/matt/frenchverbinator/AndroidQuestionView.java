@@ -27,10 +27,16 @@ public final class AndroidQuestionView implements QuestionView {
 	@Override
 	public void showCorrect() {
 		((TextView)questionViewGroup.findViewById(R.id.result_box)).setText("Correct");
+
 	}
 
 	@Override
 	public void showIncorrect() {
 		((TextView)questionViewGroup.findViewById(R.id.result_box)).setText("Incorrect");
+	}
+
+	@Override
+	public String getAnswer() {
+		return ((TextView)questionViewGroup.findViewById(R.id.answerBox)).getText().toString();
 	}
 }

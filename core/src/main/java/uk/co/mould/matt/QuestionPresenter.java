@@ -28,8 +28,8 @@ public class QuestionPresenter {
 		questionView.setVerb(questionVerb);
 	}
 
-	public void submitAnswer(String answer) {
-		if (checkAnswer(answer)) {
+	public void submitAnswer() {
+		if (checkAnswer(questionView.getAnswer())) {
 			questionView.showCorrect();
 		}
 		else {

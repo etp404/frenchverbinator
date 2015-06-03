@@ -37,8 +37,7 @@ public class QuestionActivity extends Activity {
 			findViewById(R.id.submitButton).setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					CharSequence answer = ((TextView) findViewById(R.id.answerBox)).getText();
-					questionPresenter.submitAnswer(answer.toString());
+					questionPresenter.submitAnswer();
 				}
 			});
 

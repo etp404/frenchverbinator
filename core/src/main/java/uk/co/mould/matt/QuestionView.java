@@ -11,4 +11,6 @@ public interface QuestionView {
 	void showCorrect();
 
 	void showIncorrect();
+
+	String getAnswer();
 }

@@ -40,13 +40,16 @@ public final class PresenterTest {
 
 	@Test
 	public void testThatCorrectAnswerSetsViewToCorrect() {
-		questionPresenter.submitAnswer(correctAnswer);
+		questionView.answer = correctAnswer;
+		questionPresenter.submitAnswer();
+
 		assertTrue(questionView.correctCalled);
 	}
 
 	@Test
 	public void testThatIncorrectAnswerSetsViewToInorrect() {
-		questionPresenter.submitAnswer("Nous regardons");
+		questionView.answer = "wrong answer";
+		questionPresenter.submitAnswer();
 
 		assertTrue(questionView.incorrectCalled);
 	}
