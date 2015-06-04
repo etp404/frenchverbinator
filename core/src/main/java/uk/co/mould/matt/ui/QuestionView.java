@@ -9,9 +9,9 @@ public interface QuestionView {
 
 	void setVerb(InfinitiveVerb randomVerb);
 
-	void showCorrect();
+	void setResultToCorrect();
 
-	void showIncorrect();
+	void setResultToIncorrect();
 
 	String getAnswer();
 
@@ -25,5 +25,5 @@ public interface QuestionView {
 
 	void setCorrectAnswerValue(ConjugatedVerbWithPronoun presentConjugationOf);
 
-
+	void enableAnswerBox();
 }

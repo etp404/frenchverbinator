@@ -37,17 +37,18 @@ public class QuestionPresenter {
 		answerChecker.check(questionView.getAnswer(), new AnswerChecker.Callback() {
 			@Override
 			public void correct() {
-				questionView.showCorrect();
+				questionView.setResultToCorrect();
 			}
 
 			@Override
 			public void incorrect() {
-				questionView.showIncorrect();
+				questionView.setResultToIncorrect();
 				questionView.showCorrection();
 				questionView.setCorrectAnswerValue(conjugator.getPresentConjugationOf(questionVerb, questionPerson));
 			}
 		});
 		questionView.answerMode();
+		questionView.enableAnswerBox();
 	}
 
 }

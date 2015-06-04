@@ -37,12 +37,12 @@ public final class AndroidQuestionView implements QuestionView {
 	}
 
 	@Override
-	public void showCorrect() {
+	public void setResultToCorrect() {
 		resultBox.setText("Correct");
 	}
 
 	@Override
-	public void showIncorrect() {
+	public void setResultToIncorrect() {
 		resultBox.setText("Incorrect");
 	}
 
@@ -53,7 +53,7 @@ public final class AndroidQuestionView implements QuestionView {
 
 	@Override
 	public void answerMode() {
-		answerBox.setEnabled(false);
+		enableAnswerBox();
 
 		resultBox.setVisibility(View.VISIBLE);
 
@@ -62,6 +62,11 @@ public final class AndroidQuestionView implements QuestionView {
 
 		nextButton.setVisibility(View.VISIBLE);
 		nextButton.setEnabled(true);
+	}
+
+	@Override
+	public void enableAnswerBox() {
+		answerBox.setEnabled(true);
 	}
 
 	@Override

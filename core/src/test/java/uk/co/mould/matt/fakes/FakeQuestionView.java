@@ -8,13 +8,14 @@ import uk.co.mould.matt.data.Persons;
 public class FakeQuestionView implements QuestionView {
 	public String person;
 	public String verb;
-	public boolean correctCalled = false;
-	public boolean incorrectCalled = false;
+	public boolean showingAnswerAsCorrect = false;
+	public boolean showingAnswerAsIncorrect = false;
 	public boolean inAnswerMode = false;
 	public boolean inQuestionMode = false;
 	public String answer = "default";
-	public boolean correctAnswerVisible = false;
+	public boolean correctionVisible = false;
 	public String correctAnswerValue;
+	public boolean answerBoxIsEnabled;
 
 	@Override
 	public void setPerson(Persons.Person randomPerson) {
@@ -27,13 +28,13 @@ public class FakeQuestionView implements QuestionView {
 	}
 
 	@Override
-	public void showCorrect() {
-		correctCalled = true;
+	public void setResultToCorrect() {
+		showingAnswerAsCorrect = true;
 	}
 
 	@Override
-	public void showIncorrect() {
-		incorrectCalled = true;
+	public void setResultToIncorrect() {
+		showingAnswerAsIncorrect = true;
 	}
 
 	@Override
@@ -53,16 +54,21 @@ public class FakeQuestionView implements QuestionView {
 
 	@Override
 	public void showCorrection() {
-		correctAnswerVisible = true;
+		correctionVisible = true;
 	}
 
 	@Override
 	public void hideCorrection() {
-		correctAnswerVisible = false;
+		correctionVisible = false;
 	}
 
 	@Override
 	public void setCorrectAnswerValue(ConjugatedVerbWithPronoun presentConjugationOf) {
 		correctAnswerValue = presentConjugationOf.toString();
+	}
+
+	@Override
+	public void enableAnswerBox() {
+		answerBoxIsEnabled = true;
 	}
 }

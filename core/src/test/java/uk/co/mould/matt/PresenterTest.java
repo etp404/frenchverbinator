@@ -9,6 +9,7 @@ import uk.co.mould.matt.data.InfinitiveVerb;
 import uk.co.mould.matt.data.Persons;
 import uk.co.mould.matt.fakes.FakeQuestionGenerator;
 import uk.co.mould.matt.fakes.FakeQuestionView;
+import uk.co.mould.matt.ui.QuestionPresenter;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -21,7 +22,7 @@ public final class PresenterTest {
 	private final InfinitiveVerb verb = InfinitiveVerb.fromString(verbString);
 	private final String correctAnswer = "Vous regardez";
 	private FakeQuestionView questionView;
-	private uk.co.mould.matt.ui.QuestionPresenter questionPresenter;
+	private QuestionPresenter questionPresenter;
 
 
 	@Before
@@ -44,8 +45,8 @@ public final class PresenterTest {
 		questionView.answer = correctAnswer;
 		questionPresenter.submitAnswer();
 
-		assertTrue(questionView.correctCalled);
-		assertFalse(questionView.correctAnswerVisible);
+		assertTrue(questionView.showingAnswerAsCorrect);
+		assertFalse(questionView.correctionVisible);
 	}
 
 	@Test
@@ -53,9 +54,10 @@ public final class PresenterTest {
 		questionView.answer = "wrong answer";
 		questionPresenter.submitAnswer();
 
-		assertTrue(questionView.incorrectCalled);
+		assertTrue(questionView.showingAnswerAsIncorrect);
 		assertEquals(correctAnswer, questionView.correctAnswerValue);
-		assertTrue(questionView.correctAnswerVisible);
+		assertTrue(questionView.correctionVisible);
+		assertTrue(questionView.answerBoxIsEnabled);
 	}
 
 	@Test
@@ -64,7 +66,7 @@ public final class PresenterTest {
 		questionPresenter.submitAnswer();
 		questionPresenter.showQuestion();
 
-		assertFalse(questionView.correctAnswerVisible);
+		assertFalse(questionView.correctionVisible);
 	}
 
 	@Test
@@ -72,7 +74,7 @@ public final class PresenterTest {
 		questionPresenter.submitAnswer();
 
 		assertTrue(questionView.inAnswerMode);
-		assertTrue(questionView.correctAnswerVisible);
+		assertTrue(questionView.correctionVisible);
 	}
 
 	@Test
