@@ -4,8 +4,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import uk.co.mould.matt.data.ConjugatedVerbWithPronoun;
 import uk.co.mould.matt.ui.QuestionView;
 import uk.co.mould.matt.data.InfinitiveVerb;
@@ -17,6 +15,7 @@ public final class AndroidQuestionView implements QuestionView {
 	private View nextButton;
 	private View submitButton;
 	private TextView resultBox;
+	private final TextView correctionBox;
 
 	public AndroidQuestionView(ViewGroup questionViewGroup) {
 		this.questionViewGroup = questionViewGroup;
@@ -24,7 +23,7 @@ public final class AndroidQuestionView implements QuestionView {
 		submitButton = questionViewGroup.findViewById(R.id.submitButton);
 		nextButton = questionViewGroup.findViewById(R.id.next);
 		resultBox = ((TextView)questionViewGroup.findViewById(R.id.result_box));
-		answerBox = ((TextView)questionViewGroup.findViewById(R.id.correctAnswer));
+		correctionBox = ((TextView)questionViewGroup.findViewById(R.id.correction_box));
 	}
 
 	@Override
@@ -81,16 +80,16 @@ public final class AndroidQuestionView implements QuestionView {
 
 	@Override
 	public void showCorrection() {
-		answerBox.setVisibility(View.VISIBLE);
+		correctionBox.setVisibility(View.VISIBLE);
 	}
 
 	@Override
 	public void hideCorrection() {
-		answerBox.setVisibility(View.GONE);
+		correctionBox.setVisibility(View.GONE);
 	}
 
 	@Override
 	public void setCorrectAnswerValue(ConjugatedVerbWithPronoun presentConjugationOf) {
-		answerBox.setText(presentConjugationOf.toString());
+		correctionBox.setText(presentConjugationOf.toString());
 	}
 }
