@@ -49,6 +49,7 @@ public class QuestionPresenter {
 		});
 		questionView.answerMode();
 		questionView.enableAnswerBox();
+		questionView.showResultBox();
 	}
 
 }

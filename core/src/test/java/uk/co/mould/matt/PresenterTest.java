@@ -46,6 +46,7 @@ public final class PresenterTest {
 		questionPresenter.submitAnswer();
 
 		assertTrue(questionView.showingAnswerAsCorrect);
+		assertTrue(questionView.showingResultBox);
 		assertFalse(questionView.correctionVisible);
 	}
 

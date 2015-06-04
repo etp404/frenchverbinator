@@ -26,4 +26,6 @@ public interface QuestionView {
 	void setCorrectAnswerValue(ConjugatedVerbWithPronoun presentConjugationOf);
 
 	void enableAnswerBox();
+
+	void showResultBox();
 }
