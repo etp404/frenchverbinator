@@ -14,8 +14,8 @@ public class QuestionPresenter {
 	private Persons.Person questionPerson;
 	private InfinitiveVerb questionVerb;
 
-	public QuestionPresenter(uk.co.mould.matt.ui.QuestionView questionView,
-							 uk.co.mould.matt.questions.QuestionGenerator questionGenerator,
+	public QuestionPresenter(QuestionView questionView,
+							 QuestionGenerator questionGenerator,
 							 Conjugator conjugator) {
 		this.questionView = questionView;
 		this.fakeQuestionGenerator = questionGenerator;
@@ -50,6 +50,7 @@ public class QuestionPresenter {
 		questionView.answerMode();
 		questionView.enableAnswerBox();
 		questionView.showResultBox();
+		questionView.hideSubmitButton();
 	}
 
 }

@@ -28,4 +28,6 @@ public interface QuestionView {
 	void enableAnswerBox();
 
 	void showResultBox();
+
+	void hideSubmitButton();
 }

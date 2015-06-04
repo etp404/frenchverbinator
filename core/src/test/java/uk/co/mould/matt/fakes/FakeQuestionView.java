@@ -17,6 +17,7 @@ public class FakeQuestionView implements QuestionView {
 	public String correctAnswerValue;
 	public boolean answerBoxIsEnabled;
 	public boolean showingResultBox;
+	public Boolean submitButtonVisible = null;
 
 	@Override
 	public void setPerson(Persons.Person randomPerson) {
@@ -71,6 +72,11 @@ public class FakeQuestionView implements QuestionView {
 	@Override
 	public void showResultBox() {
 		showingResultBox = true;
+	}
+
+	@Override
+	public void hideSubmitButton() {
+		submitButtonVisible = false;
 	}
 
 	@Override
