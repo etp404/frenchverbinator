@@ -1,28 +1,11 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
-                android:paddingTop="@dimen/activity_vertical_margin"
-                android:paddingBottom="@dimen/activity_vertical_margin"
+                  android:orientation="vertical"
+                  android:layout_width="fill_parent"
+                  android:layout_height="fill_parent"
+                  android:weightSum="1"
                 tools:context=".QuestionActivity"
                 android:id="@+id/question_view_group">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:id="@+id/result_box"
-        android:layout_centerHorizontal="true"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:id="@+id/correctAnswer"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:visibility="gone"/>
 
 
     <TextView
@@ -30,41 +13,58 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/verb"
+        android:text="verb"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="44dp"/>
+        android:layout_alignParentStart="true"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/person"
-        android:layout_below="@+id/verb"
+        android:text="person"
         android:layout_centerHorizontal="true"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/answerBox"
-        android:layout_below="@+id/person"
-        android:layout_marginTop="60dp"
-        android:layout_toStartOf="@+id/person"
         android:hint="Answer"
-        android:layout_alignParentEnd="true"/>
+        android:layout_centerHorizontal="true"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Submit"
         android:id="@+id/submitButton"
-        android:layout_centerVertical="true" android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Next"
         android:id="@+id/next"
-        android:layout_centerVertical="true" android:layout_centerHorizontal="true"
-        android:visibility="gone"/>
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"
+        android:layout_gravity="center_horizontal"/>/>
 
-</RelativeLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/result_box"
+        android:text="result_box"
+        android:layout_below="@+id/submitButton"
+        android:layout_centerHorizontal="true" android:layout_gravity="center_horizontal"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/correctAnswer"
+        android:text="correctAnswer"
+        android:layout_below="@+id/result_box"
+        android:layout_centerHorizontal="true" android:layout_gravity="center_horizontal"/>
+
+</LinearLayout>
