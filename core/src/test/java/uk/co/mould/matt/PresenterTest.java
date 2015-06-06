@@ -28,16 +28,20 @@ public final class PresenterTest {
 	@Before
 	public void setup() {
 		questionView = new FakeQuestionView();
-		questionPresenter = new uk.co.mould.matt.ui.QuestionPresenter(
+		questionPresenter = new QuestionPresenter(
 				questionView,
 				new FakeQuestionGenerator(person, verb),
 				new FakeConjugator(person, verb, new ConjugatedVerbWithPronoun(correctAnswer)));
 		questionPresenter.showQuestion();
 	}
 	@Test
-	public void testThatQuestionFieldsAreFilled() {
+	public void testThatQuestionViewIsSetCorrectly() {
 		assertEquals(questionView.person, "We");
 		assertEquals(questionView.verb, verbString);
+        assertFalse(questionView.resultBoxVisible);
+
+        assertTrue(questionView.submitButtonEnabled);
+        assertTrue(questionView.submitButtonVisible);
 	}
 
 	@Test
@@ -45,22 +49,38 @@ public final class PresenterTest {
 		questionView.answer = correctAnswer;
 		questionPresenter.submitAnswer();
 
-		assertTrue(questionView.showingAnswerAsCorrect);
-		assertTrue(questionView.showingResultBox);
-		assertFalse(questionView.correctionVisible);
+		assertTrue(questionView.resultBoxShowingCorrect);
+		assertTrue(questionView.resultBoxVisible);
+
+        assertFalse(questionView.answerBoxIsEnabled);
+
+        assertFalse(questionView.correctionVisible);
+
 		assertFalse(questionView.submitButtonVisible);
-	}
+		assertFalse(questionView.submitButtonEnabled);
+
+        assertTrue(questionView.nextQuestionButtonVisible);
+        assertTrue(questionView.nextQuestionButtonEnabled);
+    }
 
 	@Test
 	public void testThatIncorrectAnswerSetsViewToIncorrectAndShowsCorrectAnswer() {
 		questionView.answer = "wrong answer";
 		questionPresenter.submitAnswer();
 
-		assertTrue(questionView.showingAnswerAsIncorrect);
-		assertEquals(correctAnswer, questionView.correctAnswerValue);
+		assertTrue(questionView.resultBoxShowingIncorrect);
+        assertTrue(questionView.resultBoxVisible);
+
+        assertEquals(correctAnswer, questionView.correctionValue);
 		assertTrue(questionView.correctionVisible);
-		assertTrue(questionView.answerBoxIsEnabled);
-	}
+		assertFalse(questionView.answerBoxIsEnabled);
+
+        assertFalse(questionView.submitButtonVisible);
+        assertFalse(questionView.submitButtonEnabled);
+
+        assertTrue(questionView.nextQuestionButtonVisible);
+        assertTrue(questionView.nextQuestionButtonEnabled);
+    }
 
 	@Test
 	public void testThatForQuestionAfterAnIncorrectAnswerCorrectionIsGone() {
@@ -72,24 +92,22 @@ public final class PresenterTest {
 	}
 
 	@Test
-	public void testThatWhenAnswerHasBeenSubmittedUISwitchesToAnswerMode() {
-		questionPresenter.submitAnswer();
-
-		assertTrue(questionView.inAnswerMode);
-		assertTrue(questionView.correctionVisible);
-	}
-
-	@Test
 	public void testThatWhenQuestionHasBeenRequestedUISwitchesToQuestionMode() {
 		questionPresenter.showQuestion();
 		questionPresenter.submitAnswer();
 		questionPresenter.showQuestion();
 
-		assertTrue(questionView.inQuestionMode);
-	}
+        assertTrue(questionView.answerBoxIsEnabled);
+
+        assertTrue(questionView.submitButtonVisible);
+        assertTrue(questionView.submitButtonEnabled);
+
+        assertFalse(questionView.nextQuestionButtonVisible);
+        assertFalse(questionView.nextQuestionButtonEnabled);
+
+    }
 
 	private class FakeConjugator extends Conjugator {
-
 		private Persons.Person personMatchingAnswer;
 		private InfinitiveVerb verbMatchingAnswer;
 		private ConjugatedVerbWithPronoun correctAnswer;

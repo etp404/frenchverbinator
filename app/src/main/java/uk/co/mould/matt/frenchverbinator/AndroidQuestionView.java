@@ -52,19 +52,6 @@ public final class AndroidQuestionView implements QuestionView {
     }
 
     @Override
-    public void answerMode() {
-        enableAnswerBox();
-
-        showResultBox();
-
-        submitButton.setVisibility(View.GONE);
-        submitButton.setEnabled(false);
-
-        nextButton.setVisibility(View.VISIBLE);
-        nextButton.setEnabled(true);
-    }
-
-    @Override
     public void enableAnswerBox() {
         answerBox.setEnabled(true);
     }
@@ -80,17 +67,53 @@ public final class AndroidQuestionView implements QuestionView {
     }
 
     @Override
-    public void enterQuestionMode() {
-        answerBox.setText("");
-        answerBox.setEnabled(true);
-
-        resultBox.setVisibility(View.GONE);
-
-        submitButton.setVisibility(View.VISIBLE);
+    public void enableSubmitButton() {
         submitButton.setEnabled(true);
+    }
 
-        nextButton.setVisibility(View.GONE);
+    @Override
+    public void disableSubmitButton() {
+        submitButton.setEnabled(false);
+    }
+
+    @Override
+    public void setCorrection(ConjugatedVerbWithPronoun presentConjugationOf) {
+        correctionBox.setText(presentConjugationOf.toString());
+    }
+
+    @Override
+    public void disableAnswerBox() {
+        answerBox.setEnabled(false);
+    }
+
+    @Override
+    public void showNextQuestionButton() {
+        nextButton.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void enableNextQuestionButton() {
+        nextButton.setEnabled(true);
+    }
+
+    @Override
+    public void disableNextQuestionButton() {
         nextButton.setEnabled(false);
+    }
+
+    @Override
+    public void showSubmitButton() {
+        submitButton.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideNextQuestionButton() {
+        nextButton.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void hideResultBox() {
+        resultBox.setVisibility(View.GONE);
     }
 
     @Override
@@ -101,10 +124,5 @@ public final class AndroidQuestionView implements QuestionView {
     @Override
     public void hideCorrection() {
         correctionBox.setVisibility(View.GONE);
-    }
-
-    @Override
-    public void setCorrectAnswerValue(ConjugatedVerbWithPronoun presentConjugationOf) {
-        correctionBox.setText(presentConjugationOf.toString());
     }
 }

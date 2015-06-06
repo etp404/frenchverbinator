@@ -8,15 +8,16 @@ import uk.co.mould.matt.data.Persons;
 public class FakeQuestionView implements QuestionView {
 	public String person;
 	public String verb;
-	public boolean showingAnswerAsCorrect = false;
-	public boolean showingAnswerAsIncorrect = false;
-	public boolean inAnswerMode = false;
-	public boolean inQuestionMode = false;
+	public Boolean resultBoxShowingCorrect = null;
+	public Boolean resultBoxShowingIncorrect = null;
 	public String answer = "default";
-	public boolean correctionVisible = false;
-	public String correctAnswerValue;
-	public boolean answerBoxIsEnabled;
-	public boolean showingResultBox;
+	public Boolean correctionVisible = false;
+	public String correctionValue;
+	public Boolean answerBoxIsEnabled = null;
+	public Boolean resultBoxVisible = null;
+	public Boolean nextQuestionButtonVisible = null;
+	public Boolean nextQuestionButtonEnabled = null;
+	public Boolean submitButtonEnabled = null;
 	public Boolean submitButtonVisible = null;
 
 	@Override
@@ -31,12 +32,12 @@ public class FakeQuestionView implements QuestionView {
 
 	@Override
 	public void setResultToCorrect() {
-		showingAnswerAsCorrect = true;
+		resultBoxShowingCorrect = true;
 	}
 
 	@Override
 	public void setResultToIncorrect() {
-		showingAnswerAsIncorrect = true;
+		resultBoxShowingIncorrect = true;
 	}
 
 	@Override
@@ -45,14 +46,45 @@ public class FakeQuestionView implements QuestionView {
 	}
 
 	@Override
-	public void answerMode() {
-		inAnswerMode = true;
+	public void setCorrection(ConjugatedVerbWithPronoun presentConjugationOf) {
+		correctionValue = presentConjugationOf.toString();
 	}
 
 	@Override
-	public void enterQuestionMode() {
-		inQuestionMode = true;
+	public void disableAnswerBox() {
+		answerBoxIsEnabled = false;
 	}
+
+	@Override
+	public void showNextQuestionButton() {
+		nextQuestionButtonVisible = true;
+	}
+
+	@Override
+	public void enableNextQuestionButton() {
+		nextQuestionButtonEnabled = true;
+	}
+
+	@Override
+	public void disableNextQuestionButton() {
+		nextQuestionButtonEnabled = false;
+	}
+
+	@Override
+	public void showSubmitButton() {
+		submitButtonVisible = true;
+	}
+
+	@Override
+	public void hideNextQuestionButton() {
+		nextQuestionButtonVisible = false;
+	}
+
+	@Override
+	public void hideResultBox() {
+		resultBoxVisible = false;
+	}
+
 
 	@Override
 	public void showCorrection() {
@@ -65,18 +97,23 @@ public class FakeQuestionView implements QuestionView {
 	}
 
 	@Override
-	public void setCorrectAnswerValue(ConjugatedVerbWithPronoun presentConjugationOf) {
-		correctAnswerValue = presentConjugationOf.toString();
-	}
-
-	@Override
 	public void showResultBox() {
-		showingResultBox = true;
+		resultBoxVisible = true;
 	}
 
 	@Override
 	public void hideSubmitButton() {
 		submitButtonVisible = false;
+	}
+
+	@Override
+	public void enableSubmitButton() {
+		submitButtonEnabled = true;
+	}
+
+	@Override
+	public void disableSubmitButton() {
+		submitButtonEnabled = false;
 	}
 
 	@Override

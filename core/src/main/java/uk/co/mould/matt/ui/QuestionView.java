@@ -15,19 +15,33 @@ public interface QuestionView {
 
 	String getAnswer();
 
-	void answerMode();
-
-	void enterQuestionMode();
-
 	void showCorrection();
 
 	void hideCorrection();
-
-	void setCorrectAnswerValue(ConjugatedVerbWithPronoun presentConjugationOf);
 
 	void enableAnswerBox();
 
 	void showResultBox();
 
 	void hideSubmitButton();
+
+	void enableSubmitButton();
+
+	void disableSubmitButton();
+
+	void setCorrection(ConjugatedVerbWithPronoun presentConjugationOf);
+
+	void disableAnswerBox();
+
+	void showNextQuestionButton();
+
+	void enableNextQuestionButton();
+
+	void disableNextQuestionButton();
+
+	void showSubmitButton();
+
+	void hideNextQuestionButton();
+
+	void hideResultBox();
 }

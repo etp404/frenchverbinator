@@ -1,6 +1,7 @@
 package uk.co.mould.matt.ui;
 
 import uk.co.mould.matt.conjugators.Conjugator;
+import uk.co.mould.matt.data.ConjugatedVerbWithPronoun;
 import uk.co.mould.matt.data.InfinitiveVerb;
 import uk.co.mould.matt.data.Persons;
 import uk.co.mould.matt.marking.AnswerChecker;
@@ -28,8 +29,17 @@ public class QuestionPresenter {
 		questionView.setPerson(questionPerson);
 		questionVerb = fakeQuestionGenerator.getRandomVerb();
 		questionView.setVerb(questionVerb);
-		questionView.enterQuestionMode();
 		questionView.hideCorrection();
+		questionView.enableAnswerBox();
+
+		questionView.showSubmitButton();
+		questionView.enableSubmitButton();
+
+		questionView.hideNextQuestionButton();
+		questionView.disableNextQuestionButton();
+
+		questionView.hideResultBox();
+
 		this.answerChecker.setQuestion(questionPerson, questionVerb);
 	}
 
@@ -44,13 +54,17 @@ public class QuestionPresenter {
 			public void incorrect() {
 				questionView.setResultToIncorrect();
 				questionView.showCorrection();
-				questionView.setCorrectAnswerValue(conjugator.getPresentConjugationOf(questionVerb, questionPerson));
+				questionView.setCorrection(conjugator.getPresentConjugationOf(questionVerb, questionPerson));
 			}
 		});
-		questionView.answerMode();
-		questionView.enableAnswerBox();
+		questionView.disableAnswerBox();
 		questionView.showResultBox();
+
 		questionView.hideSubmitButton();
+		questionView.disableSubmitButton();
+
+		questionView.showNextQuestionButton();
+		questionView.enableNextQuestionButton();
 	}
 
 }
