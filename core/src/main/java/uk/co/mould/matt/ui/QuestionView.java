@@ -5,9 +5,7 @@ import uk.co.mould.matt.data.InfinitiveVerb;
 import uk.co.mould.matt.data.Persons;
 
 public interface QuestionView {
-	void setPerson(Persons.Person randomPerson);
-
-	void setVerb(InfinitiveVerb randomVerb);
+	void setQuestion(Persons.Person person, InfinitiveVerb verb);
 
 	void setResultToCorrect();
 

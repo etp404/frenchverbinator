@@ -26,9 +26,8 @@ public class QuestionPresenter {
 
 	public void showQuestion() {
 		questionPerson = fakeQuestionGenerator.getRandomPerson();
-		questionView.setPerson(questionPerson);
 		questionVerb = fakeQuestionGenerator.getRandomVerb();
-		questionView.setVerb(questionVerb);
+		questionView.setQuestion(questionPerson, questionVerb);
 		questionView.hideCorrection();
 		questionView.enableAnswerBox();
 

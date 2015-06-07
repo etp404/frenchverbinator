@@ -36,8 +36,8 @@ public final class PresenterTest {
 	}
 	@Test
 	public void testThatQuestionViewIsSetCorrectly() {
-		assertEquals(questionView.person, "We");
-		assertEquals(questionView.verb, verbString);
+		assertEquals(questionView.person, person);
+		assertEquals(questionView.verb, verb);
         assertFalse(questionView.resultBoxVisible);
 
         assertTrue(questionView.submitButtonEnabled);

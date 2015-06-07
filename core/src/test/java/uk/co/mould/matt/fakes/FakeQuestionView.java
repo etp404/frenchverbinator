@@ -6,8 +6,8 @@ import uk.co.mould.matt.data.InfinitiveVerb;
 import uk.co.mould.matt.data.Persons;
 
 public class FakeQuestionView implements QuestionView {
-	public String person;
-	public String verb;
+	public Persons.Person person;
+	public InfinitiveVerb verb;
 	public Boolean resultBoxShowingCorrect = null;
 	public Boolean resultBoxShowingIncorrect = null;
 	public String answer = "default";
@@ -19,15 +19,13 @@ public class FakeQuestionView implements QuestionView {
 	public Boolean nextQuestionButtonEnabled = null;
 	public Boolean submitButtonEnabled = null;
 	public Boolean submitButtonVisible = null;
+	public String question;
 
 	@Override
-	public void setPerson(Persons.Person randomPerson) {
-		person = randomPerson.getEnglishPronoun();
-	}
+	public void setQuestion(Persons.Person person, InfinitiveVerb verb) {
+		this.person = person;
+		this.verb = verb;
 
-	@Override
-	public void setVerb(InfinitiveVerb randomVerb) {
-		verb = randomVerb.toString();
 	}
 
 	@Override
