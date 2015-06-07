@@ -5,39 +5,39 @@
                   android:layout_height="fill_parent"
                   android:weightSum="1"
                 tools:context=".QuestionActivity"
-                android:id="@+id/question_view_group">
-
+                android:id="@+id/question_view_group"
+                android:layout_margin="16dp"
+                android:elevation="6dp"
+    >
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/verb"
-        android:text="verb"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"/>
+        android:textColor="@color/primary_text"
+        android:text="verb"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/person"
-        android:text="person"
-        android:layout_centerHorizontal="true"/>
+        android:textColor="@color/primary_text"
+        android:text="person"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/answerBox"
-        android:hint="Answer"
-        android:layout_centerHorizontal="true"/>
+        android:textColor="@color/primary_text"
+        android:hint="Answer"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="CHECK"
         android:id="@+id/submitButton"
-        android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal"/>
 
     <Button
@@ -45,10 +45,8 @@
         android:layout_height="wrap_content"
         android:text="Next"
         android:id="@+id/next"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
         android:visibility="gone"
-        android:layout_gravity="center_horizontal"/>/>
+        android:layout_gravity="center_horizontal"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -56,15 +54,15 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/result_box"
         android:text="result_box"
-        android:layout_below="@+id/submitButton"
-        android:layout_centerHorizontal="true" android:layout_gravity="center_horizontal"/>
+        android:textColor="@color/primary_text"
+        android:layout_gravity="center_horizontal"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/correction_box"
         android:text="correctAnswer"
-        android:layout_below="@+id/result_box"
-        android:layout_centerHorizontal="true" android:layout_gravity="center_horizontal"/>
+        android:textColor="@color/primary_text"
+        android:layout_gravity="center_horizontal"/>
 
 </LinearLayout>
