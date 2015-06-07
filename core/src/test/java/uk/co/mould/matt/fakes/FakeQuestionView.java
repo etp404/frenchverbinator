@@ -19,7 +19,6 @@ public class FakeQuestionView implements QuestionView {
 	public Boolean nextQuestionButtonEnabled = null;
 	public Boolean submitButtonEnabled = null;
 	public Boolean submitButtonVisible = null;
-	public String question;
 
 	@Override
 	public void setQuestion(Persons.Person person, InfinitiveVerb verb) {

@@ -14,17 +14,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:id="@+id/verb"
+        android:id="@+id/question"
         android:textColor="@color/primary_text"
-        android:text="verb"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:id="@+id/person"
-        android:textColor="@color/primary_text"
-        android:text="person"/>
+        android:text="question"/>
 
     <EditText
         android:layout_width="match_parent"

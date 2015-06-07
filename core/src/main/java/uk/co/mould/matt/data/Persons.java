@@ -3,7 +3,7 @@ package uk.co.mould.matt.data;
 public class Persons {
 	public interface Person {
 		String getPronoun(String conjugatedVerb);
-		String getEnglishPronoun();
+		String getPerson();
 	}
 
 	public static Person FIRST_PERSON_SINGULAR = new Person() {
@@ -15,9 +15,8 @@ public class Persons {
 			return "Je ";
 		}
 
-		@Override
-		public String getEnglishPronoun() {
-			return "I";
+		public String getPerson() {
+			return "first person singular (je)";
 		}
 	};
 	public static Person SECOND_PERSON_SINGULAR = new Person() {
@@ -27,18 +26,18 @@ public class Persons {
 		}
 
 		@Override
-		public String getEnglishPronoun() {
-			return "You (singular)";
+		public String getPerson() {
+			return "second person singular (tu)";
 		}
 	};
 	public static Person THIRD_PERSON_SINGULAR = new Person() {
 		@Override
 		public String getPronoun(String conjugatedVerb) {
-			return "Il ";
+			return "third person singular (il)";
 		}
 
 		@Override
-		public String getEnglishPronoun() {
+		public String getPerson() {
 			return "He";
 		}
 	};
@@ -49,8 +48,8 @@ public class Persons {
 		}
 
 		@Override
-		public String getEnglishPronoun() {
-			return "We";
+		public String getPerson() {
+			return "first person plural (nous)";
 		}
 	};
 	public static Person SECOND_PERSON_PLURAL = new Person() {
@@ -60,8 +59,8 @@ public class Persons {
 		}
 
 		@Override
-		public String getEnglishPronoun() {
-			return "You (plural)";
+		public String getPerson() {
+			return "second person plural (vous)";
 		}
 	};
 	public static Person THIRD_PERSON_PLURAL = new Person() {
@@ -71,8 +70,8 @@ public class Persons {
 		}
 
 		@Override
-		public String getEnglishPronoun() {
-			return "They";
+		public String getPerson() {
+			return "third person plural (ils)";
 		}
 	};
 

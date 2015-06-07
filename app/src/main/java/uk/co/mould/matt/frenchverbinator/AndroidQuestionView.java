@@ -10,6 +10,8 @@ import uk.co.mould.matt.data.InfinitiveVerb;
 import uk.co.mould.matt.data.Persons;
 
 public final class AndroidQuestionView implements QuestionView {
+    private static final String QUESTION_TEMPLATE = "What is the %s form of %s?";
+
     private ViewGroup questionViewGroup;
     private TextView answerBox;
     private View nextButton;
@@ -27,13 +29,13 @@ public final class AndroidQuestionView implements QuestionView {
     }
 
     @Override
-    public void setPerson(Persons.Person randomPerson) {
-        ((TextView) questionViewGroup.findViewById(R.id.person)).setText(randomPerson.getEnglishPronoun());
-    }
-
-    @Override
-    public void setVerb(InfinitiveVerb randomVerb) {
-        ((TextView) questionViewGroup.findViewById(R.id.verb)).setText(randomVerb.toString());
+    public void setQuestion(Persons.Person person, InfinitiveVerb verb) {
+        TextView questionBox = (TextView) questionViewGroup.findViewById(R.id.question);
+        questionBox.setText(
+                String.format(
+                        QUESTION_TEMPLATE,
+                        person.getPerson(),
+                        verb.toString()));
     }
 
     @Override
