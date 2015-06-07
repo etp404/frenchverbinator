@@ -10,7 +10,7 @@ import uk.co.mould.matt.data.InfinitiveVerb;
 import uk.co.mould.matt.data.Persons;
 
 public final class AndroidQuestionView implements QuestionView {
-    private static final String QUESTION_TEMPLATE = "What is the %s form of %s?";
+    private static final String QUESTION_TEMPLATE = "What is the %s form of '%s'?";
 
     private ViewGroup questionViewGroup;
     private TextView answerBox;

@@ -38,7 +38,7 @@ public class Persons {
 
 		@Override
 		public String getPerson() {
-			return "He";
+			return "third person singular (il)";
 		}
 	};
 	public static Person FIRST_PERSON_PLURAL = new Person() {

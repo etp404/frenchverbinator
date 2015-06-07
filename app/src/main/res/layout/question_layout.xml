@@ -5,60 +5,68 @@
                   android:layout_height="fill_parent"
                   android:weightSum="1"
                 tools:context=".QuestionActivity"
-                android:id="@+id/question_view_group"
-                android:layout_margin="50dp"
-                android:elevation="6dp"
+                android:background="@color/background_color"
     >
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:weightSum="1"
+        android:id="@+id/question_view_group"
+        android:layout_margin="50dp"
+        android:elevation="6dp"
+        android:background="@color/question_background"
+        android:padding="30dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/question"
+            android:textColor="@color/primary_text"
+            android:text="question"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:id="@+id/question"
-        android:textColor="@color/primary_text"
-        android:text="question"
-        android:layout_gravity="center_horizontal"
-        android:textAlignment="center" />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/answerBox"
+            android:textColor="@color/primary_text"
+            android:hint="Answer"
+            android:gravity="center_horizontal" />
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/answerBox"
-        android:textColor="@color/primary_text"
-        android:hint="Answer"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CHECK"
+            android:id="@+id/submitButton"
+            android:layout_gravity="center_horizontal"
+            android:elevation="6dp"/>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="CHECK"
-        android:id="@+id/submitButton"
-        android:layout_gravity="center_horizontal"
-        android:elevation="6dp"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Next"
+            android:id="@+id/next"
+            android:visibility="gone"
+            android:layout_gravity="center_horizontal"
+            android:elevation="6dp"/>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Next"
-        android:id="@+id/next"
-        android:visibility="gone"
-        android:layout_gravity="center_horizontal"
-        android:elevation="6dp"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:id="@+id/result_box"
-        android:text="result_box"
-        android:textColor="@color/primary_text"
-        android:layout_gravity="center_horizontal"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:id="@+id/correction_box"
-        android:text="correctAnswer"
-        android:textColor="@color/primary_text"
-        android:layout_gravity="center_horizontal"/>
-
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/result_box"
+            android:text="result_box"
+            android:textColor="@color/primary_text"
+            android:layout_gravity="center_horizontal"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/correction_box"
+            android:text="correctAnswer"
+            android:textColor="@color/primary_text"
+            android:layout_gravity="center_horizontal"/>
+    </LinearLayout>
 </LinearLayout>
