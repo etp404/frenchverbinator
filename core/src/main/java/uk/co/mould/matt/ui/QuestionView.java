@@ -42,4 +42,6 @@ public interface QuestionView {
 	void hideNextQuestionButton();
 
 	void hideResultBox();
+
+	void clearAnswerBox();
 }

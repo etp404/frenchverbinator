@@ -29,7 +29,9 @@ public class QuestionPresenter {
 		questionVerb = fakeQuestionGenerator.getRandomVerb();
 		questionView.setQuestion(questionPerson, questionVerb);
 		questionView.hideCorrection();
+
 		questionView.enableAnswerBox();
+		questionView.clearAnswerBox();
 
 		questionView.showSubmitButton();
 		questionView.enableSubmitButton();

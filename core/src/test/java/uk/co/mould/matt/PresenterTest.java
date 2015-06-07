@@ -94,12 +94,14 @@ public final class PresenterTest {
 	@Test
 	public void testThatWhenQuestionHasBeenRequestedUISwitchesToQuestionMode() {
 		questionPresenter.showQuestion();
+		questionView.answer = "some answer";
 		questionPresenter.submitAnswer();
 		questionPresenter.showQuestion();
 
-        assertTrue(questionView.answerBoxIsEnabled);
+		assertTrue(questionView.answerBoxIsEnabled);
+		assertEquals("", questionView.answer);
 
-        assertTrue(questionView.submitButtonVisible);
+		assertTrue(questionView.submitButtonVisible);
         assertTrue(questionView.submitButtonEnabled);
 
         assertFalse(questionView.nextQuestionButtonVisible);

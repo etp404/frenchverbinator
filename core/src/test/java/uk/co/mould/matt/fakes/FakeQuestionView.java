@@ -117,4 +117,9 @@ public class FakeQuestionView implements QuestionView {
 	public void enableAnswerBox() {
 		answerBoxIsEnabled = true;
 	}
+
+	@Override
+	public void clearAnswerBox() {
+		answer = "";
+	}
 }

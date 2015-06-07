@@ -119,6 +119,11 @@ public final class AndroidQuestionView implements QuestionView {
     }
 
     @Override
+    public void clearAnswerBox() {
+        answerBox.setText("");
+    }
+
+    @Override
     public void showCorrection() {
         correctionBox.setVisibility(View.VISIBLE);
     }
