@@ -33,7 +33,7 @@ public class Persons {
 	public static Person THIRD_PERSON_SINGULAR = new Person() {
 		@Override
 		public String getPronoun(String conjugatedVerb) {
-			return "third person singular (il)";
+			return "Il ";
 		}
 
 		@Override
