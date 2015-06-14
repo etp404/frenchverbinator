@@ -16,7 +16,7 @@ public class Persons {
 		}
 
 		public String getPerson() {
-			return "first person singular (je)";
+			return "je";
 		}
 	};
 	public static Person SECOND_PERSON_SINGULAR = new Person() {
@@ -27,7 +27,7 @@ public class Persons {
 
 		@Override
 		public String getPerson() {
-			return "second person singular (tu)";
+			return "tu";
 		}
 	};
 	public static Person THIRD_PERSON_SINGULAR = new Person() {
@@ -38,7 +38,7 @@ public class Persons {
 
 		@Override
 		public String getPerson() {
-			return "third person singular (il)";
+			return "il";
 		}
 	};
 	public static Person FIRST_PERSON_PLURAL = new Person() {
@@ -49,7 +49,7 @@ public class Persons {
 
 		@Override
 		public String getPerson() {
-			return "first person plural (nous)";
+			return "nous";
 		}
 	};
 	public static Person SECOND_PERSON_PLURAL = new Person() {
@@ -60,7 +60,7 @@ public class Persons {
 
 		@Override
 		public String getPerson() {
-			return "second person plural (vous)";
+			return "vous";
 		}
 	};
 	public static Person THIRD_PERSON_PLURAL = new Person() {
@@ -71,7 +71,7 @@ public class Persons {
 
 		@Override
 		public String getPerson() {
-			return "third person plural (ils)";
+			return "ils";
 		}
 	};
 

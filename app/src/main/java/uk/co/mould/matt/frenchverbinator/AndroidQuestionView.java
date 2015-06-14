@@ -10,7 +10,7 @@ import uk.co.mould.matt.ui.QuestionView;
 import uk.co.mould.matt.data.Persons;
 
 public final class AndroidQuestionView implements QuestionView {
-    private static final String QUESTION_TEMPLATE = "What is the %s form of '%s'?";
+    private static final String QUESTION_TEMPLATE = "What is the '%s' form of %s (%s)?";
 
     private ViewGroup questionViewGroup;
     private TextView answerBox;
@@ -35,7 +35,8 @@ public final class AndroidQuestionView implements QuestionView {
                 String.format(
                         QUESTION_TEMPLATE,
                         person.getPerson(),
-                        verb.frenchVerb));
+                        verb.frenchVerb,
+                        verb.englishVerb));
     }
 
     @Override

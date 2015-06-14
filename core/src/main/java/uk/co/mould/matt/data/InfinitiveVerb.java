@@ -3,7 +3,7 @@ package uk.co.mould.matt.data;
 public final class InfinitiveVerb {
 
     public final FrenchInfinitiveVerb frenchVerb;
-    private final String englishVerb;
+    public final String englishVerb;
 
     public InfinitiveVerb(String frenchVerb, String englishVerb) {
         this.frenchVerb = FrenchInfinitiveVerb.fromString(frenchVerb);
