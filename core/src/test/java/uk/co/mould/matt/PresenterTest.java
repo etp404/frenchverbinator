@@ -6,7 +6,7 @@ import org.junit.Test;
 import uk.co.mould.matt.conjugators.Conjugator;
 import uk.co.mould.matt.data.ConjugatedVerbWithPronoun;
 import uk.co.mould.matt.data.Persons;
-import uk.co.mould.matt.data.QuestionVerb;
+import uk.co.mould.matt.data.InfinitiveVerb;
 import uk.co.mould.matt.fakes.FakeQuestionGenerator;
 import uk.co.mould.matt.fakes.FakeQuestionView;
 import uk.co.mould.matt.ui.QuestionPresenter;
@@ -19,7 +19,7 @@ public final class PresenterTest {
 
 	private final Persons.Person person = Persons.FIRST_PERSON_PLURAL;
 	private final String verbString = "regarder";
-	private final QuestionVerb verb = new QuestionVerb("regarder", "to watch");
+	private final InfinitiveVerb verb = new InfinitiveVerb("regarder", "to watch");
 	private final String correctAnswer = "Vous regardez";
 	private FakeQuestionView questionView;
 	private QuestionPresenter questionPresenter;
@@ -111,11 +111,11 @@ public final class PresenterTest {
 
 	private class FakeConjugator extends Conjugator {
 		private Persons.Person personMatchingAnswer;
-		private QuestionVerb verbMatchingAnswer;
+		private InfinitiveVerb verbMatchingAnswer;
 		private ConjugatedVerbWithPronoun correctAnswer;
 
 
-		public FakeConjugator(Persons.Person personMatchingAnswer, QuestionVerb verbMatchingAnswer, ConjugatedVerbWithPronoun correctAnswer) {
+		public FakeConjugator(Persons.Person personMatchingAnswer, InfinitiveVerb verbMatchingAnswer, ConjugatedVerbWithPronoun correctAnswer) {
 			super(null, null);
 			this.personMatchingAnswer = personMatchingAnswer;
 			this.verbMatchingAnswer = verbMatchingAnswer;
@@ -123,7 +123,7 @@ public final class PresenterTest {
 		}
 
 		@Override
-		public ConjugatedVerbWithPronoun getPresentConjugationOf(QuestionVerb infinitive, Persons.Person person) {
+		public ConjugatedVerbWithPronoun getPresentConjugationOf(InfinitiveVerb infinitive, Persons.Person person) {
 			if (personMatchingAnswer == person && verbMatchingAnswer == infinitive) {
 				return correctAnswer;
 			}

@@ -1,11 +1,11 @@
 package uk.co.mould.matt.data;
 
-public final class QuestionVerb {
+public final class InfinitiveVerb {
 
     public final FrenchInfinitiveVerb frenchVerb;
     private final String englishVerb;
 
-    public QuestionVerb(String frenchVerb, String englishVerb) {
+    public InfinitiveVerb(String frenchVerb, String englishVerb) {
         this.frenchVerb = FrenchInfinitiveVerb.fromString(frenchVerb);
         this.englishVerb = englishVerb;
     }
@@ -15,7 +15,7 @@ public final class QuestionVerb {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        QuestionVerb that = (QuestionVerb) o;
+        InfinitiveVerb that = (InfinitiveVerb) o;
 
         if (frenchVerb != null ? !frenchVerb.equals(that.frenchVerb) : that.frenchVerb != null)
             return false;

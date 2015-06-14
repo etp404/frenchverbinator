@@ -2,7 +2,7 @@ package uk.co.mould.matt.ui;
 
 import uk.co.mould.matt.conjugators.Conjugator;
 import uk.co.mould.matt.data.Persons;
-import uk.co.mould.matt.data.QuestionVerb;
+import uk.co.mould.matt.data.InfinitiveVerb;
 import uk.co.mould.matt.marking.AnswerChecker;
 import uk.co.mould.matt.questions.QuestionGenerator;
 
@@ -12,7 +12,7 @@ public class QuestionPresenter {
 	private QuestionView questionView;
 	private QuestionGenerator fakeQuestionGenerator;
 	private Persons.Person questionPerson;
-	private QuestionVerb questionVerb;
+	private InfinitiveVerb infinitiveVerb;
 
 	public QuestionPresenter(QuestionView questionView,
 							 QuestionGenerator questionGenerator,
@@ -25,8 +25,8 @@ public class QuestionPresenter {
 
 	public void showQuestion() {
 		questionPerson = fakeQuestionGenerator.getRandomPerson();
-		questionVerb = fakeQuestionGenerator.getRandomVerb();
-		questionView.setQuestion(questionPerson, questionVerb);
+		infinitiveVerb = fakeQuestionGenerator.getRandomVerb();
+		questionView.setQuestion(questionPerson, infinitiveVerb);
 		questionView.hideCorrection();
 
 		questionView.enableAnswerBox();
@@ -40,7 +40,7 @@ public class QuestionPresenter {
 
 		questionView.hideResultBox();
 
-		this.answerChecker.setQuestion(questionPerson, questionVerb);
+		this.answerChecker.setQuestion(questionPerson, infinitiveVerb);
 	}
 
 	public void submitAnswer() {
@@ -54,7 +54,7 @@ public class QuestionPresenter {
 			public void incorrect() {
 				questionView.setResultToIncorrect();
 				questionView.showCorrection();
-				questionView.setCorrection(conjugator.getPresentConjugationOf(questionVerb, questionPerson));
+				questionView.setCorrection(conjugator.getPresentConjugationOf(infinitiveVerb, questionPerson));
 			}
 		});
 		questionView.disableAnswerBox();

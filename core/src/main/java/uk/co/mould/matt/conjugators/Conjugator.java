@@ -4,7 +4,7 @@ import uk.co.mould.matt.data.ConjugatedVerbWithPronoun;
 import uk.co.mould.matt.data.Conjugation;
 import uk.co.mould.matt.data.FrenchInfinitiveVerb;
 import uk.co.mould.matt.data.Persons;
-import uk.co.mould.matt.data.QuestionVerb;
+import uk.co.mould.matt.data.InfinitiveVerb;
 import uk.co.mould.matt.data.VerbTemplate;
 import uk.co.mould.matt.parser.ConjugationParser;
 import uk.co.mould.matt.parser.VerbTemplateParser;
@@ -21,10 +21,9 @@ public class Conjugator {
 		pronounHandler = new PronounHandler();
 	}
 
-	public ConjugatedVerbWithPronoun getPresentConjugationOf(QuestionVerb questionVerb, Persons.Person person) {
-		FrenchInfinitiveVerb verb = questionVerb.frenchVerb;
-		VerbTemplate template = verbTemplateParser.getTemplateForVerb(verb);
-		Conjugation conjugation = conjugationParser.getConjugation(verb, template, person);
+	public ConjugatedVerbWithPronoun getPresentConjugationOf(InfinitiveVerb infinitiveVerb, Persons.Person person) {
+		VerbTemplate template = verbTemplateParser.getTemplateForVerb(infinitiveVerb.frenchVerb);
+		Conjugation conjugation = conjugationParser.getConjugation(infinitiveVerb.frenchVerb, template, person);
 		return pronounHandler.addPronoun(conjugation, person);
 	}
 

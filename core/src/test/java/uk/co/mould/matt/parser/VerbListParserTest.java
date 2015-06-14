@@ -8,7 +8,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
-import uk.co.mould.matt.data.QuestionVerb;
+import uk.co.mould.matt.data.InfinitiveVerb;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
@@ -19,12 +19,12 @@ public class VerbListParserTest {
     public void testThatVerbsAreReturnedAsExpected() throws FileNotFoundException {
         VerbListParser verbListParser = new VerbListParser(new InputSource(new FileInputStream("res/verb_list.csv")));
 
-        List<QuestionVerb> expectedList = new ArrayList<QuestionVerb>(){{
-            add(new QuestionVerb("être", "to be"));
-            add(new QuestionVerb("avoir", "to have"));
+        List<InfinitiveVerb> expectedList = new ArrayList<InfinitiveVerb>(){{
+            add(new InfinitiveVerb("être", "to be"));
+            add(new InfinitiveVerb("avoir", "to have"));
         }};
 
-        List<QuestionVerb> actual = verbListParser.getVerbs();
+        List<InfinitiveVerb> actual = verbListParser.getVerbs();
         assertThat(actual, is(expectedList));
     }
 }

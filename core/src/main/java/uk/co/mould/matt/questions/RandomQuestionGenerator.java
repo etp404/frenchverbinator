@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Random;
 
 import uk.co.mould.matt.data.Persons;
-import uk.co.mould.matt.data.QuestionVerb;
+import uk.co.mould.matt.data.InfinitiveVerb;
 import uk.co.mould.matt.parser.VerbListParser;
 
 public final class RandomQuestionGenerator implements uk.co.mould.matt.questions.QuestionGenerator {
@@ -27,8 +27,8 @@ public final class RandomQuestionGenerator implements uk.co.mould.matt.questions
 		return persons.get(randomNumber(0, persons.size()));
 	}
 
-	public QuestionVerb getRandomVerb() {
-		List<QuestionVerb> verbs = verbListParser.getVerbs();
+	public InfinitiveVerb getRandomVerb() {
+		List<InfinitiveVerb> verbs = verbListParser.getVerbs();
 		return verbs.get(randomNumber(0,verbs.size()));
 	}
 

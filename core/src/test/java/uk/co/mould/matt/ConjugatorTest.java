@@ -28,43 +28,43 @@ public final class ConjugatorTest {
 
 	@Test
 	public void testThat_Aimer_Present_FirstPersonSingularIsConjugatedAsExpected() {
-		assertEquals(new ConjugatedVerbWithPronoun("J'aime"), conjugator.getPresentConjugationOf(new QuestionVerb("aimer", null), Persons.FIRST_PERSON_SINGULAR));
+		assertEquals(new ConjugatedVerbWithPronoun("J'aime"), conjugator.getPresentConjugationOf(new InfinitiveVerb("aimer", null), Persons.FIRST_PERSON_SINGULAR));
 	}
 
 	@Test
 	public void testThat_Aimer_Present_SecondPersonSingularIsConjugatedAsExpected() {
-		assertEquals(new ConjugatedVerbWithPronoun("Tu aimes"), conjugator.getPresentConjugationOf(new QuestionVerb("aimer", null), Persons.SECOND_PERSON_SINGULAR));
+		assertEquals(new ConjugatedVerbWithPronoun("Tu aimes"), conjugator.getPresentConjugationOf(new InfinitiveVerb("aimer", null), Persons.SECOND_PERSON_SINGULAR));
 	}
 
 	@Test
 	public void testThat_Aimer_Present_ThirdPersonSingularIsConjugatedAsExpected() {
-		assertEquals(new ConjugatedVerbWithPronoun("Il aime"), conjugator.getPresentConjugationOf(new QuestionVerb("aimer", null), Persons.THIRD_PERSON_SINGULAR));
+		assertEquals(new ConjugatedVerbWithPronoun("Il aime"), conjugator.getPresentConjugationOf(new InfinitiveVerb("aimer", null), Persons.THIRD_PERSON_SINGULAR));
 	}
 
 	@Test
 	public void testThat_Aimer_Present_FirstPersonPluralIsConjugatedAsExpected() {
-		assertEquals(new ConjugatedVerbWithPronoun("Nous aimons"), conjugator.getPresentConjugationOf(new QuestionVerb("aimer", null), Persons.FIRST_PERSON_PLURAL));
+		assertEquals(new ConjugatedVerbWithPronoun("Nous aimons"), conjugator.getPresentConjugationOf(new InfinitiveVerb("aimer", null), Persons.FIRST_PERSON_PLURAL));
 	}
 
 	@Test
 	public void testThat_Aimer_Present_SecondPersonPluralIsConjugatedAsExpected() {
-		assertEquals(new ConjugatedVerbWithPronoun("Vous aimez"), conjugator.getPresentConjugationOf(new QuestionVerb("aimer", null), Persons.SECOND_PERSON_PLURAL));
+		assertEquals(new ConjugatedVerbWithPronoun("Vous aimez"), conjugator.getPresentConjugationOf(new InfinitiveVerb("aimer", null), Persons.SECOND_PERSON_PLURAL));
 	}
 
 	@Test
 	public void testThat_Aimer_Present_ThirdPersonPluralIsConjugatedAsExpected() {
-		ConjugatedVerbWithPronoun conjugatedVerbWithPronoun = conjugator.getPresentConjugationOf(new QuestionVerb("aimer", null), Persons.THIRD_PERSON_PLURAL);
+		ConjugatedVerbWithPronoun conjugatedVerbWithPronoun = conjugator.getPresentConjugationOf(new InfinitiveVerb("aimer", null), Persons.THIRD_PERSON_PLURAL);
 		assertEquals(new ConjugatedVerbWithPronoun("Ils aiment"), conjugatedVerbWithPronoun);
 	}
 
 	@Test
 	public void testThat_Perdre_Present_FirstPersonPluralIsConjugatedAsExpected() {
-		assertEquals(new ConjugatedVerbWithPronoun("Je perds"), conjugator.getPresentConjugationOf(new QuestionVerb("perdre", null), Persons.FIRST_PERSON_SINGULAR));
+		assertEquals(new ConjugatedVerbWithPronoun("Je perds"), conjugator.getPresentConjugationOf(new InfinitiveVerb("perdre", null), Persons.FIRST_PERSON_SINGULAR));
 	}
 
 	@Test
 	public void testThat_Aller_Present_ThirdPersonPluralIsConjugatedAsExpected() {
-		ConjugatedVerbWithPronoun conjugatedVerbWithPronoun = conjugator.getPresentConjugationOf(new QuestionVerb("aller", null), Persons.THIRD_PERSON_SINGULAR);
+		ConjugatedVerbWithPronoun conjugatedVerbWithPronoun = conjugator.getPresentConjugationOf(new InfinitiveVerb("aller", null), Persons.THIRD_PERSON_SINGULAR);
 		assertEquals(new ConjugatedVerbWithPronoun("Il va"), conjugatedVerbWithPronoun);
 	}
 }
