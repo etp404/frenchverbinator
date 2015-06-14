@@ -30,7 +30,7 @@ public class AnswerChecker {
 
 	public boolean isAnswerCorrect(String answer) {
 		ConjugatedVerbWithPronoun correctAnswer = conjugator.getPresentConjugationOf(infinitiveVerb, questionPerson);
-		return correctAnswer.toString().toLowerCase().equals(answer.toLowerCase());
+		return correctAnswer.toString().toLowerCase().equals(answer.toLowerCase().trim());
 	}
 
 	public interface Callback {

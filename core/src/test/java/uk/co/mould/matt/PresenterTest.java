@@ -18,9 +18,9 @@ import static org.junit.Assert.assertTrue;
 public final class PresenterTest {
 
 	private final Persons.Person person = Persons.FIRST_PERSON_PLURAL;
-	private final String verbString = "regarder";
 	private final InfinitiveVerb verb = new InfinitiveVerb("regarder", "to watch");
 	private final String correctAnswer = "Vous regardez";
+	private final String correctAnswerWithTrailingSpace = "Vous regardez ";
 	private FakeQuestionView questionView;
 	private QuestionPresenter questionPresenter;
 
@@ -81,6 +81,14 @@ public final class PresenterTest {
         assertTrue(questionView.nextQuestionButtonVisible);
         assertTrue(questionView.nextQuestionButtonEnabled);
     }
+
+	@Test
+	public void testThatCorrectAnswerWithTrailingSpaceSetsViewToCorrect() {
+		questionView.answer = correctAnswerWithTrailingSpace;
+		questionPresenter.submitAnswer();
+
+		assertTrue(questionView.resultBoxShowingCorrect);
+	}
 
 	@Test
 	public void testThatForQuestionAfterAnIncorrectAnswerCorrectionIsGone() {
