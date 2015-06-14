@@ -5,8 +5,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import uk.co.mould.matt.data.ConjugatedVerbWithPronoun;
+import uk.co.mould.matt.data.QuestionVerb;
 import uk.co.mould.matt.ui.QuestionView;
-import uk.co.mould.matt.data.InfinitiveVerb;
 import uk.co.mould.matt.data.Persons;
 
 public final class AndroidQuestionView implements QuestionView {
@@ -29,13 +29,13 @@ public final class AndroidQuestionView implements QuestionView {
     }
 
     @Override
-    public void setQuestion(Persons.Person person, InfinitiveVerb verb) {
+    public void setQuestion(Persons.Person person, QuestionVerb verb) {
         TextView questionBox = (TextView) questionViewGroup.findViewById(R.id.question);
         questionBox.setText(
                 String.format(
                         QUESTION_TEMPLATE,
                         person.getPerson(),
-                        verb.toString()));
+                        verb.frenchVerb));
     }
 
     @Override

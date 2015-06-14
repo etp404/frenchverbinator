@@ -2,8 +2,8 @@ package uk.co.mould.matt.data;
 
 public final class QuestionVerb {
 
-    private String frenchVerb;
-    private String englishVerb;
+    public final String frenchVerb;
+    private final String englishVerb;
 
     public QuestionVerb(String frenchVerb, String englishVerb) {
         this.frenchVerb = frenchVerb;

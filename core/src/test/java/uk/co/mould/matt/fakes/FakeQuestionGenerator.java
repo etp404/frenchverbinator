@@ -1,14 +1,15 @@
 package uk.co.mould.matt.fakes;
 
+import uk.co.mould.matt.data.QuestionVerb;
 import uk.co.mould.matt.questions.QuestionGenerator;
 import uk.co.mould.matt.data.InfinitiveVerb;
 import uk.co.mould.matt.data.Persons;
 
 public class FakeQuestionGenerator implements QuestionGenerator {
 	private Persons.Person person;
-	private InfinitiveVerb verb;
+	private QuestionVerb verb;
 
-	public FakeQuestionGenerator(Persons.Person person, InfinitiveVerb verb) {
+	public FakeQuestionGenerator(Persons.Person person, QuestionVerb verb) {
 		this.person = person;
 		this.verb = verb;
 	}
@@ -19,7 +20,7 @@ public class FakeQuestionGenerator implements QuestionGenerator {
 	}
 
 	@Override
-	public InfinitiveVerb getRandomVerb() {
+	public QuestionVerb getRandomVerb() {
 		return verb;
 	}
 }

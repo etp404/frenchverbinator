@@ -4,17 +4,18 @@ import uk.co.mould.matt.conjugators.Conjugator;
 import uk.co.mould.matt.data.ConjugatedVerbWithPronoun;
 import uk.co.mould.matt.data.InfinitiveVerb;
 import uk.co.mould.matt.data.Persons;
+import uk.co.mould.matt.data.QuestionVerb;
 
 public class AnswerChecker {
 	private Persons.Person questionPerson;
-	private InfinitiveVerb questionVerb;
+	private QuestionVerb questionVerb;
 	private Conjugator conjugator;
 
 	public AnswerChecker(Conjugator conjugator) {
 		this.conjugator = conjugator;
 	}
 
-	public void setQuestion(Persons.Person questionPerson, InfinitiveVerb questionVerb) {
+	public void setQuestion(Persons.Person questionPerson, QuestionVerb questionVerb) {
 		this.questionPerson = questionPerson;
 		this.questionVerb = questionVerb;
 	}

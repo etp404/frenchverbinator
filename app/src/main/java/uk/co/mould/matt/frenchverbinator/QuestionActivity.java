@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import org.xml.sax.InputSource;
 
+import uk.co.mould.matt.parser.VerbListParser;
 import uk.co.mould.matt.questions.QuestionGenerator;
 import uk.co.mould.matt.questions.RandomQuestionGenerator;
 import uk.co.mould.matt.ui.QuestionPresenter;
@@ -22,8 +23,9 @@ public class QuestionActivity extends Activity {
 		setContentView(R.layout.question_layout);
 		VerbTemplateParser verbTemplateParser = new VerbTemplateParser(new InputSource(getResources().openRawResource(R.raw.verbs_fr)));
 		ConjugationParser conjugationParser = new ConjugationParser(new InputSource(getResources().openRawResource(R.raw.conjugation_fr)));
+		VerbListParser verbListParser = new VerbListParser(new InputSource(getResources().openRawResource(R.raw.verb_list)));
 
-		QuestionGenerator questionGenerator = new RandomQuestionGenerator(verbTemplateParser);
+		QuestionGenerator questionGenerator = new RandomQuestionGenerator(verbListParser);
 		Conjugator conjugator = new Conjugator(verbTemplateParser, conjugationParser);
 
 		final QuestionPresenter questionPresenter = new QuestionPresenter(

@@ -5,10 +5,12 @@ import java.util.Random;
 
 import uk.co.mould.matt.data.InfinitiveVerb;
 import uk.co.mould.matt.data.Persons;
+import uk.co.mould.matt.data.QuestionVerb;
+import uk.co.mould.matt.parser.VerbListParser;
 import uk.co.mould.matt.parser.VerbTemplateParser;
 
 public final class RandomQuestionGenerator implements uk.co.mould.matt.questions.QuestionGenerator {
-	private VerbTemplateParser verbParser;
+	private VerbListParser verbListParser;
 	private List<Persons.Person> persons = new ArrayList<Persons.Person>(){{
 		add(Persons.FIRST_PERSON_SINGULAR);
 		add(Persons.SECOND_PERSON_SINGULAR);
@@ -19,16 +21,16 @@ public final class RandomQuestionGenerator implements uk.co.mould.matt.questions
 
 	}};
 
-	public RandomQuestionGenerator(VerbTemplateParser verbParser) {
-		this.verbParser = verbParser;
+	public RandomQuestionGenerator(VerbListParser verbListParser) {
+		this.verbListParser = verbListParser;
 	}
 
 	public Persons.Person getRandomPerson() {
 		return persons.get(randomNumber(0, persons.size()));
 	}
 
-	public InfinitiveVerb getRandomVerb() {
-		List<InfinitiveVerb> verbs = verbParser.getVerbs();
+	public QuestionVerb getRandomVerb() {
+		List<QuestionVerb> verbs = verbListParser.getVerbs();
 		return verbs.get(randomNumber(0,verbs.size()));
 	}
 

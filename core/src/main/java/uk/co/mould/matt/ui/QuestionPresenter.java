@@ -3,6 +3,7 @@ package uk.co.mould.matt.ui;
 import uk.co.mould.matt.conjugators.Conjugator;
 import uk.co.mould.matt.data.InfinitiveVerb;
 import uk.co.mould.matt.data.Persons;
+import uk.co.mould.matt.data.QuestionVerb;
 import uk.co.mould.matt.marking.AnswerChecker;
 import uk.co.mould.matt.questions.QuestionGenerator;
 
@@ -12,7 +13,7 @@ public class QuestionPresenter {
 	private QuestionView questionView;
 	private QuestionGenerator fakeQuestionGenerator;
 	private Persons.Person questionPerson;
-	private InfinitiveVerb questionVerb;
+	private QuestionVerb questionVerb;
 
 	public QuestionPresenter(QuestionView questionView,
 							 QuestionGenerator questionGenerator,
