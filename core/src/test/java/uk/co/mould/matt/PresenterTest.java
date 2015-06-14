@@ -5,7 +5,6 @@ import org.junit.Test;
 
 import uk.co.mould.matt.conjugators.Conjugator;
 import uk.co.mould.matt.data.ConjugatedVerbWithPronoun;
-import uk.co.mould.matt.data.InfinitiveVerb;
 import uk.co.mould.matt.data.Persons;
 import uk.co.mould.matt.data.QuestionVerb;
 import uk.co.mould.matt.fakes.FakeQuestionGenerator;

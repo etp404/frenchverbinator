@@ -2,7 +2,7 @@ package uk.co.mould.matt.conjugators;
 
 import uk.co.mould.matt.data.ConjugatedVerbWithPronoun;
 import uk.co.mould.matt.data.Conjugation;
-import uk.co.mould.matt.data.InfinitiveVerb;
+import uk.co.mould.matt.data.FrenchInfinitiveVerb;
 import uk.co.mould.matt.data.Persons;
 import uk.co.mould.matt.data.QuestionVerb;
 import uk.co.mould.matt.data.VerbTemplate;
@@ -22,7 +22,7 @@ public class Conjugator {
 	}
 
 	public ConjugatedVerbWithPronoun getPresentConjugationOf(QuestionVerb questionVerb, Persons.Person person) {
-		InfinitiveVerb verb = InfinitiveVerb.fromString(questionVerb.frenchVerb);
+		FrenchInfinitiveVerb verb = questionVerb.frenchVerb;
 		VerbTemplate template = verbTemplateParser.getTemplateForVerb(verb);
 		Conjugation conjugation = conjugationParser.getConjugation(verb, template, person);
 		return pronounHandler.addPronoun(conjugation, person);

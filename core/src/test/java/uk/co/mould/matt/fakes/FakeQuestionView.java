@@ -3,7 +3,6 @@ package uk.co.mould.matt.fakes;
 import uk.co.mould.matt.data.ConjugatedVerbWithPronoun;
 import uk.co.mould.matt.data.QuestionVerb;
 import uk.co.mould.matt.ui.QuestionView;
-import uk.co.mould.matt.data.InfinitiveVerb;
 import uk.co.mould.matt.data.Persons;
 
 public class FakeQuestionView implements QuestionView {

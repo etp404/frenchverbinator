@@ -2,7 +2,6 @@ package uk.co.mould.matt.fakes;
 
 import uk.co.mould.matt.data.QuestionVerb;
 import uk.co.mould.matt.questions.QuestionGenerator;
-import uk.co.mould.matt.data.InfinitiveVerb;
 import uk.co.mould.matt.data.Persons;
 
 public class FakeQuestionGenerator implements QuestionGenerator {

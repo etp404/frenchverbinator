@@ -6,7 +6,6 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -16,7 +15,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import uk.co.mould.matt.data.Conjugation;
-import uk.co.mould.matt.data.InfinitiveVerb;
+import uk.co.mould.matt.data.FrenchInfinitiveVerb;
 import uk.co.mould.matt.data.Persons;
 import uk.co.mould.matt.data.VerbTemplate;
 
@@ -53,10 +52,10 @@ public final class ConjugationParser {
 		}
 	}
 
-	public Conjugation getConjugation(InfinitiveVerb infinitiveVerb, VerbTemplate template, Persons.Person person) {
+	public Conjugation getConjugation(FrenchInfinitiveVerb frenchInfinitiveVerb, VerbTemplate template, Persons.Person person) {
 		Element element = templateToNode.get(template);
 		String conjugatedEnding = ((Element) element.getElementsByTagName("indicative").item(0)).getElementsByTagName("i").item(PERSON_TO_INDEX.get(person)).getTextContent();
 
-		return new Conjugation(infinitiveVerb.toString().replace(template.getEndingAsString(), conjugatedEnding));
+		return new Conjugation(frenchInfinitiveVerb.toString().replace(template.getEndingAsString(), conjugatedEnding));
 	}
 }

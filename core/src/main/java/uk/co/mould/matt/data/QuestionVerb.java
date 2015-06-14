@@ -2,11 +2,11 @@ package uk.co.mould.matt.data;
 
 public final class QuestionVerb {
 
-    public final String frenchVerb;
+    public final FrenchInfinitiveVerb frenchVerb;
     private final String englishVerb;
 
     public QuestionVerb(String frenchVerb, String englishVerb) {
-        this.frenchVerb = frenchVerb;
+        this.frenchVerb = FrenchInfinitiveVerb.fromString(frenchVerb);
         this.englishVerb = englishVerb;
     }
 

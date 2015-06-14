@@ -3,11 +3,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import uk.co.mould.matt.data.InfinitiveVerb;
 import uk.co.mould.matt.data.Persons;
 import uk.co.mould.matt.data.QuestionVerb;
 import uk.co.mould.matt.parser.VerbListParser;
-import uk.co.mould.matt.parser.VerbTemplateParser;
 
 public final class RandomQuestionGenerator implements uk.co.mould.matt.questions.QuestionGenerator {
 	private VerbListParser verbListParser;

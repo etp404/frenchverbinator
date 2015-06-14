@@ -5,10 +5,8 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,12 +16,12 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import uk.co.mould.matt.data.InfinitiveVerb;
+import uk.co.mould.matt.data.FrenchInfinitiveVerb;
 import uk.co.mould.matt.data.VerbTemplate;
 
 public class VerbTemplateParser {
 
-	private final Map<InfinitiveVerb, VerbTemplate> verbToTemplate;
+	private final Map<FrenchInfinitiveVerb, VerbTemplate> verbToTemplate;
 
 	public VerbTemplateParser(InputSource verbsFile) {
 		try {
@@ -37,7 +35,7 @@ public class VerbTemplateParser {
 			for (int temp = 0; temp < verbsList.getLength(); temp++) {
 				Element item = (Element)verbsList.item(temp);
 				verbToTemplate.put(
-						InfinitiveVerb.fromString(item.getElementsByTagName("i").item(0).getTextContent()),
+						FrenchInfinitiveVerb.fromString(item.getElementsByTagName("i").item(0).getTextContent()),
 						VerbTemplate.fromString(item.getElementsByTagName("t").item(0).getTextContent()));
 			}
 		} catch (ParserConfigurationException|SAXException|IOException e) {
@@ -45,11 +43,11 @@ public class VerbTemplateParser {
 		}
 	}
 
-	public VerbTemplate getTemplateForVerb(InfinitiveVerb verb) {
+	public VerbTemplate getTemplateForVerb(FrenchInfinitiveVerb verb) {
 		return verbToTemplate.get(verb);
 	}
 
-	public List<InfinitiveVerb> getVerbs() {
-		return new ArrayList<InfinitiveVerb>(verbToTemplate.keySet());
+	public List<FrenchInfinitiveVerb> getVerbs() {
+		return new ArrayList<FrenchInfinitiveVerb>(verbToTemplate.keySet());
 	}
 }
