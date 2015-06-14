@@ -12,7 +12,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import uk.co.mould.matt.conjugators.Conjugator;
 import uk.co.mould.matt.data.*;
 import uk.co.mould.matt.parser.ConjugationParser;
-import uk.co.mould.matt.parser.VerbListParser;
+import uk.co.mould.matt.parser.VerbTemplateParser;
 
 import static org.junit.Assert.assertEquals;
 
@@ -22,7 +22,7 @@ public final class ConjugatorTest {
 
 	public ConjugatorTest() throws ParserConfigurationException, SAXException, IOException {
 		conjugator = new Conjugator(
-				new VerbListParser(new InputSource(new FileInputStream("res/verbs-fr.xml"))),
+				new VerbTemplateParser(new InputSource(new FileInputStream("res/verbs-fr.xml"))),
 				new ConjugationParser(new InputSource(new FileInputStream("res/conjugation-fr.xml"))));
 	}
 

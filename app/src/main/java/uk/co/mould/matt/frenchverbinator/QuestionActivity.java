@@ -2,8 +2,6 @@ package uk.co.mould.matt.frenchverbinator;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -14,7 +12,7 @@ import uk.co.mould.matt.questions.RandomQuestionGenerator;
 import uk.co.mould.matt.ui.QuestionPresenter;
 import uk.co.mould.matt.conjugators.Conjugator;
 import uk.co.mould.matt.parser.ConjugationParser;
-import uk.co.mould.matt.parser.VerbListParser;
+import uk.co.mould.matt.parser.VerbTemplateParser;
 
 public class QuestionActivity extends Activity {
 
@@ -22,11 +20,11 @@ public class QuestionActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.question_layout);
-		VerbListParser verbListParser = new VerbListParser(new InputSource(getResources().openRawResource(R.raw.verbs_fr)));
+		VerbTemplateParser verbTemplateParser = new VerbTemplateParser(new InputSource(getResources().openRawResource(R.raw.verbs_fr)));
 		ConjugationParser conjugationParser = new ConjugationParser(new InputSource(getResources().openRawResource(R.raw.conjugation_fr)));
 
-		QuestionGenerator questionGenerator = new RandomQuestionGenerator(verbListParser);
-		Conjugator conjugator = new Conjugator(verbListParser, conjugationParser);
+		QuestionGenerator questionGenerator = new RandomQuestionGenerator(verbTemplateParser);
+		Conjugator conjugator = new Conjugator(verbTemplateParser, conjugationParser);
 
 		final QuestionPresenter questionPresenter = new QuestionPresenter(
 				new AndroidQuestionView((ViewGroup)findViewById(R.id.question_view_group)),
