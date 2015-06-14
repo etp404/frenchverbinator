@@ -1,6 +1,8 @@
 package uk.co.mould.matt;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
@@ -18,53 +20,63 @@ import static org.junit.Assert.assertEquals;
 
 public final class ConjugatorTest {
 
-	private final Conjugator conjugator;
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
 
-	public ConjugatorTest() throws ParserConfigurationException, SAXException, IOException {
-		conjugator = new Conjugator(
-				new VerbTemplateParser(new InputSource(new FileInputStream("res/verbs-fr.xml"))),
-				new ConjugationParser(new InputSource(new FileInputStream("res/conjugation-fr.xml"))));
-	}
+    private final Conjugator conjugator;
 
-	@Test
-	public void testThat_Aimer_Present_FirstPersonSingularIsConjugatedAsExpected() {
-		assertEquals(new ConjugatedVerbWithPronoun("J'aime"), conjugator.getPresentConjugationOf(new InfinitiveVerb("aimer", null), Persons.FIRST_PERSON_SINGULAR));
-	}
+    public ConjugatorTest() throws ParserConfigurationException, SAXException, IOException {
+        conjugator = new Conjugator(
+                new VerbTemplateParser(new InputSource(new FileInputStream("res/verbs-fr.xml"))),
+                new ConjugationParser(new InputSource(new FileInputStream("res/conjugation-fr.xml"))));
+    }
 
-	@Test
-	public void testThat_Aimer_Present_SecondPersonSingularIsConjugatedAsExpected() {
-		assertEquals(new ConjugatedVerbWithPronoun("Tu aimes"), conjugator.getPresentConjugationOf(new InfinitiveVerb("aimer", null), Persons.SECOND_PERSON_SINGULAR));
-	}
+    @Test
+    public void testThat_Aimer_Present_FirstPersonSingularIsConjugatedAsExpected() throws CantConjugateException {
+        assertEquals(new ConjugatedVerbWithPronoun("J'aime"), conjugator.getPresentConjugationOf(new InfinitiveVerb("aimer", null), Persons.FIRST_PERSON_SINGULAR));
+    }
 
-	@Test
-	public void testThat_Aimer_Present_ThirdPersonSingularIsConjugatedAsExpected() {
-		assertEquals(new ConjugatedVerbWithPronoun("Il aime"), conjugator.getPresentConjugationOf(new InfinitiveVerb("aimer", null), Persons.THIRD_PERSON_SINGULAR));
-	}
+    @Test
+    public void testThat_Aimer_Present_SecondPersonSingularIsConjugatedAsExpected() throws CantConjugateException {
+        assertEquals(new ConjugatedVerbWithPronoun("Tu aimes"), conjugator.getPresentConjugationOf(new InfinitiveVerb("aimer", null), Persons.SECOND_PERSON_SINGULAR));
+    }
 
-	@Test
-	public void testThat_Aimer_Present_FirstPersonPluralIsConjugatedAsExpected() {
-		assertEquals(new ConjugatedVerbWithPronoun("Nous aimons"), conjugator.getPresentConjugationOf(new InfinitiveVerb("aimer", null), Persons.FIRST_PERSON_PLURAL));
-	}
+    @Test
+    public void testThat_Aimer_Present_ThirdPersonSingularIsConjugatedAsExpected() throws CantConjugateException {
+        assertEquals(new ConjugatedVerbWithPronoun("Il aime"), conjugator.getPresentConjugationOf(new InfinitiveVerb("aimer", null), Persons.THIRD_PERSON_SINGULAR));
+    }
 
-	@Test
-	public void testThat_Aimer_Present_SecondPersonPluralIsConjugatedAsExpected() {
-		assertEquals(new ConjugatedVerbWithPronoun("Vous aimez"), conjugator.getPresentConjugationOf(new InfinitiveVerb("aimer", null), Persons.SECOND_PERSON_PLURAL));
-	}
+    @Test
+    public void testThat_Aimer_Present_FirstPersonPluralIsConjugatedAsExpected() throws CantConjugateException {
+        assertEquals(new ConjugatedVerbWithPronoun("Nous aimons"), conjugator.getPresentConjugationOf(new InfinitiveVerb("aimer", null), Persons.FIRST_PERSON_PLURAL));
+    }
 
-	@Test
-	public void testThat_Aimer_Present_ThirdPersonPluralIsConjugatedAsExpected() {
-		ConjugatedVerbWithPronoun conjugatedVerbWithPronoun = conjugator.getPresentConjugationOf(new InfinitiveVerb("aimer", null), Persons.THIRD_PERSON_PLURAL);
-		assertEquals(new ConjugatedVerbWithPronoun("Ils aiment"), conjugatedVerbWithPronoun);
-	}
+    @Test
+    public void testThat_Aimer_Present_SecondPersonPluralIsConjugatedAsExpected() throws CantConjugateException {
+        assertEquals(new ConjugatedVerbWithPronoun("Vous aimez"), conjugator.getPresentConjugationOf(new InfinitiveVerb("aimer", null), Persons.SECOND_PERSON_PLURAL));
+    }
 
-	@Test
-	public void testThat_Perdre_Present_FirstPersonPluralIsConjugatedAsExpected() {
-		assertEquals(new ConjugatedVerbWithPronoun("Je perds"), conjugator.getPresentConjugationOf(new InfinitiveVerb("perdre", null), Persons.FIRST_PERSON_SINGULAR));
-	}
+    @Test
+    public void testThat_Aimer_Present_ThirdPersonPluralIsConjugatedAsExpected() throws CantConjugateException {
+        ConjugatedVerbWithPronoun conjugatedVerbWithPronoun = conjugator.getPresentConjugationOf(new InfinitiveVerb("aimer", null), Persons.THIRD_PERSON_PLURAL);
+        assertEquals(new ConjugatedVerbWithPronoun("Ils aiment"), conjugatedVerbWithPronoun);
+    }
 
-	@Test
-	public void testThat_Aller_Present_ThirdPersonPluralIsConjugatedAsExpected() {
-		ConjugatedVerbWithPronoun conjugatedVerbWithPronoun = conjugator.getPresentConjugationOf(new InfinitiveVerb("aller", null), Persons.THIRD_PERSON_SINGULAR);
-		assertEquals(new ConjugatedVerbWithPronoun("Il va"), conjugatedVerbWithPronoun);
-	}
+    @Test
+    public void testThat_Perdre_Present_FirstPersonPluralIsConjugatedAsExpected() throws CantConjugateException {
+        assertEquals(new ConjugatedVerbWithPronoun("Je perds"), conjugator.getPresentConjugationOf(new InfinitiveVerb("perdre", null), Persons.FIRST_PERSON_SINGULAR));
+    }
+
+    @Test
+    public void testThat_Aller_Present_ThirdPersonPluralIsConjugatedAsExpected() throws CantConjugateException {
+        ConjugatedVerbWithPronoun conjugatedVerbWithPronoun = conjugator.getPresentConjugationOf(new InfinitiveVerb("aller", null), Persons.THIRD_PERSON_SINGULAR);
+        assertEquals(new ConjugatedVerbWithPronoun("Il va"), conjugatedVerbWithPronoun);
+    }
+
+    @Test
+    public void testThatIfVerbIsUnknownNullExceptionIsThrown() throws CantConjugateException {
+        thrown.expect(CantConjugateException.class);
+        conjugator.getPresentConjugationOf(new InfinitiveVerb("some nonexistent verb", null), Persons.THIRD_PERSON_SINGULAR);
+
+    }
 }

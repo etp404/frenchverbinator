@@ -1,5 +1,6 @@
 package uk.co.mould.matt.ui;
 
+import uk.co.mould.matt.CantConjugateException;
 import uk.co.mould.matt.conjugators.Conjugator;
 import uk.co.mould.matt.data.Persons;
 import uk.co.mould.matt.data.InfinitiveVerb;
@@ -54,7 +55,11 @@ public class QuestionPresenter {
 			public void incorrect() {
 				questionView.setResultToIncorrect();
 				questionView.showCorrection();
-				questionView.setCorrection(conjugator.getPresentConjugationOf(infinitiveVerb, questionPerson));
+				try {
+					questionView.setCorrection(conjugator.getPresentConjugationOf(infinitiveVerb, questionPerson));
+				} catch (CantConjugateException ignored) {
+
+				}
 			}
 		});
 		questionView.disableAnswerBox();

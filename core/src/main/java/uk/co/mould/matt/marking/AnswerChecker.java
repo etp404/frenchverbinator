@@ -1,5 +1,6 @@
 package uk.co.mould.matt.marking;
 
+import uk.co.mould.matt.CantConjugateException;
 import uk.co.mould.matt.conjugators.Conjugator;
 import uk.co.mould.matt.data.ConjugatedVerbWithPronoun;
 import uk.co.mould.matt.data.Persons;
@@ -29,7 +30,12 @@ public class AnswerChecker {
 	}
 
 	public boolean isAnswerCorrect(String answer) {
-		ConjugatedVerbWithPronoun correctAnswer = conjugator.getPresentConjugationOf(infinitiveVerb, questionPerson);
+		ConjugatedVerbWithPronoun correctAnswer;
+		try {
+			correctAnswer = conjugator.getPresentConjugationOf(infinitiveVerb, questionPerson);
+		} catch (CantConjugateException ignored) {
+			return false;
+		}
 		return correctAnswer.toString().toLowerCase().equals(answer.toLowerCase().trim());
 	}
 
