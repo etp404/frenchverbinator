@@ -15,7 +15,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import uk.co.mould.matt.CantConjugateException;
-import uk.co.mould.matt.VerbMoodsAndTenses;
+import uk.co.mould.matt.data.VerbMoodsAndTenses;
 import uk.co.mould.matt.data.Conjugation;
 import uk.co.mould.matt.data.FrenchInfinitiveVerb;
 import uk.co.mould.matt.data.Persons;

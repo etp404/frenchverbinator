@@ -7,6 +7,9 @@ import org.xml.sax.InputSource;
 import uk.co.mould.matt.conjugators.Conjugator;
 import uk.co.mould.matt.data.InfinitiveVerb;
 import uk.co.mould.matt.data.Persons;
+import uk.co.mould.matt.data.SupportedMoodsAndTenses;
+import uk.co.mould.matt.data.SupportedPersons;
+import uk.co.mould.matt.data.VerbMoodsAndTenses;
 import uk.co.mould.matt.parser.ConjugationParser;
 import uk.co.mould.matt.parser.VerbListParser;
 import uk.co.mould.matt.parser.VerbTemplateParser;
@@ -21,18 +24,12 @@ public final class TestThatAllWhiteListedVerbsCanBeConjugated extends ActivityTe
         Conjugator conjugator = new Conjugator(verbTemplateParser, conjugationParser);
 
         for (InfinitiveVerb verb : verbListParser.getVerbs()) {
-            assertNotNull(String.format("%s form of %s", Persons.FIRST_PERSON_SINGULAR.getPerson(), verb.toString()),
-                    conjugator.getPresentConjugationOf(verb, Persons.FIRST_PERSON_SINGULAR));
-            assertNotNull(String.format("%s form of %s", Persons.SECOND_PERSON_SINGULAR.getPerson(), verb.toString()),
-                    conjugator.getPresentConjugationOf(verb, Persons.SECOND_PERSON_SINGULAR));
-            assertNotNull(String.format("%s form of %s", Persons.THIRD_PERSON_SINGULAR.getPerson(), verb.toString()),
-                    conjugator.getPresentConjugationOf(verb, Persons.THIRD_PERSON_SINGULAR));
-            assertNotNull(String.format("%s form of %s", Persons.FIRST_PERSON_PLURAL.getPerson(), verb.toString()),
-                    conjugator.getPresentConjugationOf(verb, Persons.FIRST_PERSON_PLURAL));
-            assertNotNull(String.format("%s form of %s", Persons.SECOND_PERSON_PLURAL.getPerson(), verb.toString()),
-                    conjugator.getPresentConjugationOf(verb, Persons.SECOND_PERSON_PLURAL));
-            assertNotNull(String.format("%s form of %s", Persons.THIRD_PERSON_PLURAL.getPerson(), verb.toString()),
-                    conjugator.getPresentConjugationOf(verb, Persons.THIRD_PERSON_PLURAL));
+            for (Persons.Person person : SupportedPersons.ALL) {
+                for (VerbMoodsAndTenses.VerbMoodAndTense verbMoodAndTense : SupportedMoodsAndTenses.ALL) {
+                    assertNotNull(String.format("%s form of %s", person, verb.toString()),
+                            conjugator.getPresentConjugationOf(verb, person, verbMoodAndTense));
+                }
+            }
         }
     }
 }

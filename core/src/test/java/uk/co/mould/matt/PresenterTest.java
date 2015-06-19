@@ -4,9 +4,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import uk.co.mould.matt.conjugators.Conjugator;
-import uk.co.mould.matt.data.ConjugatedVerbWithPronoun;
-import uk.co.mould.matt.data.Persons;
-import uk.co.mould.matt.data.InfinitiveVerb;
+import uk.co.mould.matt.data.*;
+import uk.co.mould.matt.data.VerbMoodsAndTenses.VerbMoodAndTense;
 import uk.co.mould.matt.fakes.FakeQuestionGenerator;
 import uk.co.mould.matt.fakes.FakeQuestionView;
 import uk.co.mould.matt.ui.QuestionPresenter;
@@ -131,7 +130,7 @@ public final class PresenterTest {
 		}
 
 		@Override
-		public ConjugatedVerbWithPronoun getPresentConjugationOf(InfinitiveVerb infinitive, Persons.Person person) {
+		public ConjugatedVerbWithPronoun getPresentConjugationOf(InfinitiveVerb infinitive, Persons.Person person, VerbMoodAndTense verbMoodAndTense) {
 			if (personMatchingAnswer == person && verbMatchingAnswer == infinitive) {
 				return correctAnswer;
 			}

@@ -28,55 +28,82 @@ public final class ConjugatorTest {
     public ConjugatorTest() throws ParserConfigurationException, SAXException, IOException {
         conjugator = new Conjugator(
                 new VerbTemplateParser(new InputSource(new FileInputStream("res/verbs-fr.xml"))),
-                new ConjugationParser(new InputSource(new FileInputStream("res/conjugation-fr.xml"))));
+                new ConjugationParser(
+                        new InputSource(new FileInputStream("res/conjugation-fr.xml"))));
     }
 
     @Test
     public void testThat_Aimer_Present_FirstPersonSingularIsConjugatedAsExpected() throws CantConjugateException {
-        assertEquals(new ConjugatedVerbWithPronoun("J'aime"), conjugator.getPresentConjugationOf(new InfinitiveVerb("aimer", null), Persons.FIRST_PERSON_SINGULAR));
+        assertEquals(new ConjugatedVerbWithPronoun("J'aime"),
+                conjugator.getPresentConjugationOf(new InfinitiveVerb("aimer", null),
+                        Persons.FIRST_PERSON_SINGULAR,
+                        VerbMoodsAndTenses.PRESENT_INDICATIVE));
     }
 
     @Test
     public void testThat_Aimer_Present_SecondPersonSingularIsConjugatedAsExpected() throws CantConjugateException {
-        assertEquals(new ConjugatedVerbWithPronoun("Tu aimes"), conjugator.getPresentConjugationOf(new InfinitiveVerb("aimer", null), Persons.SECOND_PERSON_SINGULAR));
+        assertEquals(new ConjugatedVerbWithPronoun("Tu aimes"),
+                conjugator.getPresentConjugationOf(new InfinitiveVerb("aimer", null),
+                        Persons.SECOND_PERSON_SINGULAR,
+                        VerbMoodsAndTenses.PRESENT_INDICATIVE));
     }
 
     @Test
     public void testThat_Aimer_Present_ThirdPersonSingularIsConjugatedAsExpected() throws CantConjugateException {
-        assertEquals(new ConjugatedVerbWithPronoun("Il aime"), conjugator.getPresentConjugationOf(new InfinitiveVerb("aimer", null), Persons.THIRD_PERSON_SINGULAR));
+        assertEquals(new ConjugatedVerbWithPronoun("Il aime"),
+                conjugator.getPresentConjugationOf(new InfinitiveVerb("aimer", null),
+                        Persons.THIRD_PERSON_SINGULAR,
+                        VerbMoodsAndTenses.PRESENT_INDICATIVE));
     }
 
     @Test
     public void testThat_Aimer_Present_FirstPersonPluralIsConjugatedAsExpected() throws CantConjugateException {
-        assertEquals(new ConjugatedVerbWithPronoun("Nous aimons"), conjugator.getPresentConjugationOf(new InfinitiveVerb("aimer", null), Persons.FIRST_PERSON_PLURAL));
+        assertEquals(new ConjugatedVerbWithPronoun("Nous aimons"),
+                conjugator.getPresentConjugationOf(new InfinitiveVerb("aimer", null),
+                        Persons.FIRST_PERSON_PLURAL,
+                        VerbMoodsAndTenses.PRESENT_INDICATIVE));
     }
 
     @Test
     public void testThat_Aimer_Present_SecondPersonPluralIsConjugatedAsExpected() throws CantConjugateException {
-        assertEquals(new ConjugatedVerbWithPronoun("Vous aimez"), conjugator.getPresentConjugationOf(new InfinitiveVerb("aimer", null), Persons.SECOND_PERSON_PLURAL));
+        assertEquals(new ConjugatedVerbWithPronoun("Vous aimez"),
+                conjugator.getPresentConjugationOf(new InfinitiveVerb("aimer", null),
+                        Persons.SECOND_PERSON_PLURAL,
+                        VerbMoodsAndTenses.PRESENT_INDICATIVE));
     }
 
     @Test
     public void testThat_Aimer_Present_ThirdPersonPluralIsConjugatedAsExpected() throws CantConjugateException {
-        ConjugatedVerbWithPronoun conjugatedVerbWithPronoun = conjugator.getPresentConjugationOf(new InfinitiveVerb("aimer", null), Persons.THIRD_PERSON_PLURAL);
+        ConjugatedVerbWithPronoun conjugatedVerbWithPronoun = conjugator.getPresentConjugationOf(
+                new InfinitiveVerb("aimer", null), Persons.THIRD_PERSON_PLURAL,
+                VerbMoodsAndTenses.PRESENT_INDICATIVE);
         assertEquals(new ConjugatedVerbWithPronoun("Ils aiment"), conjugatedVerbWithPronoun);
     }
 
     @Test
     public void testThat_Perdre_Present_FirstPersonPluralIsConjugatedAsExpected() throws CantConjugateException {
-        assertEquals(new ConjugatedVerbWithPronoun("Je perds"), conjugator.getPresentConjugationOf(new InfinitiveVerb("perdre", null), Persons.FIRST_PERSON_SINGULAR));
+        assertEquals(new ConjugatedVerbWithPronoun("Je perds"),
+                conjugator.getPresentConjugationOf(new InfinitiveVerb("perdre", null),
+                        Persons.FIRST_PERSON_SINGULAR,
+                        VerbMoodsAndTenses.PRESENT_INDICATIVE));
     }
 
     @Test
     public void testThat_Aller_Present_ThirdPersonPluralIsConjugatedAsExpected() throws CantConjugateException {
-        ConjugatedVerbWithPronoun conjugatedVerbWithPronoun = conjugator.getPresentConjugationOf(new InfinitiveVerb("aller", null), Persons.THIRD_PERSON_SINGULAR);
+        ConjugatedVerbWithPronoun conjugatedVerbWithPronoun =
+                conjugator.getPresentConjugationOf(
+                        new InfinitiveVerb("aller", null),
+                        Persons.THIRD_PERSON_SINGULAR,
+                        VerbMoodsAndTenses.PRESENT_INDICATIVE);
         assertEquals(new ConjugatedVerbWithPronoun("Il va"), conjugatedVerbWithPronoun);
     }
 
     @Test
     public void testThatIfVerbIsUnknownNullExceptionIsThrown() throws CantConjugateException {
         thrown.expect(CantConjugateException.class);
-        conjugator.getPresentConjugationOf(new InfinitiveVerb("some nonexistent verb", null), Persons.THIRD_PERSON_SINGULAR);
+        conjugator.getPresentConjugationOf(new InfinitiveVerb("some nonexistent verb", null),
+                Persons.THIRD_PERSON_SINGULAR,
+                VerbMoodsAndTenses.PRESENT_INDICATIVE);
     }
 
     @Test
@@ -85,7 +112,27 @@ public final class ConjugatorTest {
                 conjugator.getPresentConjugationOf(
                         new InfinitiveVerb("savoir", null),
                         Persons.THIRD_PERSON_PLURAL,
-                        VerbMoodsAndTenses.INDICATIVE_IMPERFECT);
+                        VerbMoodsAndTenses.IMPERFECT_INDICATIVE);
         assertEquals(new ConjugatedVerbWithPronoun("Ils savaient"), conjugatedVerbWithPronoun);
+    }
+
+    @Test
+    public void testThatFutureTenseCanBeConjugated() throws CantConjugateException {
+        ConjugatedVerbWithPronoun conjugatedVerbWithPronoun =
+                conjugator.getPresentConjugationOf(
+                        new InfinitiveVerb("écrire", null),
+                        Persons.SECOND_PERSON_SINGULAR,
+                        VerbMoodsAndTenses.FUTURE_INDICATIVE);
+        assertEquals(new ConjugatedVerbWithPronoun("Tu écriras"), conjugatedVerbWithPronoun);
+    }
+
+    @Test
+    public void testThatSubjunctivePresentCanBeConjugated() throws CantConjugateException {
+        ConjugatedVerbWithPronoun conjugatedVerbWithPronoun =
+                conjugator.getPresentConjugationOf(
+                        new InfinitiveVerb("étre", null),
+                        Persons.THIRD_PERSON_SINGULAR,
+                        VerbMoodsAndTenses.PRESENT_SUBJUNCTIVE);
+        assertEquals(new ConjugatedVerbWithPronoun("Il soit"), conjugatedVerbWithPronoun);
     }
 }

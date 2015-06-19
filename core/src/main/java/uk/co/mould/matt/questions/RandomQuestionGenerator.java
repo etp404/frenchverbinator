@@ -1,30 +1,21 @@
 package uk.co.mould.matt.questions;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 import uk.co.mould.matt.data.Persons;
 import uk.co.mould.matt.data.InfinitiveVerb;
+import uk.co.mould.matt.data.SupportedPersons;
 import uk.co.mould.matt.parser.VerbListParser;
 
 public final class RandomQuestionGenerator implements uk.co.mould.matt.questions.QuestionGenerator {
 	private VerbListParser verbListParser;
-	private List<Persons.Person> persons = new ArrayList<Persons.Person>(){{
-		add(Persons.FIRST_PERSON_SINGULAR);
-		add(Persons.SECOND_PERSON_SINGULAR);
-		add(Persons.THIRD_PERSON_SINGULAR);
-		add(Persons.FIRST_PERSON_PLURAL);
-		add(Persons.SECOND_PERSON_PLURAL);
-		add(Persons.THIRD_PERSON_PLURAL);
-
-	}};
 
 	public RandomQuestionGenerator(VerbListParser verbListParser) {
 		this.verbListParser = verbListParser;
 	}
 
 	public Persons.Person getRandomPerson() {
-		return persons.get(randomNumber(0, persons.size()));
+		return SupportedPersons.ALL.get(randomNumber(0, SupportedPersons.ALL.size()));
 	}
 
 	public InfinitiveVerb getRandomVerb() {

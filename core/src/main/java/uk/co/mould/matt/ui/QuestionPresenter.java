@@ -4,6 +4,7 @@ import uk.co.mould.matt.CantConjugateException;
 import uk.co.mould.matt.conjugators.Conjugator;
 import uk.co.mould.matt.data.Persons;
 import uk.co.mould.matt.data.InfinitiveVerb;
+import uk.co.mould.matt.data.VerbMoodsAndTenses;
 import uk.co.mould.matt.marking.AnswerChecker;
 import uk.co.mould.matt.questions.QuestionGenerator;
 
@@ -56,7 +57,10 @@ public class QuestionPresenter {
 				questionView.setResultToIncorrect();
 				questionView.showCorrection();
 				try {
-					questionView.setCorrection(conjugator.getPresentConjugationOf(infinitiveVerb, questionPerson));
+					questionView.setCorrection(conjugator.getPresentConjugationOf(
+                            infinitiveVerb,
+                            questionPerson,
+                            VerbMoodsAndTenses.PRESENT_INDICATIVE));
 				} catch (CantConjugateException ignored) {
 
 				}
