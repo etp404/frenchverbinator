@@ -7,6 +7,11 @@ import android.view.ViewGroup;
 
 import org.xml.sax.InputSource;
 
+import java.util.ArrayList;
+
+import uk.co.mould.matt.data.SupportedMoodsAndTenses;
+import uk.co.mould.matt.data.tenses.MoodAndTense;
+import uk.co.mould.matt.data.tenses.PresentIndicative;
 import uk.co.mould.matt.parser.VerbListParser;
 import uk.co.mould.matt.questions.QuestionGenerator;
 import uk.co.mould.matt.questions.RandomQuestionGenerator;
@@ -25,7 +30,9 @@ public class QuestionActivity extends Activity {
 		ConjugationParser conjugationParser = new ConjugationParser(new InputSource(getResources().openRawResource(R.raw.conjugation_fr)));
 		VerbListParser verbListParser = new VerbListParser(new InputSource(getResources().openRawResource(R.raw.verb_list)));
 
-		QuestionGenerator questionGenerator = new RandomQuestionGenerator(verbListParser);
+		QuestionGenerator questionGenerator = new RandomQuestionGenerator(
+                verbListParser,
+                SupportedMoodsAndTenses.ALL);
 		Conjugator conjugator = new Conjugator(verbTemplateParser, conjugationParser);
 
 		final QuestionPresenter questionPresenter = new QuestionPresenter(

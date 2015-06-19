@@ -6,7 +6,7 @@ import android.widget.TextView;
 
 import uk.co.mould.matt.data.ConjugatedVerbWithPronoun;
 import uk.co.mould.matt.data.InfinitiveVerb;
-import uk.co.mould.matt.data.VerbMoodsAndTenses;
+import uk.co.mould.matt.data.tenses.MoodAndTense;
 import uk.co.mould.matt.ui.QuestionView;
 import uk.co.mould.matt.data.Persons;
 
@@ -30,7 +30,7 @@ public final class AndroidQuestionView implements QuestionView {
     }
 
     @Override
-    public void setQuestion(Persons.Person person, InfinitiveVerb verb, VerbMoodsAndTenses.VerbMoodAndTense verbMoodAndTense) {
+    public void setQuestion(Persons.Person person, InfinitiveVerb verb, MoodAndTense moodAndTense) {
         TextView questionBox = (TextView) questionViewGroup.findViewById(R.id.question);
         questionBox.setText(
                 String.format(
@@ -38,7 +38,7 @@ public final class AndroidQuestionView implements QuestionView {
                         person.getPerson(),
                         verb.frenchVerb,
                         verb.englishVerb,
-                        verbMoodAndTense.toString()));
+                        moodAndTense.toString()));
     }
 
     @Override
