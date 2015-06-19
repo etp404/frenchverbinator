@@ -9,7 +9,7 @@ import uk.co.mould.matt.data.tenses.PresentIndicative;
 import uk.co.mould.matt.data.tenses.MoodAndTense;
 import uk.co.mould.matt.parser.VerbListParser;
 
-public final class RandomQuestionGenerator implements uk.co.mould.matt.questions.QuestionGenerator {
+public final class RandomQuestionGenerator implements QuestionGenerator {
 	private VerbListParser verbListParser;
 
 	public RandomQuestionGenerator(VerbListParser verbListParser) {
