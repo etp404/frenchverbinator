@@ -1,18 +1,18 @@
 package uk.co.mould.matt.fakes;
 
 import uk.co.mould.matt.data.InfinitiveVerb;
-import uk.co.mould.matt.data.tenses.VerbMoodsAndTenses;
+import uk.co.mould.matt.data.tenses.MoodAndTense;
 import uk.co.mould.matt.questions.QuestionGenerator;
 import uk.co.mould.matt.data.Persons;
 
 public class FakeQuestionGenerator implements QuestionGenerator {
 	private Persons.Person person;
 	private InfinitiveVerb verb;
-    private VerbMoodsAndTenses verbMoodAndTense;
+    private MoodAndTense verbMoodAndTense;
 
     public FakeQuestionGenerator(InfinitiveVerb verb,
                                  Persons.Person person,
-                                 VerbMoodsAndTenses verbMoodAndTense) {
+                                 MoodAndTense verbMoodAndTense) {
 		this.person = person;
 		this.verb = verb;
         this.verbMoodAndTense = verbMoodAndTense;
@@ -29,7 +29,7 @@ public class FakeQuestionGenerator implements QuestionGenerator {
 	}
 
     @Override
-    public VerbMoodsAndTenses getRandomVerbMoodAndTense() {
+    public MoodAndTense getRandomVerbMoodAndTense() {
         return verbMoodAndTense;
     }
 }

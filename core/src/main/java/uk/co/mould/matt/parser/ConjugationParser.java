@@ -19,7 +19,7 @@ import uk.co.mould.matt.data.Conjugation;
 import uk.co.mould.matt.data.FrenchInfinitiveVerb;
 import uk.co.mould.matt.data.Persons;
 import uk.co.mould.matt.data.VerbTemplate;
-import uk.co.mould.matt.data.tenses.VerbMoodsAndTenses;
+import uk.co.mould.matt.data.tenses.MoodAndTense;
 
 public final class ConjugationParser {
 
@@ -65,7 +65,7 @@ public final class ConjugationParser {
 		return new Conjugation(frenchInfinitiveVerb.toString().replace(template.getEndingAsString(), conjugatedEnding));
 	}
 
-    public Conjugation getConjugation(FrenchInfinitiveVerb frenchInfinitiveVerb, VerbTemplate template, Persons.Person person, VerbMoodsAndTenses verbMoodAndTense) throws CantConjugateException {
+    public Conjugation getConjugation(FrenchInfinitiveVerb frenchInfinitiveVerb, VerbTemplate template, Persons.Person person, MoodAndTense verbMoodAndTense) throws CantConjugateException {
         Element element = templateToNode.get(template);
         if (element == null) {
             throw new CantConjugateException("Could not conjugate " + frenchInfinitiveVerb.toString());

@@ -1,6 +1,6 @@
 package uk.co.mould.matt.data.tenses;
 
-public final class ImperfectIndicative extends VerbMoodsAndTenses {
+public final class ImperfectIndicative extends MoodAndTense {
     @Override
     public String getMood() {
         return "indicative";

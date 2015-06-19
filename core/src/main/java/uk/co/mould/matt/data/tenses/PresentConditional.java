@@ -1,6 +1,6 @@
 package uk.co.mould.matt.data.tenses;
 
-public final class PresentConditional extends VerbMoodsAndTenses {
+public final class PresentConditional extends MoodAndTense {
     @Override
     public String getMood() {
         return "conditional";

@@ -5,13 +5,13 @@ import uk.co.mould.matt.conjugators.Conjugator;
 import uk.co.mould.matt.data.ConjugatedVerbWithPronoun;
 import uk.co.mould.matt.data.Persons;
 import uk.co.mould.matt.data.InfinitiveVerb;
-import uk.co.mould.matt.data.tenses.VerbMoodsAndTenses;
+import uk.co.mould.matt.data.tenses.MoodAndTense;
 
 //TODO: this needs a test.
 public class AnswerChecker {
     private InfinitiveVerb infinitiveVerb;
     private Persons.Person questionPerson;
-    private VerbMoodsAndTenses verbMoodAndTense;
+    private MoodAndTense verbMoodAndTense;
     private Conjugator conjugator;
 
     public AnswerChecker(Conjugator conjugator) {
@@ -20,7 +20,7 @@ public class AnswerChecker {
 
     public void setQuestion(Persons.Person questionPerson,
                             InfinitiveVerb infinitiveVerb,
-                            VerbMoodsAndTenses verbMoodAndTense) {
+                            MoodAndTense verbMoodAndTense) {
         this.questionPerson = questionPerson;
         this.infinitiveVerb = infinitiveVerb;
         this.verbMoodAndTense = verbMoodAndTense;

@@ -2,14 +2,14 @@ package uk.co.mould.matt.fakes;
 
 import uk.co.mould.matt.data.ConjugatedVerbWithPronoun;
 import uk.co.mould.matt.data.InfinitiveVerb;
-import uk.co.mould.matt.data.tenses.VerbMoodsAndTenses;
+import uk.co.mould.matt.data.tenses.MoodAndTense;
 import uk.co.mould.matt.ui.QuestionView;
 import uk.co.mould.matt.data.Persons;
 
 public class FakeQuestionView implements QuestionView {
 	public InfinitiveVerb verb;
 	public Persons.Person person;
-    public VerbMoodsAndTenses verbMoodAndTense;
+    public MoodAndTense verbMoodAndTense;
 	public Boolean resultBoxShowingCorrect = null;
 	public Boolean resultBoxShowingIncorrect = null;
 	public String answer = "default";
@@ -23,7 +23,7 @@ public class FakeQuestionView implements QuestionView {
 	public Boolean submitButtonVisible = null;
 
     @Override
-	public void setQuestion(Persons.Person person, InfinitiveVerb verb, VerbMoodsAndTenses verbMoodAndTense) {
+	public void setQuestion(Persons.Person person, InfinitiveVerb verb, MoodAndTense verbMoodAndTense) {
 		this.person = person;
 		this.verb = verb;
         this.verbMoodAndTense = verbMoodAndTense;
