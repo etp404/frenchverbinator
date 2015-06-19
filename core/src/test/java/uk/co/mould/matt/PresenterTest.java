@@ -5,8 +5,8 @@ import org.junit.Test;
 
 import uk.co.mould.matt.conjugators.Conjugator;
 import uk.co.mould.matt.data.*;
-import uk.co.mould.matt.data.VerbMoodsAndTenses.VerbMoodAndTense;
 import uk.co.mould.matt.data.tenses.PresentIndicative;
+import uk.co.mould.matt.data.tenses.VerbMoodsAndTenses;
 import uk.co.mould.matt.fakes.FakeQuestionGenerator;
 import uk.co.mould.matt.fakes.FakeQuestionView;
 import uk.co.mould.matt.ui.QuestionPresenter;
@@ -19,7 +19,7 @@ public final class PresenterTest {
 
 	private final Persons.Person person = Persons.FIRST_PERSON_PLURAL;
 	private final InfinitiveVerb verb = new InfinitiveVerb("regarder", "to watch");
-    private VerbMoodAndTense verbMoodAndTense = new PresentIndicative();
+    private VerbMoodsAndTenses verbMoodAndTense = new PresentIndicative();
 
 	private final String correctAnswer = "Vous regardez";
 	private final String correctAnswerWithTrailingSpace = "Vous regardez ";
@@ -134,7 +134,7 @@ public final class PresenterTest {
 		}
 
 		@Override
-		public ConjugatedVerbWithPronoun getPresentConjugationOf(InfinitiveVerb infinitive, Persons.Person person, VerbMoodAndTense verbMoodAndTense) {
+		public ConjugatedVerbWithPronoun getPresentConjugationOf(InfinitiveVerb infinitive, Persons.Person person, VerbMoodsAndTenses verbMoodAndTense) {
 			if (personMatchingAnswer == person && verbMatchingAnswer == infinitive) {
 				return correctAnswer;
 			}

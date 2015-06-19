@@ -4,8 +4,8 @@ import uk.co.mould.matt.CantConjugateException;
 import uk.co.mould.matt.conjugators.Conjugator;
 import uk.co.mould.matt.data.Persons;
 import uk.co.mould.matt.data.InfinitiveVerb;
-import uk.co.mould.matt.data.VerbMoodsAndTenses;
 import uk.co.mould.matt.data.tenses.PresentIndicative;
+import uk.co.mould.matt.data.tenses.VerbMoodsAndTenses;
 import uk.co.mould.matt.marking.AnswerChecker;
 import uk.co.mould.matt.questions.QuestionGenerator;
 
@@ -16,7 +16,7 @@ public class QuestionPresenter {
 	private QuestionGenerator fakeQuestionGenerator;
     private InfinitiveVerb infinitiveVerb;
     private Persons.Person questionPerson;
-    private VerbMoodsAndTenses.VerbMoodAndTense verbMoodAndTense;
+    private VerbMoodsAndTenses verbMoodAndTense;
 
     public QuestionPresenter(QuestionView questionView,
 							 QuestionGenerator questionGenerator,

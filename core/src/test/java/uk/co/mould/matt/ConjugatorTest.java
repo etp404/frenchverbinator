@@ -13,7 +13,11 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import uk.co.mould.matt.conjugators.Conjugator;
 import uk.co.mould.matt.data.*;
+import uk.co.mould.matt.data.tenses.FutureIndicative;
+import uk.co.mould.matt.data.tenses.ImperfectIndicative;
+import uk.co.mould.matt.data.tenses.PresentConditional;
 import uk.co.mould.matt.data.tenses.PresentIndicative;
+import uk.co.mould.matt.data.tenses.PresentSubjunctive;
 import uk.co.mould.matt.parser.ConjugationParser;
 import uk.co.mould.matt.parser.VerbTemplateParser;
 
@@ -113,7 +117,7 @@ public final class ConjugatorTest {
                 conjugator.getPresentConjugationOf(
                         new InfinitiveVerb("savoir", null),
                         Persons.THIRD_PERSON_PLURAL,
-                        VerbMoodsAndTenses.IMPERFECT_INDICATIVE);
+                        new ImperfectIndicative());
         assertEquals(new ConjugatedVerbWithPronoun("Ils savaient"), conjugatedVerbWithPronoun);
     }
 
@@ -123,7 +127,7 @@ public final class ConjugatorTest {
                 conjugator.getPresentConjugationOf(
                         new InfinitiveVerb("écrire", null),
                         Persons.SECOND_PERSON_SINGULAR,
-                        VerbMoodsAndTenses.FUTURE_INDICATIVE);
+                        new FutureIndicative());
         assertEquals(new ConjugatedVerbWithPronoun("Tu écriras"), conjugatedVerbWithPronoun);
     }
 
@@ -133,7 +137,7 @@ public final class ConjugatorTest {
                 conjugator.getPresentConjugationOf(
                         new InfinitiveVerb("être", null),
                         Persons.THIRD_PERSON_SINGULAR,
-                        VerbMoodsAndTenses.PRESENT_SUBJUNCTIVE);
+                        new PresentSubjunctive());
         assertEquals(new ConjugatedVerbWithPronoun("Il soit"), conjugatedVerbWithPronoun);
     }
 
@@ -143,7 +147,7 @@ public final class ConjugatorTest {
                 conjugator.getPresentConjugationOf(
                         new InfinitiveVerb("vouloir", null),
                         Persons.SECOND_PERSON_SINGULAR,
-                        VerbMoodsAndTenses.PRESENT_CONDITIONAL);
+                        new PresentConditional());
         assertEquals(new ConjugatedVerbWithPronoun("Tu voudrais"), conjugatedVerbWithPronoun);
     }
 }
