@@ -85,7 +85,7 @@ public final class ConjugatorTest {
                 conjugator.getPresentConjugationOf(
                         new InfinitiveVerb("savoir", null),
                         Persons.THIRD_PERSON_PLURAL,
-                        Tenses.IMPERFECT);
+                        VerbMoodsAndTenses.INDICATIVE_IMPERFECT);
         assertEquals(new ConjugatedVerbWithPronoun("Ils savaient"), conjugatedVerbWithPronoun);
     }
 }

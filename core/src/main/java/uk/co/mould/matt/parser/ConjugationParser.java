@@ -15,7 +15,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import uk.co.mould.matt.CantConjugateException;
-import uk.co.mould.matt.Tenses;
+import uk.co.mould.matt.VerbMoodsAndTenses;
 import uk.co.mould.matt.data.Conjugation;
 import uk.co.mould.matt.data.FrenchInfinitiveVerb;
 import uk.co.mould.matt.data.Persons;
@@ -65,13 +65,13 @@ public final class ConjugationParser {
 		return new Conjugation(frenchInfinitiveVerb.toString().replace(template.getEndingAsString(), conjugatedEnding));
 	}
 
-    public Conjugation getConjugation(FrenchInfinitiveVerb frenchInfinitiveVerb, VerbTemplate template, Persons.Person person, Tenses tense) throws CantConjugateException {
+    public Conjugation getConjugation(FrenchInfinitiveVerb frenchInfinitiveVerb, VerbTemplate template, Persons.Person person, VerbMoodsAndTenses.VerbMoodAndTense verbMoodAndTense) throws CantConjugateException {
         Element element = templateToNode.get(template);
         if (element == null) {
             throw new CantConjugateException("Could not conjugate " + frenchInfinitiveVerb.toString());
         }
-        Element indicativeVerbNode = (Element) element.getElementsByTagName("indicative").item(0);
-        Element imperfectVerbEndings = (Element) indicativeVerbNode.getElementsByTagName("imperfect").item(0);
+        Element indicativeVerbNode = (Element) element.getElementsByTagName(verbMoodAndTense.getMood()).item(0);
+        Element imperfectVerbEndings = (Element) indicativeVerbNode.getElementsByTagName(verbMoodAndTense.getTense()).item(0);
 
         String conjugatedEnding = imperfectVerbEndings.getElementsByTagName("i").item(PERSON_TO_INDEX.get(person)).getTextContent();
 
