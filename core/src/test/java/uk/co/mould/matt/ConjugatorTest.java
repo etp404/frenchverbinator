@@ -130,9 +130,19 @@ public final class ConjugatorTest {
     public void testThatSubjunctivePresentCanBeConjugated() throws CantConjugateException {
         ConjugatedVerbWithPronoun conjugatedVerbWithPronoun =
                 conjugator.getPresentConjugationOf(
-                        new InfinitiveVerb("étre", null),
+                        new InfinitiveVerb("être", null),
                         Persons.THIRD_PERSON_SINGULAR,
                         VerbMoodsAndTenses.PRESENT_SUBJUNCTIVE);
         assertEquals(new ConjugatedVerbWithPronoun("Il soit"), conjugatedVerbWithPronoun);
+    }
+
+    @Test
+    public void testThatConditionalPresentCanBeConjugated() throws CantConjugateException {
+        ConjugatedVerbWithPronoun conjugatedVerbWithPronoun =
+                conjugator.getPresentConjugationOf(
+                        new InfinitiveVerb("vouloir", null),
+                        Persons.SECOND_PERSON_SINGULAR,
+                        VerbMoodsAndTenses.PRESENT_CONDITIONAL);
+        assertEquals(new ConjugatedVerbWithPronoun("Tu voudrais"), conjugatedVerbWithPronoun);
     }
 }

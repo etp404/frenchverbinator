@@ -55,4 +55,16 @@ public class VerbMoodsAndTenses {
         }
     };
 
+    public static final VerbMoodAndTense PRESENT_CONDITIONAL =  new VerbMoodAndTense() {
+        @Override
+        public String getMood() {
+            return "conditional";
+        }
+
+        @Override
+        public String getTense() {
+            return "present";
+        }
+    };
+
 }
