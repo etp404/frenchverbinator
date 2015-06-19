@@ -1,6 +1,7 @@
 package uk.co.mould.matt.conjugators;
 
 import uk.co.mould.matt.CantConjugateException;
+import uk.co.mould.matt.Tenses;
 import uk.co.mould.matt.data.ConjugatedVerbWithPronoun;
 import uk.co.mould.matt.data.Conjugation;
 import uk.co.mould.matt.data.Persons;
@@ -27,4 +28,9 @@ public class Conjugator {
 		return pronounHandler.addPronoun(conjugation, person);
 	}
 
+    public ConjugatedVerbWithPronoun getPresentConjugationOf(InfinitiveVerb infinitiveVerb, Persons.Person person, Tenses tense) throws CantConjugateException {
+        VerbTemplate template = verbTemplateParser.getTemplateForVerb(infinitiveVerb.frenchVerb);
+        Conjugation conjugation = conjugationParser.getConjugation(infinitiveVerb.frenchVerb, template, person, tense);
+        return pronounHandler.addPronoun(conjugation, person);
+    }
 }

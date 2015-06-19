@@ -15,6 +15,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import uk.co.mould.matt.CantConjugateException;
+import uk.co.mould.matt.Tenses;
 import uk.co.mould.matt.data.Conjugation;
 import uk.co.mould.matt.data.FrenchInfinitiveVerb;
 import uk.co.mould.matt.data.Persons;
@@ -58,9 +59,22 @@ public final class ConjugationParser {
 		if (element == null) {
 			throw new CantConjugateException("Could not conjugate " + frenchInfinitiveVerb.toString());
 		}
-		Element indicativeVerbNode = (Element) element.getElementsByTagName("indicative").item(0);
-		String conjugatedEnding = indicativeVerbNode.getElementsByTagName("i").item(PERSON_TO_INDEX.get(person)).getTextContent();
+        Element indicativeVerbNode = (Element) element.getElementsByTagName("indicative").item(0);
+        String conjugatedEnding = indicativeVerbNode.getElementsByTagName("i").item(PERSON_TO_INDEX.get(person)).getTextContent();
 
 		return new Conjugation(frenchInfinitiveVerb.toString().replace(template.getEndingAsString(), conjugatedEnding));
 	}
+
+    public Conjugation getConjugation(FrenchInfinitiveVerb frenchInfinitiveVerb, VerbTemplate template, Persons.Person person, Tenses tense) throws CantConjugateException {
+        Element element = templateToNode.get(template);
+        if (element == null) {
+            throw new CantConjugateException("Could not conjugate " + frenchInfinitiveVerb.toString());
+        }
+        Element indicativeVerbNode = (Element) element.getElementsByTagName("indicative").item(0);
+        Element imperfectVerbEndings = (Element) indicativeVerbNode.getElementsByTagName("imperfect").item(0);
+
+        String conjugatedEnding = imperfectVerbEndings.getElementsByTagName("i").item(PERSON_TO_INDEX.get(person)).getTextContent();
+
+        return new Conjugation(frenchInfinitiveVerb.toString().replace(template.getEndingAsString(), conjugatedEnding));
+    }
 }

@@ -77,6 +77,15 @@ public final class ConjugatorTest {
     public void testThatIfVerbIsUnknownNullExceptionIsThrown() throws CantConjugateException {
         thrown.expect(CantConjugateException.class);
         conjugator.getPresentConjugationOf(new InfinitiveVerb("some nonexistent verb", null), Persons.THIRD_PERSON_SINGULAR);
+    }
 
+    @Test
+    public void testThatImperfectTenseCanBeConjugated() throws CantConjugateException {
+        ConjugatedVerbWithPronoun conjugatedVerbWithPronoun =
+                conjugator.getPresentConjugationOf(
+                        new InfinitiveVerb("savoir", null),
+                        Persons.THIRD_PERSON_PLURAL,
+                        Tenses.IMPERFECT);
+        assertEquals(new ConjugatedVerbWithPronoun("Ils savaient"), conjugatedVerbWithPronoun);
     }
 }
