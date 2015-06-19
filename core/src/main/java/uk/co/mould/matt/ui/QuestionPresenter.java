@@ -63,7 +63,7 @@ public class QuestionPresenter {
 					questionView.setCorrection(conjugator.getPresentConjugationOf(
                             infinitiveVerb,
                             questionPerson,
-                            new PresentIndicative()));
+                            verbMoodAndTense));
 				} catch (CantConjugateException ignored) {
 
 				}
