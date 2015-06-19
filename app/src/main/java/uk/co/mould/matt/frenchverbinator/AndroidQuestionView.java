@@ -6,11 +6,12 @@ import android.widget.TextView;
 
 import uk.co.mould.matt.data.ConjugatedVerbWithPronoun;
 import uk.co.mould.matt.data.InfinitiveVerb;
+import uk.co.mould.matt.data.VerbMoodsAndTenses;
 import uk.co.mould.matt.ui.QuestionView;
 import uk.co.mould.matt.data.Persons;
 
 public final class AndroidQuestionView implements QuestionView {
-    private static final String QUESTION_TEMPLATE = "What is the '%s' form of %s (%s)?";
+    private static final String QUESTION_TEMPLATE = "What is the '%s' form of %s (%s) in the %s?";
 
     private ViewGroup questionViewGroup;
     private TextView answerBox;
@@ -29,14 +30,15 @@ public final class AndroidQuestionView implements QuestionView {
     }
 
     @Override
-    public void setQuestion(Persons.Person person, InfinitiveVerb verb) {
+    public void setQuestion(Persons.Person person, InfinitiveVerb verb, VerbMoodsAndTenses.VerbMoodAndTense verbMoodAndTense) {
         TextView questionBox = (TextView) questionViewGroup.findViewById(R.id.question);
         questionBox.setText(
                 String.format(
                         QUESTION_TEMPLATE,
                         person.getPerson(),
                         verb.frenchVerb,
-                        verb.englishVerb));
+                        verb.englishVerb,
+                        verbMoodAndTense.toString()));
     }
 
     @Override

@@ -7,18 +7,6 @@ public class VerbMoodsAndTenses {
         String getTense();
     }
 
-    public static final VerbMoodAndTense PRESENT_INDICATIVE = new VerbMoodAndTense() {
-        @Override
-        public String getMood() {
-            return "indicative";
-        }
-
-        @Override
-        public String getTense() {
-            return "present";
-        }
-    };
-
     public static final VerbMoodAndTense IMPERFECT_INDICATIVE = new VerbMoodAndTense() {
         @Override
         public String getMood() {

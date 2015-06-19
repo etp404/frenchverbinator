@@ -5,6 +5,7 @@ import uk.co.mould.matt.conjugators.Conjugator;
 import uk.co.mould.matt.data.Persons;
 import uk.co.mould.matt.data.InfinitiveVerb;
 import uk.co.mould.matt.data.VerbMoodsAndTenses;
+import uk.co.mould.matt.data.tenses.PresentIndicative;
 import uk.co.mould.matt.marking.AnswerChecker;
 import uk.co.mould.matt.questions.QuestionGenerator;
 
@@ -13,10 +14,11 @@ public class QuestionPresenter {
 	private AnswerChecker answerChecker;
 	private QuestionView questionView;
 	private QuestionGenerator fakeQuestionGenerator;
-	private Persons.Person questionPerson;
-	private InfinitiveVerb infinitiveVerb;
+    private InfinitiveVerb infinitiveVerb;
+    private Persons.Person questionPerson;
+    private VerbMoodsAndTenses.VerbMoodAndTense verbMoodAndTense;
 
-	public QuestionPresenter(QuestionView questionView,
+    public QuestionPresenter(QuestionView questionView,
 							 QuestionGenerator questionGenerator,
 							 Conjugator conjugator) {
 		this.questionView = questionView;
@@ -28,7 +30,8 @@ public class QuestionPresenter {
 	public void showQuestion() {
 		questionPerson = fakeQuestionGenerator.getRandomPerson();
 		infinitiveVerb = fakeQuestionGenerator.getRandomVerb();
-		questionView.setQuestion(questionPerson, infinitiveVerb);
+        verbMoodAndTense = fakeQuestionGenerator.getRandomVerbMoodAndTense();
+		questionView.setQuestion(questionPerson, infinitiveVerb, verbMoodAndTense);
 		questionView.hideCorrection();
 
 		questionView.enableAnswerBox();
@@ -42,7 +45,7 @@ public class QuestionPresenter {
 
 		questionView.hideResultBox();
 
-		this.answerChecker.setQuestion(questionPerson, infinitiveVerb);
+		this.answerChecker.setQuestion(questionPerson, infinitiveVerb, verbMoodAndTense);
 	}
 
 	public void submitAnswer() {
@@ -60,7 +63,7 @@ public class QuestionPresenter {
 					questionView.setCorrection(conjugator.getPresentConjugationOf(
                             infinitiveVerb,
                             questionPerson,
-                            VerbMoodsAndTenses.PRESENT_INDICATIVE));
+                            new PresentIndicative()));
 				} catch (CantConjugateException ignored) {
 
 				}

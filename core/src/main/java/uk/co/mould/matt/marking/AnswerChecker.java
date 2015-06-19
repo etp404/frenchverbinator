@@ -7,18 +7,23 @@ import uk.co.mould.matt.data.Persons;
 import uk.co.mould.matt.data.InfinitiveVerb;
 import uk.co.mould.matt.data.VerbMoodsAndTenses;
 
+//TODO: this needs a test.
 public class AnswerChecker {
-    private Persons.Person questionPerson;
     private InfinitiveVerb infinitiveVerb;
+    private Persons.Person questionPerson;
+    private VerbMoodsAndTenses.VerbMoodAndTense verbMoodAndTense;
     private Conjugator conjugator;
 
     public AnswerChecker(Conjugator conjugator) {
         this.conjugator = conjugator;
     }
 
-    public void setQuestion(Persons.Person questionPerson, InfinitiveVerb infinitiveVerb) {
+    public void setQuestion(Persons.Person questionPerson,
+                            InfinitiveVerb infinitiveVerb,
+                            VerbMoodsAndTenses.VerbMoodAndTense verbMoodAndTense) {
         this.questionPerson = questionPerson;
         this.infinitiveVerb = infinitiveVerb;
+        this.verbMoodAndTense = verbMoodAndTense;
     }
 
     public void check(String answer, Callback callback) {
@@ -35,7 +40,7 @@ public class AnswerChecker {
             correctAnswer = conjugator.getPresentConjugationOf(
                     infinitiveVerb,
                     questionPerson,
-                    VerbMoodsAndTenses.PRESENT_INDICATIVE);
+                    verbMoodAndTense);
         } catch (CantConjugateException ignored) {
             return false;
         }

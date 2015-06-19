@@ -6,6 +6,7 @@ import org.junit.Test;
 import uk.co.mould.matt.conjugators.Conjugator;
 import uk.co.mould.matt.data.*;
 import uk.co.mould.matt.data.VerbMoodsAndTenses.VerbMoodAndTense;
+import uk.co.mould.matt.data.tenses.PresentIndicative;
 import uk.co.mould.matt.fakes.FakeQuestionGenerator;
 import uk.co.mould.matt.fakes.FakeQuestionView;
 import uk.co.mould.matt.ui.QuestionPresenter;
@@ -18,18 +19,19 @@ public final class PresenterTest {
 
 	private final Persons.Person person = Persons.FIRST_PERSON_PLURAL;
 	private final InfinitiveVerb verb = new InfinitiveVerb("regarder", "to watch");
+    private VerbMoodAndTense verbMoodAndTense = new PresentIndicative();
+
 	private final String correctAnswer = "Vous regardez";
 	private final String correctAnswerWithTrailingSpace = "Vous regardez ";
 	private FakeQuestionView questionView;
 	private QuestionPresenter questionPresenter;
 
-
-	@Before
+    @Before
 	public void setup() {
 		questionView = new FakeQuestionView();
-		questionPresenter = new QuestionPresenter(
+        questionPresenter = new QuestionPresenter(
 				questionView,
-				new FakeQuestionGenerator(person, verb),
+				new FakeQuestionGenerator(verb, person, verbMoodAndTense),
 				new FakeConjugator(person, verb, new ConjugatedVerbWithPronoun(correctAnswer)));
 		questionPresenter.showQuestion();
 	}
@@ -37,6 +39,8 @@ public final class PresenterTest {
 	public void testThatQuestionViewIsSetCorrectly() {
 		assertEquals(questionView.person, person);
 		assertEquals(questionView.verb, verb);
+		assertEquals(questionView.verbMoodAndTense, verbMoodAndTense);
+
         assertFalse(questionView.resultBoxVisible);
 
         assertTrue(questionView.submitButtonEnabled);

@@ -3,9 +3,10 @@ package uk.co.mould.matt.ui;
 import uk.co.mould.matt.data.ConjugatedVerbWithPronoun;
 import uk.co.mould.matt.data.Persons;
 import uk.co.mould.matt.data.InfinitiveVerb;
+import uk.co.mould.matt.data.VerbMoodsAndTenses;
 
 public interface QuestionView {
-	void setQuestion(Persons.Person person, InfinitiveVerb verb);
+	void setQuestion(Persons.Person person, InfinitiveVerb verb, VerbMoodsAndTenses.VerbMoodAndTense verbMoodAndTense);
 
 	void setResultToCorrect();
 

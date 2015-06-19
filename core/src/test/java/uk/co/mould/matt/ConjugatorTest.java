@@ -13,6 +13,7 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import uk.co.mould.matt.conjugators.Conjugator;
 import uk.co.mould.matt.data.*;
+import uk.co.mould.matt.data.tenses.PresentIndicative;
 import uk.co.mould.matt.parser.ConjugationParser;
 import uk.co.mould.matt.parser.VerbTemplateParser;
 
@@ -37,7 +38,7 @@ public final class ConjugatorTest {
         assertEquals(new ConjugatedVerbWithPronoun("J'aime"),
                 conjugator.getPresentConjugationOf(new InfinitiveVerb("aimer", null),
                         Persons.FIRST_PERSON_SINGULAR,
-                        VerbMoodsAndTenses.PRESENT_INDICATIVE));
+                        new PresentIndicative()));
     }
 
     @Test
@@ -45,7 +46,7 @@ public final class ConjugatorTest {
         assertEquals(new ConjugatedVerbWithPronoun("Tu aimes"),
                 conjugator.getPresentConjugationOf(new InfinitiveVerb("aimer", null),
                         Persons.SECOND_PERSON_SINGULAR,
-                        VerbMoodsAndTenses.PRESENT_INDICATIVE));
+                        new PresentIndicative()));
     }
 
     @Test
@@ -53,7 +54,7 @@ public final class ConjugatorTest {
         assertEquals(new ConjugatedVerbWithPronoun("Il aime"),
                 conjugator.getPresentConjugationOf(new InfinitiveVerb("aimer", null),
                         Persons.THIRD_PERSON_SINGULAR,
-                        VerbMoodsAndTenses.PRESENT_INDICATIVE));
+                        new PresentIndicative()));
     }
 
     @Test
@@ -61,7 +62,7 @@ public final class ConjugatorTest {
         assertEquals(new ConjugatedVerbWithPronoun("Nous aimons"),
                 conjugator.getPresentConjugationOf(new InfinitiveVerb("aimer", null),
                         Persons.FIRST_PERSON_PLURAL,
-                        VerbMoodsAndTenses.PRESENT_INDICATIVE));
+                        new PresentIndicative()));
     }
 
     @Test
@@ -69,14 +70,14 @@ public final class ConjugatorTest {
         assertEquals(new ConjugatedVerbWithPronoun("Vous aimez"),
                 conjugator.getPresentConjugationOf(new InfinitiveVerb("aimer", null),
                         Persons.SECOND_PERSON_PLURAL,
-                        VerbMoodsAndTenses.PRESENT_INDICATIVE));
+                        new PresentIndicative()));
     }
 
     @Test
     public void testThat_Aimer_Present_ThirdPersonPluralIsConjugatedAsExpected() throws CantConjugateException {
         ConjugatedVerbWithPronoun conjugatedVerbWithPronoun = conjugator.getPresentConjugationOf(
                 new InfinitiveVerb("aimer", null), Persons.THIRD_PERSON_PLURAL,
-                VerbMoodsAndTenses.PRESENT_INDICATIVE);
+                new PresentIndicative());
         assertEquals(new ConjugatedVerbWithPronoun("Ils aiment"), conjugatedVerbWithPronoun);
     }
 
@@ -85,7 +86,7 @@ public final class ConjugatorTest {
         assertEquals(new ConjugatedVerbWithPronoun("Je perds"),
                 conjugator.getPresentConjugationOf(new InfinitiveVerb("perdre", null),
                         Persons.FIRST_PERSON_SINGULAR,
-                        VerbMoodsAndTenses.PRESENT_INDICATIVE));
+                        new PresentIndicative()));
     }
 
     @Test
@@ -94,7 +95,7 @@ public final class ConjugatorTest {
                 conjugator.getPresentConjugationOf(
                         new InfinitiveVerb("aller", null),
                         Persons.THIRD_PERSON_SINGULAR,
-                        VerbMoodsAndTenses.PRESENT_INDICATIVE);
+                        new PresentIndicative());
         assertEquals(new ConjugatedVerbWithPronoun("Il va"), conjugatedVerbWithPronoun);
     }
 
@@ -103,7 +104,7 @@ public final class ConjugatorTest {
         thrown.expect(CantConjugateException.class);
         conjugator.getPresentConjugationOf(new InfinitiveVerb("some nonexistent verb", null),
                 Persons.THIRD_PERSON_SINGULAR,
-                VerbMoodsAndTenses.PRESENT_INDICATIVE);
+                new PresentIndicative());
     }
 
     @Test
