@@ -9,7 +9,7 @@ import uk.co.mould.matt.data.InfinitiveVerb;
 import uk.co.mould.matt.data.Persons;
 import uk.co.mould.matt.data.SupportedMoodsAndTenses;
 import uk.co.mould.matt.data.SupportedPersons;
-import uk.co.mould.matt.data.VerbMoodsAndTenses;
+import uk.co.mould.matt.data.tenses.MoodAndTense;
 import uk.co.mould.matt.parser.ConjugationParser;
 import uk.co.mould.matt.parser.VerbListParser;
 import uk.co.mould.matt.parser.VerbTemplateParser;
@@ -25,9 +25,9 @@ public final class TestThatAllWhiteListedVerbsCanBeConjugated extends ActivityTe
 
         for (InfinitiveVerb verb : verbListParser.getVerbs()) {
             for (Persons.Person person : SupportedPersons.ALL) {
-                for (VerbMoodsAndTenses.VerbMoodAndTense verbMoodAndTense : SupportedMoodsAndTenses.ALL) {
+                for (MoodAndTense moodAndTense : SupportedMoodsAndTenses.ALL) {
                     assertNotNull(String.format("%s form of %s", person, verb.toString()),
-                            conjugator.getPresentConjugationOf(verb, person, verbMoodAndTense));
+                            conjugator.getPresentConjugationOf(verb, person, moodAndTense));
                 }
             }
         }
