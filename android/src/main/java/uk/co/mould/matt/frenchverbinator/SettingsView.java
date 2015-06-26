@@ -52,6 +52,8 @@ class SettingsView extends LinearLayout {
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if (isChecked) {
                         settingsPresenter.addToSelectedTenses(moodAndTense);
+                    } else {
+                        settingsPresenter.removeSelectedTenses(moodAndTense);
                     }
                 }
             });

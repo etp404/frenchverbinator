@@ -73,6 +73,14 @@ public class SettingsViewTest extends ActivityInstrumentationTestCase2<TestActiv
         assertThat(fakeSettingsPresenter.toldToInclude, instanceOf(ImperfectIndicative.class));
     }
 
+    public void testThatPresenterIsToldWhenTenseIsUnchecked() {
+        tellViewToAddTenseOptions(presentConditional, imperfectIndicative);
+        tellViewToSelectRequiredTenseOptions(presentConditional);
+        tellViewToSelectRequiredTenseOptions(imperfectIndicative);
+        onView(withText(imperfectIndicative.toString())).perform(click());
+        assertThat(fakeSettingsPresenter.toldToRemove, instanceOf(ImperfectIndicative.class));
+    }
+
 
     private void tellViewToAddTenseOptions(final PresentConditional presentConditional, final ImperfectIndicative imperfectIndicative) {
         Runnable runnable = new Runnable() {
@@ -105,10 +113,16 @@ public class SettingsViewTest extends ActivityInstrumentationTestCase2<TestActiv
     private class FakeSettingsPresenter implements SettingsPresenter {
 
         public MoodAndTense toldToInclude;
+        public MoodAndTense toldToRemove;
 
         @Override
         public void addToSelectedTenses(MoodAndTense moodAndTense) {
             toldToInclude = moodAndTense;
+        }
+
+        @Override
+        public void removeSelectedTenses(MoodAndTense moodAndTense) {
+            toldToRemove = moodAndTense;
         }
     }
 }
