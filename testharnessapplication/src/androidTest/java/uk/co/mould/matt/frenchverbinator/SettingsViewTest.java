@@ -74,8 +74,6 @@ public class SettingsViewTest extends ActivityInstrumentationTestCase2<TestActiv
     }
 
 
-
-
     private void tellViewToAddTenseOptions(final PresentConditional presentConditional, final ImperfectIndicative imperfectIndicative) {
         Runnable runnable = new Runnable() {
             public void run() {
