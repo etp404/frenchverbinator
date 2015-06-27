@@ -19,7 +19,9 @@ public final class SettingsActivity extends Activity {
 
         ViewGroup activityTestViewGroup = (ViewGroup) findViewById(R.id.settings_activity_parent);
         SettingsView settingsView = AndroidSettingsView.createView(activityTestViewGroup);
-        SettingsPresenter settingsPresenter = new SettingsPresenterImpl(new SharedPrefsUserSettings(getSharedPreferences(SharedPrefsUserSettings.SETTINGS, 0)), settingsView);
+        SharedPrefsUserSettings storedUserSettings =
+                new SharedPrefsUserSettings(getSharedPreferences(SharedPrefsUserSettings.SETTINGS, 0));
+        SettingsPresenter settingsPresenter = new SettingsPresenterImpl(storedUserSettings, settingsView);
         settingsView.setPresenter(settingsPresenter);
         settingsPresenter.updateView();
     }

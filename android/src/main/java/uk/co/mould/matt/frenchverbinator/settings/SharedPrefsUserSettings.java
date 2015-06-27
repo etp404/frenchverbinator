@@ -52,7 +52,7 @@ class SharedPrefsUserSettings implements StoredUserSettings {
     private List<MoodAndTense> convertToMoodAndTenseList(Set<String> includedTensesAsString) {
         List<MoodAndTense> tenseList = new ArrayList<>();
         for (String tense : includedTensesAsString) {
-            new MoodAndTenseFactory().createFromString(tense.toString());
+            tenseList.add(new MoodAndTenseFactory().createFromString(tense.toString()));
         }
         return tenseList;
     }

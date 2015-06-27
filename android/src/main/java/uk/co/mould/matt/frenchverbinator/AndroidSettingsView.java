@@ -17,7 +17,7 @@ import uk.co.mould.matt.data.tenses.MoodAndTense;
 import uk.co.mould.matt.ui.SettingsPresenter;
 
 public class AndroidSettingsView extends LinearLayout implements SettingsView {
-    private Map<MoodAndTense, Integer> tenseToId = new HashMap<>();
+    private Map<Class<? extends MoodAndTense>, Integer> tenseToId = new HashMap<>();
 
     private SettingsPresenter settingsPresenter;
 
@@ -45,7 +45,7 @@ public class AndroidSettingsView extends LinearLayout implements SettingsView {
         for (final MoodAndTense moodAndTense : moodAndTenses) {
             CheckBox checkBox = new CheckBox(getContext());
             Integer id = generateViewId();
-            tenseToId.put(moodAndTense, id);
+            tenseToId.put(moodAndTense.getClass(), id);
             checkBox.setId(id);
             checkBox.setText(moodAndTense.toString());
             checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -70,7 +70,7 @@ public class AndroidSettingsView extends LinearLayout implements SettingsView {
     @Override
     public void checkOptions(List<MoodAndTense> moodAndTenses) {
         for (final MoodAndTense moodAndTense : moodAndTenses) {
-            ((CheckBox) findViewById(tenseToId.get(moodAndTense))).setChecked(true);
+            ((CheckBox) findViewById(tenseToId.get(moodAndTense.getClass()))).setChecked(true);
         }
     }
 }
