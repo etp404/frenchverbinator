@@ -7,6 +7,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import uk.co.mould.matt.data.SupportedMoodsAndTenses;
 import uk.co.mould.matt.data.tenses.ImperfectIndicative;
 import uk.co.mould.matt.data.tenses.MoodAndTense;
 import uk.co.mould.matt.data.tenses.PresentSubjunctive;
@@ -18,7 +19,6 @@ import static org.junit.Assert.assertThat;
 
 public class SettingsPresenterTest extends TestCase {
 
-    @Test
     public void testThatWhenViewTellsPresenterToStoreATenseSettingsIsInformed() {
         FakeStoredUserSettings fakeStoredUserSettings = new FakeStoredUserSettings();
 
@@ -28,7 +28,6 @@ public class SettingsPresenterTest extends TestCase {
         assertThat(fakeStoredUserSettings.hasStored, instanceOf(ImperfectIndicative.class));
     }
 
-    @Test
     public void testThatWhenViewTellsPresenterToRemoveATenseSettingsIsInformed() {
         FakeStoredUserSettings fakeStoredUserSettings = new FakeStoredUserSettings();
 
@@ -38,26 +37,27 @@ public class SettingsPresenterTest extends TestCase {
         assertThat(fakeStoredUserSettings.hasRemoved, instanceOf(ImperfectIndicative.class));
     }
 
-    @Test
-    public void testThatViewWillShowAppropriateTensesAsChecked() {
+    public void testThatViewWillUpdateViewAsExpected() {
         FakeSettingsView fakeSettingsView = new FakeSettingsView();
         FakeStoredUserSettings fakeStoredUserSettings = new FakeStoredUserSettings();
         SettingsPresenter settingsPresenter =
                 new SettingsPresenterImpl(fakeStoredUserSettings, fakeSettingsView);
         List<MoodAndTense> includedMoodsAndTenses = new ArrayList<MoodAndTense>(){{add(new ImperfectIndicative()); add(new PresentSubjunctive());}};
         fakeStoredUserSettings.includedTenses = includedMoodsAndTenses;
-        settingsPresenter.checkCurrentlyStoredTenses();
+        settingsPresenter.updateView();
 
+        assertThat(fakeSettingsView.shownOptions, is(SupportedMoodsAndTenses.ALL));
         assertThat(fakeSettingsView.moodsAndTensesChecked, is(includedMoodsAndTenses));
     }
 
     private class FakeSettingsView implements SettingsView {
 
-        private List<MoodAndTense> moodsAndTensesChecked;
+        List<MoodAndTense> shownOptions;
+        List<MoodAndTense> moodsAndTensesChecked;
 
         @Override
         public void showOptions(List<MoodAndTense> moodAndTenses) {
-
+            shownOptions = moodAndTenses;
         }
 
         @Override

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import matt.mould.co.uk.android.R;
@@ -25,6 +26,7 @@ public final class SettingsActivity extends Activity {
         SettingsView settingsView = AndroidSettingsView.createView(activityTestViewGroup);
         SettingsPresenter settingsPresenter = new SettingsPresenterImpl(new SharedPrefsUserSettings(), settingsView);
         settingsView.setPresenter(settingsPresenter);
+        settingsPresenter.updateView();
     }
 
     private static class SharedPrefsUserSettings implements StoredUserSettings {
@@ -40,7 +42,7 @@ public final class SettingsActivity extends Activity {
 
         @Override
         public List<MoodAndTense> includedTenses() {
-            return null;
+            return new ArrayList<MoodAndTense>();
         }
     }
 }

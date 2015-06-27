@@ -127,7 +127,7 @@ public class SettingsViewTest extends ActivityInstrumentationTestCase2<TestActiv
         }
 
         @Override
-        public void checkCurrentlyStoredTenses() {
+        public void updateView() {
 
         }
     }

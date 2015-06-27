@@ -1,5 +1,6 @@
 package uk.co.mould.matt.ui;
 
+import uk.co.mould.matt.data.SupportedMoodsAndTenses;
 import uk.co.mould.matt.data.tenses.MoodAndTense;
 import uk.co.mould.matt.frenchverbinator.SettingsView;
 
@@ -23,7 +24,8 @@ public class SettingsPresenterImpl implements SettingsPresenter {
     }
 
     @Override
-    public void checkCurrentlyStoredTenses() {
+    public void updateView() {
+        settingsView.showOptions(SupportedMoodsAndTenses.ALL);
         settingsView.checkOptions(storedUserSettings.includedTenses());
     }
 }
