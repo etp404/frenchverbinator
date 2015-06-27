@@ -156,7 +156,7 @@ public final class AndroidQuestionView implements QuestionView {
 
     @Override
     public void hideNoTensesSelected() {
-        noTensesSelectedWarning.setVisibility(View.VISIBLE);
+        noTensesSelectedWarning.setVisibility(View.GONE);
     }
 
     @Override
