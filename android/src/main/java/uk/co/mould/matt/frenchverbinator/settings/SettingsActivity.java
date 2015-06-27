@@ -4,16 +4,11 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import matt.mould.co.uk.android.R;
-import uk.co.mould.matt.data.tenses.MoodAndTense;
 import uk.co.mould.matt.frenchverbinator.AndroidSettingsView;
 import uk.co.mould.matt.frenchverbinator.SettingsView;
 import uk.co.mould.matt.ui.SettingsPresenter;
 import uk.co.mould.matt.ui.SettingsPresenterImpl;
-import uk.co.mould.matt.ui.StoredUserSettings;
 
 public final class SettingsActivity extends Activity {
 
@@ -24,25 +19,9 @@ public final class SettingsActivity extends Activity {
 
         ViewGroup activityTestViewGroup = (ViewGroup) findViewById(R.id.settings_activity_parent);
         SettingsView settingsView = AndroidSettingsView.createView(activityTestViewGroup);
-        SettingsPresenter settingsPresenter = new SettingsPresenterImpl(new SharedPrefsUserSettings(), settingsView);
+        SettingsPresenter settingsPresenter = new SettingsPresenterImpl(new SharedPrefsUserSettings(getSharedPreferences(SharedPrefsUserSettings.SETTINGS, 0)), settingsView);
         settingsView.setPresenter(settingsPresenter);
         settingsPresenter.updateView();
     }
 
-    private static class SharedPrefsUserSettings implements StoredUserSettings {
-        @Override
-        public void addToIncludedTenses(MoodAndTense moodAndTense) {
-
-        }
-
-        @Override
-        public void removeFromIncludedTenses(MoodAndTense moodAndTense) {
-
-        }
-
-        @Override
-        public List<MoodAndTense> includedTenses() {
-            return new ArrayList<MoodAndTense>();
-        }
-    }
 }
