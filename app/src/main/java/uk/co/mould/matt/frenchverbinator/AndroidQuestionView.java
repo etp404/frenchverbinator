@@ -1,5 +1,6 @@
 package uk.co.mould.matt.frenchverbinator;
 
+import android.app.MediaRouteButton;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -19,6 +20,8 @@ public final class AndroidQuestionView implements QuestionView {
     private View submitButton;
     private TextView resultBox;
     private final TextView correctionBox;
+    private final TextView questionBox;
+    private TextView noTensesSelection;
 
     public AndroidQuestionView(ViewGroup questionViewGroup) {
         this.questionViewGroup = questionViewGroup;
@@ -27,11 +30,12 @@ public final class AndroidQuestionView implements QuestionView {
         nextButton = questionViewGroup.findViewById(R.id.next);
         resultBox = ((TextView) questionViewGroup.findViewById(R.id.result_box));
         correctionBox = ((TextView) questionViewGroup.findViewById(R.id.correction_box));
+        questionBox = (TextView) questionViewGroup.findViewById(R.id.question);
+        noTensesSelection = (TextView) questionViewGroup.findViewById(R.id.no_tenses_selected);
     }
 
     @Override
     public void setQuestion(Persons.Person person, InfinitiveVerb verb, MoodAndTense moodAndTense) {
-        TextView questionBox = (TextView) questionViewGroup.findViewById(R.id.question);
         questionBox.setText(
                 String.format(
                         QUESTION_TEMPLATE,
@@ -124,6 +128,21 @@ public final class AndroidQuestionView implements QuestionView {
     @Override
     public void clearAnswerBox() {
         answerBox.setText("");
+    }
+
+    @Override
+    public void hideAnswerBox() {
+        answerBox.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void hideQuestionBox() {
+        questionBox.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showNoTensesSelected() {
+        noTensesSelection.setVisibility(View.VISIBLE);
     }
 
     @Override

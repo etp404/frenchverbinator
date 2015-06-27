@@ -45,4 +45,10 @@ public interface QuestionView {
 	void hideResultBox();
 
 	void clearAnswerBox();
+
+    void hideAnswerBox();
+
+    void hideQuestionBox();
+
+    void showNoTensesSelected();
 }

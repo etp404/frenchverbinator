@@ -4,7 +4,6 @@ import uk.co.mould.matt.CantConjugateException;
 import uk.co.mould.matt.conjugators.Conjugator;
 import uk.co.mould.matt.data.Persons;
 import uk.co.mould.matt.data.InfinitiveVerb;
-import uk.co.mould.matt.data.tenses.PresentIndicative;
 import uk.co.mould.matt.data.tenses.MoodAndTense;
 import uk.co.mould.matt.marking.AnswerChecker;
 import uk.co.mould.matt.questions.QuestionGenerator;
@@ -50,25 +49,25 @@ public class QuestionPresenter {
 
 	public void submitAnswer() {
 		answerChecker.check(questionView.getAnswer(), new AnswerChecker.Callback() {
-			@Override
-			public void correct() {
-				questionView.setResultToCorrect();
-			}
+            @Override
+            public void correct() {
+                questionView.setResultToCorrect();
+            }
 
-			@Override
-			public void incorrect() {
-				questionView.setResultToIncorrect();
-				questionView.showCorrection();
-				try {
-					questionView.setCorrection(conjugator.getPresentConjugationOf(
+            @Override
+            public void incorrect() {
+                questionView.setResultToIncorrect();
+                questionView.showCorrection();
+                try {
+                    questionView.setCorrection(conjugator.getPresentConjugationOf(
                             infinitiveVerb,
                             questionPerson,
                             verbMoodAndTense));
-				} catch (CantConjugateException ignored) {
+                } catch (CantConjugateException ignored) {
 
-				}
-			}
-		});
+                }
+            }
+        });
 		questionView.disableAnswerBox();
 		questionView.showResultBox();
 
@@ -79,4 +78,14 @@ public class QuestionPresenter {
 		questionView.enableNextQuestionButton();
 	}
 
+    public void showNoneSelectedWarning() {
+        questionView.hideAnswerBox();
+        questionView.hideQuestionBox();
+        questionView.hideNextQuestionButton();
+        questionView.hideSubmitButton();
+        questionView.hideResultBox();
+        questionView.hideCorrection();
+
+        questionView.showNoTensesSelected();
+    }
 }

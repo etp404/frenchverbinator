@@ -21,6 +21,9 @@ public class FakeQuestionView implements QuestionView {
 	public Boolean nextQuestionButtonEnabled = null;
 	public Boolean submitButtonEnabled = null;
 	public Boolean submitButtonVisible = null;
+    public Boolean noTensesSelectedIsShown;
+    public Boolean answerBoxIsVisible;
+    public Boolean questionBoxIsVisible;
 
     @Override
 	public void setQuestion(Persons.Person person, InfinitiveVerb verb, MoodAndTense verbMoodAndTense) {
@@ -124,4 +127,19 @@ public class FakeQuestionView implements QuestionView {
 	public void clearAnswerBox() {
 		answer = "";
 	}
+
+    @Override
+    public void hideAnswerBox() {
+        answerBoxIsVisible = false;
+    }
+
+    @Override
+    public void hideQuestionBox() {
+        questionBoxIsVisible = false;
+    }
+
+    @Override
+    public void showNoTensesSelected() {
+        noTensesSelectedIsShown = true;
+    }
 }

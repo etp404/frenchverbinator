@@ -120,7 +120,20 @@ public final class PresenterTest {
 
     }
 
-	private class FakeConjugator extends Conjugator {
+    @Test
+    public void testThatIfNoTensesSelectedWarningIsGiven() {
+        questionPresenter.showNoneSelectedWarning();
+        assertFalse(questionView.answerBoxIsVisible);
+        assertFalse(questionView.questionBoxIsVisible);
+        assertFalse(questionView.submitButtonVisible);
+        assertFalse(questionView.nextQuestionButtonVisible);
+        assertFalse(questionView.correctionVisible);
+        assertFalse(questionView.resultBoxVisible);
+
+        assertTrue(questionView.noTensesSelectedIsShown);
+    }
+
+    private class FakeConjugator extends Conjugator {
 		private Persons.Person personMatchingAnswer;
 		private InfinitiveVerb verbMatchingAnswer;
 		private ConjugatedVerbWithPronoun correctAnswer;
