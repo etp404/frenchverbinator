@@ -3,7 +3,7 @@ package uk.co.mould.matt.ui;
 import uk.co.mould.matt.data.tenses.MoodAndTense;
 import uk.co.mould.matt.frenchverbinator.SettingsView;
 
-class SettingsPresenterImpl implements SettingsPresenter {
+public class SettingsPresenterImpl implements SettingsPresenter {
     private StoredUserSettings storedUserSettings;
     private SettingsView settingsView;
 

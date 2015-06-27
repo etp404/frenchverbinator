@@ -8,7 +8,6 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,7 +16,7 @@ import matt.mould.co.uk.android.R;
 import uk.co.mould.matt.data.tenses.MoodAndTense;
 import uk.co.mould.matt.ui.SettingsPresenter;
 
-class AndroidSettingsView extends LinearLayout implements SettingsView {
+public class AndroidSettingsView extends LinearLayout implements SettingsView {
     private Map<MoodAndTense, Integer> tenseToId = new HashMap<>();
 
     private SettingsPresenter settingsPresenter;
