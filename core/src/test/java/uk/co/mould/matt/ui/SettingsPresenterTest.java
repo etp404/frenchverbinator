@@ -51,31 +51,6 @@ public class SettingsPresenterTest extends TestCase {
         assertThat(fakeSettingsView.moodsAndTensesChecked, is(includedMoodsAndTenses));
     }
 
-    private class SettingsPresenterImpl implements SettingsPresenter {
-        private FakeStoredUserSettings storedUserSettings;
-        private SettingsView settingsView;
-
-        public SettingsPresenterImpl(FakeStoredUserSettings storedUserSettings, SettingsView settingsView) {
-            this.storedUserSettings = storedUserSettings;
-            this.settingsView = settingsView;
-        }
-
-        @Override
-        public void addToSelectedTenses(MoodAndTense moodAndTense) {
-            storedUserSettings.addToIncludedTenses(moodAndTense);
-        }
-
-        @Override
-        public void removeFromSelectedTenses(MoodAndTense moodAndTense) {
-            storedUserSettings.removeFromIncludedTenses(moodAndTense);
-        }
-
-        @Override
-        public void checkCurrentlyStoredTenses() {
-            settingsView.checkOptions(storedUserSettings.includedTenses());
-        }
-    }
-
     private class FakeSettingsView implements SettingsView {
 
         private List<MoodAndTense> moodsAndTensesChecked;
@@ -96,7 +71,7 @@ public class SettingsPresenterTest extends TestCase {
         }
     }
 
-    private class FakeStoredUserSettings {
+    private class FakeStoredUserSettings implements StoredUserSettings {
         MoodAndTense hasStored;
         MoodAndTense hasRemoved;
         List<MoodAndTense> includedTenses;
