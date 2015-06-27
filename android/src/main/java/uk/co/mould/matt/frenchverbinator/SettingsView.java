@@ -53,7 +53,7 @@ class SettingsView extends LinearLayout {
                     if (isChecked) {
                         settingsPresenter.addToSelectedTenses(moodAndTense);
                     } else {
-                        settingsPresenter.removeSelectedTenses(moodAndTense);
+                        settingsPresenter.removeFromSelectedTenses(moodAndTense);
                     }
                 }
             });
