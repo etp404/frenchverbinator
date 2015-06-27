@@ -19,5 +19,15 @@
         android:background="@color/question_background"
         android:padding="16dp"
         android:textAppearance="?android:attr/textAppearanceLarge">
+        <TextView
+            android:id="@+id/question"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Check the tenses that you wish to be included."
+            android:layout_gravity="center_horizontal"
+            android:gravity="left"
+            style="@style/font_style"
+            android:paddingBottom="10dp" />
+
     </LinearLayout>
 </FrameLayout>
