@@ -10,37 +10,39 @@ import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import matt.mould.co.uk.android.R;
 import uk.co.mould.matt.data.tenses.MoodAndTense;
 import uk.co.mould.matt.ui.SettingsPresenter;
 
-class SettingsView extends LinearLayout {
+class AndroidSettingsView extends LinearLayout implements SettingsView {
     private Map<MoodAndTense, Integer> tenseToId = new HashMap<>();
 
     private SettingsPresenter settingsPresenter;
 
-    public SettingsView(Context context) {
+    public AndroidSettingsView(Context context) {
         super(context);
     }
 
-    public SettingsView(Context context, AttributeSet attrs) {
+    public AndroidSettingsView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public SettingsView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public AndroidSettingsView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
     static SettingsView createView(ViewGroup viewGroup) {
         final LayoutInflater layoutInflater = LayoutInflater.from(viewGroup.getContext());
-        SettingsView settingsView = (SettingsView) layoutInflater.inflate(R.layout.settings_layout, viewGroup, false);
+        AndroidSettingsView settingsView = (AndroidSettingsView) layoutInflater.inflate(R.layout.settings_layout, viewGroup, false);
         viewGroup.addView(settingsView);
         return settingsView;
     }
 
-    public void showOptions(ArrayList<MoodAndTense> moodAndTenses) {
+    @Override
+    public void showOptions(List<MoodAndTense> moodAndTenses) {
         for (final MoodAndTense moodAndTense : moodAndTenses) {
             CheckBox checkBox = new CheckBox(getContext());
             Integer id = generateViewId();
@@ -61,11 +63,13 @@ class SettingsView extends LinearLayout {
         }
     }
 
+    @Override
     public void setPresenter(SettingsPresenter settingsPresenter) {
         this.settingsPresenter = settingsPresenter;
     }
 
-    public void checkOptions(ArrayList<MoodAndTense> moodAndTenses) {
+    @Override
+    public void checkOptions(List<MoodAndTense> moodAndTenses) {
         for (final MoodAndTense moodAndTense : moodAndTenses) {
             ((CheckBox) findViewById(tenseToId.get(moodAndTense))).setChecked(true);
         }
