@@ -1,6 +1,5 @@
 package uk.co.mould.matt.frenchverbinator;
 
-import android.app.MediaRouteButton;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -21,7 +20,7 @@ public final class AndroidQuestionView implements QuestionView {
     private TextView resultBox;
     private final TextView correctionBox;
     private final TextView questionBox;
-    private TextView noTensesSelection;
+    private TextView noTensesSelectedWarning;
 
     public AndroidQuestionView(ViewGroup questionViewGroup) {
         this.questionViewGroup = questionViewGroup;
@@ -31,7 +30,7 @@ public final class AndroidQuestionView implements QuestionView {
         resultBox = ((TextView) questionViewGroup.findViewById(R.id.result_box));
         correctionBox = ((TextView) questionViewGroup.findViewById(R.id.correction_box));
         questionBox = (TextView) questionViewGroup.findViewById(R.id.question);
-        noTensesSelection = (TextView) questionViewGroup.findViewById(R.id.no_tenses_selected);
+        noTensesSelectedWarning = (TextView) questionViewGroup.findViewById(R.id.no_tenses_selected);
     }
 
     @Override
@@ -142,7 +141,22 @@ public final class AndroidQuestionView implements QuestionView {
 
     @Override
     public void showNoTensesSelected() {
-        noTensesSelection.setVisibility(View.VISIBLE);
+        noTensesSelectedWarning.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void showQuestionBox() {
+        questionBox.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void showAnswerBox() {
+        answerBox.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideNoTensesSelected() {
+        noTensesSelectedWarning.setVisibility(View.VISIBLE);
     }
 
     @Override

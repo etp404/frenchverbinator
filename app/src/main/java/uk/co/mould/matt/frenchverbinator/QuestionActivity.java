@@ -56,23 +56,28 @@ public class QuestionActivity extends Activity {
         conjugator = new Conjugator(verbTemplateParser, conjugationParser);
 
         final QuestionPresenter questionPresenter = new QuestionPresenter(
-                new AndroidQuestionView((ViewGroup)findViewById(R.id.question_view_group)),
+                new AndroidQuestionView((ViewGroup) findViewById(R.id.question_view_group)),
                 questionGenerator,
                 conjugator);
 
-        setUpSubmitButton(questionPresenter);
+        if (storedUserSettings.includedTenses().size() == 0) {
+            questionPresenter.showNoneSelectedWarning();
+        } else {
+            setUpSubmitButton(questionPresenter);
 
-        setUpNextQuestionButton(questionPresenter);
+            setUpNextQuestionButton(questionPresenter);
 
-        questionPresenter.showQuestion();    }
+            questionPresenter.showQuestion();
+        }
+    }
 
     private void setUpNextQuestionButton(final QuestionPresenter questionPresenter) {
 		findViewById(R.id.next).setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				questionPresenter.showQuestion();
-			}
-		});
+            @Override
+            public void onClick(View v) {
+                questionPresenter.showQuestion();
+            }
+        });
 	}
 
 	private void setUpSubmitButton(final QuestionPresenter questionPresenter) {

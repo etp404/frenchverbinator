@@ -121,7 +121,7 @@ public final class PresenterTest {
     }
 
     @Test
-    public void testThatIfNoTensesSelectedWarningIsGiven() {
+    public void testThatNoTensesSelectedWarningCanBeIsGiven() {
         questionPresenter.showNoneSelectedWarning();
         assertFalse(questionView.answerBoxIsVisible);
         assertFalse(questionView.questionBoxIsVisible);
@@ -131,6 +131,20 @@ public final class PresenterTest {
         assertFalse(questionView.resultBoxVisible);
 
         assertTrue(questionView.noTensesSelectedIsShown);
+    }
+
+    @Test
+    public void testThatLayoutIsReinstatedAfterNoTensesSelectedWarning() {
+        questionPresenter.showNoneSelectedWarning();
+        questionPresenter.showQuestion();
+        assertTrue(questionView.answerBoxIsVisible);
+        assertTrue(questionView.questionBoxIsVisible);
+        assertTrue(questionView.submitButtonVisible);
+        assertFalse(questionView.nextQuestionButtonVisible);
+        assertFalse(questionView.correctionVisible);
+        assertFalse(questionView.resultBoxVisible);
+
+        assertFalse(questionView.noTensesSelectedIsShown);
     }
 
     private class FakeConjugator extends Conjugator {

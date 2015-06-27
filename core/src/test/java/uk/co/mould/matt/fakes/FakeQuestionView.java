@@ -142,4 +142,19 @@ public class FakeQuestionView implements QuestionView {
     public void showNoTensesSelected() {
         noTensesSelectedIsShown = true;
     }
+
+    @Override
+    public void showQuestionBox() {
+        questionBoxIsVisible = true;
+    }
+
+    @Override
+    public void showAnswerBox() {
+        answerBoxIsVisible = true;
+    }
+
+    @Override
+    public void hideNoTensesSelected() {
+        noTensesSelectedIsShown = false;
+    }
 }

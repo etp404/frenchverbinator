@@ -27,12 +27,16 @@ public class QuestionPresenter {
 	}
 
 	public void showQuestion() {
+        questionView.hideNoTensesSelected();
+
 		questionPerson = fakeQuestionGenerator.getRandomPerson();
 		infinitiveVerb = fakeQuestionGenerator.getRandomVerb();
         verbMoodAndTense = fakeQuestionGenerator.getRandomVerbMoodAndTense();
 		questionView.setQuestion(questionPerson, infinitiveVerb, verbMoodAndTense);
+        questionView.showQuestionBox();
 		questionView.hideCorrection();
 
+        questionView.showAnswerBox();
 		questionView.enableAnswerBox();
 		questionView.clearAnswerBox();
 

@@ -29,7 +29,7 @@
 
         <TextView
             android:id="@+id/no_tenses_selected"
-            android:text="Please select at least one tenses from the settings menu."
+            android:text="Please select at least one tense from the settings menu."
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"

@@ -51,4 +51,10 @@ public interface QuestionView {
     void hideQuestionBox();
 
     void showNoTensesSelected();
+
+    void showQuestionBox();
+
+    void showAnswerBox();
+
+    void hideNoTensesSelected();
 }
