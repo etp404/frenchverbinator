@@ -19,7 +19,8 @@ public final class SettingsActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.settings_layout);
+        setContentView(R.layout.settings_activity_layout);
+
         ViewGroup activityTestViewGroup = (ViewGroup) findViewById(R.id.settings_activity_parent);
         SettingsView settingsView = AndroidSettingsView.createView(activityTestViewGroup);
         SettingsPresenter settingsPresenter = new SettingsPresenterImpl(new SharedPrefsUserSettings(), settingsView);

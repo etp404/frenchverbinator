@@ -1,7 +1,10 @@
 package uk.co.mould.matt.frenchverbinator;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -12,6 +15,7 @@ import java.util.ArrayList;
 import uk.co.mould.matt.data.SupportedMoodsAndTenses;
 import uk.co.mould.matt.data.tenses.MoodAndTense;
 import uk.co.mould.matt.data.tenses.PresentIndicative;
+import uk.co.mould.matt.frenchverbinator.settings.SettingsActivity;
 import uk.co.mould.matt.parser.VerbListParser;
 import uk.co.mould.matt.questions.QuestionGenerator;
 import uk.co.mould.matt.questions.RandomQuestionGenerator;
@@ -58,11 +62,33 @@ public class QuestionActivity extends Activity {
 
 	private void setUpSubmitButton(final QuestionPresenter questionPresenter) {
 		findViewById(R.id.submitButton).setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				questionPresenter.submitAnswer();
-			}
-		});
+            @Override
+            public void onClick(View v) {
+                questionPresenter.submitAnswer();
+            }
+        });
 	}
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            startActivity(new Intent(this, SettingsActivity.class));
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 
 }

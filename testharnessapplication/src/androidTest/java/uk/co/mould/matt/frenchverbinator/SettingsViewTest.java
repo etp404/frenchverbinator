@@ -2,6 +2,7 @@ package uk.co.mould.matt.frenchverbinator;
 
 import android.test.ActivityInstrumentationTestCase2;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import org.junit.Before;
 
@@ -42,7 +43,7 @@ public class SettingsViewTest extends ActivityInstrumentationTestCase2<TestActiv
         final TestActivity activity = getActivity();
         Runnable runnable = new Runnable() {
             public void run() {
-                activityTestViewGroup = (ViewGroup) activity.findViewById(R.id.testing_layout);
+                activityTestViewGroup = (ViewGroup) activity.findViewById(R.id.settings_activity_parent);
                 settingsView = AndroidSettingsView.createView(activityTestViewGroup);
                 settingsView.setPresenter(fakeSettingsPresenter);
             }
