@@ -28,26 +28,32 @@ import uk.co.mould.matt.parser.VerbTemplateParser;
 public class QuestionActivity extends Activity {
 
     private SharedPrefsUserSettings storedUserSettings;
+    private VerbTemplateParser verbTemplateParser;
+    private VerbListParser verbListParser;
+    private ConjugationParser conjugationParser;
+    private Conjugator conjugator;
 
     @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.question_layout);
 		storedUserSettings = new SharedPrefsUserSettings(getSharedPreferences(SharedPrefsUserSettings.SETTINGS, 0));
-	}
+        verbTemplateParser = new VerbTemplateParser(new InputSource(getResources().openRawResource(
+                R.raw.verbs_fr)));
+        conjugationParser = new ConjugationParser(new InputSource(getResources().openRawResource(R.raw.conjugation_fr)));
+        verbListParser = new VerbListParser(new InputSource(getResources().openRawResource(R.raw.verb_list)));
+
+
+    }
 
     @Override
     protected void onResume() {
         super.onResume();
-        VerbTemplateParser verbTemplateParser = new VerbTemplateParser(new InputSource(getResources().openRawResource(R.raw.verbs_fr)));
-        ConjugationParser conjugationParser = new ConjugationParser(new InputSource(getResources().openRawResource(R.raw.conjugation_fr)));
-        VerbListParser verbListParser = new VerbListParser(new InputSource(getResources().openRawResource(R.raw.verb_list)));
-
 
         QuestionGenerator questionGenerator = new RandomQuestionGenerator(
                 verbListParser,
                 storedUserSettings.includedTenses());
-        Conjugator conjugator = new Conjugator(verbTemplateParser, conjugationParser);
+        conjugator = new Conjugator(verbTemplateParser, conjugationParser);
 
         final QuestionPresenter questionPresenter = new QuestionPresenter(
                 new AndroidQuestionView((ViewGroup)findViewById(R.id.question_view_group)),
