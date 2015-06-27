@@ -11,8 +11,4 @@
         <item name="android:colorBackground">@color/background_color</item>
     </style>
 
-    <style name="CustomTextStyle">
-        <item name="android:textColor">@color/primary_text</item>
-    </style>
-
 </resources>

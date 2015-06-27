@@ -20,6 +20,7 @@ public class AndroidSettingsView extends LinearLayout implements SettingsView {
     private Map<Class<? extends MoodAndTense>, Integer> tenseToId = new HashMap<>();
 
     private SettingsPresenter settingsPresenter;
+    private static LayoutInflater layoutInflater;
 
     public AndroidSettingsView(Context context) {
         super(context);
@@ -34,8 +35,9 @@ public class AndroidSettingsView extends LinearLayout implements SettingsView {
     }
 
     public static SettingsView createView(ViewGroup viewGroup) {
-        final LayoutInflater layoutInflater = LayoutInflater.from(viewGroup.getContext());
-        AndroidSettingsView settingsView = (AndroidSettingsView) layoutInflater.inflate(R.layout.settings_layout, viewGroup, false);
+        layoutInflater = LayoutInflater.from(viewGroup.getContext());
+        AndroidSettingsView settingsView = (AndroidSettingsView) layoutInflater.inflate(
+                R.layout.settings_layout, viewGroup, false);
         viewGroup.addView(settingsView);
         return settingsView;
     }
@@ -43,7 +45,9 @@ public class AndroidSettingsView extends LinearLayout implements SettingsView {
     @Override
     public void showOptions(List<MoodAndTense> moodAndTenses) {
         for (final MoodAndTense moodAndTense : moodAndTenses) {
-            CheckBox checkBox = new CheckBox(getContext());
+            
+            OptionsCheckBox checkBox = (OptionsCheckBox) layoutInflater.inflate(R.layout.option_checkbox, null);
+
             Integer id = generateViewId();
             tenseToId.put(moodAndTense.getClass(), id);
             checkBox.setId(id);

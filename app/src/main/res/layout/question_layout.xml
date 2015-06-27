@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
                   android:orientation="vertical"
                   android:layout_width="fill_parent"
@@ -19,14 +19,13 @@
         android:padding="16dp">
 
         <TextView
+            android:id="@+id/question"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:id="@+id/question"
-            android:textColor="@color/primary_text"
             android:text="question"
             android:layout_gravity="center_horizontal"
-            android:gravity="center_horizontal" />
+            android:gravity="center_horizontal"
+            style="@style/font_style" />
 
         <EditText
             android:layout_width="match_parent"
@@ -55,19 +54,17 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
             android:id="@+id/result_box"
             android:text="result_box"
-            android:textColor="@color/primary_text"
-            android:layout_gravity="center_horizontal"/>
+            android:layout_gravity="center_horizontal"
+            style="@style/font_style" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
             android:id="@+id/correction_box"
             android:text="correctAnswer"
-            android:textColor="@color/primary_text"
-            android:layout_gravity="center_horizontal"/>
+            android:layout_gravity="center_horizontal"
+            style="@style/font_style" />
 
     </LinearLayout>
-</LinearLayout>
+</FrameLayout>

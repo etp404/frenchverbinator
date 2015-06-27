@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="CustomTextStyle">
+        <item name="android:textColor">@color/primary_text</item>
+    </style>
+
+    <style name="font_style">
+        <item name="android:textAppearance">?android:attr/textAppearanceLarge</item>
+        <item name="android:textColor">@color/primary_text</item>
+    </style>
+
+</resources>
