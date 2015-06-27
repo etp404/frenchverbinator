@@ -7,4 +7,12 @@ public abstract class MoodAndTense {
     public String toString() {
         return String.format("%s %s", getTense(), getMood());
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj != null && this.getClass() == obj.getClass()) {
+            return true;
+        }
+        return false;
+    }
 }

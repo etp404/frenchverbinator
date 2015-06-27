@@ -11,6 +11,7 @@ import uk.co.mould.matt.data.SupportedMoodsAndTenses;
 import uk.co.mould.matt.data.tenses.MoodAndTense;
 import uk.co.mould.matt.ui.StoredUserSettings;
 
+//To much complexity in here: need to split out some stuff.
 class SharedPrefsUserSettings implements StoredUserSettings {
     public static final String SETTINGS = "verbinator_prefs";
     private static final String INCLUDED_TENSES = "included_tenses";
