@@ -43,7 +43,7 @@ public class SettingsViewTest extends ActivityInstrumentationTestCase2<TestActiv
         Runnable runnable = new Runnable() {
             public void run() {
                 activityTestViewGroup = (ViewGroup) activity.findViewById(R.id.testing_layout);
-                settingsView = SettingsView.createView(activityTestViewGroup);
+                settingsView = AndroidSettingsView.createView(activityTestViewGroup);
                 settingsView.setPresenter(fakeSettingsPresenter);
             }
         };
@@ -121,8 +121,13 @@ public class SettingsViewTest extends ActivityInstrumentationTestCase2<TestActiv
         }
 
         @Override
-        public void removeSelectedTenses(MoodAndTense moodAndTense) {
+        public void removeFromSelectedTenses(MoodAndTense moodAndTense) {
             toldToRemove = moodAndTense;
+        }
+
+        @Override
+        public void checkCurrentlyStoredTenses() {
+
         }
     }
 }

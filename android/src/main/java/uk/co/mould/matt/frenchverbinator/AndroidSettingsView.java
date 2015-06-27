@@ -33,7 +33,7 @@ public class AndroidSettingsView extends LinearLayout implements SettingsView {
         super(context, attrs, defStyleAttr);
     }
 
-    static SettingsView createView(ViewGroup viewGroup) {
+    public static SettingsView createView(ViewGroup viewGroup) {
         final LayoutInflater layoutInflater = LayoutInflater.from(viewGroup.getContext());
         AndroidSettingsView settingsView = (AndroidSettingsView) layoutInflater.inflate(R.layout.settings_layout, viewGroup, false);
         viewGroup.addView(settingsView);
