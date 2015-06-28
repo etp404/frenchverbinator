@@ -1,6 +1,6 @@
 package uk.co.mould.matt.data;
 
-import java.util.ArrayList;
+import java.text.Normalizer;
 
 public class Persons {
 
@@ -13,7 +13,9 @@ public class Persons {
 	public static Person FIRST_PERSON_SINGULAR = new Person() {
 		@Override
 		public String getPronoun(String conjugatedVerb) {
-			if (conjugatedVerb.matches("[a,e,i,o,u].+")) {
+            String verbsWithAccentSplitOut = Normalizer.normalize(conjugatedVerb,
+                    Normalizer.Form.NFD);
+            if (verbsWithAccentSplitOut.matches("[a,e,i,o,u].+")) {
 				return "J'";
 			}
 			return "Je ";
