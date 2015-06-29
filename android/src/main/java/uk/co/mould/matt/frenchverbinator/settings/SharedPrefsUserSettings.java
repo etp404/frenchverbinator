@@ -9,7 +9,6 @@ import java.util.Set;
 
 import uk.co.mould.matt.data.SupportedMoodsAndTenses;
 import uk.co.mould.matt.data.tenses.MoodAndTense;
-import uk.co.mould.matt.ui.StoredUserSettings;
 
 //To much complexity in here: need to split out some stuff.
 public class SharedPrefsUserSettings implements StoredUserSettings {

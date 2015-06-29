@@ -1,4 +1,4 @@
-package uk.co.mould.matt.frenchverbinator;
+package uk.co.mould.matt.frenchverbinator.settings.ui;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -14,7 +14,6 @@ import java.util.Map;
 
 import matt.mould.co.uk.android.R;
 import uk.co.mould.matt.data.tenses.MoodAndTense;
-import uk.co.mould.matt.ui.SettingsPresenter;
 
 public class AndroidSettingsView extends LinearLayout implements SettingsView {
     private Map<Class<? extends MoodAndTense>, Integer> tenseToId = new HashMap<>();

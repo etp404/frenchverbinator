@@ -1,4 +1,4 @@
-package uk.co.mould.matt.ui;
+package uk.co.mould.matt.frenchverbinator.settings;
 
 import java.util.List;
 

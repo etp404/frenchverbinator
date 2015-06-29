@@ -1,4 +1,4 @@
-package uk.co.mould.matt.ui;
+package uk.co.mould.matt.frenchverbinator.settings.ui;
 
 import uk.co.mould.matt.data.tenses.MoodAndTense;
 

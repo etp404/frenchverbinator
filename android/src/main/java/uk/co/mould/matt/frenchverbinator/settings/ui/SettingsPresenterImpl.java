@@ -1,8 +1,8 @@
-package uk.co.mould.matt.ui;
+package uk.co.mould.matt.frenchverbinator.settings.ui;
 
 import uk.co.mould.matt.data.SupportedMoodsAndTenses;
 import uk.co.mould.matt.data.tenses.MoodAndTense;
-import uk.co.mould.matt.frenchverbinator.SettingsView;
+import uk.co.mould.matt.frenchverbinator.settings.StoredUserSettings;
 
 public class SettingsPresenterImpl implements SettingsPresenter {
     private StoredUserSettings storedUserSettings;

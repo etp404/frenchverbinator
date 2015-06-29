@@ -2,7 +2,6 @@ package uk.co.mould.matt.frenchverbinator;
 
 import android.test.ActivityInstrumentationTestCase2;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import org.junit.Before;
 
@@ -13,7 +12,9 @@ import matt.mould.co.uk.testharnessapplication.TestActivity;
 import uk.co.mould.matt.data.tenses.ImperfectIndicative;
 import uk.co.mould.matt.data.tenses.MoodAndTense;
 import uk.co.mould.matt.data.tenses.PresentConditional;
-import uk.co.mould.matt.ui.SettingsPresenter;
+import uk.co.mould.matt.frenchverbinator.settings.ui.AndroidSettingsView;
+import uk.co.mould.matt.frenchverbinator.settings.ui.SettingsPresenter;
+import uk.co.mould.matt.frenchverbinator.settings.ui.SettingsView;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;

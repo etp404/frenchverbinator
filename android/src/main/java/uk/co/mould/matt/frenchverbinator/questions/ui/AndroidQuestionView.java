@@ -1,13 +1,13 @@
-package uk.co.mould.matt.frenchverbinator;
+package uk.co.mould.matt.frenchverbinator.questions.ui;
 
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import matt.mould.co.uk.android.R;
 import uk.co.mould.matt.data.ConjugatedVerbWithPronoun;
 import uk.co.mould.matt.data.InfinitiveVerb;
 import uk.co.mould.matt.data.tenses.MoodAndTense;
-import uk.co.mould.matt.ui.QuestionView;
 import uk.co.mould.matt.data.Persons;
 
 public final class AndroidQuestionView implements QuestionView {

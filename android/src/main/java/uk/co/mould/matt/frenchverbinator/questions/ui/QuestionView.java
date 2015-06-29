@@ -1,4 +1,4 @@
-package uk.co.mould.matt.ui;
+package uk.co.mould.matt.frenchverbinator.questions.ui;
 
 import uk.co.mould.matt.data.ConjugatedVerbWithPronoun;
 import uk.co.mould.matt.data.Persons;

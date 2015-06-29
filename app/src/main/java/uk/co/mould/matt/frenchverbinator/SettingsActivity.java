@@ -1,14 +1,14 @@
-package uk.co.mould.matt.frenchverbinator.settings;
+package uk.co.mould.matt.frenchverbinator;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.ViewGroup;
 
-import matt.mould.co.uk.android.R;
-import uk.co.mould.matt.frenchverbinator.AndroidSettingsView;
-import uk.co.mould.matt.frenchverbinator.SettingsView;
-import uk.co.mould.matt.ui.SettingsPresenter;
-import uk.co.mould.matt.ui.SettingsPresenterImpl;
+import uk.co.mould.matt.frenchverbinator.settings.ui.AndroidSettingsView;
+import uk.co.mould.matt.frenchverbinator.settings.SharedPrefsUserSettings;
+import uk.co.mould.matt.frenchverbinator.settings.ui.SettingsPresenter;
+import uk.co.mould.matt.frenchverbinator.settings.ui.SettingsPresenterImpl;
+import uk.co.mould.matt.frenchverbinator.settings.ui.SettingsView;
 
 public final class SettingsActivity extends Activity {
 

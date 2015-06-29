@@ -1,4 +1,4 @@
-package uk.co.mould.matt.frenchverbinator;
+package uk.co.mould.matt.frenchverbinator.settings.ui;
 
 import android.content.Context;
 import android.util.AttributeSet;

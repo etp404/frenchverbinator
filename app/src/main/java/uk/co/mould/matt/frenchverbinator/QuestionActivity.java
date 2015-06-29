@@ -10,17 +10,12 @@ import android.view.ViewGroup;
 
 import org.xml.sax.InputSource;
 
-import java.util.ArrayList;
-
-import uk.co.mould.matt.data.SupportedMoodsAndTenses;
-import uk.co.mould.matt.data.tenses.MoodAndTense;
-import uk.co.mould.matt.data.tenses.PresentIndicative;
-import uk.co.mould.matt.frenchverbinator.settings.SettingsActivity;
+import uk.co.mould.matt.frenchverbinator.questions.ui.AndroidQuestionView;
+import uk.co.mould.matt.frenchverbinator.questions.ui.QuestionPresenter;
 import uk.co.mould.matt.frenchverbinator.settings.SharedPrefsUserSettings;
 import uk.co.mould.matt.parser.VerbListParser;
 import uk.co.mould.matt.questions.QuestionGenerator;
 import uk.co.mould.matt.questions.RandomQuestionGenerator;
-import uk.co.mould.matt.ui.QuestionPresenter;
 import uk.co.mould.matt.conjugators.Conjugator;
 import uk.co.mould.matt.parser.ConjugationParser;
 import uk.co.mould.matt.parser.VerbTemplateParser;

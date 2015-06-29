@@ -17,7 +17,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".settings.SettingsActivity"
+            android:name=".SettingsActivity"
             android:parentActivityName=".QuestionActivity"
             android:label="Settings"/>
     </application>

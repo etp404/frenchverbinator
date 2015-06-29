@@ -2,8 +2,6 @@ package uk.co.mould.matt.ui;
 
 import junit.framework.TestCase;
 
-import org.junit.Test;
-
 import java.util.ArrayList;
 import java.util.List;
 
