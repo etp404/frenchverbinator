@@ -37,8 +37,7 @@ public class QuestionActivity extends AppCompatActivity {
                 R.raw.verbs_fr)));
         conjugationParser = new ConjugationParser(new InputSource(getResources().openRawResource(R.raw.conjugation_fr)));
         verbListParser = new VerbListParser(new InputSource(getResources().openRawResource(R.raw.verb_list)));
-
-
+        conjugator = new Conjugator(verbTemplateParser, conjugationParser);
     }
 
     @Override
@@ -48,7 +47,6 @@ public class QuestionActivity extends AppCompatActivity {
         QuestionGenerator questionGenerator = new RandomQuestionGenerator(
                 verbListParser,
                 storedUserSettings.includedTenses());
-        conjugator = new Conjugator(verbTemplateParser, conjugationParser);
 
         final QuestionPresenter questionPresenter = new QuestionPresenter(
                 new AndroidQuestionView((ViewGroup) findViewById(R.id.question_view_group)),
@@ -88,7 +86,7 @@ public class QuestionActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override

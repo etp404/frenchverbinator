@@ -1,7 +1,7 @@
 package uk.co.mould.matt.frenchverbinator;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.ViewGroup;
 
 import uk.co.mould.matt.frenchverbinator.settings.ui.AndroidSettingsView;
@@ -10,7 +10,7 @@ import uk.co.mould.matt.frenchverbinator.settings.ui.SettingsPresenter;
 import uk.co.mould.matt.frenchverbinator.settings.ui.SettingsPresenterImpl;
 import uk.co.mould.matt.frenchverbinator.settings.ui.SettingsView;
 
-public final class SettingsActivity extends Activity {
+public final class SettingsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

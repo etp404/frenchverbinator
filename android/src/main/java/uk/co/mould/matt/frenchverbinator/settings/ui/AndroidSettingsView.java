@@ -43,11 +43,11 @@ public class AndroidSettingsView extends LinearLayout implements SettingsView {
 
     @Override
     public void showOptions(List<MoodAndTense> moodAndTenses) {
+        Integer id = 0;
         for (final MoodAndTense moodAndTense : moodAndTenses) {
-            
+            id++;
             OptionsCheckBox checkBox = (OptionsCheckBox) layoutInflater.inflate(R.layout.option_checkbox, null);
 
-            Integer id = generateViewId();
             tenseToId.put(moodAndTense.getClass(), id);
             checkBox.setId(id);
             checkBox.setText(moodAndTense.toString());
