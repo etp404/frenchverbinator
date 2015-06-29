@@ -10,4 +10,8 @@
         <item name="android:textColor">@color/primary_text</item>
     </style>
 
+    <style name="buttonFontColour">
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+
 </resources>

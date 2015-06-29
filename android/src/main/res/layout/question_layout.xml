@@ -50,7 +50,8 @@
             android:layout_height="wrap_content"
             android:text="CHECK"
             android:id="@+id/submitButton"
-            android:elevation="6dp" />
+            android:elevation="6dp"
+            style="@style/buttonFontColour" />
 
         <Button
             android:layout_width="match_parent"
@@ -59,7 +60,8 @@
             android:id="@+id/next"
             android:visibility="gone"
             android:layout_gravity="center_horizontal"
-            android:elevation="6dp"/>
+            android:elevation="6dp"
+            style="@style/buttonFontColour" />
 
         <TextView
             android:layout_width="wrap_content"

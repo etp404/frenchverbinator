@@ -1,8 +1,8 @@
 package uk.co.mould.matt.frenchverbinator;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,7 +20,7 @@ import uk.co.mould.matt.conjugators.Conjugator;
 import uk.co.mould.matt.parser.ConjugationParser;
 import uk.co.mould.matt.parser.VerbTemplateParser;
 
-public class QuestionActivity extends Activity {
+public class QuestionActivity extends AppCompatActivity {
 
     private SharedPrefsUserSettings storedUserSettings;
     private VerbTemplateParser verbTemplateParser;
