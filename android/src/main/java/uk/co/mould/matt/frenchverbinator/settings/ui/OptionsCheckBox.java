@@ -1,10 +1,10 @@
 package uk.co.mould.matt.frenchverbinator.settings.ui;
 
 import android.content.Context;
+import android.support.v7.widget.AppCompatCheckBox;
 import android.util.AttributeSet;
-import android.widget.CheckBox;
 
-public final class OptionsCheckBox extends CheckBox {
+public final class OptionsCheckBox extends AppCompatCheckBox {
     public OptionsCheckBox(Context context) {
         super(context);
     }
