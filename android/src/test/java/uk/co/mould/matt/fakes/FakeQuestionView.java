@@ -3,8 +3,8 @@ package uk.co.mould.matt.fakes;
 import uk.co.mould.matt.data.ConjugatedVerbWithPronoun;
 import uk.co.mould.matt.data.InfinitiveVerb;
 import uk.co.mould.matt.data.tenses.MoodAndTense;
-import uk.co.mould.matt.ui.QuestionView;
 import uk.co.mould.matt.data.Persons;
+import uk.co.mould.matt.frenchverbinator.questions.ui.QuestionView;
 
 public class FakeQuestionView implements QuestionView {
 	public InfinitiveVerb verb;

@@ -9,7 +9,10 @@ import uk.co.mould.matt.data.SupportedMoodsAndTenses;
 import uk.co.mould.matt.data.tenses.ImperfectIndicative;
 import uk.co.mould.matt.data.tenses.MoodAndTense;
 import uk.co.mould.matt.data.tenses.PresentSubjunctive;
-import uk.co.mould.matt.frenchverbinator.SettingsView;
+import uk.co.mould.matt.frenchverbinator.settings.StoredUserSettings;
+import uk.co.mould.matt.frenchverbinator.settings.ui.SettingsPresenter;
+import uk.co.mould.matt.frenchverbinator.settings.ui.SettingsPresenterImpl;
+import uk.co.mould.matt.frenchverbinator.settings.ui.SettingsView;
 
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.core.Is.is;

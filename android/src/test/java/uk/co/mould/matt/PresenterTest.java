@@ -9,7 +9,7 @@ import uk.co.mould.matt.data.tenses.PresentIndicative;
 import uk.co.mould.matt.data.tenses.MoodAndTense;
 import uk.co.mould.matt.fakes.FakeQuestionGenerator;
 import uk.co.mould.matt.fakes.FakeQuestionView;
-import uk.co.mould.matt.ui.QuestionPresenter;
+import uk.co.mould.matt.frenchverbinator.questions.ui.QuestionPresenter;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
