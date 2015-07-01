@@ -13,7 +13,6 @@ import uk.co.mould.matt.data.Persons;
 public final class AndroidQuestionView implements QuestionView {
     private static final String QUESTION_TEMPLATE = "What is the '%s' form of %s (%s) in the %s?";
 
-    private ViewGroup questionViewGroup;
     private TextView answerBox;
     private View nextButton;
     private View submitButton;
@@ -23,7 +22,6 @@ public final class AndroidQuestionView implements QuestionView {
     private TextView noTensesSelectedWarning;
 
     public AndroidQuestionView(ViewGroup questionViewGroup) {
-        this.questionViewGroup = questionViewGroup;
         answerBox = ((TextView) questionViewGroup.findViewById(R.id.answerBox));
         submitButton = questionViewGroup.findViewById(R.id.submitButton);
         nextButton = questionViewGroup.findViewById(R.id.next);
