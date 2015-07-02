@@ -26,6 +26,13 @@ android {
     }
 }
 
+task runAllTests(dependsOn: ['clean', 'build', 'connectedAndroidTest'])
+build.mustRunAfter 'clean'
+tasks.whenTaskAdded { task ->
+    if (task.name == 'connectedAndroidTest')
+        task.dependsOn build
+}
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile "com.android.support:appcompat-v7:22.2.0"
