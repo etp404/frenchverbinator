@@ -76,7 +76,6 @@ public class SettingsViewTest extends ActivityInstrumentationTestCase2<TestActiv
     }
 
     public void testThatPresenterIsToldWhenTenseIsUnchecked() {
-
         tellViewToAddTenseOptions(presentConditional, imperfectIndicative);
         tellViewToSelectRequiredTenseOptions(presentConditional);
         tellViewToSelectRequiredTenseOptions(imperfectIndicative);
