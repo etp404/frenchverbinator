@@ -18,6 +18,7 @@ public final class TestThatAllWhiteListedVerbsCanBeConjugated extends ActivityTe
 
     public void testThatVerbsCanBeConjugated() throws Exception {
 
+
         VerbListParser verbListParser = new VerbListParser(new InputSource(getInstrumentation().getTargetContext().getResources().openRawResource(R.raw.verb_list)));
         VerbTemplateParser verbTemplateParser = new VerbTemplateParser(new InputSource(getInstrumentation().getTargetContext().getResources().openRawResource(R.raw.verbs_fr)));
         ConjugationParser conjugationParser = new ConjugationParser(new InputSource(getInstrumentation().getTargetContext().getResources().openRawResource(R.raw.conjugation_fr)));
