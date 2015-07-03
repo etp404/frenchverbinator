@@ -84,7 +84,6 @@ public class SettingsViewTest extends ActivityInstrumentationTestCase2<TestActiv
         assertThat(fakeSettingsPresenter.toldToRemove, instanceOf(ImperfectIndicative.class));
     }
 
-
     private void tellViewToAddTenseOptions(final PresentConditional presentConditional, final ImperfectIndicative imperfectIndicative) {
         Runnable runnable = new Runnable() {
             public void run() {
