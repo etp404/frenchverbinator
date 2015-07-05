@@ -22,7 +22,7 @@ public final class VerbListParser {
         try {
             while ((line = bufferedReader.readLine()) != null) {
                 String[] splitLine = line.split(",");
-                infinitiveVerbs.add(new InfinitiveVerb(splitLine[0], splitLine[1]));
+                infinitiveVerbs.add(new InfinitiveVerb(splitLine[0], splitLine[1], splitLine[2]));
             }
         } catch (IOException ignored) {
 

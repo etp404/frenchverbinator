@@ -1,22 +1,22 @@
-être,to be
-avoir,to have
-aller,to go
-pouvoir,to be able
-vouloir,to want
-regarder,to watch
-faire,to do
-savoir,to know
-venir,to come
-prendre,to take
-écrire,to write
-lire,to read
-devoir,to have to
-mettre,to put
-voir,to see
-découvrir,to discover
-connaître,to know someone
-tenir,hold
-dormir,to sleep
-recevoir,to receive
-choisir,to choose
-vendre,to sell
+être,to be,avoir
+avoir,to have,avoir
+aller,to go,être
+pouvoir,to be able,avoir
+vouloir,to want,avoir
+regarder,to watch,avoir
+faire,to do,avoir
+savoir,to know,avoir
+venir,to come,être
+prendre,to take,avoir
+écrire,to write,avoir
+lire,to read,avoir
+devoir,to have to,avoir
+mettre,to put,avoir
+voir,to see,avoir
+découvrir,to discover,avoir
+connaître,to know someone,avoir
+tenir,hold,avoir
+dormir,to sleep,avoir
+recevoir,to receive,avoir
+choisir,to choose,avoir
+vendre,to sell,avoir

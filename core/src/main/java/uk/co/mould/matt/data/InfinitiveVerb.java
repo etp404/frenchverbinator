@@ -6,12 +6,6 @@ public final class InfinitiveVerb {
     public final String englishVerb;
     public final String auxiliary;
 
-    public InfinitiveVerb(String frenchVerb, String englishVerb) {
-        this.frenchVerb = FrenchInfinitiveVerb.fromString(frenchVerb);
-        this.englishVerb = englishVerb;
-        this.auxiliary  = "avoir";
-    }
-
     public InfinitiveVerb(String frenchVerb, String englishVerb, String auxiliary) {
         this.frenchVerb = FrenchInfinitiveVerb.fromString(frenchVerb);
         this.englishVerb = englishVerb;

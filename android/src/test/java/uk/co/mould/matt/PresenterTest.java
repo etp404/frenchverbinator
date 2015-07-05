@@ -18,7 +18,7 @@ import static org.junit.Assert.assertTrue;
 public final class PresenterTest {
 
 	private final Persons.Person person = Persons.FIRST_PERSON_PLURAL;
-	private final InfinitiveVerb verb = new InfinitiveVerb("regarder", "to watch");
+	private final InfinitiveVerb verb = new InfinitiveVerb("regarder", "to watch", null);
     private MoodAndTense verbMoodAndTense = new PresentIndicative();
 
 	private final String correctAnswer = "Vous regardez";
@@ -161,7 +161,7 @@ public final class PresenterTest {
 		}
 
 		@Override
-		public ConjugatedVerbWithPronoun getPresentConjugationOf(InfinitiveVerb infinitive, Persons.Person person, MoodAndTense verbMoodAndTense) {
+		public ConjugatedVerbWithPronoun getConjugationOf(InfinitiveVerb infinitive, Persons.Person person, MoodAndTense verbMoodAndTense) {
 			if (personMatchingAnswer == person && verbMatchingAnswer == infinitive) {
 				return correctAnswer;
 			}

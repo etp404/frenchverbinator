@@ -5,6 +5,7 @@ import java.util.List;
 
 import uk.co.mould.matt.data.tenses.FutureIndicative;
 import uk.co.mould.matt.data.tenses.ImperfectIndicative;
+import uk.co.mould.matt.data.tenses.PerfectIndicative;
 import uk.co.mould.matt.data.tenses.PresentConditional;
 import uk.co.mould.matt.data.tenses.PresentIndicative;
 import uk.co.mould.matt.data.tenses.MoodAndTense;
@@ -17,5 +18,6 @@ public final class SupportedMoodsAndTenses {
         add(new FutureIndicative());
         add(new PresentConditional());
         add(new PresentSubjunctive());
+        add(new PerfectIndicative());
     }};
 }

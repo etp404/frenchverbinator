@@ -20,8 +20,8 @@ public class VerbListParserTest {
         VerbListParser verbListParser = new VerbListParser(new InputSource(new FileInputStream("res/verb_list.csv")));
 
         List<InfinitiveVerb> expectedList = new ArrayList<InfinitiveVerb>(){{
-            add(new InfinitiveVerb("être", "to be"));
-            add(new InfinitiveVerb("avoir", "to have"));
+            add(new InfinitiveVerb("être", "to be", "avoir"));
+            add(new InfinitiveVerb("avoir", "to have", "avoir"));
         }};
 
         List<InfinitiveVerb> actual = verbListParser.getVerbs();
