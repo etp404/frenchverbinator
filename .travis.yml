@@ -14,8 +14,8 @@ android:
     # - platform-tools
     # - tools
 
-    - build-tools-22.0.1
-    - android-22
+    - build-tools-19.1.0
+    - android-19
 
     # Additional components
     - extra-google-google_play_services
