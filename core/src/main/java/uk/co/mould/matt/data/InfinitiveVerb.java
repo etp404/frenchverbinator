@@ -4,12 +4,12 @@ public final class InfinitiveVerb {
 
     public final FrenchInfinitiveVerb frenchVerb;
     public final String englishVerb;
-    public final String auxiliary;
+    public final FrenchInfinitiveVerb auxiliary;
 
     public InfinitiveVerb(String frenchVerb, String englishVerb, String auxiliary) {
         this.frenchVerb = FrenchInfinitiveVerb.fromString(frenchVerb);
         this.englishVerb = englishVerb;
-        this.auxiliary = auxiliary;
+        this.auxiliary = FrenchInfinitiveVerb.fromString(auxiliary);
     }
 
     @Override

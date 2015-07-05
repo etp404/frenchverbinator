@@ -28,33 +28,31 @@ public class Conjugator {
     public ConjugatedVerbWithPronoun getConjugationOf(InfinitiveVerb infinitiveVerb, Persons.Person person, MoodAndTense verbMoodAndTense) throws CantConjugateException {
         VerbTemplate template = verbTemplateParser.getTemplateForVerb(
                 infinitiveVerb.frenchVerb);
-        //TODO: tidy this out.
         Conjugation conjugation;
-        if (verbMoodAndTense instanceof PerfectIndicative && infinitiveVerb.auxiliary.equals("être")) {
-            VerbTemplate avoirTemplate = verbTemplateParser.getTemplateForVerb(
-                    FrenchInfinitiveVerb.fromString("être"));
-            Conjugation auxiliaryConjugation = conjugationParser.getConjugation(
-                    FrenchInfinitiveVerb.fromString("être"),
-                    avoirTemplate, person, new PresentIndicative());
-            Conjugation participle = conjugationParser.getPerfectParticiple(
-                    infinitiveVerb.frenchVerb, template, person);
-            conjugation = new Conjugation(auxiliaryConjugation.toString() + " " + participle.toString());
-        }
-        else if (verbMoodAndTense instanceof PerfectIndicative) {
-            VerbTemplate avoirTemplate = verbTemplateParser.getTemplateForVerb(
-                    FrenchInfinitiveVerb.fromString("avoir"));
-            Conjugation auxiliaryConjugation = conjugationParser.getConjugation(
-                    FrenchInfinitiveVerb.fromString("avoir"),
-                    avoirTemplate, person, new PresentIndicative());
-            Conjugation participle = conjugationParser.getPerfectParticiple(
-                    infinitiveVerb.frenchVerb, template);
-            conjugation = new Conjugation(auxiliaryConjugation.toString() + " " + participle.toString());
+        if (verbMoodAndTense instanceof PerfectIndicative) {
+            conjugation = new CompoundTenseConjugator().conjugate(infinitiveVerb, person, template);
         }
         else{
             conjugation = conjugationParser.getConjugation(infinitiveVerb.frenchVerb,
                     template, person, verbMoodAndTense);
         }
         return pronounHandler.addPronoun(conjugation, person);
+    }
+
+    private class CompoundTenseConjugator {
+
+        public Conjugation conjugate(InfinitiveVerb infinitiveVerb, Persons.Person person, VerbTemplate template) throws CantConjugateException {
+            Conjugation conjugation;
+            VerbTemplate auxiliaryTemplate = verbTemplateParser.getTemplateForVerb(infinitiveVerb.auxiliary);
+            Conjugation auxiliaryConjugation = conjugationParser.getConjugation(
+                    infinitiveVerb.auxiliary,
+                    auxiliaryTemplate,
+                    person,
+                    new PresentIndicative());
+            Conjugation participle = conjugationParser.getPerfectParticiple(infinitiveVerb.frenchVerb, template, person);
+            conjugation = new Conjugation(auxiliaryConjugation.toString() + " " + participle.toString());
+            return conjugation;
+        }
     }
 }
 
