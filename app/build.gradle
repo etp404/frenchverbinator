@@ -26,7 +26,14 @@ android {
     }
 }
 
-task runAllTests(dependsOn: ['clean', 'build', 'connectedAndroidTest', ":core:test", ":app:connectedAndroidTest", ":android:test", ":android:connectedAndroidTest", ":testharnessapplication:connectedAndroidTest"])
+task runAllTests(dependsOn: ['clean',
+                             'build',
+                             'connectedAndroidTest',
+                             ':core:test',
+                             ':app:connectedAndroidTest',
+                             ':android:test',
+                             ':android:connectedAndroidTest',
+                             ':testharnessapplication:connectedAndroidTest'])
 build.mustRunAfter 'clean'
 tasks.whenTaskAdded { task ->
     if (task.name == 'connectedAndroidTest')
