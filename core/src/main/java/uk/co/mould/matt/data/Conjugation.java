@@ -7,6 +7,10 @@ public final class Conjugation {
 		this.conjugatedVerb = conjugatedVerb;
 	}
 
+    public String toString() {
+        return conjugatedVerb;
+    }
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;

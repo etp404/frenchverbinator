@@ -15,6 +15,7 @@ import uk.co.mould.matt.conjugators.Conjugator;
 import uk.co.mould.matt.data.*;
 import uk.co.mould.matt.data.tenses.FutureIndicative;
 import uk.co.mould.matt.data.tenses.ImperfectIndicative;
+import uk.co.mould.matt.data.tenses.PerfectIndicative;
 import uk.co.mould.matt.data.tenses.PresentConditional;
 import uk.co.mould.matt.data.tenses.PresentIndicative;
 import uk.co.mould.matt.data.tenses.PresentSubjunctive;
@@ -149,5 +150,15 @@ public final class ConjugatorTest {
                         Persons.SECOND_PERSON_SINGULAR,
                         new PresentConditional());
         assertEquals(new ConjugatedVerbWithPronoun("Tu voudrais"), conjugatedVerbWithPronoun);
+    }
+
+    @Test
+    public void testThatPerfectTenseCanBeFormed() throws CantConjugateException {
+        ConjugatedVerbWithPronoun conjugatedVerbWithPronoun =
+                conjugator.getPresentConjugationOf(
+                        new InfinitiveVerb("vouloir", null),
+                        Persons.SECOND_PERSON_SINGULAR,
+                        new PerfectIndicative());
+        assertEquals(new ConjugatedVerbWithPronoun("Tu as voulu"), conjugatedVerbWithPronoun);
     }
 }

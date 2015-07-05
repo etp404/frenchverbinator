@@ -54,26 +54,28 @@ public final class ConjugationParser {
 		}
 	}
 
-	public Conjugation getConjugation(FrenchInfinitiveVerb frenchInfinitiveVerb, VerbTemplate template, Persons.Person person) throws CantConjugateException {
-		Element element = templateToNode.get(template);
-		if (element == null) {
-			throw new CantConjugateException("Could not conjugate " + frenchInfinitiveVerb.toString());
-		}
-        Element indicativeVerbNode = (Element) element.getElementsByTagName("indicative").item(0);
-        String conjugatedEnding = indicativeVerbNode.getElementsByTagName("i").item(PERSON_TO_INDEX.get(person)).getTextContent();
-
-		return new Conjugation(frenchInfinitiveVerb.toString().replace(template.getEndingAsString(), conjugatedEnding));
-	}
-
     public Conjugation getConjugation(FrenchInfinitiveVerb frenchInfinitiveVerb, VerbTemplate template, Persons.Person person, MoodAndTense verbMoodAndTense) throws CantConjugateException {
         Element element = templateToNode.get(template);
         if (element == null) {
             throw new CantConjugateException("Could not conjugate " + frenchInfinitiveVerb.toString());
         }
         Element indicativeVerbNode = (Element) element.getElementsByTagName(verbMoodAndTense.getMood()).item(0);
-        Element imperfectVerbEndings = (Element) indicativeVerbNode.getElementsByTagName(verbMoodAndTense.getTense()).item(0);
+        Element verbEndings = (Element) indicativeVerbNode.getElementsByTagName(verbMoodAndTense.getTense()).item(0);
 
-        String conjugatedEnding = imperfectVerbEndings.getElementsByTagName("i").item(PERSON_TO_INDEX.get(person)).getTextContent();
+        String conjugatedEnding = verbEndings.getElementsByTagName("i").item(PERSON_TO_INDEX.get(person)).getTextContent();
+
+        return new Conjugation(frenchInfinitiveVerb.toString().replace(template.getEndingAsString(), conjugatedEnding));
+    }
+
+    public Conjugation getPerfectParticiple(FrenchInfinitiveVerb frenchInfinitiveVerb, VerbTemplate template) throws CantConjugateException {
+        Element element = templateToNode.get(template);
+        if (element == null) {
+            throw new CantConjugateException("Could not conjugate " + frenchInfinitiveVerb.toString());
+        }
+        Element indicativeVerbNode = (Element) element.getElementsByTagName("participle").item(0);
+        Element verbEndings = (Element) indicativeVerbNode.getElementsByTagName("past-participle").item(0);
+
+        String conjugatedEnding = verbEndings.getElementsByTagName("i").item(0).getTextContent();
 
         return new Conjugation(frenchInfinitiveVerb.toString().replace(template.getEndingAsString(), conjugatedEnding));
     }
