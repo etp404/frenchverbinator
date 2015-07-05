@@ -31,5 +31,6 @@ dependencies {
     compile project(':android')
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2'
     androidTestCompile 'com.android.support.test:runner:0.3'
+    compile "com.android.support:appcompat-v7:22.2.0"
     compile project(':core')
 }
