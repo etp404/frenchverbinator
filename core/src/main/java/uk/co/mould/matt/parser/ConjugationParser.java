@@ -32,7 +32,17 @@ public final class ConjugationParser {
 		put(Persons.THIRD_PERSON_PLURAL, 5);
 	}};
 
-	private final HashMap<VerbTemplate, Element> templateToNode = new HashMap<>();
+    private final static Map<Persons.Person, Integer> PERSON_TO_PARTICIPLE_INDEX = new HashMap<Persons.Person, Integer>(){{
+        put(Persons.FIRST_PERSON_SINGULAR, 0);
+        put(Persons.SECOND_PERSON_SINGULAR, 0);
+        put(Persons.THIRD_PERSON_SINGULAR, 0);
+        put(Persons.FIRST_PERSON_PLURAL, 1);
+        put(Persons.SECOND_PERSON_PLURAL, 1);
+        put(Persons.THIRD_PERSON_PLURAL, 1);
+    }};
+
+
+    private final HashMap<VerbTemplate, Element> templateToNode = new HashMap<>();
 
 	public ConjugationParser(InputSource conjugationFile) {
 		try {
@@ -76,6 +86,19 @@ public final class ConjugationParser {
         Element verbEndings = (Element) indicativeVerbNode.getElementsByTagName("past-participle").item(0);
 
         String conjugatedEnding = verbEndings.getElementsByTagName("i").item(0).getTextContent();
+
+        return new Conjugation(frenchInfinitiveVerb.toString().replace(template.getEndingAsString(), conjugatedEnding));
+    }
+
+    public Conjugation getPerfectParticiple(FrenchInfinitiveVerb frenchInfinitiveVerb, VerbTemplate template, Persons.Person person) throws CantConjugateException {
+        Element element = templateToNode.get(template);
+        if (element == null) {
+            throw new CantConjugateException("Could not conjugate " + frenchInfinitiveVerb.toString());
+        }
+        Element indicativeVerbNode = (Element) element.getElementsByTagName("participle").item(0);
+        Element verbEndings = (Element) indicativeVerbNode.getElementsByTagName("past-participle").item(0);
+
+        String conjugatedEnding = verbEndings.getElementsByTagName("i").item(PERSON_TO_PARTICIPLE_INDEX.get(person)).getTextContent();
 
         return new Conjugation(frenchInfinitiveVerb.toString().replace(template.getEndingAsString(), conjugatedEnding));
     }

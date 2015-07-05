@@ -26,7 +26,7 @@ public final class TestThatAllWhiteListedVerbsCanBeConjugated extends ActivityTe
             for (Persons.Person person : SupportedPersons.ALL) {
                 for (MoodAndTense moodAndTense : SupportedMoodsAndTenses.ALL) {
                     assertNotNull(String.format("%s form of %s", person, verb.toString()),
-                            conjugator.getPresentConjugationOf(verb, person, moodAndTense));
+                            conjugator.getConjugationOf(verb, person, moodAndTense));
                 }
             }
         }

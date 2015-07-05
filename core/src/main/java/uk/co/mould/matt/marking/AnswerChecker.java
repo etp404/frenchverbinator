@@ -37,7 +37,7 @@ public class AnswerChecker {
     public boolean isAnswerCorrect(String answer) {
         ConjugatedVerbWithPronoun correctAnswer;
         try {
-            correctAnswer = conjugator.getPresentConjugationOf(
+            correctAnswer = conjugator.getConjugationOf(
                     infinitiveVerb,
                     questionPerson,
                     verbMoodAndTense);
