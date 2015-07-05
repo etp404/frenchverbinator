@@ -27,7 +27,6 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.CoreMatchers.instanceOf;
 
 public class SettingsViewTest extends ActivityInstrumentationTestCase2<TestActivity> {
-    private TestActivity activity;
     private ViewGroup activityTestViewGroup;
     private SettingsView settingsView;
     private FakeSettingsPresenter fakeSettingsPresenter;
