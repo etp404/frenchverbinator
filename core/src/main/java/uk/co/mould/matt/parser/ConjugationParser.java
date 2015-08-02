@@ -77,19 +77,6 @@ public final class ConjugationParser {
         return new Conjugation(frenchInfinitiveVerb.toString().replace(template.getEndingAsString(), conjugatedEnding));
     }
 
-    public Conjugation getPerfectParticiple(FrenchInfinitiveVerb frenchInfinitiveVerb, VerbTemplate template) throws CantConjugateException {
-        Element element = templateToNode.get(template);
-        if (element == null) {
-            throw new CantConjugateException("Could not conjugate " + frenchInfinitiveVerb.toString());
-        }
-        Element indicativeVerbNode = (Element) element.getElementsByTagName("participle").item(0);
-        Element verbEndings = (Element) indicativeVerbNode.getElementsByTagName("past-participle").item(0);
-
-        String conjugatedEnding = verbEndings.getElementsByTagName("i").item(0).getTextContent();
-
-        return new Conjugation(frenchInfinitiveVerb.toString().replace(template.getEndingAsString(), conjugatedEnding));
-    }
-
     public Conjugation getPerfectParticiple(FrenchInfinitiveVerb frenchInfinitiveVerb, VerbTemplate template, Persons.Person person) throws CantConjugateException {
         Element element = templateToNode.get(template);
         if (element == null) {
