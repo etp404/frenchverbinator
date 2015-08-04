@@ -43,7 +43,8 @@
             android:id="@+id/answerBox"
             android:hint="Answer"
             android:gravity="center_horizontal"
-            style="@style/CustomTextStyle" />
+            style="@style/CustomTextStyle"
+            android:inputType="textVisiblePassword|textNoSuggestions" />
 
         <Button
             android:layout_width="match_parent"
