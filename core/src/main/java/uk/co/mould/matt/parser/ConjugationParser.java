@@ -2,6 +2,7 @@ package uk.co.mould.matt.parser;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -85,7 +86,12 @@ public final class ConjugationParser {
         Element indicativeVerbNode = (Element) element.getElementsByTagName("participle").item(0);
         Element verbEndings = (Element) indicativeVerbNode.getElementsByTagName("past-participle").item(0);
 
-        String conjugatedEnding = verbEndings.getElementsByTagName("i").item(PERSON_TO_PARTICIPLE_INDEX.get(person)).getTextContent();
+        Node pastParticipleElement = verbEndings.getElementsByTagName("i").item(
+                PERSON_TO_PARTICIPLE_INDEX.get(person));
+        if (pastParticipleElement == null) {
+            pastParticipleElement = verbEndings.getElementsByTagName("i").item(0);
+        }
+        String conjugatedEnding = pastParticipleElement.getTextContent();
 
         return new Conjugation(frenchInfinitiveVerb.toString().replace(template.getEndingAsString(), conjugatedEnding));
     }

@@ -107,7 +107,7 @@ public final class ConjugatorTest {
     @Test
     public void testThatIfVerbIsUnknownNullExceptionIsThrown() throws CantConjugateException {
         thrown.expect(CantConjugateException.class);
-        conjugator.getConjugationOf(new InfinitiveVerb("some nonexistent verb", null,  "avoir"),
+        conjugator.getConjugationOf(new InfinitiveVerb("some nonexistent verb", null, "avoir"),
                 Persons.THIRD_PERSON_SINGULAR,
                 new PresentIndicative());
     }
@@ -160,6 +160,16 @@ public final class ConjugatorTest {
                         Persons.SECOND_PERSON_SINGULAR,
                         new PerfectIndicative());
         assertEquals(new ConjugatedVerbWithPronoun("Tu as voulu"), conjugatedVerbWithPronoun);
+    }
+
+    @Test
+    public void testThatPerfectTenseWithOnePerfectParticipleCanBeFormedWithAvoir() throws CantConjugateException {
+        ConjugatedVerbWithPronoun conjugatedVerbWithPronoun =
+                conjugator.getConjugationOf(
+                        new InfinitiveVerb("être", null,  "avoir"),
+                        Persons.FIRST_PERSON_PLURAL,
+                        new PerfectIndicative());
+        assertEquals(new ConjugatedVerbWithPronoun("Nous avons été"), conjugatedVerbWithPronoun);
     }
 
     @Test
