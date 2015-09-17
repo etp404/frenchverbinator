@@ -10,9 +10,12 @@ import uk.co.mould.matt.data.tenses.MoodAndTense;
 import uk.co.mould.matt.fakes.FakeQuestionGenerator;
 import uk.co.mould.matt.fakes.FakeQuestionView;
 import uk.co.mould.matt.frenchverbinator.questions.ui.QuestionPresenter;
+import uk.co.mould.matt.marking.Score;
 
+import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 public final class PresenterTest {
@@ -145,6 +148,49 @@ public final class PresenterTest {
         assertFalse(questionView.resultBoxVisible);
 
         assertFalse(questionView.noTensesSelectedIsShown);
+    }
+
+    @Test
+    public void testThatScoreIsSetToZeroOfZeroAtStart() {
+        assertThat(questionView.hasBeenToldToShowScore, is(new Score()));
+    }
+
+    @Test
+    public void testThatScoreIsSetToOneOfOneIfCorrectAnswerGiven() {
+        questionView.answer = correctAnswer;
+        questionPresenter.submitAnswer();
+        Score score = new Score();
+        score.addCorrect();
+        assertThat(questionView.hasBeenToldToShowScore, is(score));
+    }
+
+    @Test
+    public void testThatScoreIsSetToTwoOfTwoIfTwoCorrectAnswersGiven() {
+        questionView.answer = correctAnswer;
+        questionPresenter.submitAnswer();
+        questionView.answer = correctAnswer;
+        questionPresenter.submitAnswer();
+
+        Score score = new Score();
+        score.addCorrect();
+        score.addCorrect();
+        assertThat(questionView.hasBeenToldToShowScore, is(score));
+    }
+
+    @Test
+    public void testThatScoreIsSetToOneOfTwoIfOneCorrectAndTwoIncorrectAnswersGiven() {
+        questionView.answer = "wrong answer";
+        questionPresenter.submitAnswer();
+        questionView.answer = "wrong answer";
+        questionPresenter.submitAnswer();
+        questionView.answer = correctAnswer;
+        questionPresenter.submitAnswer();
+
+        Score score = new Score();
+        score.addCorrect();
+        score.addIncorrect();
+        score.addIncorrect();
+        assertThat(questionView.hasBeenToldToShowScore, is(score));
     }
 
     private class FakeConjugator extends Conjugator {

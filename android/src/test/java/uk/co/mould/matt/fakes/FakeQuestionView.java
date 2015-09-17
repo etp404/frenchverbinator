@@ -5,6 +5,7 @@ import uk.co.mould.matt.data.InfinitiveVerb;
 import uk.co.mould.matt.data.tenses.MoodAndTense;
 import uk.co.mould.matt.data.Persons;
 import uk.co.mould.matt.frenchverbinator.questions.ui.QuestionView;
+import uk.co.mould.matt.marking.Score;
 
 public class FakeQuestionView implements QuestionView {
 	public InfinitiveVerb verb;
@@ -24,6 +25,7 @@ public class FakeQuestionView implements QuestionView {
     public Boolean noTensesSelectedIsShown;
     public Boolean answerBoxIsVisible;
     public Boolean questionBoxIsVisible;
+    public Score hasBeenToldToShowScore;
 
     @Override
 	public void setQuestion(Persons.Person person, InfinitiveVerb verb, MoodAndTense verbMoodAndTense) {
@@ -156,5 +158,10 @@ public class FakeQuestionView implements QuestionView {
     @Override
     public void hideNoTensesSelected() {
         noTensesSelectedIsShown = false;
+    }
+
+    @Override
+    public void showScore(Score score) {
+        hasBeenToldToShowScore = score;
     }
 }

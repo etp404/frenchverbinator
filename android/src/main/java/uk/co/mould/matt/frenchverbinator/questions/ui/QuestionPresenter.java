@@ -6,12 +6,14 @@ import uk.co.mould.matt.data.Persons;
 import uk.co.mould.matt.data.InfinitiveVerb;
 import uk.co.mould.matt.data.tenses.MoodAndTense;
 import uk.co.mould.matt.marking.AnswerChecker;
+import uk.co.mould.matt.marking.Score;
 import uk.co.mould.matt.questions.QuestionGenerator;
 
 public class QuestionPresenter {
 	private final Conjugator conjugator;
 	private AnswerChecker answerChecker;
 	private QuestionView questionView;
+    private Score score = new Score();
 	private QuestionGenerator fakeQuestionGenerator;
     private InfinitiveVerb infinitiveVerb;
     private Persons.Person questionPerson;
@@ -27,6 +29,7 @@ public class QuestionPresenter {
 	}
 
 	public void showQuestion() {
+        questionView.showScore(score);
         questionView.hideNoTensesSelected();
 
 		questionPerson = fakeQuestionGenerator.getRandomPerson();
@@ -55,11 +58,14 @@ public class QuestionPresenter {
 		answerChecker.check(questionView.getAnswer(), new AnswerChecker.Callback() {
             @Override
             public void correct() {
+                score.addCorrect();
                 questionView.setResultToCorrect();
+                questionView.showScore(score);
             }
 
             @Override
             public void incorrect() {
+                score.addIncorrect();
                 questionView.setResultToIncorrect();
                 questionView.showCorrection();
                 try {
@@ -71,6 +77,8 @@ public class QuestionPresenter {
 
                 }
             }
+
+
         });
 		questionView.disableAnswerBox();
 		questionView.showResultBox();

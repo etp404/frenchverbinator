@@ -9,6 +9,7 @@ import uk.co.mould.matt.data.ConjugatedVerbWithPronoun;
 import uk.co.mould.matt.data.InfinitiveVerb;
 import uk.co.mould.matt.data.tenses.MoodAndTense;
 import uk.co.mould.matt.data.Persons;
+import uk.co.mould.matt.marking.Score;
 
 public final class AndroidQuestionView implements QuestionView {
     private static final String QUESTION_TEMPLATE = "What is the '%s' form of %s (%s) in the %s?";
@@ -155,6 +156,11 @@ public final class AndroidQuestionView implements QuestionView {
     @Override
     public void hideNoTensesSelected() {
         noTensesSelectedWarning.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showScore(Score score) {
+
     }
 
     @Override

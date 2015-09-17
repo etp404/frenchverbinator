@@ -4,6 +4,7 @@ import uk.co.mould.matt.data.ConjugatedVerbWithPronoun;
 import uk.co.mould.matt.data.Persons;
 import uk.co.mould.matt.data.InfinitiveVerb;
 import uk.co.mould.matt.data.tenses.MoodAndTense;
+import uk.co.mould.matt.marking.Score;
 
 public interface QuestionView {
 	void setQuestion(Persons.Person person, InfinitiveVerb verb, MoodAndTense verbMoodAndTense);
@@ -57,4 +58,6 @@ public interface QuestionView {
     void showAnswerBox();
 
     void hideNoTensesSelected();
+
+    void showScore(Score score);
 }

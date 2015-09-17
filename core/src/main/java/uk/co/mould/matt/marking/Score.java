@@ -15,4 +15,23 @@ public class Score {
     public void addCorrect() {
         correct++;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Score score = (Score) o;
+
+        if (correct != score.correct) return false;
+        return incorrect == score.incorrect;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = correct;
+        result = 31 * result + incorrect;
+        return result;
+    }
 }
