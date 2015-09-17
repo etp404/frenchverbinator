@@ -39,7 +39,7 @@ public final class ConjugatorTest {
     }
 
     @Test
-    public void testThat_Aimer_Present_FirstPersonSingularIsConjugatedAsExpected() throws CantConjugateException {
+    public void testThat_Aimer_Present_FirstPersonSingularIsConjugatedAsExpected() throws uk.co.mould.matt.exceptions.CantConjugateException {
         assertEquals(new ConjugatedVerbWithPronoun("J'aime"),
                 conjugator.getConjugationOf(new InfinitiveVerb("aimer", null, "avoid"),
                         Persons.FIRST_PERSON_SINGULAR,
@@ -47,7 +47,7 @@ public final class ConjugatorTest {
     }
 
     @Test
-    public void testThat_Aimer_Present_SecondPersonSingularIsConjugatedAsExpected() throws CantConjugateException {
+    public void testThat_Aimer_Present_SecondPersonSingularIsConjugatedAsExpected() throws uk.co.mould.matt.exceptions.CantConjugateException {
         assertEquals(new ConjugatedVerbWithPronoun("Tu aimes"),
                 conjugator.getConjugationOf(new InfinitiveVerb("aimer", null, "avoid"),
                         Persons.SECOND_PERSON_SINGULAR,
@@ -55,7 +55,7 @@ public final class ConjugatorTest {
     }
 
     @Test
-    public void testThat_Aimer_Present_ThirdPersonSingularIsConjugatedAsExpected() throws CantConjugateException {
+    public void testThat_Aimer_Present_ThirdPersonSingularIsConjugatedAsExpected() throws uk.co.mould.matt.exceptions.CantConjugateException {
         assertEquals(new ConjugatedVerbWithPronoun("Il aime"),
                 conjugator.getConjugationOf(new InfinitiveVerb("aimer", null, "avoid"),
                         Persons.THIRD_PERSON_SINGULAR,
@@ -63,7 +63,7 @@ public final class ConjugatorTest {
     }
 
     @Test
-    public void testThat_Aimer_Present_FirstPersonPluralIsConjugatedAsExpected() throws CantConjugateException {
+    public void testThat_Aimer_Present_FirstPersonPluralIsConjugatedAsExpected() throws uk.co.mould.matt.exceptions.CantConjugateException {
         assertEquals(new ConjugatedVerbWithPronoun("Nous aimons"),
                 conjugator.getConjugationOf(new InfinitiveVerb("aimer", null,  "avoir"),
                         Persons.FIRST_PERSON_PLURAL,
@@ -71,7 +71,7 @@ public final class ConjugatorTest {
     }
 
     @Test
-    public void testThat_Aimer_Present_SecondPersonPluralIsConjugatedAsExpected() throws CantConjugateException {
+    public void testThat_Aimer_Present_SecondPersonPluralIsConjugatedAsExpected() throws uk.co.mould.matt.exceptions.CantConjugateException {
         assertEquals(new ConjugatedVerbWithPronoun("Vous aimez"),
                 conjugator.getConjugationOf(new InfinitiveVerb("aimer", null,  "avoir"),
                         Persons.SECOND_PERSON_PLURAL,
@@ -79,7 +79,7 @@ public final class ConjugatorTest {
     }
 
     @Test
-    public void testThat_Aimer_Present_ThirdPersonPluralIsConjugatedAsExpected() throws CantConjugateException {
+    public void testThat_Aimer_Present_ThirdPersonPluralIsConjugatedAsExpected() throws uk.co.mould.matt.exceptions.CantConjugateException {
         ConjugatedVerbWithPronoun conjugatedVerbWithPronoun = conjugator.getConjugationOf(
                 new InfinitiveVerb("aimer", null,  "avoir"), Persons.THIRD_PERSON_PLURAL,
                 new PresentIndicative());
@@ -87,7 +87,7 @@ public final class ConjugatorTest {
     }
 
     @Test
-    public void testThat_Perdre_Present_FirstPersonPluralIsConjugatedAsExpected() throws CantConjugateException {
+    public void testThat_Perdre_Present_FirstPersonPluralIsConjugatedAsExpected() throws uk.co.mould.matt.exceptions.CantConjugateException {
         assertEquals(new ConjugatedVerbWithPronoun("Je perds"),
                 conjugator.getConjugationOf(new InfinitiveVerb("perdre", null,  "avoir"),
                         Persons.FIRST_PERSON_SINGULAR,
@@ -95,7 +95,7 @@ public final class ConjugatorTest {
     }
 
     @Test
-    public void testThat_Aller_Present_ThirdPersonPluralIsConjugatedAsExpected() throws CantConjugateException {
+    public void testThat_Aller_Present_ThirdPersonPluralIsConjugatedAsExpected() throws uk.co.mould.matt.exceptions.CantConjugateException {
         ConjugatedVerbWithPronoun conjugatedVerbWithPronoun =
                 conjugator.getConjugationOf(
                         new InfinitiveVerb("aller", null,  "avoir"),
@@ -105,15 +105,15 @@ public final class ConjugatorTest {
     }
 
     @Test
-    public void testThatIfVerbIsUnknownNullExceptionIsThrown() throws CantConjugateException {
-        thrown.expect(CantConjugateException.class);
+    public void testThatIfVerbIsUnknownNullExceptionIsThrown() throws uk.co.mould.matt.exceptions.CantConjugateException {
+        thrown.expect(uk.co.mould.matt.exceptions.CantConjugateException.class);
         conjugator.getConjugationOf(new InfinitiveVerb("some nonexistent verb", null, "avoir"),
                 Persons.THIRD_PERSON_SINGULAR,
                 new PresentIndicative());
     }
 
     @Test
-    public void testThatImperfectTenseCanBeConjugated() throws CantConjugateException {
+    public void testThatImperfectTenseCanBeConjugated() throws uk.co.mould.matt.exceptions.CantConjugateException {
         ConjugatedVerbWithPronoun conjugatedVerbWithPronoun =
                 conjugator.getConjugationOf(
                         new InfinitiveVerb("savoir", null,  "avoir"),
@@ -123,7 +123,7 @@ public final class ConjugatorTest {
     }
 
     @Test
-    public void testThatFutureTenseCanBeConjugated() throws CantConjugateException {
+    public void testThatFutureTenseCanBeConjugated() throws uk.co.mould.matt.exceptions.CantConjugateException {
         ConjugatedVerbWithPronoun conjugatedVerbWithPronoun =
                 conjugator.getConjugationOf(
                         new InfinitiveVerb("écrire", null,  "avoir"),
@@ -133,7 +133,7 @@ public final class ConjugatorTest {
     }
 
     @Test
-    public void testThatSubjunctivePresentCanBeConjugated() throws CantConjugateException {
+    public void testThatSubjunctivePresentCanBeConjugated() throws uk.co.mould.matt.exceptions.CantConjugateException {
         ConjugatedVerbWithPronoun conjugatedVerbWithPronoun =
                 conjugator.getConjugationOf(
                         new InfinitiveVerb("être", null,  "avoir"),
@@ -143,7 +143,7 @@ public final class ConjugatorTest {
     }
 
     @Test
-    public void testThatConditionalPresentCanBeConjugated() throws CantConjugateException {
+    public void testThatConditionalPresentCanBeConjugated() throws uk.co.mould.matt.exceptions.CantConjugateException {
         ConjugatedVerbWithPronoun conjugatedVerbWithPronoun =
                 conjugator.getConjugationOf(
                         new InfinitiveVerb("vouloir", null,  "avoir"),
@@ -153,7 +153,7 @@ public final class ConjugatorTest {
     }
 
     @Test
-    public void testThatPerfectTenseCanBeFormedWithAvoir() throws CantConjugateException {
+    public void testThatPerfectTenseCanBeFormedWithAvoir() throws uk.co.mould.matt.exceptions.CantConjugateException {
         ConjugatedVerbWithPronoun conjugatedVerbWithPronoun =
                 conjugator.getConjugationOf(
                         new InfinitiveVerb("vouloir", null,  "avoir"),
@@ -163,7 +163,7 @@ public final class ConjugatorTest {
     }
 
     @Test
-    public void testThatPerfectTenseWithOnePerfectParticipleCanBeFormedWithAvoir() throws CantConjugateException {
+    public void testThatPerfectTenseWithOnePerfectParticipleCanBeFormedWithAvoir() throws uk.co.mould.matt.exceptions.CantConjugateException {
         ConjugatedVerbWithPronoun conjugatedVerbWithPronoun =
                 conjugator.getConjugationOf(
                         new InfinitiveVerb("être", null,  "avoir"),
@@ -173,7 +173,7 @@ public final class ConjugatorTest {
     }
 
     @Test
-    public void testThatPerfectTenseCanBeFormedWithEtreForSingularPerson() throws CantConjugateException {
+    public void testThatPerfectTenseCanBeFormedWithEtreForSingularPerson() throws uk.co.mould.matt.exceptions.CantConjugateException {
         ConjugatedVerbWithPronoun conjugatedVerbWithPronoun =
                 conjugator.getConjugationOf(
                         new InfinitiveVerb("aller", null, "être"),
@@ -183,7 +183,7 @@ public final class ConjugatorTest {
     }
 
     @Test
-    public void testThatPerfectTenseCanBeFormedWithEtreForPluralPerson() throws CantConjugateException {
+    public void testThatPerfectTenseCanBeFormedWithEtreForPluralPerson() throws uk.co.mould.matt.exceptions.CantConjugateException {
         ConjugatedVerbWithPronoun conjugatedVerbWithPronoun =
                 conjugator.getConjugationOf(
                         new InfinitiveVerb("aller", null, "être"),

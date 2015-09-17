@@ -4,7 +4,7 @@ import android.test.ActivityTestCase;
 
 import org.xml.sax.InputSource;
 
-import uk.co.mould.matt.CantConjugateException;
+import uk.co.mould.matt.exceptions.CantConjugateException;
 import uk.co.mould.matt.conjugators.Conjugator;
 import uk.co.mould.matt.data.InfinitiveVerb;
 import uk.co.mould.matt.data.Persons;

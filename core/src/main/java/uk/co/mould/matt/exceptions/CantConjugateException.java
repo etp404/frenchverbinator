@@ -1,4 +1,4 @@
-package uk.co.mould.matt;
+package uk.co.mould.matt.exceptions;
 
 public final class CantConjugateException extends Exception {
     public CantConjugateException(String message) {

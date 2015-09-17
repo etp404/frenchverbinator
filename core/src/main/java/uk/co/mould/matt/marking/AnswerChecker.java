@@ -1,6 +1,6 @@
 package uk.co.mould.matt.marking;
 
-import uk.co.mould.matt.CantConjugateException;
+import uk.co.mould.matt.exceptions.CantConjugateException;
 import uk.co.mould.matt.conjugators.Conjugator;
 import uk.co.mould.matt.data.ConjugatedVerbWithPronoun;
 import uk.co.mould.matt.data.Persons;

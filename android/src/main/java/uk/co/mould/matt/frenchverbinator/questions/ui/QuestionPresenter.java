@@ -1,6 +1,6 @@
 package uk.co.mould.matt.frenchverbinator.questions.ui;
 
-import uk.co.mould.matt.CantConjugateException;
+import uk.co.mould.matt.exceptions.CantConjugateException;
 import uk.co.mould.matt.conjugators.Conjugator;
 import uk.co.mould.matt.data.Persons;
 import uk.co.mould.matt.data.InfinitiveVerb;
