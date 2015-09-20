@@ -5,7 +5,7 @@ public class Score {
     int incorrect = 0;
     @Override
     public String toString() {
-        return String.format("%d/%d", correct, correct+incorrect);
+        return String.format("You've scored %d out of %d correct", correct, correct+incorrect);
     }
 
     public void addIncorrect() {

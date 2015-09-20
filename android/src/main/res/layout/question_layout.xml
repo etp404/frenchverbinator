@@ -19,13 +19,6 @@
         android:padding="16dp">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:id="@+id/score"
-            android:layout_gravity="right" />
-
-        <TextView
             android:id="@+id/question"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -85,6 +78,15 @@
             android:text="correctAnswer"
             android:layout_gravity="center_horizontal"
             style="@style/font_style" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/score"
+            android:text="0/0"
+            android:textStyle="italic"
+            android:layout_gravity="center_horizontal" />
 
     </LinearLayout>
 </FrameLayout>
