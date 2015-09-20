@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 
 public class TestActivity extends AppCompatActivity {
@@ -12,6 +13,11 @@ public class TestActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings_activity_layout);
+    }
+
+    @Override
+    public void setContentView(View view) {
+        super.setContentView(view);
     }
 
     @Override

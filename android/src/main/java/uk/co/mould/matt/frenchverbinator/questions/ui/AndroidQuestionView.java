@@ -21,6 +21,7 @@ public final class AndroidQuestionView implements QuestionView {
     private final TextView correctionBox;
     private final TextView questionBox;
     private TextView noTensesSelectedWarning;
+    private final TextView scoreBox;
 
     public AndroidQuestionView(ViewGroup questionViewGroup) {
         answerBox = ((TextView) questionViewGroup.findViewById(R.id.answerBox));
@@ -30,6 +31,7 @@ public final class AndroidQuestionView implements QuestionView {
         correctionBox = ((TextView) questionViewGroup.findViewById(R.id.correction_box));
         questionBox = (TextView) questionViewGroup.findViewById(R.id.question);
         noTensesSelectedWarning = (TextView) questionViewGroup.findViewById(R.id.no_tenses_selected);
+        scoreBox = (TextView) questionViewGroup.findViewById(R.id.score);
     }
 
     @Override
@@ -160,7 +162,7 @@ public final class AndroidQuestionView implements QuestionView {
 
     @Override
     public void showScore(Score score) {
-
+        scoreBox.setText(score.toString());
     }
 
     @Override
