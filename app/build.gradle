@@ -30,9 +30,7 @@ task runAllTests(dependsOn: ['clean',
                              'build',
                              'connectedAndroidTest',
                              ':core:test',
-                             ':app:connectedAndroidTest',
-                             ':android:test',
-                             ':android:connectedAndroidTest'])
+                             ':app:connectedAndroidTest'])
 build.mustRunAfter 'clean'
 tasks.whenTaskAdded { task ->
     if (task.name == 'connectedAndroidTest')
@@ -41,8 +39,8 @@ tasks.whenTaskAdded { task ->
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile "com.android.support:appcompat-v7:22.2.0"
+    compile 'com.android.support:appcompat-v7:22.2.0'
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2'
     androidTestCompile 'com.android.support.test:runner:0.3'
-    compile project(':android')
+    compile project(':core')
 }

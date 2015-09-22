@@ -10,8 +10,6 @@ import android.view.ViewGroup;
 
 import org.xml.sax.InputSource;
 
-import uk.co.mould.matt.frenchverbinator.questions.ui.AndroidQuestionView;
-import uk.co.mould.matt.frenchverbinator.questions.ui.QuestionPresenter;
 import uk.co.mould.matt.frenchverbinator.settings.SharedPrefsUserSettings;
 import uk.co.mould.matt.parser.VerbListParser;
 import uk.co.mould.matt.questions.QuestionGenerator;

@@ -7,7 +7,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import uk.co.mould.matt.data.SupportedMoodsAndTenses;
 import uk.co.mould.matt.data.tenses.MoodAndTense;
 import uk.co.mould.matt.data.tenses.PresentIndicative;
 

@@ -3,7 +3,6 @@ package uk.co.mould.matt.frenchverbinator;
 import android.test.ActivityInstrumentationTestCase2;
 import android.view.ViewGroup;
 
-import uk.co.mould.matt.frenchverbinator.questions.ui.AndroidQuestionView;
 import uk.co.mould.matt.marking.Score;
 
 import static android.support.test.espresso.Espresso.onView;

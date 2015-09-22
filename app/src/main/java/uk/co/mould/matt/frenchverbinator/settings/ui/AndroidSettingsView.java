@@ -12,8 +12,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import matt.mould.co.uk.android.R;
 import uk.co.mould.matt.data.tenses.MoodAndTense;
+import uk.co.mould.matt.frenchverbinator.R;
 
 public class AndroidSettingsView extends LinearLayout implements SettingsView {
     private Map<Class<? extends MoodAndTense>, Integer> tenseToId = new HashMap<>();

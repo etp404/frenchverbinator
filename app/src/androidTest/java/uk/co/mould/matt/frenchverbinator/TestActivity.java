@@ -6,6 +6,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import uk.co.mould.matt.frenchverbinator.R;
+
 
 public class TestActivity extends AppCompatActivity {
 
