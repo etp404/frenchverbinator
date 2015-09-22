@@ -36,12 +36,6 @@ public class QuestionActivity extends AppCompatActivity {
         conjugationParser = new ConjugationParser(new InputSource(getResources().openRawResource(R.raw.conjugation_fr)));
         verbListParser = new VerbListParser(new InputSource(getResources().openRawResource(R.raw.verb_list)));
         conjugator = new Conjugator(verbTemplateParser, conjugationParser);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
         QuestionGenerator questionGenerator = new RandomQuestionGenerator(
                 verbListParser,
                 storedUserSettings.includedTenses());
@@ -61,7 +55,6 @@ public class QuestionActivity extends AppCompatActivity {
             questionPresenter.showQuestion();
         }
     }
-
     private void setUpNextQuestionButton(final QuestionPresenter questionPresenter) {
 		findViewById(R.id.next).setOnClickListener(new View.OnClickListener() {
             @Override
