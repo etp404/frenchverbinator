@@ -3,8 +3,6 @@ package uk.co.mould.matt.frenchverbinator;
 import android.test.ActivityInstrumentationTestCase2;
 import android.view.ViewGroup;
 
-import matt.mould.co.uk.testharnessapplication.R;
-import matt.mould.co.uk.testharnessapplication.TestActivity;
 import uk.co.mould.matt.frenchverbinator.questions.ui.AndroidQuestionView;
 import uk.co.mould.matt.marking.Score;
 

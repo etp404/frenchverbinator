@@ -7,8 +7,6 @@ import org.junit.Before;
 
 import java.util.ArrayList;
 
-import matt.mould.co.uk.testharnessapplication.R;
-import matt.mould.co.uk.testharnessapplication.TestActivity;
 import uk.co.mould.matt.data.tenses.ImperfectIndicative;
 import uk.co.mould.matt.data.tenses.MoodAndTense;
 import uk.co.mould.matt.data.tenses.PresentConditional;

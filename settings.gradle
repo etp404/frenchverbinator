@@ -1,1 +1,1 @@
-include ':app', ':core', ':testharnessapplication', ':android'
+include ':app', ':core', ':android'
