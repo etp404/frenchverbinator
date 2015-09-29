@@ -50,7 +50,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="CHECK"
-            android:id="@+id/submitButton"
+            android:id="@+id/submit_button"
             android:elevation="6dp"
             style="@style/buttonFontColour" />
 

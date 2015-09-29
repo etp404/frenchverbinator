@@ -65,7 +65,7 @@ public class QuestionActivity extends AppCompatActivity {
 	}
 
 	private void setUpSubmitButton(final QuestionPresenter questionPresenter) {
-		findViewById(R.id.submitButton).setOnClickListener(new View.OnClickListener() {
+		findViewById(R.id.submit_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 questionPresenter.submitAnswer();

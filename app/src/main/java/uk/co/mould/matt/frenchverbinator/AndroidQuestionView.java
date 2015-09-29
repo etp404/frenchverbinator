@@ -24,7 +24,7 @@ public final class AndroidQuestionView implements QuestionView {
 
     public AndroidQuestionView(ViewGroup questionViewGroup) {
         answerBox = ((TextView) questionViewGroup.findViewById(R.id.answerBox));
-        submitButton = questionViewGroup.findViewById(R.id.submitButton);
+        submitButton = questionViewGroup.findViewById(R.id.submit_button);
         nextButton = questionViewGroup.findViewById(R.id.next);
         resultBox = ((TextView) questionViewGroup.findViewById(R.id.result_box));
         correctionBox = ((TextView) questionViewGroup.findViewById(R.id.correction_box));

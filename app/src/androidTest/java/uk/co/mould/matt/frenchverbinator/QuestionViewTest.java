@@ -5,7 +5,6 @@ import android.view.ViewGroup;
 
 import org.junit.Before;
 
-import uk.co.mould.matt.data.FrenchInfinitiveVerb;
 import uk.co.mould.matt.data.InfinitiveVerb;
 import uk.co.mould.matt.data.Persons;
 import uk.co.mould.matt.data.tenses.PresentIndicative;
@@ -58,6 +57,8 @@ public final class QuestionViewTest extends ActivityInstrumentationTestCase2<Tes
                         withText("What is the 'tu' form of some_verb_in_french (some_verb_in_english) in the present indicative?")
                 )
         ).check(matches(isDisplayed()));
+
+        onView(withId(R.id.submit_button)).check(matches(isDisplayed()));
     }
 
 }
