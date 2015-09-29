@@ -56,7 +56,7 @@ public class QuestionActivity extends AppCompatActivity {
         }
     }
     private void setUpNextQuestionButton(final QuestionPresenter questionPresenter) {
-		findViewById(R.id.next).setOnClickListener(new View.OnClickListener() {
+		findViewById(R.id.next_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 questionPresenter.showQuestion();

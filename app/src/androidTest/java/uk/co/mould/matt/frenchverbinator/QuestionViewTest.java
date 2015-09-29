@@ -13,9 +13,11 @@ import uk.co.mould.matt.marking.Score;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.isEnabled;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.CoreMatchers.allOf;
+import static org.hamcrest.core.IsNot.not;
 
 public final class QuestionViewTest extends ActivityInstrumentationTestCase2<TestActivity> {
     public AndroidQuestionView questionView;
@@ -58,7 +60,8 @@ public final class QuestionViewTest extends ActivityInstrumentationTestCase2<Tes
                 )
         ).check(matches(isDisplayed()));
 
-        onView(withId(R.id.submit_button)).check(matches(isDisplayed()));
+        onView(withId(R.id.submit_button)).check(matches(allOf(isDisplayed(), isEnabled())));
+        onView(withId(R.id.next_button)).check(matches(not(allOf(isDisplayed(), isEnabled()))));
     }
 
 }
