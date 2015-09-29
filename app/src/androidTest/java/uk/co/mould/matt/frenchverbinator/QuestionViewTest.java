@@ -3,12 +3,20 @@ package uk.co.mould.matt.frenchverbinator;
 import android.test.ActivityInstrumentationTestCase2;
 import android.view.ViewGroup;
 
+import org.junit.Before;
+
+import uk.co.mould.matt.data.FrenchInfinitiveVerb;
+import uk.co.mould.matt.data.InfinitiveVerb;
+import uk.co.mould.matt.data.Persons;
+import uk.co.mould.matt.data.tenses.PresentIndicative;
 import uk.co.mould.matt.marking.Score;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.CoreMatchers.allOf;
 
 public final class QuestionViewTest extends ActivityInstrumentationTestCase2<TestActivity> {
     public AndroidQuestionView questionView;
@@ -17,7 +25,8 @@ public final class QuestionViewTest extends ActivityInstrumentationTestCase2<Tes
         super(TestActivity.class);
     }
 
-    public void testThatScoreIsShownAsExpected() {
+    @Before
+    public void setUp() {
         final TestActivity activity = getActivity();
         Runnable runnable = new Runnable() {
 
@@ -29,13 +38,26 @@ public final class QuestionViewTest extends ActivityInstrumentationTestCase2<Tes
             }
         };
         try {
-        runTestOnUiThread(runnable);
+            runTestOnUiThread(runnable);
         } catch (Throwable throwable) {}
+    }
 
+    public void testThatScoreIsShownAsExpected() {
         Score score = new Score();
         questionView.showScore(score);
         onView(withText(score.toString())).check(
                 matches(isDisplayed()));
+    }
+
+    public void testThatQuestionDisplayedCorrectly() {
+        questionView.setQuestion(Persons.SECOND_PERSON_SINGULAR, new InfinitiveVerb("some_verb_in_french", "some_verb_in_english", null), new PresentIndicative());
+
+        onView(
+                allOf(
+                        withId(R.id.question),
+                        withText("What is the 'tu' form of some_verb_in_french (some_verb_in_english) in the present indicative?")
+                )
+        ).check(matches(isDisplayed()));
     }
 
 }
