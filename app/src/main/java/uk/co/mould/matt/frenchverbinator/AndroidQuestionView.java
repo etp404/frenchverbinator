@@ -23,7 +23,7 @@ public final class AndroidQuestionView implements QuestionView {
     private final TextView scoreBox;
 
     public AndroidQuestionView(ViewGroup questionViewGroup) {
-        answerBox = ((TextView) questionViewGroup.findViewById(R.id.answerBox));
+        answerBox = ((TextView) questionViewGroup.findViewById(R.id.answer_box));
         submitButton = questionViewGroup.findViewById(R.id.submit_button);
         nextButton = questionViewGroup.findViewById(R.id.next_button);
         resultBox = ((TextView) questionViewGroup.findViewById(R.id.result_box));
@@ -47,6 +47,14 @@ public final class AndroidQuestionView implements QuestionView {
     @Override
     public void setResultToCorrect() {
         resultBox.setText("Correct");
+        answerBox.setEnabled(false);
+
+        correctionBox.setVisibility(View.GONE);
+
+        nextButton.setVisibility(View.VISIBLE);
+        nextButton.setEnabled(true);
+
+        submitButton.setVisibility(View.GONE);
     }
 
     @Override

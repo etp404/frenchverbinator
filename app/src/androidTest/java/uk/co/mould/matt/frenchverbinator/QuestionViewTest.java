@@ -40,7 +40,8 @@ public final class QuestionViewTest extends ActivityInstrumentationTestCase2<Tes
         };
         try {
             runTestOnUiThread(runnable);
-        } catch (Throwable throwable) {}
+        } catch (Throwable throwable) {
+        }
     }
 
     public void testThatScoreIsShownAsExpected() {
@@ -62,6 +63,19 @@ public final class QuestionViewTest extends ActivityInstrumentationTestCase2<Tes
 
         onView(withId(R.id.submit_button)).check(matches(allOf(isDisplayed(), isEnabled())));
         onView(withId(R.id.next_button)).check(matches(not(allOf(isDisplayed(), isEnabled()))));
+        onView(withId(R.id.answer_box)).check(matches(isEnabled()));
     }
 
+    public void testThatCorrectAnswerDisplayedCorrectly() {
+        questionView.setResultToCorrect();
+
+        onView(allOf(withId(R.id.result_box), withText("Correct"))).check(matches(isDisplayed()));
+
+        onView(withId(R.id.answer_box)).check(matches(not(isEnabled())));
+        onView(withId(R.id.correction_box)).check(matches(not(isDisplayed())));
+
+        onView(withId(R.id.submit_button)).check(matches(not(allOf(isDisplayed(), isEnabled()))));
+        onView(withId(R.id.next_button)).check(matches(allOf(isDisplayed(), isEnabled())));
+
+    }
 }

@@ -40,7 +40,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/answerBox"
+            android:id="@+id/answer_box"
             android:hint="Answer"
             android:gravity="center_horizontal"
             style="@style/CustomTextStyle"
