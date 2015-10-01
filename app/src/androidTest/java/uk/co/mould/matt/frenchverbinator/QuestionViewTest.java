@@ -8,6 +8,7 @@ import org.junit.Before;
 import uk.co.mould.matt.data.ConjugatedVerbWithPronoun;
 import uk.co.mould.matt.data.InfinitiveVerb;
 import uk.co.mould.matt.data.Persons;
+import uk.co.mould.matt.data.tenses.MoodAndTense;
 import uk.co.mould.matt.data.tenses.PresentIndicative;
 import uk.co.mould.matt.marking.Score;
 
@@ -56,13 +57,14 @@ public final class QuestionViewTest extends ActivityInstrumentationTestCase2<Tes
     }
 
     public void testThatQuestionDisplayedCorrectly() {
-        questionView.setQuestion(Persons.SECOND_PERSON_SINGULAR, new InfinitiveVerb("some_verb_in_french", "some_verb_in_english", null), new PresentIndicative());
+        String someVerbInFrench = "someVerbInFrench";
+        String someVerbInEnglish = "someVerbInEnglish";
+        Persons.Person person = Persons.SECOND_PERSON_SINGULAR;
+        MoodAndTense moodAndTense = new PresentIndicative();
+        questionView.setQuestion(person, new InfinitiveVerb(someVerbInFrench, someVerbInEnglish, null), moodAndTense);
 
-        onView(
-                allOf(
-                        withId(R.id.question),
-                        withText("What is the 'tu' form of some_verb_in_french (some_verb_in_english) in the present indicative?")
-                )
+        String expectedQuestion = String.format("What is the '%s' form of %s (%s) in the %s?", person.getPerson(), someVerbInFrench, someVerbInEnglish, moodAndTense.toString());
+        onView(allOf(withId(R.id.question), withText(expectedQuestion))
         ).check(matches(isDisplayed()));
 
         onView(withId(R.id.submit_button)).check(matches(allOf(isDisplayed(), isEnabled())));
@@ -98,7 +100,7 @@ public final class QuestionViewTest extends ActivityInstrumentationTestCase2<Tes
 
     public void testThatWhenIncorrectAnswerHasBeenShown_AndNextQuestionIsRequested_QuestionModeIsReentered() {
         questionView.setResultToIncorrect(new ConjugatedVerbWithPronoun(someVerbWithPronoun));
-        questionView.setQuestion(Persons.SECOND_PERSON_SINGULAR, new InfinitiveVerb("some_verb_in_french", "some_verb_in_english", null), new PresentIndicative());
+        setArbitraryQuestion();
 
         onView(withId(R.id.correction_box)).check(matches(not(isDisplayed())));
         onView(withId(R.id.submit_button)).check(matches(allOf(isDisplayed(), isEnabled())));
@@ -122,9 +124,13 @@ public final class QuestionViewTest extends ActivityInstrumentationTestCase2<Tes
     public void testThatNoTensesSelectedWarningIsRemoved_WhenQuestionIsShown() {
         questionView.showNoTensesSelected();
 
-        questionView.setQuestion(Persons.SECOND_PERSON_SINGULAR, new InfinitiveVerb("some_verb_in_french", "some_verb_in_english", null), new PresentIndicative());
+        setArbitraryQuestion();
 
         onView(withId(R.id.no_tenses_selected)).check(matches(not(isDisplayed())));
 
+    }
+
+    private void setArbitraryQuestion() {
+        questionView.setQuestion(Persons.SECOND_PERSON_SINGULAR, new InfinitiveVerb("some_verb_in_french", "some_verb_in_english", null), new PresentIndicative());
     }
 }
