@@ -63,6 +63,17 @@ public final class AndroidQuestionView implements QuestionView {
     }
 
     @Override
+    public void setResultToIncorrect(ConjugatedVerbWithPronoun correctAnswer) {
+        answerBox.setEnabled(false);
+        setResultToIncorrect();
+        setCorrection(correctAnswer);
+        nextButton.setVisibility(View.VISIBLE);
+        nextButton.setEnabled(true);
+
+        submitButton.setVisibility(View.GONE);
+    }
+
+    @Override
     public String getAnswer() {
         return answerBox.getText().toString();
     }

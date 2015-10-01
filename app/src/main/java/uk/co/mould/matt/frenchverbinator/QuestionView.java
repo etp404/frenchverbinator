@@ -13,6 +13,8 @@ public interface QuestionView {
 
 	void setResultToIncorrect();
 
+	void setResultToIncorrect(ConjugatedVerbWithPronoun presentConjugationOf);
+
 	String getAnswer();
 
 	void showCorrection();

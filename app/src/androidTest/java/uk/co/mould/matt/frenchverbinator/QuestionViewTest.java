@@ -5,6 +5,7 @@ import android.view.ViewGroup;
 
 import org.junit.Before;
 
+import uk.co.mould.matt.data.ConjugatedVerbWithPronoun;
 import uk.co.mould.matt.data.InfinitiveVerb;
 import uk.co.mould.matt.data.Persons;
 import uk.co.mould.matt.data.tenses.PresentIndicative;
@@ -73,6 +74,20 @@ public final class QuestionViewTest extends ActivityInstrumentationTestCase2<Tes
 
         onView(withId(R.id.answer_box)).check(matches(not(isEnabled())));
         onView(withId(R.id.correction_box)).check(matches(not(isDisplayed())));
+
+        onView(withId(R.id.submit_button)).check(matches(not(allOf(isDisplayed(), isEnabled()))));
+        onView(withId(R.id.next_button)).check(matches(allOf(isDisplayed(), isEnabled())));
+
+    }
+
+    public void testThatIncorrectAnswerDisplayedCorrectly() {
+        String someVerbWithPronoun = "someVerbWithPronoun";
+        questionView.setResultToIncorrect(new ConjugatedVerbWithPronoun(someVerbWithPronoun));
+
+        onView(allOf(withId(R.id.result_box), withText("Incorrect"))).check(matches(isDisplayed()));
+
+        onView(withId(R.id.answer_box)).check(matches(not(isEnabled())));
+        onView(allOf(withId(R.id.correction_box), withText(someVerbWithPronoun))).check(matches(isDisplayed()));
 
         onView(withId(R.id.submit_button)).check(matches(not(allOf(isDisplayed(), isEnabled()))));
         onView(withId(R.id.next_button)).check(matches(allOf(isDisplayed(), isEnabled())));
