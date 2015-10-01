@@ -35,6 +35,12 @@ public final class AndroidQuestionView implements QuestionView {
 
     @Override
     public void setQuestion(Persons.Person person, InfinitiveVerb verb, MoodAndTense moodAndTense) {
+        hideNoTensesSelected();
+        hideCorrection();
+        showSubmitButton();
+        hideNextQuestionButton();
+        showAnswerBox();
+        enableAnswerBox();
         questionBox.setText(
                 String.format(
                         QUESTION_TEMPLATE,
@@ -160,6 +166,12 @@ public final class AndroidQuestionView implements QuestionView {
 
     @Override
     public void showNoTensesSelected() {
+        hideQuestionBox();
+        hideAnswerBox();
+        hideSubmitButton();
+        hideNextQuestionButton();
+        hideCorrection();
+        hideResultBox();
         noTensesSelectedWarning.setVisibility(View.VISIBLE);
     }
 

@@ -19,6 +19,8 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.CoreMatchers.allOf;
 import static org.hamcrest.core.IsNot.not;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public final class QuestionViewTest extends ActivityInstrumentationTestCase2<TestActivity> {
     public AndroidQuestionView questionView;
@@ -94,10 +96,35 @@ public final class QuestionViewTest extends ActivityInstrumentationTestCase2<Tes
 
     }
 
-    public void testThatCorrectionIsRemovedOnceNextQuestionIsRequested() {
+    public void testThatWhenIncorrectAnswerHasBeenShown_AndNextQuestionIsRequested_QuestionModeIsReentered() {
         questionView.setResultToIncorrect(new ConjugatedVerbWithPronoun(someVerbWithPronoun));
         questionView.setQuestion(Persons.SECOND_PERSON_SINGULAR, new InfinitiveVerb("some_verb_in_french", "some_verb_in_english", null), new PresentIndicative());
 
         onView(withId(R.id.correction_box)).check(matches(not(isDisplayed())));
+        onView(withId(R.id.submit_button)).check(matches(allOf(isDisplayed(), isEnabled())));
+        onView(withId(R.id.next_button)).check(matches(not(allOf(isDisplayed(), isEnabled()))));
+        onView(withId(R.id.answer_box)).check(matches(isEnabled()));
+    }
+
+    public void testThatNoTensesSelectedViewCanBeShown() {
+        questionView.showNoTensesSelected();
+
+        onView(withId(R.id.answer_box)).check(matches(not(isDisplayed())));
+        onView(withId(R.id.question)).check(matches(not(isDisplayed())));
+        onView(withId(R.id.submit_button)).check(matches(not(isDisplayed())));
+        onView(withId(R.id.next_button)).check(matches(not(isDisplayed())));
+        onView(withId(R.id.correction_box)).check(matches(not(isDisplayed())));
+        onView(withId(R.id.result_box)).check(matches(not(isDisplayed())));
+
+        onView(withId(R.id.no_tenses_selected)).check(matches(isDisplayed()));
+    }
+
+    public void testThatNoTensesSelectedWarningIsRemoved_WhenQuestionIsShown() {
+        questionView.showNoTensesSelected();
+
+        questionView.setQuestion(Persons.SECOND_PERSON_SINGULAR, new InfinitiveVerb("some_verb_in_french", "some_verb_in_english", null), new PresentIndicative());
+
+        onView(withId(R.id.no_tenses_selected)).check(matches(not(isDisplayed())));
+
     }
 }

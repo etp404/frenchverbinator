@@ -45,6 +45,11 @@ public class FakeQuestionView implements QuestionView {
 	}
 
 	@Override
+	public void setResultToIncorrect(ConjugatedVerbWithPronoun presentConjugationOf) {
+
+	}
+
+	@Override
 	public String getAnswer() {
 		return answer;
 	}
