@@ -8,9 +8,9 @@ import uk.co.mould.matt.frenchverbinator.QuestionView;
 import uk.co.mould.matt.marking.Score;
 
 public class FakeQuestionView implements QuestionView {
-	public InfinitiveVerb verb;
-	public Persons.Person person;
-    public MoodAndTense verbMoodAndTense;
+	public InfinitiveVerb setQuestionCalledWithVerb;
+	public Persons.Person setQuestionCalledWithPerson;
+    public MoodAndTense setQuestionCalledWithVerbMoodAndTense;
 	public Boolean resultBoxShowingCorrect = null;
 	public Boolean resultBoxShowingIncorrect = null;
 	public String answer = "default";
@@ -29,9 +29,9 @@ public class FakeQuestionView implements QuestionView {
 
     @Override
 	public void setQuestion(Persons.Person person, InfinitiveVerb verb, MoodAndTense verbMoodAndTense) {
-		this.person = person;
-		this.verb = verb;
-        this.verbMoodAndTense = verbMoodAndTense;
+		this.setQuestionCalledWithPerson = person;
+		this.setQuestionCalledWithVerb = verb;
+        this.setQuestionCalledWithVerbMoodAndTense = verbMoodAndTense;
 	}
 
 	@Override

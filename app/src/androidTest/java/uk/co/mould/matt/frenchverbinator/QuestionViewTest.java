@@ -64,8 +64,7 @@ public final class QuestionViewTest extends ActivityInstrumentationTestCase2<Tes
         questionView.setQuestion(person, new InfinitiveVerb(someVerbInFrench, someVerbInEnglish, null), moodAndTense);
 
         String expectedQuestion = String.format("What is the '%s' form of %s (%s) in the %s?", person.getPerson(), someVerbInFrench, someVerbInEnglish, moodAndTense.toString());
-        onView(allOf(withId(R.id.question), withText(expectedQuestion))
-        ).check(matches(isDisplayed()));
+        onView(allOf(withId(R.id.question), withText(expectedQuestion))).check(matches(isDisplayed()));
 
         onView(withId(R.id.submit_button)).check(matches(allOf(isDisplayed(), isEnabled())));
         onView(withId(R.id.next_button)).check(matches(not(allOf(isDisplayed(), isEnabled()))));
