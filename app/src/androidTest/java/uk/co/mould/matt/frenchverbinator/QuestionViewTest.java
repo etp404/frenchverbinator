@@ -22,6 +22,7 @@ import static org.hamcrest.core.IsNot.not;
 
 public final class QuestionViewTest extends ActivityInstrumentationTestCase2<TestActivity> {
     public AndroidQuestionView questionView;
+    private String someVerbWithPronoun = "someVerbWithPronoun";
 
     public QuestionViewTest() {
         super(TestActivity.class);
@@ -81,7 +82,6 @@ public final class QuestionViewTest extends ActivityInstrumentationTestCase2<Tes
     }
 
     public void testThatIncorrectAnswerDisplayedCorrectly() {
-        String someVerbWithPronoun = "someVerbWithPronoun";
         questionView.setResultToIncorrect(new ConjugatedVerbWithPronoun(someVerbWithPronoun));
 
         onView(allOf(withId(R.id.result_box), withText("Incorrect"))).check(matches(isDisplayed()));
@@ -92,5 +92,12 @@ public final class QuestionViewTest extends ActivityInstrumentationTestCase2<Tes
         onView(withId(R.id.submit_button)).check(matches(not(allOf(isDisplayed(), isEnabled()))));
         onView(withId(R.id.next_button)).check(matches(allOf(isDisplayed(), isEnabled())));
 
+    }
+
+    public void testThatCorrectionIsRemovedOnceNextQuestionIsRequested() {
+        questionView.setResultToIncorrect(new ConjugatedVerbWithPronoun(someVerbWithPronoun));
+        questionView.setQuestion(Persons.SECOND_PERSON_SINGULAR, new InfinitiveVerb("some_verb_in_french", "some_verb_in_english", null), new PresentIndicative());
+
+        onView(withId(R.id.correction_box)).check(matches(not(isDisplayed())));
     }
 }
