@@ -1,7 +1,10 @@
 package uk.co.mould.matt.frenchverbinator;
 
+import android.content.Context;
+import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import uk.co.mould.matt.data.ConjugatedVerbWithPronoun;
@@ -10,27 +13,36 @@ import uk.co.mould.matt.data.Persons;
 import uk.co.mould.matt.data.tenses.MoodAndTense;
 import uk.co.mould.matt.marking.Score;
 
-public final class AndroidQuestionView implements QuestionView {
+public final class AndroidQuestionView extends FrameLayout implements QuestionView  {
     private static final String QUESTION_TEMPLATE = "What is the '%s' form of %s (%s) in the %s?";
 
     private TextView answerBox;
     private View nextButton;
     private View submitButton;
     private TextView resultBox;
-    private final TextView correctionBox;
-    private final TextView questionBox;
     private TextView noTensesSelectedWarning;
-    private final TextView scoreBox;
+    private TextView scoreBox;
 
-    public AndroidQuestionView(ViewGroup questionViewGroup) {
-        answerBox = ((TextView) questionViewGroup.findViewById(R.id.answer_box));
-        submitButton = questionViewGroup.findViewById(R.id.submit_button);
-        nextButton = questionViewGroup.findViewById(R.id.next_button);
-        resultBox = ((TextView) questionViewGroup.findViewById(R.id.result_box));
-        correctionBox = ((TextView) questionViewGroup.findViewById(R.id.correction_box));
-        questionBox = (TextView) questionViewGroup.findViewById(R.id.question);
-        noTensesSelectedWarning = (TextView) questionViewGroup.findViewById(R.id.no_tenses_selected);
-        scoreBox = (TextView) questionViewGroup.findViewById(R.id.score);
+    public AndroidQuestionView(Context context) {
+        super(context);
+    }
+
+    public AndroidQuestionView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+    }
+
+    public AndroidQuestionView(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+    }
+
+    @Override
+    protected void onFinishInflate() {
+        super.onFinishInflate();
+        answerBox = ((TextView) findViewById(R.id.answer_box));
+        submitButton = findViewById(R.id.submit_button);
+        nextButton = findViewById(R.id.next_button);
+        resultBox = ((TextView) findViewById(R.id.result_box));
+        noTensesSelectedWarning = (TextView) findViewById(R.id.no_tenses_selected);
     }
 
     @Override
@@ -41,7 +53,7 @@ public final class AndroidQuestionView implements QuestionView {
         hideNextQuestionButton();
         showAnswerBox();
         enableAnswerBox();
-        questionBox.setText(
+        ((TextView)findViewById(R.id.question)).setText(
                 String.format(
                         QUESTION_TEMPLATE,
                         person.getPerson(),
@@ -55,7 +67,7 @@ public final class AndroidQuestionView implements QuestionView {
         resultBox.setText("Correct");
         answerBox.setEnabled(false);
 
-        correctionBox.setVisibility(View.GONE);
+        findViewById(R.id.correction_box).setVisibility(View.GONE);
 
         nextButton.setVisibility(View.VISIBLE);
         nextButton.setEnabled(true);
@@ -111,7 +123,7 @@ public final class AndroidQuestionView implements QuestionView {
 
     @Override
     public void setCorrection(ConjugatedVerbWithPronoun presentConjugationOf) {
-        correctionBox.setText(presentConjugationOf.toString());
+        ((TextView)findViewById(R.id.correction_box)).setText(presentConjugationOf.toString());
     }
 
     @Override
@@ -161,7 +173,7 @@ public final class AndroidQuestionView implements QuestionView {
 
     @Override
     public void hideQuestionBox() {
-        questionBox.setVisibility(View.GONE);
+        findViewById(R.id.question).setVisibility(View.GONE);
     }
 
     @Override
@@ -177,7 +189,7 @@ public final class AndroidQuestionView implements QuestionView {
 
     @Override
     public void showQuestionBox() {
-        questionBox.setVisibility(View.VISIBLE);
+        findViewById(R.id.question).setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -192,16 +204,18 @@ public final class AndroidQuestionView implements QuestionView {
 
     @Override
     public void showScore(Score score) {
+        scoreBox = (TextView) findViewById(R.id.score);
+        scoreBox.setVisibility(VISIBLE);
         scoreBox.setText(score.toString());
     }
 
     @Override
     public void showCorrection() {
-        correctionBox.setVisibility(View.VISIBLE);
+        findViewById(R.id.correction_box).setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideCorrection() {
-        correctionBox.setVisibility(View.GONE);
+        findViewById(R.id.correction_box).setVisibility(View.GONE);
     }
 }

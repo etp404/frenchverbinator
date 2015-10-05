@@ -3,6 +3,7 @@ package uk.co.mould.matt.frenchverbinator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,7 +30,7 @@ public class QuestionActivity extends AppCompatActivity {
     @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.question_layout);
+		setContentView(R.layout.empty_layout);
 		storedUserSettings = new SharedPrefsUserSettings(getSharedPreferences(SharedPrefsUserSettings.SETTINGS, 0));
         verbTemplateParser = new VerbTemplateParser(new InputSource(getResources().openRawResource(
                 R.raw.verbs_fr)));
@@ -40,8 +41,12 @@ public class QuestionActivity extends AppCompatActivity {
                 verbListParser,
                 storedUserSettings.includedTenses());
 
+        LayoutInflater layoutInflater = getLayoutInflater();
+        ViewGroup emptyLayoutRoot = (ViewGroup) findViewById(R.id.empty_layout_root);
+        AndroidQuestionView questionView = (AndroidQuestionView) layoutInflater.inflate(R.layout.question_layout, emptyLayoutRoot, false);
+        emptyLayoutRoot.addView(questionView);
         final QuestionPresenter questionPresenter = new QuestionPresenter(
-                new AndroidQuestionView((ViewGroup) findViewById(R.id.question_view_group)),
+                questionView,
                 questionGenerator,
                 conjugator);
 

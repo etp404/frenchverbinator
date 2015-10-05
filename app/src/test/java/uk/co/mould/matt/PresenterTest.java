@@ -39,14 +39,14 @@ public final class PresenterTest {
 		questionPresenter.showQuestion();
 	}
 	@Test
-	public void testThatQuestionViewIsSetCorrectly() {
+	public void testThatViewCanBeToldToShowAQuestion() {
 		assertEquals(questionView.setQuestionCalledWithPerson, person);
 		assertEquals(questionView.setQuestionCalledWithVerb, verb);
 		assertEquals(questionView.setQuestionCalledWithVerbMoodAndTense, verbMoodAndTense);
 	}
 
 	@Test
-	public void testThatCorrectAnswerSetsViewToCorrect() {
+	public void testThatViewCanBeToldToShowCorrectAnswer() {
 		questionView.answer = correctAnswer;
 		questionPresenter.submitAnswer();
 

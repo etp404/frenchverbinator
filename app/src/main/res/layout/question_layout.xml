@@ -1,4 +1,4 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<uk.co.mould.matt.frenchverbinator.AndroidQuestionView xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
                   android:orientation="vertical"
                   android:layout_width="fill_parent"
@@ -89,4 +89,4 @@
             android:layout_gravity="center_horizontal" />
 
     </LinearLayout>
-</FrameLayout>
+</uk.co.mould.matt.frenchverbinator.AndroidQuestionView>

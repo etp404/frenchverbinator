@@ -1,7 +1,12 @@
 package uk.co.mould.matt.frenchverbinator;
 
+import android.content.Context;
 import android.test.ActivityInstrumentationTestCase2;
+import android.test.AndroidTestCase;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import org.junit.Before;
 
@@ -23,37 +28,23 @@ import static org.hamcrest.core.IsNot.not;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public final class QuestionViewTest extends ActivityInstrumentationTestCase2<TestActivity> {
+public final class QuestionViewTest extends AndroidTestCase {
     public AndroidQuestionView questionView;
     private String someVerbWithPronoun = "someVerbWithPronoun";
 
-    public QuestionViewTest() {
-        super(TestActivity.class);
-    }
-
-    @Before
-    public void setUp() {
-        final TestActivity activity = getActivity();
-        Runnable runnable = new Runnable() {
-
-            public void run() {
-                activity.setContentView(R.layout.question_layout);
-                ViewGroup questionViewGroup = (ViewGroup) activity.findViewById(
-                        R.id.question_view_group);
-                questionView = new AndroidQuestionView(questionViewGroup);
-            }
-        };
-        try {
-            runTestOnUiThread(runnable);
-        } catch (Throwable throwable) {
-        }
+    @Override
+    public void setUp() throws Exception {
+        super.setUp();
+        Context context = getContext();
+        LayoutInflater layoutInflater = LayoutInflater.from(context);
+        questionView = (AndroidQuestionView)layoutInflater.inflate(R.layout.question_layout, null);
+        setArbitraryQuestion();
     }
 
     public void testThatScoreIsShownAsExpected() {
         Score score = new Score();
         questionView.showScore(score);
-        onView(withText(score.toString())).check(
-                matches(isDisplayed()));
+        assertEquals(score.toString(), ((TextView) questionView.findViewById(R.id.score)).getText());
     }
 
     public void testThatQuestionDisplayedCorrectly() {
@@ -64,36 +55,43 @@ public final class QuestionViewTest extends ActivityInstrumentationTestCase2<Tes
         questionView.setQuestion(person, new InfinitiveVerb(someVerbInFrench, someVerbInEnglish, null), moodAndTense);
 
         String expectedQuestion = String.format("What is the '%s' form of %s (%s) in the %s?", person.getPerson(), someVerbInFrench, someVerbInEnglish, moodAndTense.toString());
-        onView(allOf(withId(R.id.question), withText(expectedQuestion))).check(matches(isDisplayed()));
 
-        onView(withId(R.id.submit_button)).check(matches(allOf(isDisplayed(), isEnabled())));
-        onView(withId(R.id.next_button)).check(matches(not(allOf(isDisplayed(), isEnabled()))));
-        onView(withId(R.id.answer_box)).check(matches(isEnabled()));
+        assertTrue(questionView.findViewById(R.id.submit_button).isEnabled());
+        assertEquals(questionView.findViewById(R.id.submit_button).getVisibility(), View.VISIBLE);
+
+        assertTrue(questionView.findViewById(R.id.next_button).isEnabled());
+        assertTrue(questionView.findViewById(R.id.answer_box).isEnabled());
+        assertEquals(expectedQuestion, ((TextView) questionView.findViewById(R.id.question)).getText());
+
     }
 
     public void testThatCorrectAnswerDisplayedCorrectly() {
         questionView.setResultToCorrect();
 
-        onView(allOf(withId(R.id.result_box), withText("Correct"))).check(matches(isDisplayed()));
+        assertEquals("Correct", ((TextView) questionView.findViewById(R.id.result_box)).getText());
+        assertEquals(questionView.findViewById(R.id.result_box).getVisibility(), View.VISIBLE);
+        assertFalse(questionView.findViewById(R.id.answer_box).isEnabled());
+        assertEquals(questionView.findViewById(R.id.correction_box).getVisibility(), View.GONE);
 
-        onView(withId(R.id.answer_box)).check(matches(not(isEnabled())));
-        onView(withId(R.id.correction_box)).check(matches(not(isDisplayed())));
+        assertEquals(questionView.findViewById(R.id.submit_button).getVisibility(), View.GONE);
 
-        onView(withId(R.id.submit_button)).check(matches(not(allOf(isDisplayed(), isEnabled()))));
-        onView(withId(R.id.next_button)).check(matches(allOf(isDisplayed(), isEnabled())));
-
+        assertEquals(questionView.findViewById(R.id.next_button).getVisibility(), View.VISIBLE);
+        assertTrue(questionView.findViewById(R.id.next_button).isEnabled());
     }
 
     public void testThatIncorrectAnswerDisplayedCorrectly() {
         questionView.setResultToIncorrect(new ConjugatedVerbWithPronoun(someVerbWithPronoun));
 
-        onView(allOf(withId(R.id.result_box), withText("Incorrect"))).check(matches(isDisplayed()));
+        assertEquals("Incorrect", ((TextView) questionView.findViewById(R.id.result_box)).getText());
+        assertEquals(questionView.findViewById(R.id.result_box).getVisibility(), View.VISIBLE);
 
-        onView(withId(R.id.answer_box)).check(matches(not(isEnabled())));
-        onView(allOf(withId(R.id.correction_box), withText(someVerbWithPronoun))).check(matches(isDisplayed()));
+        assertFalse(questionView.findViewById(R.id.answer_box).isEnabled());
+        assertEquals(someVerbWithPronoun, ((TextView) questionView.findViewById(R.id.correction_box)).getText());
 
-        onView(withId(R.id.submit_button)).check(matches(not(allOf(isDisplayed(), isEnabled()))));
-        onView(withId(R.id.next_button)).check(matches(allOf(isDisplayed(), isEnabled())));
+        assertEquals(questionView.findViewById(R.id.submit_button).getVisibility(), View.GONE);
+
+        assertEquals(questionView.findViewById(R.id.next_button).getVisibility(), View.VISIBLE);
+        assertTrue(questionView.findViewById(R.id.next_button).isEnabled());
 
     }
 
@@ -101,23 +99,23 @@ public final class QuestionViewTest extends ActivityInstrumentationTestCase2<Tes
         questionView.setResultToIncorrect(new ConjugatedVerbWithPronoun(someVerbWithPronoun));
         setArbitraryQuestion();
 
-        onView(withId(R.id.correction_box)).check(matches(not(isDisplayed())));
-        onView(withId(R.id.submit_button)).check(matches(allOf(isDisplayed(), isEnabled())));
-        onView(withId(R.id.next_button)).check(matches(not(allOf(isDisplayed(), isEnabled()))));
-        onView(withId(R.id.answer_box)).check(matches(isEnabled()));
+        assertEquals(questionView.findViewById(R.id.correction_box).getVisibility(), View.GONE);
+        assertEquals(questionView.findViewById(R.id.submit_button).getVisibility(), View.VISIBLE);
+        assertEquals(questionView.findViewById(R.id.next_button).getVisibility(), View.GONE);
+        assertTrue(questionView.findViewById(R.id.next_button).isEnabled());
+        assertTrue(questionView.findViewById(R.id.answer_box).isEnabled());
     }
 
     public void testThatNoTensesSelectedViewCanBeShown() {
         questionView.showNoTensesSelected();
 
-        onView(withId(R.id.answer_box)).check(matches(not(isDisplayed())));
-        onView(withId(R.id.question)).check(matches(not(isDisplayed())));
-        onView(withId(R.id.submit_button)).check(matches(not(isDisplayed())));
-        onView(withId(R.id.next_button)).check(matches(not(isDisplayed())));
-        onView(withId(R.id.correction_box)).check(matches(not(isDisplayed())));
-        onView(withId(R.id.result_box)).check(matches(not(isDisplayed())));
-
-        onView(withId(R.id.no_tenses_selected)).check(matches(isDisplayed()));
+        assertEquals(questionView.findViewById(R.id.answer_box).getVisibility(), View.GONE);
+        assertEquals(questionView.findViewById(R.id.question).getVisibility(), View.GONE);
+        assertEquals(questionView.findViewById(R.id.submit_button).getVisibility(), View.GONE);
+        assertEquals(questionView.findViewById(R.id.next_button).getVisibility(), View.GONE);
+        assertEquals(questionView.findViewById(R.id.correction_box).getVisibility(), View.GONE);
+        assertEquals(questionView.findViewById(R.id.result_box).getVisibility(), View.GONE);
+        assertEquals(questionView.findViewById(R.id.no_tenses_selected).getVisibility(), View.VISIBLE);
     }
 
     public void testThatNoTensesSelectedWarningIsRemoved_WhenQuestionIsShown() {
@@ -125,7 +123,7 @@ public final class QuestionViewTest extends ActivityInstrumentationTestCase2<Tes
 
         setArbitraryQuestion();
 
-        onView(withId(R.id.no_tenses_selected)).check(matches(not(isDisplayed())));
+        assertEquals(questionView.findViewById(R.id.no_tenses_selected).getVisibility(), View.GONE);
 
     }
 
