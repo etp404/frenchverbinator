@@ -30,7 +30,7 @@ public class QuestionActivity extends AppCompatActivity {
     @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.empty_layout);
+		setContentView(R.layout.question_layout);
 		storedUserSettings = new SharedPrefsUserSettings(getSharedPreferences(SharedPrefsUserSettings.SETTINGS, 0));
         verbTemplateParser = new VerbTemplateParser(new InputSource(getResources().openRawResource(
                 R.raw.verbs_fr)));
@@ -42,9 +42,7 @@ public class QuestionActivity extends AppCompatActivity {
                 storedUserSettings.includedTenses());
 
         LayoutInflater layoutInflater = getLayoutInflater();
-        ViewGroup emptyLayoutRoot = (ViewGroup) findViewById(R.id.empty_layout_root);
-        AndroidQuestionView questionView = (AndroidQuestionView) layoutInflater.inflate(R.layout.question_layout, emptyLayoutRoot, false);
-        emptyLayoutRoot.addView(questionView);
+        AndroidQuestionView questionView = (AndroidQuestionView) layoutInflater.inflate(R.layout.question_layout, (ViewGroup)findViewById(R.id.android_question_view));
         final QuestionPresenter questionPresenter = new QuestionPresenter(
                 questionView,
                 questionGenerator,

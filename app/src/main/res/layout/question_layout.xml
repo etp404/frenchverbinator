@@ -6,6 +6,7 @@
                   android:weightSum="1"
                 tools:context=".QuestionActivity"
                 android:background="@color/background_color"
+                android:id="@+id/android_question_view"
     >
     <LinearLayout
         android:orientation="vertical"
