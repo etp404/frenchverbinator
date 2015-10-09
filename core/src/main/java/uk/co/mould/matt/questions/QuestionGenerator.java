@@ -38,11 +38,11 @@ public final class QuestionGenerator {
 	}
 
 	private InfinitiveVerb getRandomVerb() {
-		return verbList.get(randomNumberGenerator.randomNumber(0, verbList.size()-1));
+		return verbList.get(randomNumberGenerator.randomNumber(0, verbList.size()));
 	}
 
 	private MoodAndTense getRandomVerbMoodAndTense() {
-		return moodsAndTensesToSelectFrom.get(randomNumberGenerator.randomNumber(0, moodsAndTensesToSelectFrom.size()-1));
+		return moodsAndTensesToSelectFrom.get(randomNumberGenerator.randomNumber(0, moodsAndTensesToSelectFrom.size()));
 	}
 
 
