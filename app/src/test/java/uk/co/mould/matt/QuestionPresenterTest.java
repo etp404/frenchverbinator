@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import uk.co.mould.matt.conjugators.Conjugator;
 import uk.co.mould.matt.data.*;
@@ -14,15 +15,15 @@ import uk.co.mould.matt.fakes.FakeQuestionView;
 import uk.co.mould.matt.frenchverbinator.QuestionPresenter;
 import uk.co.mould.matt.marking.Score;
 import uk.co.mould.matt.questions.Question;
+import uk.co.mould.matt.questions.RandomNumberGenerator;
 import uk.co.mould.matt.questions.RandomQuestionGenerator;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
-public final class PresenterTest {
+public final class QuestionPresenterTest {
 
 	private final Persons.Person person = Persons.FIRST_PERSON_PLURAL;
 	private final InfinitiveVerb verb = new InfinitiveVerb("regarder", "to watch", null);
@@ -33,19 +34,21 @@ public final class PresenterTest {
 
 	private final String correctAnswerWithTrailingSpace = "correct answer ";
 	private FakeQuestionView questionView;
-	private QuestionPresenter questionPresenter;
     private Question question;
-    ;
+    private RandomQuestionGenerator questionGenerator;
 
     @Before
 	public void setup() {
 		questionView = new FakeQuestionView();
         question = new Question(person, verb, verbMoodAndTense);
-        questionPresenter = new QuestionPresenter(
+        questionGenerator = new RandomQuestionGenerator(new FakeRandomQuestionGenerator(),
+                Collections.singletonList(verb),
+                Collections.singletonList(person),
+                Collections.singletonList(verbMoodAndTense));
+        new QuestionPresenter(
 				questionView,
-				new FakeQuestionGenerator(question),
+                questionGenerator,
 				new FakeConjugator(person, verb, verbMoodAndTense, new ConjugatedVerbWithPronoun(correctAnswer)));
-		questionPresenter.showQuestion();
 	}
 	@Test
 	public void testThatViewCanBeToldToShowAQuestion() {
@@ -79,7 +82,7 @@ public final class PresenterTest {
     public void testThatNoTensesSelectedWarningIsShownIfNoTensesAreSelected() {
         QuestionPresenter questionPresenter = new QuestionPresenter(
                 questionView,
-                new RandomQuestionGenerator(null, new ArrayList<MoodAndTense>()),
+                new RandomQuestionGenerator(null, null, null, new ArrayList<MoodAndTense>()),
                 new FakeConjugator(person, verb, verbMoodAndTense, new ConjugatedVerbWithPronoun(correctAnswer)));
         questionPresenter.showQuestion();
         assertTrue(questionView.noTensesSelectedIsShown);
@@ -135,4 +138,11 @@ public final class PresenterTest {
 			return null;
 		}
 	}
+
+    private class FakeRandomQuestionGenerator implements RandomNumberGenerator {
+        @Override
+        public int randomNumber(int from, int to) {
+            return 0;
+        }
+    }
 }

@@ -52,6 +52,7 @@ public class QuestionPresenter {
             }
         });
 
+        showQuestion();
     }
 
 	public void showQuestion() {

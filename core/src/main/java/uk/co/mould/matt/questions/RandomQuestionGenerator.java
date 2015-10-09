@@ -9,37 +9,42 @@ import uk.co.mould.matt.data.tenses.MoodAndTense;
 import uk.co.mould.matt.parser.VerbListParser;
 
 public final class RandomQuestionGenerator implements QuestionGenerator {
-	private VerbListParser verbListParser;
-    private List<MoodAndTense> moodsAndTensesToSelectFrom;
+	private RandomNumberGenerator randomNumberGenerator;
+	private List<InfinitiveVerb> verbList;
+	private List<Persons.Person> personList;
+	private List<MoodAndTense> moodsAndTensesToSelectFrom;
 
-    public RandomQuestionGenerator(VerbListParser verbListParser, List<MoodAndTense> moodsAndTensesToSelectFrom) {
-		this.verbListParser = verbListParser;
-        this.moodsAndTensesToSelectFrom = moodsAndTensesToSelectFrom;
+    public RandomQuestionGenerator(RandomNumberGenerator randomNumberGenerator,
+								   List<InfinitiveVerb> verbList,
+								   List<Persons.Person> personList,
+								   List<MoodAndTense> moodsAndTensesToSelectFrom) {
+		this.randomNumberGenerator = randomNumberGenerator;
+		this.verbList = verbList;
+		this.personList = personList;
+		this.moodsAndTensesToSelectFrom = moodsAndTensesToSelectFrom;
     }
 
-	public Persons.Person getRandomPerson() {
-		return SupportedPersons.ALL.get(randomNumber(0, SupportedPersons.ALL.size()));
+	private Persons.Person getRandomPerson() {
+		return personList.get(randomNumberGenerator.randomNumber(0, SupportedPersons.ALL.size()));
 	}
 
-	public InfinitiveVerb getRandomVerb() {
-		List<InfinitiveVerb> verbs = verbListParser.getVerbs();
-		return verbs.get(randomNumber(0,verbs.size()));
+	private InfinitiveVerb getRandomVerb() {
+		return verbList.get(randomNumberGenerator.randomNumber(0, verbList.size()-1));
 	}
 
-    public MoodAndTense getRandomVerbMoodAndTense() {
-        return moodsAndTensesToSelectFrom.get(randomNumber(0, moodsAndTensesToSelectFrom.size()));
-    }
+	private MoodAndTense getRandomVerbMoodAndTense() {
+		return moodsAndTensesToSelectFrom.get(randomNumberGenerator.randomNumber(0, moodsAndTensesToSelectFrom.size()-1));
+	}
 
 	@Override
 	public void getQuestion(Callback callback) {
 		if (moodsAndTensesToSelectFrom.size()==0) {
 			callback.noTensesSelected();
 		}
+		else {
+			callback.questionProvided(new Question(getRandomPerson(), getRandomVerb(), getRandomVerbMoodAndTense()));
+		}
 	}
 
-	private int randomNumber(int from, int to) {
-		Random r = new Random();
-		r.setSeed(System.currentTimeMillis());
-		return r.nextInt(to-from) + from;
-	}
+
 }
