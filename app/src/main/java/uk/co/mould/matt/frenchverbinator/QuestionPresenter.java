@@ -1,6 +1,7 @@
 package uk.co.mould.matt.frenchverbinator;
 
 import uk.co.mould.matt.conjugators.Conjugator;
+import uk.co.mould.matt.data.ConjugatedVerbWithPronoun;
 import uk.co.mould.matt.data.InfinitiveVerb;
 import uk.co.mould.matt.data.Persons;
 import uk.co.mould.matt.data.tenses.MoodAndTense;
@@ -17,9 +18,6 @@ public class QuestionPresenter {
 	private QuestionView questionView;
     private Score score = new Score();
 	private QuestionGenerator questionGenerator;
-    private InfinitiveVerb infinitiveVerb;
-    private Persons.Person questionPerson;
-    private MoodAndTense verbMoodAndTense;
 
     public QuestionPresenter(final QuestionView questionView,
 							 QuestionGenerator questionGenerator,
@@ -39,16 +37,9 @@ public class QuestionPresenter {
                     }
 
                     @Override
-                    public void incorrect() {
-                        try {
-                            questionView.setResultToIncorrect(QuestionPresenter.this.conjugator.getConjugationOf(
-                                    infinitiveVerb,
-                                    questionPerson,
-                                    verbMoodAndTense));
-                            score.addIncorrect();
-                        } catch (CantConjugateException ignored) {
-
-                        }
+                    public void incorrect(ConjugatedVerbWithPronoun corrrection) {
+                        score.addIncorrect();
+                        questionView.setResultToIncorrect(corrrection);
                     }
                 });
             }
@@ -68,12 +59,8 @@ public class QuestionPresenter {
             @Override
             public void questionProvided(Question question) {
                 questionView.showScore(score);
-
-                questionView.setQuestion(new Question(question.person, question.verb, question.moodAndTense));
-
-
-
-                QuestionPresenter.this.answerChecker.setQuestion(questionPerson, infinitiveVerb, verbMoodAndTense);
+                questionView.setQuestion(question);
+                QuestionPresenter.this.answerChecker.setQuestion(question);
             }
 
             @Override

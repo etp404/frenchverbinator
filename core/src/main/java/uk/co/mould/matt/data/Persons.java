@@ -10,7 +10,7 @@ public class Persons {
 		String getPerson();
 	}
 
-	public static Person FIRST_PERSON_SINGULAR = new Person() {
+	public static final Person FIRST_PERSON_SINGULAR = new Person() {
 		@Override
 		public String getPronoun(String conjugatedVerb) {
             String verbsWithAccentSplitOut = Normalizer.normalize(conjugatedVerb,
@@ -25,7 +25,7 @@ public class Persons {
 			return "je";
 		}
 	};
-	public static Person SECOND_PERSON_SINGULAR = new Person() {
+	public static final Person SECOND_PERSON_SINGULAR = new Person() {
 		@Override
 		public String getPronoun(String conjugatedVerb) {
 			return "Tu ";
@@ -36,7 +36,7 @@ public class Persons {
 			return "tu";
 		}
 	};
-	public static Person THIRD_PERSON_SINGULAR = new Person() {
+	public static final Person THIRD_PERSON_SINGULAR = new Person() {
 		@Override
 		public String getPronoun(String conjugatedVerb) {
 			return "Il ";
@@ -47,7 +47,7 @@ public class Persons {
 			return "il";
 		}
 	};
-	public static Person FIRST_PERSON_PLURAL = new Person() {
+	public static final Person FIRST_PERSON_PLURAL = new Person() {
 		@Override
 		public String getPronoun(String conjugatedVerb) {
 			return "Nous ";
@@ -58,7 +58,7 @@ public class Persons {
 			return "nous";
 		}
 	};
-	public static Person SECOND_PERSON_PLURAL = new Person() {
+	public static final Person SECOND_PERSON_PLURAL = new Person() {
 		@Override
 		public String getPronoun(String conjugatedVerb) {
 			return "Vous ";
@@ -69,7 +69,7 @@ public class Persons {
 			return "vous";
 		}
 	};
-	public static Person THIRD_PERSON_PLURAL = new Person() {
+	public static final Person THIRD_PERSON_PLURAL = new Person() {
 		@Override
 		public String getPronoun(String conjugatedVerb) {
 			return "Ils ";

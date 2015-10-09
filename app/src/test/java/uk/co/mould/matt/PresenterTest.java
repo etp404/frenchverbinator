@@ -14,7 +14,6 @@ import uk.co.mould.matt.fakes.FakeQuestionView;
 import uk.co.mould.matt.frenchverbinator.QuestionPresenter;
 import uk.co.mould.matt.marking.Score;
 import uk.co.mould.matt.questions.Question;
-import uk.co.mould.matt.questions.QuestionGenerator;
 import uk.co.mould.matt.questions.RandomQuestionGenerator;
 
 import static org.hamcrest.core.Is.is;
@@ -45,13 +44,13 @@ public final class PresenterTest {
         questionPresenter = new QuestionPresenter(
 				questionView,
 				new FakeQuestionGenerator(question),
-				new FakeConjugator(person, verb, new ConjugatedVerbWithPronoun(correctAnswer)));
+				new FakeConjugator(person, verb, verbMoodAndTense, new ConjugatedVerbWithPronoun(correctAnswer)));
 		questionPresenter.showQuestion();
 	}
 	@Test
 	public void testThatViewCanBeToldToShowAQuestion() {
 		assertEquals(questionView.setQuestionCalledWithQuestion, question);
-        assertThat(questionView.hasBeenToldToShowScore, is(new Score()));
+        assertThat(questionView.updatedScore, is(new Score()));
     }
 
 	@Test
@@ -61,7 +60,7 @@ public final class PresenterTest {
         score.addIncorrect();
 
         assertEquals(questionView.toldToShowIncorrectWithCorrection.toString(), correctAnswer);
-        assertThat(questionView.hasBeenToldToShowScore, is(score));
+        assertThat(questionView.updatedScore, is(score));
     }
 
 	@Test
@@ -81,7 +80,7 @@ public final class PresenterTest {
         QuestionPresenter questionPresenter = new QuestionPresenter(
                 questionView,
                 new RandomQuestionGenerator(null, new ArrayList<MoodAndTense>()),
-                new FakeConjugator(person, verb, new ConjugatedVerbWithPronoun(correctAnswer)));
+                new FakeConjugator(person, verb, verbMoodAndTense, new ConjugatedVerbWithPronoun(correctAnswer)));
         questionPresenter.showQuestion();
         assertTrue(questionView.noTensesSelectedIsShown);
     }
@@ -94,7 +93,7 @@ public final class PresenterTest {
         Score score = new Score();
         score.addCorrect();
         score.addCorrect();
-        assertThat(questionView.hasBeenToldToShowScore, is(score));
+        assertThat(questionView.updatedScore, is(score));
     }
 
     @Test
@@ -107,28 +106,33 @@ public final class PresenterTest {
         score.addCorrect();
         score.addIncorrect();
         score.addIncorrect();
-        assertThat(questionView.hasBeenToldToShowScore, is(score));
+        assertThat(questionView.updatedScore, is(score));
     }
 
     private class FakeConjugator extends Conjugator {
 		private Persons.Person personMatchingAnswer;
 		private InfinitiveVerb verbMatchingAnswer;
-		private ConjugatedVerbWithPronoun correctAnswer;
+        private MoodAndTense verbMoodAndTestMatchingAnswer;
+        private ConjugatedVerbWithPronoun correctAnswer;
 
 
-		public FakeConjugator(Persons.Person personMatchingAnswer, InfinitiveVerb verbMatchingAnswer, ConjugatedVerbWithPronoun correctAnswer) {
+        public FakeConjugator(Persons.Person personMatchingAnswer,
+                              InfinitiveVerb verbMatchingAnswer,
+                              MoodAndTense verbMoodAndTestMatchingAnswer,
+                              ConjugatedVerbWithPronoun correctAnswer) {
 			super(null, null);
 			this.personMatchingAnswer = personMatchingAnswer;
 			this.verbMatchingAnswer = verbMatchingAnswer;
+            this.verbMoodAndTestMatchingAnswer = verbMoodAndTestMatchingAnswer;
 			this.correctAnswer = correctAnswer;
 		}
 
 		@Override
 		public ConjugatedVerbWithPronoun getConjugationOf(InfinitiveVerb infinitive, Persons.Person person, MoodAndTense verbMoodAndTense) {
-			if (personMatchingAnswer == person && verbMatchingAnswer == infinitive) {
+			if (personMatchingAnswer == person && verbMatchingAnswer == infinitive && verbMoodAndTestMatchingAnswer == verbMoodAndTense) {
 				return correctAnswer;
 			}
-			return correctAnswer;
+			return null;
 		}
 	}
 }

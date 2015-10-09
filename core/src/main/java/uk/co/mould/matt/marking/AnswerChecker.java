@@ -6,50 +6,40 @@ import uk.co.mould.matt.data.ConjugatedVerbWithPronoun;
 import uk.co.mould.matt.data.Persons;
 import uk.co.mould.matt.data.InfinitiveVerb;
 import uk.co.mould.matt.data.tenses.MoodAndTense;
+import uk.co.mould.matt.questions.Question;
 
-//TODO: this needs a test.
 public class AnswerChecker {
-    private InfinitiveVerb infinitiveVerb;
-    private Persons.Person questionPerson;
-    private MoodAndTense verbMoodAndTense;
     private Conjugator conjugator;
+    private Question question;
 
     public AnswerChecker(Conjugator conjugator) {
         this.conjugator = conjugator;
     }
 
-    public void setQuestion(Persons.Person questionPerson,
-                            InfinitiveVerb infinitiveVerb,
-                            MoodAndTense verbMoodAndTense) {
-        this.questionPerson = questionPerson;
-        this.infinitiveVerb = infinitiveVerb;
-        this.verbMoodAndTense = verbMoodAndTense;
+    public void setQuestion(Question question) {
+        this.question = question;
     }
 
     public void check(String answer, Callback callback) {
-        if (isAnswerCorrect(answer)) {
-            callback.correct();
-        } else {
-            callback.incorrect();
-        }
-    }
-
-    public boolean isAnswerCorrect(String answer) {
         ConjugatedVerbWithPronoun correctAnswer;
         try {
             correctAnswer = conjugator.getConjugationOf(
-                    infinitiveVerb,
-                    questionPerson,
-                    verbMoodAndTense);
+                    question.verb,
+                    question.person,
+                    question.moodAndTense);
+            if (correctAnswer.toString().toLowerCase().equals(answer.toLowerCase().trim())) {
+                callback.correct();
+            }
+            else {
+                callback.incorrect(correctAnswer);
+            }
         } catch (CantConjugateException ignored) {
-            return false;
         }
-        return correctAnswer.toString().toLowerCase().equals(answer.toLowerCase().trim());
     }
 
     public interface Callback {
         void correct();
 
-        void incorrect();
+        void incorrect(ConjugatedVerbWithPronoun corrrection);
     }
 }
