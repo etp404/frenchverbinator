@@ -10,13 +10,12 @@ import uk.co.mould.matt.conjugators.Conjugator;
 import uk.co.mould.matt.data.*;
 import uk.co.mould.matt.data.tenses.PresentIndicative;
 import uk.co.mould.matt.data.tenses.MoodAndTense;
-import uk.co.mould.matt.fakes.FakeQuestionGenerator;
 import uk.co.mould.matt.fakes.FakeQuestionView;
 import uk.co.mould.matt.frenchverbinator.QuestionPresenter;
 import uk.co.mould.matt.marking.Score;
 import uk.co.mould.matt.questions.Question;
 import uk.co.mould.matt.questions.RandomNumberGenerator;
-import uk.co.mould.matt.questions.RandomQuestionGenerator;
+import uk.co.mould.matt.questions.QuestionGenerator;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertEquals;
@@ -35,13 +34,13 @@ public final class QuestionPresenterTest {
 	private final String correctAnswerWithTrailingSpace = "correct answer ";
 	private FakeQuestionView questionView;
     private Question question;
-    private RandomQuestionGenerator questionGenerator;
+    private QuestionGenerator questionGenerator;
 
     @Before
 	public void setup() {
 		questionView = new FakeQuestionView();
         question = new Question(person, verb, verbMoodAndTense);
-        questionGenerator = new RandomQuestionGenerator(new FakeRandomQuestionGenerator(),
+        questionGenerator = new QuestionGenerator(new FakeRandomQuestionGenerator(),
                 Collections.singletonList(verb),
                 Collections.singletonList(person),
                 Collections.singletonList(verbMoodAndTense));
@@ -82,7 +81,7 @@ public final class QuestionPresenterTest {
     public void testThatNoTensesSelectedWarningIsShownIfNoTensesAreSelected() {
         QuestionPresenter questionPresenter = new QuestionPresenter(
                 questionView,
-                new RandomQuestionGenerator(null, null, null, new ArrayList<MoodAndTense>()),
+                new QuestionGenerator(null, null, null, new ArrayList<MoodAndTense>()),
                 new FakeConjugator(person, verb, verbMoodAndTense, new ConjugatedVerbWithPronoun(correctAnswer)));
         questionPresenter.showQuestion();
         assertTrue(questionView.noTensesSelectedIsShown);

@@ -2,10 +2,6 @@ package uk.co.mould.matt.frenchverbinator;
 
 import uk.co.mould.matt.conjugators.Conjugator;
 import uk.co.mould.matt.data.ConjugatedVerbWithPronoun;
-import uk.co.mould.matt.data.InfinitiveVerb;
-import uk.co.mould.matt.data.Persons;
-import uk.co.mould.matt.data.tenses.MoodAndTense;
-import uk.co.mould.matt.exceptions.CantConjugateException;
 import uk.co.mould.matt.marking.AnswerChecker;
 import uk.co.mould.matt.marking.Score;
 import uk.co.mould.matt.questions.Callback;

@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.ViewGroup;
 
 import org.xml.sax.InputSource;
@@ -15,7 +14,6 @@ import uk.co.mould.matt.data.SupportedPersons;
 import uk.co.mould.matt.frenchverbinator.settings.SharedPrefsUserSettings;
 import uk.co.mould.matt.parser.VerbListParser;
 import uk.co.mould.matt.questions.QuestionGenerator;
-import uk.co.mould.matt.questions.RandomQuestionGenerator;
 import uk.co.mould.matt.conjugators.Conjugator;
 import uk.co.mould.matt.parser.ConjugationParser;
 import uk.co.mould.matt.parser.VerbTemplateParser;
@@ -39,7 +37,7 @@ public class QuestionActivity extends AppCompatActivity {
         conjugationParser = new ConjugationParser(new InputSource(getResources().openRawResource(R.raw.conjugation_fr)));
         verbListParser = new VerbListParser(new InputSource(getResources().openRawResource(R.raw.verb_list)));
         conjugator = new Conjugator(verbTemplateParser, conjugationParser);
-        QuestionGenerator questionGenerator = new RandomQuestionGenerator(
+        QuestionGenerator questionGenerator = new QuestionGenerator(
                 new SystemRandomNumberGenerator(),
                 verbListParser.getVerbs(),
                 SupportedPersons.ALL,
