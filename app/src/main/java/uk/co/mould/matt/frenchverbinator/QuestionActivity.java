@@ -43,38 +43,12 @@ public class QuestionActivity extends AppCompatActivity {
 
         LayoutInflater layoutInflater = getLayoutInflater();
         AndroidQuestionView questionView = (AndroidQuestionView) layoutInflater.inflate(R.layout.question_layout, (ViewGroup)findViewById(R.id.android_question_view));
-        final QuestionPresenter questionPresenter = new QuestionPresenter(
+        new QuestionPresenter(
                 questionView,
                 questionGenerator,
                 conjugator);
 
-        if (storedUserSettings.includedTenses().size() == 0) {
-            questionPresenter.showNoneSelectedWarning();
-        } else {
-            setUpSubmitButton(questionPresenter);
-
-            setUpNextQuestionButton(questionPresenter);
-
-            questionPresenter.showQuestion();
-        }
     }
-    private void setUpNextQuestionButton(final QuestionPresenter questionPresenter) {
-		findViewById(R.id.next_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                questionPresenter.showQuestion();
-            }
-        });
-	}
-
-	private void setUpSubmitButton(final QuestionPresenter questionPresenter) {
-		findViewById(R.id.submit_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                questionPresenter.submitAnswer();
-            }
-        });
-	}
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

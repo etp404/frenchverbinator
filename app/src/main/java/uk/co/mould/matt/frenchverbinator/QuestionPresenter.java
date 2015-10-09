@@ -68,73 +68,20 @@ public class QuestionPresenter {
             @Override
             public void questionProvided(Question question) {
                 questionView.showScore(score);
-                questionView.hideNoTensesSelected();
 
-                questionView.setQuestion(question.randomPerson, question.randomVerb, question.randomVerbMoodAndTense);
-                questionView.showQuestionBox();
-                questionView.hideCorrection();
+                questionView.setQuestion(new Question(question.person, question.verb, question.moodAndTense));
 
-                questionView.showAnswerBox();
-                questionView.enableAnswerBox();
-                questionView.clearAnswerBox();
 
-                questionView.showSubmitButton();
-                questionView.enableSubmitButton();
-
-                questionView.hideNextQuestionButton();
-                questionView.disableNextQuestionButton();
-
-                questionView.hideResultBox();
 
                 QuestionPresenter.this.answerChecker.setQuestion(questionPerson, infinitiveVerb, verbMoodAndTense);
             }
 
             @Override
             public void noTensesSelected() {
-                QuestionPresenter.this.showNoneSelectedWarning();
+                QuestionPresenter.this.questionView.showNoTensesSelected();
             }
         });
 
 
 	}
-
-	public void submitAnswer() {
-		answerChecker.check(questionView.getAnswer(), new AnswerChecker.Callback() {
-            @Override
-            public void correct() {
-                score.addCorrect();
-                questionView.setResultToCorrect();
-                questionView.showScore(score);
-            }
-
-            @Override
-            public void incorrect() {
-                score.addIncorrect();
-                questionView.setResultToIncorrect();
-                questionView.showCorrection();
-                try {
-                    questionView.setCorrection(conjugator.getConjugationOf(
-                            infinitiveVerb,
-                            questionPerson,
-                            verbMoodAndTense));
-                } catch (CantConjugateException ignored) {
-
-                }
-            }
-
-
-        });
-		questionView.disableAnswerBox();
-		questionView.showResultBox();
-
-		questionView.hideSubmitButton();
-		questionView.disableSubmitButton();
-
-		questionView.showNextQuestionButton();
-		questionView.enableNextQuestionButton();
-	}
-
-    public void showNoneSelectedWarning() {
-        questionView.showNoTensesSelected();
-    }
 }

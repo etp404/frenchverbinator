@@ -13,6 +13,7 @@ import uk.co.mould.matt.fakes.FakeQuestionGenerator;
 import uk.co.mould.matt.fakes.FakeQuestionView;
 import uk.co.mould.matt.frenchverbinator.QuestionPresenter;
 import uk.co.mould.matt.marking.Score;
+import uk.co.mould.matt.questions.Question;
 import uk.co.mould.matt.questions.QuestionGenerator;
 import uk.co.mould.matt.questions.RandomQuestionGenerator;
 
@@ -34,22 +35,22 @@ public final class PresenterTest {
 	private final String correctAnswerWithTrailingSpace = "correct answer ";
 	private FakeQuestionView questionView;
 	private QuestionPresenter questionPresenter;
+    private Question question;
     ;
 
     @Before
 	public void setup() {
 		questionView = new FakeQuestionView();
+        question = new Question(person, verb, verbMoodAndTense);
         questionPresenter = new QuestionPresenter(
 				questionView,
-				new FakeQuestionGenerator(verb, person, verbMoodAndTense),
+				new FakeQuestionGenerator(question),
 				new FakeConjugator(person, verb, new ConjugatedVerbWithPronoun(correctAnswer)));
 		questionPresenter.showQuestion();
 	}
 	@Test
 	public void testThatViewCanBeToldToShowAQuestion() {
-		assertEquals(questionView.setQuestionCalledWithPerson, person);
-		assertEquals(questionView.setQuestionCalledWithVerb, verb);
-		assertEquals(questionView.setQuestionCalledWithVerbMoodAndTense, verbMoodAndTense);
+		assertEquals(questionView.setQuestionCalledWithQuestion, question);
         assertThat(questionView.hasBeenToldToShowScore, is(new Score()));
     }
 
@@ -72,7 +73,7 @@ public final class PresenterTest {
 	@Test
 	public void testThatQuestionIsShownInResponseToNextQuestion() {
         questionView.nextQuestionListener.requestNextQuestion();
-        assertTrue(questionView.setQuestionCalled);
+        assertEquals(questionView.setQuestionCalledWithQuestion, question);
     }
 
     @Test
@@ -87,10 +88,8 @@ public final class PresenterTest {
 
     @Test
     public void testThatScoreIsSetToTwoOfTwoIfTwoCorrectAnswersGiven() {
-        questionView.answer = correctAnswer;
-        questionPresenter.submitAnswer();
-        questionView.answer = correctAnswer;
-        questionPresenter.submitAnswer();
+        questionView.submitListener.submitAnswer(correctAnswer);
+        questionView.submitListener.submitAnswer(correctAnswer);
 
         Score score = new Score();
         score.addCorrect();
@@ -100,12 +99,9 @@ public final class PresenterTest {
 
     @Test
     public void testThatScoreIsSetToOneOfTwoIfOneCorrectAndTwoIncorrectAnswersGiven() {
-        questionView.answer = "wrong answer";
-        questionPresenter.submitAnswer();
-        questionView.answer = "wrong answer";
-        questionPresenter.submitAnswer();
-        questionView.answer = correctAnswer;
-        questionPresenter.submitAnswer();
+        questionView.submitListener.submitAnswer("wrong answer");
+        questionView.submitListener.submitAnswer("wrong answer");
+        questionView.submitListener.submitAnswer(correctAnswer);
 
         Score score = new Score();
         score.addCorrect();

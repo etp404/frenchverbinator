@@ -17,6 +17,7 @@ import uk.co.mould.matt.data.Persons;
 import uk.co.mould.matt.data.tenses.MoodAndTense;
 import uk.co.mould.matt.data.tenses.PresentIndicative;
 import uk.co.mould.matt.marking.Score;
+import uk.co.mould.matt.questions.Question;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
@@ -53,7 +54,7 @@ public final class QuestionViewTest extends AndroidTestCase {
         String someVerbInEnglish = "someVerbInEnglish";
         Persons.Person person = Persons.SECOND_PERSON_SINGULAR;
         MoodAndTense moodAndTense = new PresentIndicative();
-        questionView.setQuestion(person, new InfinitiveVerb(someVerbInFrench, someVerbInEnglish, null), moodAndTense);
+        questionView.setQuestion(new Question(person, new InfinitiveVerb(someVerbInFrench, someVerbInEnglish, null), moodAndTense));
 
         String expectedQuestion = String.format("What is the '%s' form of %s (%s) in the %s?", person.getPerson(), someVerbInFrench, someVerbInEnglish, moodAndTense.toString());
 
@@ -66,7 +67,7 @@ public final class QuestionViewTest extends AndroidTestCase {
 
     }
 
-    public void testThatCorrectAnswerDisplayedCorrectly() {
+    public void testThatCorrectAnswerIsShownCorrectly() {
         questionView.setResultToCorrect();
 
         assertEquals("Correct", ((TextView) questionView.findViewById(R.id.result_box)).getText());
@@ -98,6 +99,7 @@ public final class QuestionViewTest extends AndroidTestCase {
 
     public void testThatWhenIncorrectAnswerHasBeenShown_AndNextQuestionIsRequested_QuestionModeIsReentered() {
         questionView.setResultToIncorrect(new ConjugatedVerbWithPronoun(someVerbWithPronoun));
+        ((TextView)questionView.findViewById(R.id.answer_box)).setText("some answer");
         setArbitraryQuestion();
 
         assertEquals(questionView.findViewById(R.id.correction_box).getVisibility(), View.GONE);
@@ -105,6 +107,7 @@ public final class QuestionViewTest extends AndroidTestCase {
         assertEquals(questionView.findViewById(R.id.next_button).getVisibility(), View.GONE);
         assertTrue(questionView.findViewById(R.id.next_button).isEnabled());
         assertTrue(questionView.findViewById(R.id.answer_box).isEnabled());
+        assertEquals(0, ((TextView) questionView.findViewById(R.id.answer_box)).getText().length());
     }
 
     public void testThatNoTensesSelectedViewCanBeShown() {
@@ -148,7 +151,7 @@ public final class QuestionViewTest extends AndroidTestCase {
     }
 
     private void setArbitraryQuestion() {
-        questionView.setQuestion(Persons.SECOND_PERSON_SINGULAR, new InfinitiveVerb("some_verb_in_french", "some_verb_in_english", null), new PresentIndicative());
+        questionView.setQuestion(new Question(Persons.SECOND_PERSON_SINGULAR, new InfinitiveVerb("some_verb_in_french", "some_verb_in_english", null), new PresentIndicative()));
     }
 
     private static class FakeSubmitListener implements QuestionView.SubmitListener {

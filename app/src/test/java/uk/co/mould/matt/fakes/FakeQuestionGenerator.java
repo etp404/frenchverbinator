@@ -8,35 +8,14 @@ import uk.co.mould.matt.questions.QuestionGenerator;
 import uk.co.mould.matt.data.Persons;
 
 public class FakeQuestionGenerator implements QuestionGenerator {
-	private Persons.Person person;
-	private InfinitiveVerb verb;
-    private MoodAndTense verbMoodAndTense;
+	private Question question;
 
-    public FakeQuestionGenerator(InfinitiveVerb verb,
-                                 Persons.Person person,
-                                 MoodAndTense verbMoodAndTense) {
-		this.person = person;
-		this.verb = verb;
-        this.verbMoodAndTense = verbMoodAndTense;
-    }
-
-	@Override
-	public Persons.Person getRandomPerson() {
-		return person;
-	}
-
-	@Override
-	public InfinitiveVerb getRandomVerb() {
-		return verb;
-	}
-
-    @Override
-    public MoodAndTense getRandomVerbMoodAndTense() {
-        return verbMoodAndTense;
+	public FakeQuestionGenerator(Question question) {
+		this.question = question;
     }
 
 	@Override
 	public void getQuestion(Callback callback) {
-		callback.questionProvided(new Question(getRandomPerson(), getRandomVerb(), getRandomVerbMoodAndTense()));
+		callback.questionProvided(question);
 	}
 }

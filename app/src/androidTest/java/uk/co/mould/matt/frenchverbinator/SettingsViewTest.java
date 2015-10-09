@@ -4,6 +4,7 @@ import android.test.ActivityInstrumentationTestCase2;
 import android.view.ViewGroup;
 
 import org.junit.Before;
+import org.junit.Ignore;
 
 import java.util.ArrayList;
 
@@ -24,6 +25,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.isNotChecked;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.CoreMatchers.instanceOf;
 
+@Ignore
 public class SettingsViewTest extends ActivityInstrumentationTestCase2<TestActivity> {
     private ViewGroup activityTestViewGroup;
     private SettingsView settingsView;
