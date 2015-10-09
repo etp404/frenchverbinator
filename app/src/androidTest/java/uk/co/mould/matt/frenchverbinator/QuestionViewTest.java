@@ -6,6 +6,7 @@ import android.test.AndroidTestCase;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import org.junit.Before;
@@ -127,7 +128,45 @@ public final class QuestionViewTest extends AndroidTestCase {
 
     }
 
+    public void testThatPressingSubmitInvokesListener() {
+        FakeSubmitListener submitListener = new FakeSubmitListener();
+        questionView.addSubmitListener(submitListener);
+        String answer = "some_answer";
+        TextView answerBox = (TextView)questionView.findViewById(R.id.answer_box);
+        answerBox.setText(answer);
+        Button submitButton = (Button) questionView.findViewById(R.id.submit_button);
+        submitButton.performClick();
+        assertEquals(submitListener.invokedWith, answer);
+    }
+
+    public void testThatPressingNextInvokesListener() {
+        FakeNextQuestionListener fakeNextQuestionListener = new FakeNextQuestionListener();
+        questionView.addNextQuestionListener(fakeNextQuestionListener);
+        Button nextButton = (Button) questionView.findViewById(R.id.next_button);
+        nextButton.performClick();
+        assertTrue(fakeNextQuestionListener.invoked);
+    }
+
     private void setArbitraryQuestion() {
         questionView.setQuestion(Persons.SECOND_PERSON_SINGULAR, new InfinitiveVerb("some_verb_in_french", "some_verb_in_english", null), new PresentIndicative());
+    }
+
+    private static class FakeSubmitListener implements QuestionView.SubmitListener {
+        public String invokedWith;
+
+        @Override
+        public void submitAnswer(String answer) {
+            invokedWith = answer;
+        }
+    }
+
+    private static class FakeNextQuestionListener implements QuestionView.NextQuestionListener {
+
+        public boolean invoked = false;
+
+        @Override
+        public void requestNextQuestion() {
+            invoked = true;
+        }
     }
 }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -18,7 +19,7 @@ public final class AndroidQuestionView extends FrameLayout implements QuestionVi
 
     private TextView answerBox;
     private View nextButton;
-    private View submitButton;
+    private Button submitButton;
     private TextView resultBox;
     private TextView noTensesSelectedWarning;
     private TextView scoreBox;
@@ -39,7 +40,7 @@ public final class AndroidQuestionView extends FrameLayout implements QuestionVi
     protected void onFinishInflate() {
         super.onFinishInflate();
         answerBox = ((TextView) findViewById(R.id.answer_box));
-        submitButton = findViewById(R.id.submit_button);
+        submitButton = (Button)findViewById(R.id.submit_button);
         nextButton = findViewById(R.id.next_button);
         resultBox = ((TextView) findViewById(R.id.result_box));
         noTensesSelectedWarning = (TextView) findViewById(R.id.no_tenses_selected);
@@ -207,6 +208,26 @@ public final class AndroidQuestionView extends FrameLayout implements QuestionVi
         scoreBox = (TextView) findViewById(R.id.score);
         scoreBox.setVisibility(VISIBLE);
         scoreBox.setText(score.toString());
+    }
+
+    @Override
+    public void addSubmitListener(final SubmitListener submitListener) {
+        submitButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                submitListener.submitAnswer(answerBox.getText().toString());
+            }
+        });
+    }
+
+    @Override
+    public void addNextQuestionListener(final NextQuestionListener nextQuestionListener) {
+        nextButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                nextQuestionListener.requestNextQuestion();
+            }
+        });
     }
 
     @Override

@@ -62,4 +62,19 @@ public interface QuestionView {
     void hideNoTensesSelected();
 
     void showScore(Score score);
+
+    void addSubmitListener(SubmitListener submitListener);
+
+    void addNextQuestionListener(NextQuestionListener nextQuestionListener);
+
+    interface SubmitListener {
+
+        void submitAnswer(String answer);
+    }
+
+    interface NextQuestionListener {
+
+        void requestNextQuestion();
+    }
+
 }

@@ -30,6 +30,13 @@ public final class RandomQuestionGenerator implements QuestionGenerator {
         return moodsAndTensesToSelectFrom.get(randomNumber(0, moodsAndTensesToSelectFrom.size()));
     }
 
+	@Override
+	public void getQuestion(Callback callback) {
+		if (moodsAndTensesToSelectFrom.size()==0) {
+			callback.noTensesSelected();
+		}
+	}
+
 	private int randomNumber(int from, int to) {
 		Random r = new Random();
 		r.setSeed(System.currentTimeMillis());

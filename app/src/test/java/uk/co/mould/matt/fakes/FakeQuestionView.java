@@ -4,6 +4,7 @@ import uk.co.mould.matt.data.ConjugatedVerbWithPronoun;
 import uk.co.mould.matt.data.InfinitiveVerb;
 import uk.co.mould.matt.data.tenses.MoodAndTense;
 import uk.co.mould.matt.data.Persons;
+import uk.co.mould.matt.frenchverbinator.QuestionPresenter;
 import uk.co.mould.matt.frenchverbinator.QuestionView;
 import uk.co.mould.matt.marking.Score;
 
@@ -26,9 +27,16 @@ public class FakeQuestionView implements QuestionView {
     public Boolean answerBoxIsVisible;
     public Boolean questionBoxIsVisible;
     public Score hasBeenToldToShowScore;
+	public SubmitListener submitListener;
+	public boolean toldToShowCorrectAnswer;
+	public boolean toldToShowIncorrect;
+	public ConjugatedVerbWithPronoun toldToShowIncorrectWithCorrection;
+	public boolean setQuestionCalled = false;
+	public NextQuestionListener nextQuestionListener;
 
-    @Override
+	@Override
 	public void setQuestion(Persons.Person person, InfinitiveVerb verb, MoodAndTense verbMoodAndTense) {
+		this.setQuestionCalled = true;
 		this.setQuestionCalledWithPerson = person;
 		this.setQuestionCalledWithVerb = verb;
         this.setQuestionCalledWithVerbMoodAndTense = verbMoodAndTense;
@@ -36,7 +44,7 @@ public class FakeQuestionView implements QuestionView {
 
 	@Override
 	public void setResultToCorrect() {
-		resultBoxShowingCorrect = true;
+		toldToShowCorrectAnswer = true;
 	}
 
 	@Override
@@ -46,7 +54,7 @@ public class FakeQuestionView implements QuestionView {
 
 	@Override
 	public void setResultToIncorrect(ConjugatedVerbWithPronoun presentConjugationOf) {
-
+		toldToShowIncorrectWithCorrection = presentConjugationOf;
 	}
 
 	@Override
@@ -169,4 +177,14 @@ public class FakeQuestionView implements QuestionView {
     public void showScore(Score score) {
         hasBeenToldToShowScore = score;
     }
+
+	@Override
+	public void addSubmitListener(SubmitListener submitListener) {
+		this.submitListener = submitListener;
+	}
+
+	@Override
+	public void addNextQuestionListener(NextQuestionListener nextQuestionListener) {
+		this.nextQuestionListener = nextQuestionListener;
+	}
 }

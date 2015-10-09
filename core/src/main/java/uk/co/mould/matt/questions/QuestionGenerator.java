@@ -8,4 +8,6 @@ public interface QuestionGenerator {
 	Persons.Person getRandomPerson();
 	InfinitiveVerb getRandomVerb();
     MoodAndTense getRandomVerbMoodAndTense();
+
+	void getQuestion(Callback callback);
 }
