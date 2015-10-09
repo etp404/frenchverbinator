@@ -51,6 +51,7 @@ public final class AndroidQuestionView extends FrameLayout implements QuestionVi
     public void setQuestion(Question question) {
         noTensesSelectedWarning.setVisibility(View.GONE);
         correctionBox.setVisibility(View.GONE);
+        resultBox.setVisibility(View.GONE);
         submitButton.setVisibility(View.VISIBLE);
         nextButton.setVisibility(View.GONE);
         answerBox.setVisibility(View.VISIBLE);
@@ -68,6 +69,7 @@ public final class AndroidQuestionView extends FrameLayout implements QuestionVi
     @Override
     public void setResultToCorrect() {
         resultBox.setText("Correct");
+        resultBox.setVisibility(VISIBLE);
         answerBox.setEnabled(false);
         correctionBox.setVisibility(View.GONE);
         nextButton.setVisibility(View.VISIBLE);
@@ -79,6 +81,7 @@ public final class AndroidQuestionView extends FrameLayout implements QuestionVi
     public void setResultToIncorrect(ConjugatedVerbWithPronoun correctAnswer) {
         answerBox.setEnabled(false);
         resultBox.setText("Incorrect");
+        resultBox.setVisibility(VISIBLE);
         correctionBox.setText(correctAnswer.toString());
         nextButton.setVisibility(View.VISIBLE);
         nextButton.setEnabled(true);

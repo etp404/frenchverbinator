@@ -72,6 +72,7 @@ public final class QuestionViewTest extends AndroidTestCase {
         assertTrue(nextButton.isEnabled());
         assertTrue(answerBox.isEnabled());
         assertEquals(expectedQuestion, questionBox.getText());
+        assertEquals(resultBox.getVisibility(), View.GONE);
 
     }
 
@@ -79,7 +80,7 @@ public final class QuestionViewTest extends AndroidTestCase {
         questionView.setResultToCorrect();
 
         assertEquals("Correct", resultBox.getText());
-        assertEquals(resultBox.getVisibility(), View.VISIBLE);
+        assertEquals(View.VISIBLE, resultBox.getVisibility());
         assertFalse(answerBox.isEnabled());
         assertEquals(correctionBox.getVisibility(), View.GONE);
 
