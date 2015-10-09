@@ -9,7 +9,6 @@ import uk.co.mould.matt.questions.Question;
 import uk.co.mould.matt.questions.QuestionGenerator;
 
 public class QuestionPresenter {
-	private final Conjugator conjugator;
 	private AnswerChecker answerChecker;
 	private QuestionView questionView;
     private Score score = new Score();
@@ -20,7 +19,6 @@ public class QuestionPresenter {
 							 Conjugator conjugator) {
 		this.questionView = questionView;
 		this.questionGenerator = questionGenerator;
-		this.conjugator = conjugator;
 		this.answerChecker = new AnswerChecker(conjugator);
         questionView.addSubmitListener(new QuestionView.SubmitListener() {
             @Override
