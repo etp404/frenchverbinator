@@ -83,6 +83,7 @@ public final class AndroidQuestionView extends FrameLayout implements QuestionVi
         resultBox.setText("Incorrect");
         resultBox.setVisibility(VISIBLE);
         correctionBox.setText(correctAnswer.toString());
+        correctionBox.setVisibility(VISIBLE);
         nextButton.setVisibility(View.VISIBLE);
         nextButton.setEnabled(true);
         submitButton.setVisibility(View.GONE);

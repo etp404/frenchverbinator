@@ -14,13 +14,6 @@ import uk.co.mould.matt.data.tenses.PresentIndicative;
 import uk.co.mould.matt.marking.Score;
 import uk.co.mould.matt.questions.Question;
 
-import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static org.hamcrest.CoreMatchers.allOf;
-import static org.hamcrest.core.IsNot.not;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
 public final class QuestionViewTest extends AndroidTestCase {
     public AndroidQuestionView questionView;
     private String someVerbWithPronoun = "someVerbWithPronoun";
@@ -30,7 +23,7 @@ public final class QuestionViewTest extends AndroidTestCase {
     private TextView answerBox;
     private TextView questionBox;
     private TextView resultBox;
-    private View correctionBox;
+    private TextView correctionBox;
     private View noTenseSelectedWarning;
     private Question question = new Question(Persons.SECOND_PERSON_SINGULAR, new InfinitiveVerb("some_verb_in_french", "some_verb_in_english", null), new PresentIndicative());
 
@@ -46,8 +39,9 @@ public final class QuestionViewTest extends AndroidTestCase {
         answerBox = (TextView)questionView.findViewById(R.id.answer_box);
         questionBox = (TextView) questionView.findViewById(R.id.question);
         resultBox = (TextView)questionView.findViewById(R.id.result_box);
-        correctionBox = questionView.findViewById(R.id.correction_box);
+        correctionBox = (TextView)questionView.findViewById(R.id.correction_box);
         noTenseSelectedWarning = questionView.findViewById(R.id.no_tenses_selected);
+
         questionView.setQuestion(question);
     }
 
@@ -96,8 +90,9 @@ public final class QuestionViewTest extends AndroidTestCase {
         assertEquals("Incorrect", resultBox.getText());
         assertEquals(resultBox.getVisibility(), View.VISIBLE);
 
-        assertFalse(questionView.findViewById(R.id.answer_box).isEnabled());
-        assertEquals(someVerbWithPronoun, ((TextView) questionView.findViewById(R.id.correction_box)).getText());
+        assertFalse(answerBox.isEnabled());
+        assertEquals(someVerbWithPronoun, correctionBox.getText());
+        assertEquals(View.VISIBLE, correctionBox.getVisibility());
 
         assertEquals(submitButton.getVisibility(), View.GONE);
 
