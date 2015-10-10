@@ -1,5 +1,6 @@
 package uk.co.mould.matt.frenchverbinator;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -21,57 +22,52 @@ import uk.co.mould.matt.questions.SystemRandomNumberGenerator;
 
 public class QuestionActivity extends AppCompatActivity {
 
-    private SharedPrefsUserSettings storedUserSettings;
-    private VerbTemplateParser verbTemplateParser;
-    private VerbListParser verbListParser;
-    private ConjugationParser conjugationParser;
-    private Conjugator conjugator;
-
     @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.question_layout);
-		storedUserSettings = new SharedPrefsUserSettings(getSharedPreferences(SharedPrefsUserSettings.SETTINGS, 0));
-        verbTemplateParser = new VerbTemplateParser(new InputSource(getResources().openRawResource(
-                R.raw.verbs_fr)));
-        conjugationParser = new ConjugationParser(new InputSource(getResources().openRawResource(R.raw.conjugation_fr)));
-        verbListParser = new VerbListParser(new InputSource(getResources().openRawResource(R.raw.verb_list)));
-        conjugator = new Conjugator(verbTemplateParser, conjugationParser);
-        QuestionGenerator questionGenerator = new QuestionGenerator(
-                new SystemRandomNumberGenerator(),
-                verbListParser.getVerbs(),
-                SupportedPersons.ALL,
-                storedUserSettings.includedTenses());
-
-        LayoutInflater layoutInflater = getLayoutInflater();
-        AndroidQuestionView questionView = (AndroidQuestionView) layoutInflater.inflate(R.layout.question_layout, (ViewGroup)findViewById(R.id.android_question_view));
-        new QuestionPresenter(
-                questionView,
-                questionGenerator,
-                conjugator);
-
+        QuestionPresenterFactory.create(getApplicationContext(), (AndroidQuestionView) getLayoutInflater().inflate(R.layout.question_layout, (ViewGroup) findViewById(R.id.android_question_view)));
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             startActivity(new Intent(this, SettingsActivity.class));
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private static class QuestionPresenterFactory {
+
+        public static void create(Context context, AndroidQuestionView questionView) {
+            SharedPrefsUserSettings storedUserSettings = new SharedPrefsUserSettings(context.getSharedPreferences(SharedPrefsUserSettings.SETTINGS, 0));
+            VerbTemplateParser verbTemplateParser = new VerbTemplateParser(new InputSource(context.getResources().openRawResource(
+                    R.raw.verbs_fr)));
+            ConjugationParser conjugationParser = new ConjugationParser(new InputSource(context.getResources().openRawResource(R.raw.conjugation_fr)));
+            VerbListParser verbListParser = new VerbListParser(new InputSource(context.getResources().openRawResource(R.raw.verb_list)));
+            Conjugator conjugator = new Conjugator(verbTemplateParser, conjugationParser);
+            QuestionGenerator questionGenerator = new QuestionGenerator(
+                    new SystemRandomNumberGenerator(),
+                    verbListParser.getVerbs(),
+                    SupportedPersons.ALL,
+                    storedUserSettings.includedTenses());
+
+            new QuestionPresenter(
+                    questionView,
+                    questionGenerator,
+                    conjugator);
+        }
     }
 
 }
