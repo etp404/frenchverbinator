@@ -21,6 +21,7 @@ public class AndroidSettingsView extends FrameLayout implements SettingsView {
 
     private SettingsPresenter settingsPresenter;
     private static LayoutInflater layoutInflater;
+    private LinearLayout tenseList;
 
     public AndroidSettingsView(Context context) {
         super(context);
@@ -37,11 +38,10 @@ public class AndroidSettingsView extends FrameLayout implements SettingsView {
         layoutInflater = LayoutInflater.from(context);
     }
 
-    public static SettingsView createView(ViewGroup viewGroup) {
-        AndroidSettingsView settingsView = (AndroidSettingsView) layoutInflater.inflate(
-                R.layout.settings_layout, viewGroup, false);
-        viewGroup.addView(settingsView);
-        return settingsView;
+    @Override
+    protected void onFinishInflate() {
+        super.onFinishInflate();
+        tenseList = (LinearLayout) findViewById(R.id.tense_list);
     }
 
     @Override
@@ -62,7 +62,7 @@ public class AndroidSettingsView extends FrameLayout implements SettingsView {
                     }
                 }
             });
-            this.addView(checkBox);
+            tenseList.addView(checkBox);
             id++;
         }
     }

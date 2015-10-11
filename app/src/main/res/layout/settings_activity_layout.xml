@@ -7,13 +7,14 @@
     android:weightSum="1"
     tools:context=".QuestionActivity"
     android:background="@color/background_color"
+    android:id="@+id/android_settings_view"
     >
     <LinearLayout
+        android:id="@+id/tense_list"
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:weightSum="1"
-        android:id="@+id/settings_activity_parent"
         android:layout_margin="32dp"
         android:elevation="6dp"
         android:background="@color/question_background"

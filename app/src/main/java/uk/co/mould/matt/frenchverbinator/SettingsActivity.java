@@ -17,8 +17,8 @@ public final class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings_activity_layout);
 
-        ViewGroup activityTestViewGroup = (ViewGroup) findViewById(R.id.settings_activity_parent);
-        SettingsView settingsView = AndroidSettingsView.createView(activityTestViewGroup);
+        AndroidSettingsView settingsView = (AndroidSettingsView) findViewById(R.id.android_settings_view);
+
         SharedPrefsUserSettings storedUserSettings =
                 new SharedPrefsUserSettings(getSharedPreferences(SharedPrefsUserSettings.SETTINGS, 0));
         SettingsPresenter settingsPresenter = new SettingsPresenterImpl(storedUserSettings, settingsView);
