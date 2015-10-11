@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import java.util.HashMap;
@@ -15,7 +16,7 @@ import java.util.Map;
 import uk.co.mould.matt.data.tenses.MoodAndTense;
 import uk.co.mould.matt.frenchverbinator.R;
 
-public class AndroidSettingsView extends LinearLayout implements SettingsView {
+public class AndroidSettingsView extends FrameLayout implements SettingsView {
     private Map<Class<? extends MoodAndTense>, Integer> tenseToId = new HashMap<>();
 
     private SettingsPresenter settingsPresenter;
@@ -23,18 +24,20 @@ public class AndroidSettingsView extends LinearLayout implements SettingsView {
 
     public AndroidSettingsView(Context context) {
         super(context);
+        layoutInflater = LayoutInflater.from(context);
     }
 
     public AndroidSettingsView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        layoutInflater = LayoutInflater.from(context);
     }
 
     public AndroidSettingsView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        layoutInflater = LayoutInflater.from(context);
     }
 
     public static SettingsView createView(ViewGroup viewGroup) {
-        layoutInflater = LayoutInflater.from(viewGroup.getContext());
         AndroidSettingsView settingsView = (AndroidSettingsView) layoutInflater.inflate(
                 R.layout.settings_layout, viewGroup, false);
         viewGroup.addView(settingsView);
@@ -45,9 +48,7 @@ public class AndroidSettingsView extends LinearLayout implements SettingsView {
     public void showOptions(List<MoodAndTense> moodAndTenses) {
         Integer id = 0;
         for (final MoodAndTense moodAndTense : moodAndTenses) {
-            id++;
             OptionsCheckBox checkBox = (OptionsCheckBox) layoutInflater.inflate(R.layout.option_checkbox, null);
-
             tenseToId.put(moodAndTense.getClass(), id);
             checkBox.setId(id);
             checkBox.setText(moodAndTense.toString());
@@ -62,6 +63,7 @@ public class AndroidSettingsView extends LinearLayout implements SettingsView {
                 }
             });
             this.addView(checkBox);
+            id++;
         }
     }
 
