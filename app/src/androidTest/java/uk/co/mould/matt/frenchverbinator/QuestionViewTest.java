@@ -26,6 +26,8 @@ public final class QuestionViewTest extends AndroidTestCase {
     private TextView correctionBox;
     private View noTenseSelectedWarning;
     private Question question = new Question(Persons.SECOND_PERSON_SINGULAR, new InfinitiveVerb("some_verb_in_french", "some_verb_in_english", null), new PresentIndicative());
+    private View greenTick;
+    private View redCross;
 
     @Override
     public void setUp() throws Exception {
@@ -41,6 +43,8 @@ public final class QuestionViewTest extends AndroidTestCase {
         resultBox = (TextView)questionView.findViewById(R.id.result_box);
         correctionBox = (TextView)questionView.findViewById(R.id.correction_box);
         noTenseSelectedWarning = questionView.findViewById(R.id.no_tenses_selected);
+        greenTick = questionView.findViewById(R.id.green_tick);
+        redCross = questionView.findViewById(R.id.red_cross);
 
         questionView.setQuestion(question);
     }
@@ -77,6 +81,7 @@ public final class QuestionViewTest extends AndroidTestCase {
         assertEquals(View.VISIBLE, resultBox.getVisibility());
         assertFalse(answerBox.isEnabled());
         assertEquals(correctionBox.getVisibility(), View.GONE);
+        assertEquals(greenTick.getVisibility(), View.VISIBLE);
 
         assertEquals(submitButton.getVisibility(), View.GONE);
 
@@ -93,6 +98,8 @@ public final class QuestionViewTest extends AndroidTestCase {
         assertFalse(answerBox.isEnabled());
         assertEquals(someVerbWithPronoun, correctionBox.getText());
         assertEquals(View.VISIBLE, correctionBox.getVisibility());
+        assertEquals(greenTick.getVisibility(), View.GONE);
+        assertEquals(redCross.getVisibility(), View.VISIBLE);
 
         assertEquals(submitButton.getVisibility(), View.GONE);
 
@@ -109,6 +116,20 @@ public final class QuestionViewTest extends AndroidTestCase {
         assertEquals(correctionBox.getVisibility(), View.GONE);
         assertEquals(submitButton.getVisibility(), View.VISIBLE);
         assertEquals(nextButton.getVisibility(), View.GONE);
+        assertEquals(redCross.getVisibility(), View.GONE);
+        assertTrue(nextButton.isEnabled());
+        assertTrue(answerBox.isEnabled());
+        assertEquals(0, answerBox.getText().length());
+    }
+
+    public void testThatWhenCorrectAnswerHasBeenShown_AndNextQuestionIsRequested_QuestionModeIsReentered() {
+        questionView.setResultToCorrect();
+        questionView.setQuestion(question);
+
+        assertEquals(correctionBox.getVisibility(), View.GONE);
+        assertEquals(submitButton.getVisibility(), View.VISIBLE);
+        assertEquals(nextButton.getVisibility(), View.GONE);
+        assertEquals(greenTick.getVisibility(), View.GONE);
         assertTrue(nextButton.isEnabled());
         assertTrue(answerBox.isEnabled());
         assertEquals(0, answerBox.getText().length());

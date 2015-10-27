@@ -15,6 +15,8 @@ public final class AndroidQuestionView extends FrameLayout implements QuestionVi
     private static final String QUESTION_TEMPLATE = "What is the '%s' form of %s (%s) in the %s?";
 
     private View nextButton;
+    private View greenTick;
+    private View redCross;
     private Button submitButton;
     private TextView resultBox;
     private TextView noTensesSelectedWarning;
@@ -45,6 +47,8 @@ public final class AndroidQuestionView extends FrameLayout implements QuestionVi
         noTensesSelectedWarning = (TextView) findViewById(R.id.no_tenses_selected);
         correctionBox = (TextView) findViewById(R.id.correction_box);
         questionBox = (TextView)findViewById(R.id.question);
+        greenTick = findViewById(R.id.green_tick);
+        redCross = findViewById(R.id.red_cross);
     }
 
     @Override
@@ -57,6 +61,8 @@ public final class AndroidQuestionView extends FrameLayout implements QuestionVi
         answerBox.setVisibility(View.VISIBLE);
         answerBox.setEnabled(true);
         answerBox.setText("");
+        redCross.setVisibility(GONE);
+        greenTick.setVisibility(GONE);
         questionBox.setText(
                 String.format(
                         QUESTION_TEMPLATE,
@@ -71,10 +77,11 @@ public final class AndroidQuestionView extends FrameLayout implements QuestionVi
         resultBox.setText("Correct");
         resultBox.setVisibility(VISIBLE);
         answerBox.setEnabled(false);
-        correctionBox.setVisibility(View.GONE);
-        nextButton.setVisibility(View.VISIBLE);
+        correctionBox.setVisibility(GONE);
+        nextButton.setVisibility(VISIBLE);
         nextButton.setEnabled(true);
-        submitButton.setVisibility(View.GONE);
+        submitButton.setVisibility(GONE);
+        greenTick.setVisibility(VISIBLE);
     }
 
     @Override
@@ -87,6 +94,8 @@ public final class AndroidQuestionView extends FrameLayout implements QuestionVi
         nextButton.setVisibility(View.VISIBLE);
         nextButton.setEnabled(true);
         submitButton.setVisibility(View.GONE);
+        greenTick.setVisibility(View.GONE);
+        redCross.setVisibility(View.VISIBLE);
     }
 
     @Override
