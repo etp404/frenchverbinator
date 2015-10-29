@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-vector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:drawable="@drawable/red_cross_to_be_drawn"
+    tools:targetApi="lollipop">
+    <target
+        android:name="cross_1"
+        android:animation="@animator/draw_something1" />
+    <target
+        android:name="cross_2"
+        android:animation="@animator/draw_something2b" />
+    <target
+        android:name="cross_2"
+        android:animation="@animator/draw_something2" />
+</animated-vector>

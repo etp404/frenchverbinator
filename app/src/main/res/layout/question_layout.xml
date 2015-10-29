@@ -87,25 +87,27 @@
             android:text="0/0"
             android:textStyle="italic"
             android:layout_gravity="center_horizontal" />
+        <ImageView
+            android:id="@+id/green_tick"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/green_tick"
+            android:elevation="12dp"
+            android:layout_gravity="center"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/red_cross"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/red_cross"
+            android:elevation="12dp"
+            android:layout_gravity="center"
+            android:visibility="gone"/>
+
     </LinearLayout>
 
 
-    <ImageView
-        android:id="@+id/green_tick"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/green_tick"
-        android:elevation="12dp"
-        android:layout_gravity="center"
-        android:visibility="gone"/>
 
-    <ImageView
-        android:id="@+id/red_cross"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/red_cross"
-        android:elevation="12dp"
-        android:layout_gravity="center"
-        android:visibility="gone"/>
 
 </uk.co.mould.matt.frenchverbinator.AndroidQuestionView>

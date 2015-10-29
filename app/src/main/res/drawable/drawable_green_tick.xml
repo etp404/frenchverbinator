@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-vector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:drawable="@drawable/green_tick_to_be_drawn"
+    tools:targetApi="lollipop">
+    <target
+        android:name="green_tick"
+        android:animation="@animator/draw_something1" />
+</animated-vector>

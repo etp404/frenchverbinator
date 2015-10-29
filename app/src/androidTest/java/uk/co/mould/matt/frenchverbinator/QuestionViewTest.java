@@ -1,6 +1,7 @@
 package uk.co.mould.matt.frenchverbinator;
 
 import android.content.Context;
+import android.support.test.InstrumentationRegistry;
 import android.test.AndroidTestCase;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -75,36 +76,46 @@ public final class QuestionViewTest extends AndroidTestCase {
     }
 
     public void testThatCorrectAnswerIsShownCorrectly() {
-        questionView.setResultToCorrect();
+        InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable() {
+            @Override
+            public void run() {
+                questionView.setResultToCorrect();
 
-        assertEquals("Correct", resultBox.getText());
-        assertEquals(View.VISIBLE, resultBox.getVisibility());
-        assertFalse(answerBox.isEnabled());
-        assertEquals(correctionBox.getVisibility(), View.GONE);
-        assertEquals(greenTick.getVisibility(), View.VISIBLE);
+                assertEquals("Correct", resultBox.getText());
+                assertEquals(View.VISIBLE, resultBox.getVisibility());
+                assertFalse(answerBox.isEnabled());
+                assertEquals(correctionBox.getVisibility(), View.GONE);
+                assertEquals(greenTick.getVisibility(), View.VISIBLE);
 
-        assertEquals(submitButton.getVisibility(), View.GONE);
+                assertEquals(submitButton.getVisibility(), View.GONE);
 
-        assertEquals(nextButton.getVisibility(), View.VISIBLE);
-        assertTrue(nextButton.isEnabled());
+                assertEquals(nextButton.getVisibility(), View.VISIBLE);
+                assertTrue(nextButton.isEnabled());
+            }
+        });
+
     }
 
     public void testThatIncorrectAnswerDisplayedCorrectly() {
-        questionView.setResultToIncorrect(new ConjugatedVerbWithPronoun(someVerbWithPronoun));
+        InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable() {
+            @Override
+            public void run() {
+                questionView.setResultToIncorrect(new ConjugatedVerbWithPronoun(someVerbWithPronoun));
 
-        assertEquals("Incorrect", resultBox.getText());
-        assertEquals(resultBox.getVisibility(), View.VISIBLE);
+                assertEquals("Incorrect", resultBox.getText());
+                assertEquals(resultBox.getVisibility(), View.VISIBLE);
 
-        assertFalse(answerBox.isEnabled());
-        assertEquals(someVerbWithPronoun, correctionBox.getText());
-        assertEquals(View.VISIBLE, correctionBox.getVisibility());
-        assertEquals(greenTick.getVisibility(), View.GONE);
-        assertEquals(redCross.getVisibility(), View.VISIBLE);
+                assertFalse(answerBox.isEnabled());
+                assertEquals(someVerbWithPronoun, correctionBox.getText());
+                assertEquals(View.VISIBLE, correctionBox.getVisibility());
+                assertEquals(greenTick.getVisibility(), View.GONE);
+                assertEquals(redCross.getVisibility(), View.VISIBLE);
 
-        assertEquals(submitButton.getVisibility(), View.GONE);
+                assertEquals(submitButton.getVisibility(), View.GONE);
 
-        assertEquals(nextButton.getVisibility(), View.VISIBLE);
-        assertTrue(nextButton.isEnabled());
+                assertEquals(nextButton.getVisibility(), View.VISIBLE);
+                assertTrue(nextButton.isEnabled());
+            }});
 
     }
 

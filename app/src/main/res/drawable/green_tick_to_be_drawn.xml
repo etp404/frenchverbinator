@@ -6,10 +6,12 @@
     android:height="240dp"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <path
+        android:name="green_tick"
         android:fillColor="#00000000"
         android:pathData="m49,288c1,0 7.003662,6.163208 22,18c11.320625,8.935516 27.030655,20.051117 38,33c11.120651,13.127502 19.063202,29.409546 26,44c4.4207,9.298248 9.194092,17.88855 12,23c1.076019,1.960144 1.076126,3.61731 2,4c1.306564,0.541199 3.74379,-17.12082 19,-45c33.2865,-60.827698 81.60086,-115.377914 122,-155c45.479675,-44.60492 75.95648,-64.78285 104,-80c12.584473,-6.828674 25.712006,-10.981628 31,-12c3.927826,-0.756432 7.051636,-0.359268 11,-1c3.121429,-0.506538 5,-1 8,-1l1,0"
         android:strokeColor="#4CAF50"
         android:strokeLineCap="round"
         android:strokeLineJoin="round"
-        android:strokeWidth="60"/>
+        android:strokeWidth="60"
+        android:trimPathEnd="0"/>
 </vector>

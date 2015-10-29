@@ -1,14 +1,10 @@
 package uk.co.mould.matt.frenchverbinator;
 
 import android.content.Context;
-import android.test.ActivityInstrumentationTestCase2;
 import android.test.AndroidTestCase;
 import android.view.LayoutInflater;
-import android.view.ViewGroup;
-import android.widget.TextView;
 
 import org.junit.Before;
-import org.junit.Ignore;
 
 import java.util.ArrayList;
 
@@ -18,18 +14,10 @@ import uk.co.mould.matt.data.tenses.PresentConditional;
 import uk.co.mould.matt.frenchverbinator.settings.ui.AndroidSettingsView;
 import uk.co.mould.matt.frenchverbinator.settings.ui.OptionsCheckBox;
 import uk.co.mould.matt.frenchverbinator.settings.ui.SettingsPresenter;
-import uk.co.mould.matt.frenchverbinator.settings.ui.SettingsView;
-
-import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.matcher.ViewMatchers.assertThat;
-import static android.support.test.espresso.matcher.ViewMatchers.isChecked;
-import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static android.support.test.espresso.matcher.ViewMatchers.isNotChecked;
-import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.hamcrest.MatcherAssert.assertThat;
 
+@SuppressWarnings("ResourceType")
 public class SettingsViewTest extends AndroidTestCase {
     private AndroidSettingsView settingsView;
     private FakeSettingsPresenter fakeSettingsPresenter;
@@ -38,7 +26,7 @@ public class SettingsViewTest extends AndroidTestCase {
     private ArrayList<MoodAndTense> supportedTenses = new ArrayList<MoodAndTense>() {{
         add(presentConditional);
         add(imperfectIndicative);
-    }};;
+    }};
 
 
     @Before

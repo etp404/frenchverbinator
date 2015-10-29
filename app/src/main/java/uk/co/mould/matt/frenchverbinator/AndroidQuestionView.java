@@ -1,10 +1,13 @@
 package uk.co.mould.matt.frenchverbinator;
 
 import android.content.Context;
+import android.graphics.drawable.AnimatedVectorDrawable;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import uk.co.mould.matt.data.ConjugatedVerbWithPronoun;
@@ -15,8 +18,8 @@ public final class AndroidQuestionView extends FrameLayout implements QuestionVi
     private static final String QUESTION_TEMPLATE = "What is the '%s' form of %s (%s) in the %s?";
 
     private View nextButton;
-    private View greenTick;
-    private View redCross;
+    private ImageView greenTick;
+    private ImageView redCross;
     private Button submitButton;
     private TextView resultBox;
     private TextView noTensesSelectedWarning;
@@ -47,8 +50,8 @@ public final class AndroidQuestionView extends FrameLayout implements QuestionVi
         noTensesSelectedWarning = (TextView) findViewById(R.id.no_tenses_selected);
         correctionBox = (TextView) findViewById(R.id.correction_box);
         questionBox = (TextView)findViewById(R.id.question);
-        greenTick = findViewById(R.id.green_tick);
-        redCross = findViewById(R.id.red_cross);
+        greenTick = (ImageView)findViewById(R.id.green_tick);
+        redCross = (ImageView) findViewById(R.id.red_cross);
     }
 
     @Override
@@ -62,6 +65,8 @@ public final class AndroidQuestionView extends FrameLayout implements QuestionVi
         answerBox.setEnabled(true);
         answerBox.setText("");
         redCross.setVisibility(GONE);
+        redCross.setImageDrawable(null);
+
         greenTick.setVisibility(GONE);
         questionBox.setText(
                 String.format(
@@ -70,6 +75,7 @@ public final class AndroidQuestionView extends FrameLayout implements QuestionVi
                         question.verb.frenchVerb,
                         question.verb.englishVerb,
                         question.moodAndTense.toString()));
+        clearAnimation();
     }
 
     @Override
@@ -81,7 +87,31 @@ public final class AndroidQuestionView extends FrameLayout implements QuestionVi
         nextButton.setVisibility(VISIBLE);
         nextButton.setEnabled(true);
         submitButton.setVisibility(GONE);
-        greenTick.setVisibility(VISIBLE);
+        showGreenTick();
+    }
+
+    private void showGreenTick() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            AnimatedVectorDrawable drawableGreenTick = (AnimatedVectorDrawable) getContext().getDrawable(R.drawable.drawable_green_tick);
+            greenTick.setImageDrawable(drawableGreenTick);
+            greenTick.setVisibility(VISIBLE);
+            drawableGreenTick.start();
+        }
+        else {
+            greenTick.setVisibility(VISIBLE);
+        }
+    }
+
+    private void showRedCross() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            AnimatedVectorDrawable drawableRedCross = (AnimatedVectorDrawable) getContext().getDrawable(R.drawable.drawable_red_cross);
+            redCross.setImageDrawable(drawableRedCross);
+            redCross.setVisibility(VISIBLE);
+            drawableRedCross.start();
+        }
+        else {
+            redCross.setVisibility(VISIBLE);
+        }
     }
 
     @Override
@@ -95,7 +125,7 @@ public final class AndroidQuestionView extends FrameLayout implements QuestionVi
         nextButton.setEnabled(true);
         submitButton.setVisibility(View.GONE);
         greenTick.setVisibility(View.GONE);
-        redCross.setVisibility(View.VISIBLE);
+        showRedCross();
     }
 
     @Override
