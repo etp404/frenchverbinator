@@ -9,7 +9,7 @@
         android:animation="@animator/draw_something1" />
     <target
         android:name="cross_2"
-        android:animation="@animator/draw_something2b" />
+        android:animation="@animator/hide_initially" />
     <target
         android:name="cross_2"
         android:animation="@animator/draw_something2" />
