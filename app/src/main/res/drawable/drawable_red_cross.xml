@@ -6,11 +6,11 @@
     tools:targetApi="lollipop">
     <target
         android:name="cross_1"
-        android:animation="@animator/draw_something1" />
+        android:animation="@animator/draw_something_part1" />
     <target
         android:name="cross_2"
         android:animation="@animator/hide_initially" />
     <target
         android:name="cross_2"
-        android:animation="@animator/draw_something2" />
+        android:animation="@animator/draw_something_part2" />
 </animated-vector>

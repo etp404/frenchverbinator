@@ -6,5 +6,5 @@
     tools:targetApi="lollipop">
     <target
         android:name="green_tick"
-        android:animation="@animator/draw_something1" />
+        android:animation="@animator/draw_something_part1" />
 </animated-vector>
