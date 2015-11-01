@@ -13,4 +13,11 @@
     <target
         android:name="cross_2"
         android:animation="@animator/draw_something_part2" />
+    <target
+        android:name="cross_1"
+        android:animation="@animator/disappear_1000"/>
+    <target
+        android:name="cross_2"
+        android:animation="@animator/disappear_1000"/>
+
 </animated-vector>

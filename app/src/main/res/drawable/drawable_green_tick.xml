@@ -7,4 +7,7 @@
     <target
         android:name="green_tick"
         android:animation="@animator/draw_something_part1" />
+    <target
+        android:name="green_tick"
+        android:animation="@animator/disappear_1000" />
 </animated-vector>
