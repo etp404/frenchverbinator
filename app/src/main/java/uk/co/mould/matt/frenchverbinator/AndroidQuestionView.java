@@ -5,6 +5,9 @@ import android.graphics.drawable.AnimatedVectorDrawable;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -65,7 +68,6 @@ public final class AndroidQuestionView extends FrameLayout implements QuestionVi
         answerBox.setEnabled(true);
         answerBox.setText("");
         redCross.setVisibility(GONE);
-        redCross.setImageDrawable(null);
 
         greenTick.setVisibility(GONE);
         questionBox.setText(
@@ -98,7 +100,7 @@ public final class AndroidQuestionView extends FrameLayout implements QuestionVi
             drawableGreenTick.start();
         }
         else {
-            greenTick.setVisibility(VISIBLE);
+            showTickOrCross(greenTick);
         }
     }
 
@@ -110,8 +112,37 @@ public final class AndroidQuestionView extends FrameLayout implements QuestionVi
             drawableRedCross.start();
         }
         else {
-            redCross.setVisibility(VISIBLE);
+            showTickOrCross(redCross);
         }
+    }
+
+    private void showTickOrCross(final View tickOrCross) {
+        Animation fadeIn = AnimationUtils.loadAnimation(getContext(), R.anim.abc_popup_enter);
+        fadeIn.setDuration(500);
+        Animation fadeOut = AnimationUtils.loadAnimation(getContext(), R.anim.abc_popup_exit);
+        fadeOut.setDuration(500);
+        fadeOut.setStartOffset(700);
+        fadeIn.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                tickOrCross.setVisibility(VISIBLE);
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                tickOrCross.setVisibility(GONE);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+        AnimationSet s = new AnimationSet(false);
+        s.addAnimation(fadeIn);
+        s.addAnimation(fadeOut);
+        s.setFillAfter(true);
+        tickOrCross.startAnimation(s);
     }
 
     @Override
