@@ -120,30 +120,40 @@ public final class QuestionViewTest extends AndroidTestCase {
     }
 
     public void testThatWhenIncorrectAnswerHasBeenShown_AndNextQuestionIsRequested_QuestionModeIsReentered() {
-        questionView.setResultToIncorrect(new ConjugatedVerbWithPronoun(someVerbWithPronoun));
-        answerBox.setText("some answer");
-        questionView.setQuestion(question);
+        InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable() {
+            @Override
+            public void run() {
 
-        assertEquals(correctionBox.getVisibility(), View.GONE);
-        assertEquals(submitButton.getVisibility(), View.VISIBLE);
-        assertEquals(nextButton.getVisibility(), View.GONE);
-        assertEquals(redCross.getVisibility(), View.GONE);
-        assertTrue(nextButton.isEnabled());
-        assertTrue(answerBox.isEnabled());
-        assertEquals(0, answerBox.getText().length());
+                questionView.setResultToIncorrect(new ConjugatedVerbWithPronoun(someVerbWithPronoun));
+                answerBox.setText("some answer");
+                questionView.setQuestion(question);
+
+                assertEquals(correctionBox.getVisibility(), View.GONE);
+                assertEquals(submitButton.getVisibility(), View.VISIBLE);
+                assertEquals(nextButton.getVisibility(), View.GONE);
+                assertEquals(redCross.getVisibility(), View.GONE);
+                assertTrue(nextButton.isEnabled());
+                assertTrue(answerBox.isEnabled());
+                assertEquals(0, answerBox.getText().length());
+            }});
     }
 
     public void testThatWhenCorrectAnswerHasBeenShown_AndNextQuestionIsRequested_QuestionModeIsReentered() {
-        questionView.setResultToCorrect();
-        questionView.setQuestion(question);
+        InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable() {
+            @Override
+            public void run() {
+                questionView.setResultToCorrect();
+                questionView.setQuestion(question);
 
-        assertEquals(correctionBox.getVisibility(), View.GONE);
-        assertEquals(submitButton.getVisibility(), View.VISIBLE);
-        assertEquals(nextButton.getVisibility(), View.GONE);
-        assertEquals(greenTick.getVisibility(), View.GONE);
-        assertTrue(nextButton.isEnabled());
-        assertTrue(answerBox.isEnabled());
-        assertEquals(0, answerBox.getText().length());
+                assertEquals(correctionBox.getVisibility(), View.GONE);
+                assertEquals(submitButton.getVisibility(), View.VISIBLE);
+                assertEquals(nextButton.getVisibility(), View.GONE);
+                assertEquals(greenTick.getVisibility(), View.GONE);
+                assertTrue(nextButton.isEnabled());
+                assertTrue(answerBox.isEnabled());
+                assertEquals(0, answerBox.getText().length());
+            }
+        });
     }
 
     public void testThatNoTensesSelectedViewCanBeShown() {
