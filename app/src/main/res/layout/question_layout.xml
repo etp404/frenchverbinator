@@ -2,110 +2,116 @@
                 xmlns:tools="http://schemas.android.com/tools"
                   android:orientation="vertical"
                   android:layout_width="fill_parent"
-                  android:layout_height="wrap_content"
+                  android:layout_height="fill_parent"
                   android:weightSum="1"
                 tools:context=".QuestionActivity"
                 android:background="@color/background_color"
                 android:id="@+id/android_question_view"
     >
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:weightSum="1"
-        android:id="@+id/question_view_group"
-        android:layout_margin="32dp"
-        android:elevation="6dp"
-        android:background="@color/question_background"
-        android:padding="16dp">
-
-        <TextView
-            android:id="@+id/question"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="question"
-            android:layout_gravity="center_horizontal"
-            android:gravity="center_horizontal"
-            style="@style/font_style" />
-
-        <TextView
-            android:id="@+id/no_tenses_selected"
-            android:text="Please select at least one tense from the settings menu."
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:gravity="center_horizontal"
-            style="@style/font_style"
-            android:visibility="gone" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/answer_box"
-            android:hint="Answer"
-            android:gravity="center_horizontal"
-            style="@style/CustomTextStyle"
-            android:inputType="textVisiblePassword|textNoSuggestions" />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="CHECK"
-            android:id="@+id/submit_button"
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:weightSum="1"
+            android:id="@+id/question_view_group"
+            android:layout_margin="32dp"
             android:elevation="6dp"
-            style="@style/buttonFontColour" />
+            android:background="@color/question_background"
+            android:padding="16dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/result_box"
-            android:text="result_box"
-            android:layout_gravity="center_horizontal"
-            style="@style/font_style" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/correction_box"
-            android:text="correctAnswer"
-            android:layout_gravity="center_horizontal"
-            style="@style/font_style" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:id="@+id/score"
-            android:text="0/0"
-            android:textStyle="italic"
-            android:layout_gravity="center_horizontal" />
-        <Button
+            <TextView
+                android:id="@+id/question"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="question"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
+                style="@style/font_style" />
+
+            <TextView
+                android:id="@+id/no_tenses_selected"
+                android:text="Please select at least one tense from the settings menu."
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
+                style="@style/font_style"
+                android:visibility="gone" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/answer_box"
+                android:hint="Answer"
+                android:gravity="center_horizontal"
+                style="@style/CustomTextStyle"
+                android:inputType="textVisiblePassword|textNoSuggestions" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="CHECK"
+                android:id="@+id/submit_button"
+                android:elevation="6dp"
+                style="@style/buttonFontColour" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/result_box"
+                android:text="result_box"
+                android:layout_gravity="center_horizontal"
+                style="@style/font_style" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/correction_box"
+                android:text="correctAnswer"
+                android:layout_gravity="center_horizontal"
+                style="@style/font_style" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:id="@+id/score"
+                android:text="0/0"
+                android:textStyle="italic"
+                android:layout_gravity="center_horizontal" />
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Next"
+                android:id="@+id/next_button"
+                android:visibility="gone"
+                android:layout_gravity="center_horizontal"
+                android:elevation="6dp"
+                style="@style/buttonFontColour" />
+        </LinearLayout>
+
+
+        <ImageView
+            android:id="@+id/red_cross"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Next"
-            android:id="@+id/next_button"
+            android:layout_height="match_parent"
+            android:src="@drawable/red_cross"
+            android:elevation="12dp"
+            android:layout_gravity="center"
             android:visibility="gone"
-            android:layout_gravity="center_horizontal"
-            android:elevation="6dp"
-            style="@style/buttonFontColour" />
-    </LinearLayout>
+            android:padding="40dp" />
 
-
-    <ImageView
-        android:id="@+id/red_cross"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/red_cross"
-        android:elevation="12dp"
-        android:layout_gravity="center"
-        android:visibility="gone"/>
-
-    <ImageView
-        android:id="@+id/green_tick"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/green_tick"
-        android:elevation="12dp"
-        android:layout_gravity="center"
-        android:visibility="gone"/>
+        <ImageView
+            android:id="@+id/green_tick"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/green_tick"
+            android:elevation="12dp"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:padding="16dp"/>
+    </FrameLayout>
 
 
 </uk.co.mould.matt.frenchverbinator.AndroidQuestionView>
