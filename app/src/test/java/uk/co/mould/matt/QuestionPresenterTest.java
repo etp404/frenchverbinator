@@ -14,7 +14,6 @@ import uk.co.mould.matt.fakes.FakeQuestionView;
 import uk.co.mould.matt.frenchverbinator.QuestionPresenter;
 import uk.co.mould.matt.marking.Score;
 import uk.co.mould.matt.questions.Question;
-import uk.co.mould.matt.questions.RandomNumberGenerator;
 import uk.co.mould.matt.questions.QuestionGenerator;
 
 import static org.hamcrest.core.Is.is;
@@ -138,10 +137,4 @@ public final class QuestionPresenterTest {
 		}
 	}
 
-    private class FakeRandomQuestionGenerator implements RandomNumberGenerator {
-        @Override
-        public int randomNumber(int from, int to) {
-            return 0;
-        }
-    }
 }

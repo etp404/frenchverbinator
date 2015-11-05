@@ -12,7 +12,9 @@ import java.io.IOException;
 import javax.xml.parsers.ParserConfigurationException;
 
 import uk.co.mould.matt.conjugators.Conjugator;
-import uk.co.mould.matt.data.*;
+import uk.co.mould.matt.data.ConjugatedVerbWithPronoun;
+import uk.co.mould.matt.data.InfinitiveVerb;
+import uk.co.mould.matt.data.Persons;
 import uk.co.mould.matt.data.tenses.FutureIndicative;
 import uk.co.mould.matt.data.tenses.ImperfectIndicative;
 import uk.co.mould.matt.data.tenses.PerfectIndicative;
