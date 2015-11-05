@@ -11,7 +11,7 @@ import uk.co.mould.matt.data.tenses.MoodAndTense;
 import uk.co.mould.matt.data.tenses.PresentIndicative;
 import uk.co.mould.matt.questions.Callback;
 import uk.co.mould.matt.questions.Question;
-import uk.co.mould.matt.questions.QuestionGenerator;
+import uk.co.mould.matt.questions.RandomQuestionGenerator;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -23,27 +23,27 @@ public class QuestionGeneratorTests {
 
     @Test
     public void returnsNoTensesSelectedIfNoTensesAreSelected() {
-        QuestionGenerator questionGenerator = new QuestionGenerator(
+        RandomQuestionGenerator randomQuestionGenerator = new RandomQuestionGenerator(
                 new FakeRandomQuestionGenerator(),
                 new ArrayList< InfinitiveVerb >(),
                 new ArrayList< Persons.Person>(),
                 new ArrayList< MoodAndTense>());
 
         CapturingCallback callback = new CapturingCallback();
-        questionGenerator.getQuestion(callback);
+        randomQuestionGenerator.getQuestion(callback);
 
         assertTrue(callback.noTensesSelected);
     }
 
     @Test
     public void returnsQuestionFromList() {
-        QuestionGenerator questionGenerator = new QuestionGenerator(new FakeRandomQuestionGenerator(),
+        RandomQuestionGenerator randomQuestionGenerator = new RandomQuestionGenerator(new FakeRandomQuestionGenerator(),
                 Collections.singletonList(verb),
                 Collections.singletonList(person),
                 Collections.singletonList(verbMoodAndTense));
 
         CapturingCallback callback = new CapturingCallback();
-        questionGenerator.getQuestion(callback);
+        randomQuestionGenerator.getQuestion(callback);
 
         Question expectedQuestion = new Question(person, verb, verbMoodAndTense);
 

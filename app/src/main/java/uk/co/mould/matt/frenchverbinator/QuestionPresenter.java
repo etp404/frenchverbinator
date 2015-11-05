@@ -6,19 +6,19 @@ import uk.co.mould.matt.marking.AnswerChecker;
 import uk.co.mould.matt.marking.Score;
 import uk.co.mould.matt.questions.Callback;
 import uk.co.mould.matt.questions.Question;
-import uk.co.mould.matt.questions.QuestionGenerator;
+import uk.co.mould.matt.questions.RandomQuestionGenerator;
 
 public class QuestionPresenter {
 	private AnswerChecker answerChecker;
 	private QuestionView questionView;
     private Score score = new Score();
-	private QuestionGenerator questionGenerator;
+	private RandomQuestionGenerator randomQuestionGenerator;
 
     public QuestionPresenter(final QuestionView questionView,
-							 QuestionGenerator questionGenerator,
+							 RandomQuestionGenerator randomQuestionGenerator,
 							 Conjugator conjugator) {
 		this.questionView = questionView;
-		this.questionGenerator = questionGenerator;
+		this.randomQuestionGenerator = randomQuestionGenerator;
 		this.answerChecker = new AnswerChecker(conjugator);
         questionView.addSubmitListener(new QuestionView.SubmitListener() {
             @Override
@@ -50,7 +50,7 @@ public class QuestionPresenter {
     }
 
 	public void showQuestion() {
-        questionGenerator.getQuestion(new Callback() {
+        randomQuestionGenerator.getQuestion(new Callback() {
             @Override
             public void questionProvided(Question question) {
                 questionView.showScore(score);

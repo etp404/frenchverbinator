@@ -8,16 +8,16 @@ import uk.co.mould.matt.data.SupportedPersons;
 import uk.co.mould.matt.data.tenses.MoodAndTense;
 import uk.co.mould.matt.parser.VerbListParser;
 
-public final class QuestionGenerator {
+public final class RandomQuestionGenerator {
 	private RandomNumberGenerator randomNumberGenerator;
 	private List<InfinitiveVerb> verbList;
 	private List<Persons.Person> personList;
 	private List<MoodAndTense> moodsAndTensesToSelectFrom;
 
-    public QuestionGenerator(RandomNumberGenerator randomNumberGenerator,
-                             List<InfinitiveVerb> verbList,
-                             List<Persons.Person> personList,
-                             List<MoodAndTense> moodsAndTensesToSelectFrom) {
+    public RandomQuestionGenerator(RandomNumberGenerator randomNumberGenerator,
+								   List<InfinitiveVerb> verbList,
+								   List<Persons.Person> personList,
+								   List<MoodAndTense> moodsAndTensesToSelectFrom) {
 		this.randomNumberGenerator = randomNumberGenerator;
 		this.verbList = verbList;
 		this.personList = personList;

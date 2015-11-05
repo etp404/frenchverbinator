@@ -10,7 +10,7 @@ import uk.co.mould.matt.frenchverbinator.settings.SharedPrefsUserSettings;
 import uk.co.mould.matt.parser.ConjugationParser;
 import uk.co.mould.matt.parser.VerbListParser;
 import uk.co.mould.matt.parser.VerbTemplateParser;
-import uk.co.mould.matt.questions.QuestionGenerator;
+import uk.co.mould.matt.questions.RandomQuestionGenerator;
 import uk.co.mould.matt.questions.SystemRandomNumberGenerator;
 
 class QuestionPresenterFactory {
@@ -22,7 +22,7 @@ class QuestionPresenterFactory {
         ConjugationParser conjugationParser = new ConjugationParser(new InputSource(context.getResources().openRawResource(R.raw.conjugation_fr)));
         VerbListParser verbListParser = new VerbListParser(new InputSource(context.getResources().openRawResource(R.raw.verb_list)));
         Conjugator conjugator = new Conjugator(verbTemplateParser, conjugationParser);
-        QuestionGenerator questionGenerator = new QuestionGenerator(
+        RandomQuestionGenerator randomQuestionGenerator = new RandomQuestionGenerator(
                 new SystemRandomNumberGenerator(),
                 verbListParser.getVerbs(),
                 SupportedPersons.ALL,
@@ -30,7 +30,7 @@ class QuestionPresenterFactory {
 
         new QuestionPresenter(
                 questionView,
-                questionGenerator,
+                randomQuestionGenerator,
                 conjugator);
     }
 }
