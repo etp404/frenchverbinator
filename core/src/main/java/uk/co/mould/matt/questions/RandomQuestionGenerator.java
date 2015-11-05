@@ -8,7 +8,7 @@ import uk.co.mould.matt.data.SupportedPersons;
 import uk.co.mould.matt.data.tenses.MoodAndTense;
 import uk.co.mould.matt.parser.VerbListParser;
 
-public final class RandomQuestionGenerator {
+public final class RandomQuestionGenerator implements QuestionGenerator {
 	private RandomNumberGenerator randomNumberGenerator;
 	private List<InfinitiveVerb> verbList;
 	private List<Persons.Person> personList;
@@ -24,6 +24,7 @@ public final class RandomQuestionGenerator {
 		this.moodsAndTensesToSelectFrom = moodsAndTensesToSelectFrom;
     }
 
+	@Override
 	public void getQuestion(Callback callback) {
         if (moodsAndTensesToSelectFrom.size()==0) {
             callback.noTensesSelected();
