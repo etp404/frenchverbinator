@@ -1,12 +1,10 @@
 package uk.co.mould.matt.questions;
 import java.util.List;
-import java.util.Random;
 
 import uk.co.mould.matt.data.Persons;
 import uk.co.mould.matt.data.InfinitiveVerb;
 import uk.co.mould.matt.data.SupportedPersons;
 import uk.co.mould.matt.data.tenses.MoodAndTense;
-import uk.co.mould.matt.parser.VerbListParser;
 
 public final class RandomQuestionGenerator implements QuestionGenerator {
 	private RandomNumberGenerator randomNumberGenerator;
@@ -34,7 +32,12 @@ public final class RandomQuestionGenerator implements QuestionGenerator {
         }
     }
 
-    private Persons.Person getRandomPerson() {
+	@Override
+	public void repeatFailedQuestionAfter(Question failedQuestion, int repeatAfter) {
+
+	}
+
+	private Persons.Person getRandomPerson() {
 		return personList.get(randomNumberGenerator.randomNumber(0, SupportedPersons.ALL.size()));
 	}
 

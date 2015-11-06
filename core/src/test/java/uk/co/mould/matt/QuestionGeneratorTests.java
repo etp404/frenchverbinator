@@ -1,5 +1,6 @@
 package uk.co.mould.matt;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -9,6 +10,7 @@ import uk.co.mould.matt.data.InfinitiveVerb;
 import uk.co.mould.matt.data.Persons;
 import uk.co.mould.matt.data.tenses.MoodAndTense;
 import uk.co.mould.matt.data.tenses.PresentIndicative;
+import uk.co.mould.matt.data.tenses.PresentSubjunctive;
 import uk.co.mould.matt.questions.Callback;
 import uk.co.mould.matt.questions.Question;
 import uk.co.mould.matt.questions.RandomQuestionGenerator;
@@ -24,7 +26,7 @@ public class QuestionGeneratorTests {
     @Test
     public void returnsNoTensesSelectedIfNoTensesAreSelected() {
         RandomQuestionGenerator randomQuestionGenerator = new RandomQuestionGenerator(
-                new FakeRandomQuestionGenerator(),
+                new FakeRandomNumberGenerator(),
                 new ArrayList< InfinitiveVerb >(),
                 new ArrayList< Persons.Person>(),
                 new ArrayList< MoodAndTense>());
@@ -37,7 +39,7 @@ public class QuestionGeneratorTests {
 
     @Test
     public void returnsQuestionFromList() {
-        RandomQuestionGenerator randomQuestionGenerator = new RandomQuestionGenerator(new FakeRandomQuestionGenerator(),
+        RandomQuestionGenerator randomQuestionGenerator = new RandomQuestionGenerator(new FakeRandomNumberGenerator(),
                 Collections.singletonList(verb),
                 Collections.singletonList(person),
                 Collections.singletonList(verbMoodAndTense));
@@ -47,6 +49,24 @@ public class QuestionGeneratorTests {
 
         Question expectedQuestion = new Question(person, verb, verbMoodAndTense);
 
+        assertEquals(expectedQuestion, callback.question);
+    }
+
+    @Test @Ignore
+    public void repeatsFailedQuestionFourQuestionsLater() {
+        Question expectedQuestion = new Question(Persons.SECOND_PERSON_SINGULAR, new InfinitiveVerb("bblah", "blaaahdy", "blah"), new PresentSubjunctive());
+
+        RandomQuestionGenerator randomQuestionGenerator = new RandomQuestionGenerator(new FakeRandomNumberGenerator(),
+                Collections.singletonList(verb),
+                Collections.singletonList(person),
+                Collections.singletonList(verbMoodAndTense));
+
+        int repeatAfter = 4;
+        randomQuestionGenerator.repeatFailedQuestionAfter(expectedQuestion, repeatAfter);
+        CapturingCallback callback = new CapturingCallback();
+        for (int i=0;i<repeatAfter;i++) {
+            randomQuestionGenerator.getQuestion(callback);
+        }
         assertEquals(expectedQuestion, callback.question);
     }
 

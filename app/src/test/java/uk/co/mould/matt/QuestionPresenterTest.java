@@ -146,6 +146,11 @@ public final class QuestionPresenterTest {
         public void getQuestion(Callback callback) {
             callback.questionProvided(question);
         }
+
+        @Override
+        public void repeatFailedQuestionAfter(Question failedQuestion, int repeatAfter) {
+
+        }
     }
 
 }
