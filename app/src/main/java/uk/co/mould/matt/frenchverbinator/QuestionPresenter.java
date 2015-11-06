@@ -6,16 +6,16 @@ import uk.co.mould.matt.marking.AnswerChecker;
 import uk.co.mould.matt.marking.Score;
 import uk.co.mould.matt.questions.Callback;
 import uk.co.mould.matt.questions.Question;
-import uk.co.mould.matt.questions.RandomQuestionGenerator;
+import uk.co.mould.matt.questions.QuestionGenerator;
 
 public class QuestionPresenter {
 	private AnswerChecker answerChecker;
 	private QuestionView questionView;
     private Score score = new Score();
-	private RandomQuestionGenerator randomQuestionGenerator;
+	private QuestionGenerator randomQuestionGenerator;
 
     public QuestionPresenter(final QuestionView questionView,
-							 RandomQuestionGenerator randomQuestionGenerator,
+							 QuestionGenerator randomQuestionGenerator,
 							 Conjugator conjugator) {
 		this.questionView = questionView;
 		this.randomQuestionGenerator = randomQuestionGenerator;

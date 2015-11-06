@@ -4,7 +4,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 import uk.co.mould.matt.conjugators.Conjugator;
 import uk.co.mould.matt.data.*;
@@ -13,7 +12,9 @@ import uk.co.mould.matt.data.tenses.MoodAndTense;
 import uk.co.mould.matt.fakes.FakeQuestionView;
 import uk.co.mould.matt.frenchverbinator.QuestionPresenter;
 import uk.co.mould.matt.marking.Score;
+import uk.co.mould.matt.questions.Callback;
 import uk.co.mould.matt.questions.Question;
+import uk.co.mould.matt.questions.QuestionGenerator;
 import uk.co.mould.matt.questions.RandomQuestionGenerator;
 
 import static org.hamcrest.core.Is.is;
@@ -33,19 +34,16 @@ public final class QuestionPresenterTest {
 	private final String correctAnswerWithTrailingSpace = "correct answer ";
 	private FakeQuestionView questionView;
     private Question question;
-    private RandomQuestionGenerator randomQuestionGenerator;
+    private QuestionGenerator fakeQuestionGenerator;
 
     @Before
 	public void setup() {
 		questionView = new FakeQuestionView();
         question = new Question(person, verb, verbMoodAndTense);
-        randomQuestionGenerator = new RandomQuestionGenerator(new FakeRandomQuestionGenerator(),
-                Collections.singletonList(verb),
-                Collections.singletonList(person),
-                Collections.singletonList(verbMoodAndTense));
+        fakeQuestionGenerator = new FakeQuestionGenerator(question);
         new QuestionPresenter(
 				questionView,
-                randomQuestionGenerator,
+                fakeQuestionGenerator,
 				new FakeConjugator(person, verb, verbMoodAndTense, new ConjugatedVerbWithPronoun(correctAnswer)));
 	}
 	@Test
@@ -136,5 +134,18 @@ public final class QuestionPresenterTest {
 			return null;
 		}
 	}
+
+    public class FakeQuestionGenerator implements QuestionGenerator {
+        private Question question;
+
+        public FakeQuestionGenerator(Question question) {
+            this.question = question;
+        }
+
+        @Override
+        public void getQuestion(Callback callback) {
+            callback.questionProvided(question);
+        }
+    }
 
 }
