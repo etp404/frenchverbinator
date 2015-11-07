@@ -1,6 +1,5 @@
 package uk.co.mould.matt;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -13,6 +12,7 @@ import uk.co.mould.matt.data.tenses.PresentIndicative;
 import uk.co.mould.matt.data.tenses.PresentSubjunctive;
 import uk.co.mould.matt.questions.Callback;
 import uk.co.mould.matt.questions.Question;
+import uk.co.mould.matt.questions.RandomNumberGenerator;
 import uk.co.mould.matt.questions.RandomQuestionGenerator;
 
 import static org.junit.Assert.assertEquals;
@@ -26,7 +26,7 @@ public class QuestionGeneratorTests {
     @Test
     public void returnsNoTensesSelectedIfNoTensesAreSelected() {
         RandomQuestionGenerator randomQuestionGenerator = new RandomQuestionGenerator(
-                new FakeRandomNumberGenerator(),
+                new FakeRandomNumberGenerator(0),
                 new ArrayList< InfinitiveVerb >(),
                 new ArrayList< Persons.Person>(),
                 new ArrayList< MoodAndTense>());
@@ -39,7 +39,7 @@ public class QuestionGeneratorTests {
 
     @Test
     public void returnsQuestionFromList() {
-        RandomQuestionGenerator randomQuestionGenerator = new RandomQuestionGenerator(new FakeRandomNumberGenerator(),
+        RandomQuestionGenerator randomQuestionGenerator = new RandomQuestionGenerator(new FakeRandomNumberGenerator(0),
                 Collections.singletonList(verb),
                 Collections.singletonList(person),
                 Collections.singletonList(verbMoodAndTense));
@@ -52,22 +52,23 @@ public class QuestionGeneratorTests {
         assertEquals(expectedQuestion, callback.question);
     }
 
-    @Test @Ignore
-    public void repeatsFailedQuestionFourQuestionsLater() {
-        Question expectedQuestion = new Question(Persons.SECOND_PERSON_SINGULAR, new InfinitiveVerb("bblah", "blaaahdy", "blah"), new PresentSubjunctive());
+    @Test
+    public void repeatsFailedQuestionFromFailedQuestionStoreIfOldNewSelectorSelectsOldAndThereIsAnOldQuestion() {
+        Question failedQuestion = new Question(Persons.SECOND_PERSON_SINGULAR, new InfinitiveVerb("bblah", "blaaahdy", "blah"), new PresentSubjunctive());
 
-        RandomQuestionGenerator randomQuestionGenerator = new RandomQuestionGenerator(new FakeRandomNumberGenerator(),
+        FailedQuestionStore failedQuestionStore = new FakeFailedQuestionStore(failedQuestion);
+        RandomQuestionGenerator randomQuestionGenerator = new RandomQuestionGenerator(
+                new FakeRandomNumberGenerator(0),
                 Collections.singletonList(verb),
                 Collections.singletonList(person),
-                Collections.singletonList(verbMoodAndTense));
+                Collections.singletonList(verbMoodAndTense),
+                failedQuestionStore,
+                new FakeShouldUseFailedQuestion(true)
+        );
 
-        int repeatAfter = 4;
-        randomQuestionGenerator.repeatFailedQuestionAfter(expectedQuestion, repeatAfter);
         CapturingCallback callback = new CapturingCallback();
-        for (int i=0;i<repeatAfter;i++) {
-            randomQuestionGenerator.getQuestion(callback);
-        }
-        assertEquals(expectedQuestion, callback.question);
+        randomQuestionGenerator.getQuestion(callback);
+        assertEquals(failedQuestion, callback.question);
     }
 
     private static class CapturingCallback implements Callback {
@@ -82,6 +83,30 @@ public class QuestionGeneratorTests {
         @Override
         public void noTensesSelected() {
             noTensesSelected = true;
+        }
+    }
+
+    private class FakeFailedQuestionStore implements FailedQuestionStore {
+        private Question question;
+
+        private FakeFailedQuestionStore(Question question) {
+            this.question = question;
+        }
+
+        public Question pop() {
+            return question;
+        }
+    }
+
+    private class FakeShouldUseFailedQuestion implements ShouldUseFailedQuestion {
+        private boolean bool;
+
+        public FakeShouldUseFailedQuestion(boolean bool) {
+            this.bool = bool;
+        }
+
+        public boolean invoke() {
+            return bool;
         }
     }
 }

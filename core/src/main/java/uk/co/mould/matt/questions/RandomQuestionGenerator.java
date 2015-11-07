@@ -1,13 +1,27 @@
 package uk.co.mould.matt.questions;
 import java.util.List;
 
+import uk.co.mould.matt.FailedQuestionStore;
+import uk.co.mould.matt.ShouldUseFailedQuestion;
 import uk.co.mould.matt.data.Persons;
 import uk.co.mould.matt.data.InfinitiveVerb;
 import uk.co.mould.matt.data.SupportedPersons;
 import uk.co.mould.matt.data.tenses.MoodAndTense;
 
 public final class RandomQuestionGenerator implements QuestionGenerator {
-	private RandomNumberGenerator randomNumberGenerator;
+    private FailedQuestionStore failedQuestionStore = new FailedQuestionStore() {
+        @Override
+        public Question pop() {
+            return null;
+        }
+    };
+    private ShouldUseFailedQuestion shouldUseFailedQuestion = new ShouldUseFailedQuestion() {
+        @Override
+        public boolean invoke() {
+            return false;
+        }
+    };
+    private RandomNumberGenerator randomNumberGenerator;
 	private List<InfinitiveVerb> verbList;
 	private List<Persons.Person> personList;
 	private List<MoodAndTense> moodsAndTensesToSelectFrom;
@@ -22,13 +36,33 @@ public final class RandomQuestionGenerator implements QuestionGenerator {
 		this.moodsAndTensesToSelectFrom = moodsAndTensesToSelectFrom;
     }
 
+	public RandomQuestionGenerator(RandomNumberGenerator randomNumberGenerator,
+                                   List<InfinitiveVerb> verbList,
+                                   List<Persons.Person> personList,
+                                   List<MoodAndTense> moodsAndTensesToSelectFrom,
+                                   FailedQuestionStore failedQuestionStore,
+                                   ShouldUseFailedQuestion shouldUseFailedQuestion) {
+        this(randomNumberGenerator,
+                verbList,
+                personList,
+                moodsAndTensesToSelectFrom);
+        this.failedQuestionStore = failedQuestionStore;
+        this.shouldUseFailedQuestion = shouldUseFailedQuestion;
+    }
+
 	@Override
 	public void getQuestion(Callback callback) {
         if (moodsAndTensesToSelectFrom.size()==0) {
             callback.noTensesSelected();
         }
         else {
-            callback.questionProvided(new Question(getRandomPerson(), getRandomVerb(), getRandomVerbMoodAndTense()));
+            //TODO: refactor this once moved over to this style.
+            if (shouldUseFailedQuestion.invoke()) {
+                callback.questionProvided(failedQuestionStore.pop());
+            }
+            else {
+                callback.questionProvided(new Question(getRandomPerson(), getRandomVerb(), getRandomVerbMoodAndTense()));
+            }
         }
     }
 
