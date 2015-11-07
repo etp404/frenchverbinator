@@ -14,6 +14,11 @@ public final class RandomQuestionGenerator implements QuestionGenerator {
         public Question pop() {
             return null;
         }
+
+        @Override
+        public boolean hasFailedQuestions() {
+            return false;
+        }
     };
     private ShouldUseFailedQuestion shouldUseFailedQuestion = new ShouldUseFailedQuestion() {
         @Override
@@ -57,7 +62,7 @@ public final class RandomQuestionGenerator implements QuestionGenerator {
         }
         else {
             //TODO: refactor this once moved over to this style.
-            if (shouldUseFailedQuestion.invoke()) {
+            if (failedQuestionStore.hasFailedQuestions() && shouldUseFailedQuestion.invoke()) {
                 callback.questionProvided(failedQuestionStore.pop());
             }
             else {

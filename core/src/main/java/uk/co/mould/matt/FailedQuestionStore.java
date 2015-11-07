@@ -4,4 +4,6 @@ import uk.co.mould.matt.questions.Question;
 
 public interface FailedQuestionStore {
     Question pop();
+
+    boolean hasFailedQuestions();
 }

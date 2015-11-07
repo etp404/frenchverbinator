@@ -71,6 +71,25 @@ public class QuestionGeneratorTests {
         assertEquals(failedQuestion, callback.question);
     }
 
+    @Test
+    public void generatesNewQuestionIfOldNewSelectorSelectsOldButThereAreNoOldQuestions() {
+        Question expectedQuestion = new Question(person, verb, verbMoodAndTense);
+
+        FailedQuestionStore failedQuestionStore = new FakeFailedQuestionStore(null);
+        RandomQuestionGenerator randomQuestionGenerator = new RandomQuestionGenerator(
+                new FakeRandomNumberGenerator(0),
+                Collections.singletonList(verb),
+                Collections.singletonList(person),
+                Collections.singletonList(verbMoodAndTense),
+                failedQuestionStore,
+                new FakeShouldUseFailedQuestion(true)
+        );
+
+        CapturingCallback callback = new CapturingCallback();
+        randomQuestionGenerator.getQuestion(callback);
+        assertEquals(expectedQuestion, callback.question);
+    }
+
     private static class CapturingCallback implements Callback {
         private boolean noTensesSelected = false;
         private Question question;
@@ -95,6 +114,11 @@ public class QuestionGeneratorTests {
 
         public Question pop() {
             return question;
+        }
+
+        @Override
+        public boolean hasFailedQuestions() {
+            return question!=null;
         }
     }
 
