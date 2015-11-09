@@ -11,6 +11,7 @@ import uk.co.mould.matt.data.tenses.PresentIndicative;
 import uk.co.mould.matt.data.tenses.MoodAndTense;
 import uk.co.mould.matt.fakes.FakeQuestionView;
 import uk.co.mould.matt.frenchverbinator.QuestionPresenter;
+import uk.co.mould.matt.marking.AnswerChecker;
 import uk.co.mould.matt.marking.Score;
 import uk.co.mould.matt.questions.Callback;
 import uk.co.mould.matt.questions.Question;
@@ -44,7 +45,7 @@ public final class QuestionPresenterTest {
         new QuestionPresenter(
 				questionView,
                 fakeQuestionGenerator,
-				new FakeConjugator(person, verb, verbMoodAndTense, new ConjugatedVerbWithPronoun(correctAnswer)));
+				new AnswerChecker(new FakeConjugator(person, verb, verbMoodAndTense, new ConjugatedVerbWithPronoun(correctAnswer))));
 	}
 	@Test
 	public void testThatViewCanBeToldToShowAQuestion() {
@@ -79,7 +80,7 @@ public final class QuestionPresenterTest {
         QuestionPresenter questionPresenter = new QuestionPresenter(
                 questionView,
                 new RandomQuestionGenerator(null, null, null, new ArrayList<MoodAndTense>()),
-                new FakeConjugator(person, verb, verbMoodAndTense, new ConjugatedVerbWithPronoun(correctAnswer)));
+                new AnswerChecker(new FakeConjugator(person, verb, verbMoodAndTense, new ConjugatedVerbWithPronoun(correctAnswer))));
         questionPresenter.showQuestion();
         assertTrue(questionView.noTensesSelectedIsShown);
     }

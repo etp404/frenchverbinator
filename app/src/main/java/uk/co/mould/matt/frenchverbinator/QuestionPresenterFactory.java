@@ -7,6 +7,7 @@ import org.xml.sax.InputSource;
 import uk.co.mould.matt.conjugators.Conjugator;
 import uk.co.mould.matt.data.SupportedPersons;
 import uk.co.mould.matt.frenchverbinator.settings.SharedPrefsUserSettings;
+import uk.co.mould.matt.marking.AnswerChecker;
 import uk.co.mould.matt.parser.ConjugationParser;
 import uk.co.mould.matt.parser.VerbListParser;
 import uk.co.mould.matt.parser.VerbTemplateParser;
@@ -31,6 +32,6 @@ class QuestionPresenterFactory {
         new QuestionPresenter(
                 questionView,
                 randomQuestionGenerator,
-                conjugator);
+                new AnswerChecker(conjugator));
     }
 }

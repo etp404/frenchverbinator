@@ -9,17 +9,17 @@ import uk.co.mould.matt.questions.Question;
 import uk.co.mould.matt.questions.QuestionGenerator;
 
 public class QuestionPresenter {
-	private AnswerChecker answerChecker;
 	private QuestionView questionView;
     private Score score = new Score();
 	private QuestionGenerator randomQuestionGenerator;
+    private AnswerChecker answerChecker;
 
     public QuestionPresenter(final QuestionView questionView,
 							 QuestionGenerator randomQuestionGenerator,
-							 Conjugator conjugator) {
+                             final AnswerChecker answerChecker) {
 		this.questionView = questionView;
 		this.randomQuestionGenerator = randomQuestionGenerator;
-		this.answerChecker = new AnswerChecker(conjugator);
+        this.answerChecker = answerChecker;
         questionView.addSubmitListener(new QuestionView.SubmitListener() {
             @Override
             public void submitAnswer(String answer) {
