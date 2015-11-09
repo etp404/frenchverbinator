@@ -4,6 +4,7 @@ import android.content.Context;
 
 import org.xml.sax.InputSource;
 
+import uk.co.mould.matt.FailedQuestionStore;
 import uk.co.mould.matt.conjugators.Conjugator;
 import uk.co.mould.matt.data.SupportedPersons;
 import uk.co.mould.matt.frenchverbinator.settings.SharedPrefsUserSettings;
@@ -32,6 +33,6 @@ class QuestionPresenterFactory {
         new QuestionPresenter(
                 questionView,
                 randomQuestionGenerator,
-                new AnswerChecker(conjugator));
+                new AnswerChecker(conjugator, FailedQuestionStore.NULL));
     }
 }

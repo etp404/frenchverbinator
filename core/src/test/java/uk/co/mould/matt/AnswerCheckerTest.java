@@ -24,6 +24,7 @@ public class AnswerCheckerTest {
     private ConjugatedVerbWithPronoun correctAnswer = new ConjugatedVerbWithPronoun("correct answer");
     private FakeConjugator fakeConjugator;
     private AnswerChecking answerChecking;
+    private FakeFailedQuestionStore fakeFailedQuestionStore;
     private Question question = new Question(person, verb, verbMoodAndTense);
     private CapturingCallback capturingCallback;
 
@@ -31,7 +32,8 @@ public class AnswerCheckerTest {
     @Before
     public void setUp() throws Exception {
         fakeConjugator = new FakeConjugator(person, verb, verbMoodAndTense, correctAnswer);
-        answerChecking = new AnswerChecker(fakeConjugator);
+        fakeFailedQuestionStore = new FakeFailedQuestionStore();
+        answerChecking = new AnswerChecker(fakeConjugator, fakeFailedQuestionStore);
         capturingCallback = new CapturingCallback();
     }
 
@@ -45,6 +47,12 @@ public class AnswerCheckerTest {
     public void testThatAnswerCheckerReportsWrongAnswerForWrongAnswer() throws FileNotFoundException {
         answerChecking.check(question, "wrong answer", capturingCallback);
         assertEquals(capturingCallback.incorrectCalledWithCorrection, correctAnswer);
+    }
+
+    @Test
+    public void testThatAnswerCheckerRecordsAWrongAnswer() throws FileNotFoundException {
+        answerChecking.check(question, "wrong answer", capturingCallback);
+        assertEquals(fakeFailedQuestionStore.storedQuestion, question);
     }
 
     @Test
@@ -65,6 +73,24 @@ public class AnswerCheckerTest {
         @Override
         public void incorrect(ConjugatedVerbWithPronoun corrrection) {
             incorrectCalledWithCorrection = corrrection;
+        }
+    }
+
+    private class FakeFailedQuestionStore implements FailedQuestionStore {
+        Question storedQuestion;
+        @Override
+        public Question pop() {
+            return null;
+        }
+
+        @Override
+        public boolean hasFailedQuestions() {
+            return false;
+        }
+
+        @Override
+        public void store(Question question) {
+            storedQuestion = question;
         }
     }
 }

@@ -19,6 +19,11 @@ public final class RandomQuestionGenerator implements QuestionGenerator {
         public boolean hasFailedQuestions() {
             return false;
         }
+
+        @Override
+        public void store(Question question) {
+
+        }
     };
     private ShouldUseFailedQuestion shouldUseFailedQuestion = new ShouldUseFailedQuestion() {
         @Override

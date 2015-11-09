@@ -120,6 +120,11 @@ public class QuestionGeneratorTests {
         public boolean hasFailedQuestions() {
             return question!=null;
         }
+
+        @Override
+        public void store(Question question) {
+
+        }
     }
 
     private class FakeShouldUseFailedQuestion implements ShouldUseFailedQuestion {
