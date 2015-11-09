@@ -9,11 +9,13 @@ import java.util.Set;
 
 import uk.co.mould.matt.data.tenses.MoodAndTense;
 import uk.co.mould.matt.data.tenses.PresentIndicative;
+import uk.co.mould.matt.questions.Question;
 
 //To much complexity in here: need to split out some stuff.
 public class SharedPrefsUserSettings implements StoredUserSettings {
     public static final String SETTINGS = "verbinator_prefs";
     private static final String INCLUDED_TENSES = "included_tenses";
+
     private static final Set<String> DEFAULT_TENSES = new HashSet<String>(){{
         add(new PresentIndicative().toString());
     }};

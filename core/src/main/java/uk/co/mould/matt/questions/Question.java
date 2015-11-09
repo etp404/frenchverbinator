@@ -36,4 +36,5 @@ public class Question {
         result = 31 * result + (moodAndTense != null ? moodAndTense.hashCode() : 0);
         return result;
     }
+
 }
