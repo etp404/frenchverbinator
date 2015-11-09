@@ -12,6 +12,7 @@ public class QuestionPresenter {
     private Score score = new Score();
 	private QuestionGenerator randomQuestionGenerator;
     private AnswerChecking answerChecking;
+    private Question question;
 
     public QuestionPresenter(final QuestionView questionView,
 							 QuestionGenerator randomQuestionGenerator,
@@ -22,7 +23,7 @@ public class QuestionPresenter {
         questionView.addSubmitListener(new QuestionView.SubmitListener() {
             @Override
             public void submitAnswer(String answer) {
-                answerChecking.check(answer, new AnswerChecking.Callback() {
+                answerChecking.check(question, answer, new AnswerChecking.Callback() {
                     @Override
                     public void correct() {
                         score.addCorrect();
@@ -54,7 +55,7 @@ public class QuestionPresenter {
             public void questionProvided(Question question) {
                 questionView.showScore(score);
                 questionView.setQuestion(question);
-                QuestionPresenter.this.answerChecking.setQuestion(question);
+                QuestionPresenter.this.question = question;
             }
 
             @Override

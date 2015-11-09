@@ -5,7 +5,6 @@ import org.junit.Test;
 
 import java.io.FileNotFoundException;
 
-import uk.co.mould.matt.conjugators.Conjugator;
 import uk.co.mould.matt.data.ConjugatedVerbWithPronoun;
 import uk.co.mould.matt.data.InfinitiveVerb;
 import uk.co.mould.matt.data.Persons;
@@ -33,25 +32,24 @@ public class AnswerCheckerTest {
     public void setUp() throws Exception {
         fakeConjugator = new FakeConjugator(person, verb, verbMoodAndTense, correctAnswer);
         answerChecking = new AnswerChecker(fakeConjugator);
-        answerChecking.setQuestion(question);
         capturingCallback = new CapturingCallback();
     }
 
     @Test
     public void testThatAnswerCheckerReportsCorrectAnswerForCorrectAnswer() throws FileNotFoundException {
-        answerChecking.check(correctAnswer.toString(), capturingCallback);
+        answerChecking.check(question, correctAnswer.toString(), capturingCallback);
         assertTrue(capturingCallback.correctCalled);
     }
 
     @Test
     public void testThatAnswerCheckerReportsWrongAnswerForWrongAnswer() throws FileNotFoundException {
-        answerChecking.check("wrong answer", capturingCallback);
+        answerChecking.check(question, "wrong answer", capturingCallback);
         assertEquals(capturingCallback.incorrectCalledWithCorrection, correctAnswer);
     }
 
     @Test
     public void testThatAnswerCheckerReportsCorrectAnswerForCorrectAnswerWithTrailingSpace() throws FileNotFoundException {
-        answerChecking.check(correctAnswer.toString() + " ", capturingCallback);
+        answerChecking.check(question, correctAnswer.toString() + " ", capturingCallback);
         assertTrue(capturingCallback.correctCalled);
     }
 

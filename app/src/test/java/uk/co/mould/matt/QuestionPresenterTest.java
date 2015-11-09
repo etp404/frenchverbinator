@@ -129,7 +129,6 @@ public final class QuestionPresenterTest {
 
     public class FakeAnswerChecker implements AnswerChecking {
 
-        private Question question;
         private Map<Question, ConjugatedVerbWithPronoun> questionToAnswer;
 
         public FakeAnswerChecker(Map<Question, ConjugatedVerbWithPronoun> questionToAnswer) {
@@ -137,12 +136,7 @@ public final class QuestionPresenterTest {
         }
 
         @Override
-        public void setQuestion(Question question) {
-            this.question = question;
-        }
-
-        @Override
-        public void check(String answer, Callback callback) {
+        public void check(Question question, String answer, Callback callback) {
             ConjugatedVerbWithPronoun rightAnswer = questionToAnswer.get(question);
             if (answer.equals(rightAnswer.toString())) {
                 callback.correct();
