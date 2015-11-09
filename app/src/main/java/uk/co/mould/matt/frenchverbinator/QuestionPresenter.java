@@ -1,8 +1,7 @@
 package uk.co.mould.matt.frenchverbinator;
 
-import uk.co.mould.matt.conjugators.Conjugator;
 import uk.co.mould.matt.data.ConjugatedVerbWithPronoun;
-import uk.co.mould.matt.marking.AnswerChecker;
+import uk.co.mould.matt.marking.AnswerChecking;
 import uk.co.mould.matt.marking.Score;
 import uk.co.mould.matt.questions.Callback;
 import uk.co.mould.matt.questions.Question;
@@ -12,18 +11,18 @@ public class QuestionPresenter {
 	private QuestionView questionView;
     private Score score = new Score();
 	private QuestionGenerator randomQuestionGenerator;
-    private AnswerChecker answerChecker;
+    private AnswerChecking answerChecking;
 
     public QuestionPresenter(final QuestionView questionView,
 							 QuestionGenerator randomQuestionGenerator,
-                             final AnswerChecker answerChecker) {
+                             final AnswerChecking answerChecking) {
 		this.questionView = questionView;
 		this.randomQuestionGenerator = randomQuestionGenerator;
-        this.answerChecker = answerChecker;
+        this.answerChecking = answerChecking;
         questionView.addSubmitListener(new QuestionView.SubmitListener() {
             @Override
             public void submitAnswer(String answer) {
-                answerChecker.check(answer, new AnswerChecker.Callback() {
+                answerChecking.check(answer, new AnswerChecking.Callback() {
                     @Override
                     public void correct() {
                         score.addCorrect();
@@ -55,7 +54,7 @@ public class QuestionPresenter {
             public void questionProvided(Question question) {
                 questionView.showScore(score);
                 questionView.setQuestion(question);
-                QuestionPresenter.this.answerChecker.setQuestion(question);
+                QuestionPresenter.this.answerChecking.setQuestion(question);
             }
 
             @Override

@@ -1,17 +1,19 @@
 package uk.co.mould.matt;
 
+
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
-import uk.co.mould.matt.conjugators.Conjugator;
 import uk.co.mould.matt.data.*;
 import uk.co.mould.matt.data.tenses.PresentIndicative;
 import uk.co.mould.matt.data.tenses.MoodAndTense;
 import uk.co.mould.matt.fakes.FakeQuestionView;
 import uk.co.mould.matt.frenchverbinator.QuestionPresenter;
-import uk.co.mould.matt.marking.AnswerChecker;
+import uk.co.mould.matt.marking.AnswerChecking;
 import uk.co.mould.matt.marking.Score;
 import uk.co.mould.matt.questions.Callback;
 import uk.co.mould.matt.questions.Question;
@@ -29,23 +31,28 @@ public final class QuestionPresenterTest {
 	private final InfinitiveVerb verb = new InfinitiveVerb("regarder", "to watch", null);
     private MoodAndTense verbMoodAndTense = new PresentIndicative();
 
-	private final String correctAnswer = "correct answer";
+	private final ConjugatedVerbWithPronoun correctAnswer = new ConjugatedVerbWithPronoun("correct answer");
     private final String wrongAnswer = "wrong answer";
 
 	private final String correctAnswerWithTrailingSpace = "correct answer ";
 	private FakeQuestionView questionView;
     private Question question;
-    private QuestionGenerator fakeQuestionGenerator;
 
     @Before
 	public void setup() {
 		questionView = new FakeQuestionView();
         question = new Question(person, verb, verbMoodAndTense);
-        fakeQuestionGenerator = new FakeQuestionGenerator(question);
+
+        AnswerChecking answerChecker = new FakeAnswerChecker(
+                new HashMap<Question, ConjugatedVerbWithPronoun>(){{
+                    put(question, correctAnswer);
+                }});
+
+        QuestionGenerator fakeQuestionGenerator = new FakeQuestionGenerator(question);
         new QuestionPresenter(
 				questionView,
                 fakeQuestionGenerator,
-				new AnswerChecker(new FakeConjugator(person, verb, verbMoodAndTense, new ConjugatedVerbWithPronoun(correctAnswer))));
+                answerChecker);
 	}
 	@Test
 	public void testThatViewCanBeToldToShowAQuestion() {
@@ -59,15 +66,9 @@ public final class QuestionPresenterTest {
         Score score = new Score();
         score.addIncorrect();
 
-        assertEquals(questionView.toldToShowIncorrectWithCorrection.toString(), correctAnswer);
+        assertEquals(questionView.toldToShowIncorrectWithCorrection, correctAnswer);
         assertThat(questionView.updatedScore, is(score));
     }
-
-	@Test
-	public void testThatCorrectAnswerWithTrailingSpaceSetsViewToCorrect() {
-        questionView.submitListener.submitAnswer(correctAnswerWithTrailingSpace);
-		assertTrue(questionView.toldToShowCorrectAnswer);
-	}
 
 	@Test
 	public void testThatQuestionIsShownInResponseToNextQuestion() {
@@ -79,16 +80,15 @@ public final class QuestionPresenterTest {
     public void testThatNoTensesSelectedWarningIsShownIfNoTensesAreSelected() {
         QuestionPresenter questionPresenter = new QuestionPresenter(
                 questionView,
-                new RandomQuestionGenerator(null, null, null, new ArrayList<MoodAndTense>()),
-                new AnswerChecker(new FakeConjugator(person, verb, verbMoodAndTense, new ConjugatedVerbWithPronoun(correctAnswer))));
-        questionPresenter.showQuestion();
+                new RandomQuestionGenerator(null, null, null, new ArrayList<MoodAndTense>()), null);
+                questionPresenter.showQuestion();
         assertTrue(questionView.noTensesSelectedIsShown);
     }
 
     @Test
     public void testThatScoreIsSetToTwoOfTwoIfTwoCorrectAnswersGiven() {
-        questionView.submitListener.submitAnswer(correctAnswer);
-        questionView.submitListener.submitAnswer(correctAnswer);
+        questionView.submitListener.submitAnswer(correctAnswer.toString());
+        questionView.submitListener.submitAnswer(correctAnswer.toString());
 
         Score score = new Score();
         score.addCorrect();
@@ -100,7 +100,7 @@ public final class QuestionPresenterTest {
     public void testThatScoreIsSetToOneOfTwoIfOneCorrectAndTwoIncorrectAnswersGiven() {
         questionView.submitListener.submitAnswer("wrong answer");
         questionView.submitListener.submitAnswer("wrong answer");
-        questionView.submitListener.submitAnswer(correctAnswer);
+        questionView.submitListener.submitAnswer(correctAnswer.toString());
 
         Score score = new Score();
         score.addCorrect();
@@ -108,33 +108,6 @@ public final class QuestionPresenterTest {
         score.addIncorrect();
         assertThat(questionView.updatedScore, is(score));
     }
-
-    private class FakeConjugator extends Conjugator {
-		private Persons.Person personMatchingAnswer;
-		private InfinitiveVerb verbMatchingAnswer;
-        private MoodAndTense verbMoodAndTestMatchingAnswer;
-        private ConjugatedVerbWithPronoun correctAnswer;
-
-
-        public FakeConjugator(Persons.Person personMatchingAnswer,
-                              InfinitiveVerb verbMatchingAnswer,
-                              MoodAndTense verbMoodAndTestMatchingAnswer,
-                              ConjugatedVerbWithPronoun correctAnswer) {
-			super(null, null);
-			this.personMatchingAnswer = personMatchingAnswer;
-			this.verbMatchingAnswer = verbMatchingAnswer;
-            this.verbMoodAndTestMatchingAnswer = verbMoodAndTestMatchingAnswer;
-			this.correctAnswer = correctAnswer;
-		}
-
-		@Override
-		public ConjugatedVerbWithPronoun getConjugationOf(InfinitiveVerb infinitive, Persons.Person person, MoodAndTense verbMoodAndTense) {
-			if (personMatchingAnswer == person && verbMatchingAnswer == infinitive && verbMoodAndTestMatchingAnswer == verbMoodAndTense) {
-				return correctAnswer;
-			}
-			return null;
-		}
-	}
 
     public class FakeQuestionGenerator implements QuestionGenerator {
         private Question question;
@@ -151,6 +124,32 @@ public final class QuestionPresenterTest {
         @Override
         public void repeatFailedQuestionAfter(Question failedQuestion, int repeatAfter) {
 
+        }
+    }
+
+    public class FakeAnswerChecker implements AnswerChecking {
+
+        private Question question;
+        private Map<Question, ConjugatedVerbWithPronoun> questionToAnswer;
+
+        public FakeAnswerChecker(Map<Question, ConjugatedVerbWithPronoun> questionToAnswer) {
+            this.questionToAnswer = questionToAnswer;
+        }
+
+        @Override
+        public void setQuestion(Question question) {
+            this.question = question;
+        }
+
+        @Override
+        public void check(String answer, Callback callback) {
+            ConjugatedVerbWithPronoun rightAnswer = questionToAnswer.get(question);
+            if (answer.equals(rightAnswer.toString())) {
+                callback.correct();
+            }
+            else {
+                callback.incorrect(rightAnswer);
+            }
         }
     }
 

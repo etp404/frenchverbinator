@@ -8,7 +8,7 @@ import uk.co.mould.matt.data.InfinitiveVerb;
 import uk.co.mould.matt.data.tenses.MoodAndTense;
 import uk.co.mould.matt.questions.Question;
 
-public class AnswerChecker {
+public class AnswerChecker implements AnswerChecking {
     private Conjugator conjugator;
     private Question question;
 
@@ -16,10 +16,12 @@ public class AnswerChecker {
         this.conjugator = conjugator;
     }
 
+    @Override
     public void setQuestion(Question question) {
         this.question = question;
     }
 
+    @Override
     public void check(String answer, Callback callback) {
         ConjugatedVerbWithPronoun correctAnswer;
         try {
@@ -37,9 +39,4 @@ public class AnswerChecker {
         }
     }
 
-    public interface Callback {
-        void correct();
-
-        void incorrect(ConjugatedVerbWithPronoun corrrection);
-    }
 }

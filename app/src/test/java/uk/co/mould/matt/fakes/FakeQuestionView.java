@@ -10,7 +10,7 @@ public class FakeQuestionView implements QuestionView {
     public Boolean noTensesSelectedIsShown;
     public Score updatedScore;
 	public SubmitListener submitListener;
-	public boolean toldToShowCorrectAnswer;
+	public boolean toldToShowThatAnswerWasCorrect;
 	public ConjugatedVerbWithPronoun toldToShowIncorrectWithCorrection;
 	public NextQuestionListener nextQuestionListener;
 
@@ -21,7 +21,7 @@ public class FakeQuestionView implements QuestionView {
 
 	@Override
 	public void setResultToCorrect() {
-		toldToShowCorrectAnswer = true;
+		toldToShowThatAnswerWasCorrect = true;
 	}
 
 	@Override
