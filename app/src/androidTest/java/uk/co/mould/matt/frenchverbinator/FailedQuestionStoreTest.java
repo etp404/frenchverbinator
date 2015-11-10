@@ -76,22 +76,36 @@ public class FailedQuestionStoreTest extends AndroidTestCase {
         }
 
         @Override
+        public boolean hasFailedQuestions() {
+            return !sharedPreferences.getStringSet(FAILED_QUESTIONS, new HashSet<String>()).isEmpty();
+        }
+
+        @Override
         public Question pop() {
             List<FailedQuestionToStore> failedQuestions = getQuestions();
             Collections.sort(failedQuestions, new Comparator<FailedQuestionToStore>() {
-                        @Override
-                        public int compare(FailedQuestionToStore lhs, FailedQuestionToStore rhs) {
-                            return lhs.position>rhs.position ? 1 : -1;
-                        }
-                    });
+                @Override
+                public int compare(FailedQuestionToStore lhs, FailedQuestionToStore rhs) {
+                    return lhs.position>rhs.position ? 1 : -1;
+                }
+            });
 
             FailedQuestionToStore failedQuestionToStore = failedQuestions.get(0);
             failedQuestions.remove(failedQuestionToStore);
-            storeList(failedQuestions);
+            store(failedQuestions);
             return failedQuestionToStore.question;
         }
 
-        private void storeList(List<FailedQuestionToStore> failedQuestions) {
+        @Override
+        public void store(Question question) {
+            List<FailedQuestionToStore> failedQuestions = getQuestions();
+            FailedQuestionToStore failedQuestionToStore = new FailedQuestionToStore(failedQuestions.size(), question);
+
+            failedQuestions.add(failedQuestionToStore);
+            store(failedQuestions);
+        }
+
+        private void store(List<FailedQuestionToStore> failedQuestions) {
             SharedPreferences.Editor editor = sharedPreferences.edit();
             Set<String> failedQuestionsAsStringset = convertToStringSet(failedQuestions);
             editor.putStringSet(FAILED_QUESTIONS, failedQuestionsAsStringset);
@@ -112,22 +126,6 @@ public class FailedQuestionStoreTest extends AndroidTestCase {
             return failedQuestions;
         }
 
-        @Override
-        public boolean hasFailedQuestions() {
-            return !sharedPreferences.getStringSet(FAILED_QUESTIONS, new HashSet<String>()).isEmpty();
-        }
-
-        @Override
-        public void store(Question question) {
-            List<FailedQuestionToStore> failedQuestions = getQuestions();
-            FailedQuestionToStore failedQuestionToStore = new FailedQuestionToStore(failedQuestions.size(), question);
-
-            failedQuestions.add(failedQuestionToStore);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putStringSet(FAILED_QUESTIONS, convertToStringSet(failedQuestions));
-            editor.apply();
-        }
-
         private static Set<String> convertToStringSet(List<FailedQuestionToStore> failedQuestionToStoreList)  {
             Set<String> failedQuestionsAsStringSet = new HashSet<>();
             for (FailedQuestionToStore failedQuestionToStore : failedQuestionToStoreList) {
@@ -140,65 +138,67 @@ public class FailedQuestionStoreTest extends AndroidTestCase {
             return failedQuestionsAsStringSet;
         }
 
-        private static class JSONSerialiser {
 
-            private static final Map<String, Persons.Person> STRING_TO_PERSON = new HashMap<String, Persons.Person>() {{
-                put(Persons.FIRST_PERSON_PLURAL.getPerson(), Persons.FIRST_PERSON_PLURAL);
-                put(Persons.THIRD_PERSON_PLURAL.getPerson(), Persons.THIRD_PERSON_PLURAL);
-            }};
-            private static final String PERSON_KEY = "person";
-            private static final String MOOD_AND_TEST_KEY = "moodAndTense";
-            private static final String VERB_KEY = "verb";
-            private static final String ORDER_KEY = "orderKey";
+    }
 
-            public static String serialiseQuestion(FailedQuestionToStore failedQuestionToStore) throws JSONException {
-                JSONObject jsonObject = new JSONObject();
-                jsonObject.put(ORDER_KEY, failedQuestionToStore.position);
-                jsonObject.put(MOOD_AND_TEST_KEY, failedQuestionToStore.question.moodAndTense.toString());
-                jsonObject.put(PERSON_KEY, failedQuestionToStore.question.person.getPerson());
-                jsonObject.put(VERB_KEY, VerbSerialiser.serialiseVerb(failedQuestionToStore.question.verb));
-                return jsonObject.toString();
-            }
+    private static class JSONSerialiser {
 
+        private static final Map<String, Persons.Person> STRING_TO_PERSON = new HashMap<String, Persons.Person>() {{
+            put(Persons.FIRST_PERSON_PLURAL.getPerson(), Persons.FIRST_PERSON_PLURAL);
+            put(Persons.THIRD_PERSON_PLURAL.getPerson(), Persons.THIRD_PERSON_PLURAL);
+        }};
+        private static final String PERSON_KEY = "person";
+        private static final String MOOD_AND_TEST_KEY = "moodAndTense";
+        private static final String VERB_KEY = "verb";
+        private static final String ORDER_KEY = "orderKey";
 
-            public static FailedQuestionToStore deserializeQuestion(String serialisedQuestion) throws JSONException {
-                JSONObject jsonQuestion = new JSONObject(serialisedQuestion);
-                String serialisedVerb = jsonQuestion.getString(VERB_KEY);
-                InfinitiveVerb infinitiveVerb = VerbSerialiser.deserialiseVerb(serialisedVerb);
-                MoodAndTense moodAndTense = new MoodAndTenseFactory().createFromString(jsonQuestion.getString("moodAndTense"));
-                return new FailedQuestionToStore(jsonQuestion.getInt(ORDER_KEY), new Question(STRING_TO_PERSON.get(jsonQuestion.getString("person")), infinitiveVerb, moodAndTense));
-            }
+        public static String serialiseQuestion(FailedQuestionToStore failedQuestionToStore) throws JSONException {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put(ORDER_KEY, failedQuestionToStore.position);
+            jsonObject.put(MOOD_AND_TEST_KEY, failedQuestionToStore.question.moodAndTense.toString());
+            jsonObject.put(PERSON_KEY, failedQuestionToStore.question.person.getPerson());
+            jsonObject.put(VERB_KEY, VerbSerialiser.serialiseVerb(failedQuestionToStore.question.verb));
+            return jsonObject.toString();
         }
 
-        private static class VerbSerialiser {
 
-            private static final String FRENCH_VERB_KEY = "frenchVerb";
-            private static final String ENGLISH_VERB_KEY = "englishVerb";
-            private static final String AUXILIARY_KEY = "auxiliary";
+        public static FailedQuestionToStore deserializeQuestion(String serialisedQuestion) throws JSONException {
+            JSONObject jsonQuestion = new JSONObject(serialisedQuestion);
+            String serialisedVerb = jsonQuestion.getString(VERB_KEY);
+            InfinitiveVerb infinitiveVerb = VerbSerialiser.deserialiseVerb(serialisedVerb);
+            MoodAndTense moodAndTense = new MoodAndTenseFactory().createFromString(jsonQuestion.getString("moodAndTense"));
+            return new FailedQuestionToStore(jsonQuestion.getInt(ORDER_KEY), new Question(STRING_TO_PERSON.get(jsonQuestion.getString("person")), infinitiveVerb, moodAndTense));
+        }
+    }
 
-            public static String serialiseVerb(InfinitiveVerb verb) throws JSONException {
-                JSONObject jsonObject = new JSONObject();
-                jsonObject.put(FRENCH_VERB_KEY, verb.frenchVerb.toString());
-                jsonObject.put(ENGLISH_VERB_KEY, verb.englishVerb);
-                jsonObject.put(AUXILIARY_KEY, verb.auxiliary.toString());
-                return jsonObject.toString();
-            }
+    private static class VerbSerialiser {
 
-            @NonNull
-            private static InfinitiveVerb deserialiseVerb(String serialisedVerb) throws JSONException {
-                JSONObject jsonVerb = new JSONObject(serialisedVerb);
-                return new InfinitiveVerb(jsonVerb.getString(FRENCH_VERB_KEY), jsonVerb.getString(ENGLISH_VERB_KEY), jsonVerb.getString(AUXILIARY_KEY));
-            }
+        private static final String FRENCH_VERB_KEY = "frenchVerb";
+        private static final String ENGLISH_VERB_KEY = "englishVerb";
+        private static final String AUXILIARY_KEY = "auxiliary";
+
+        public static String serialiseVerb(InfinitiveVerb verb) throws JSONException {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put(FRENCH_VERB_KEY, verb.frenchVerb.toString());
+            jsonObject.put(ENGLISH_VERB_KEY, verb.englishVerb);
+            jsonObject.put(AUXILIARY_KEY, verb.auxiliary.toString());
+            return jsonObject.toString();
         }
 
-        private static class FailedQuestionToStore {
-            private final int position;
-            private final Question question;
+        @NonNull
+        private static InfinitiveVerb deserialiseVerb(String serialisedVerb) throws JSONException {
+            JSONObject jsonVerb = new JSONObject(serialisedVerb);
+            return new InfinitiveVerb(jsonVerb.getString(FRENCH_VERB_KEY), jsonVerb.getString(ENGLISH_VERB_KEY), jsonVerb.getString(AUXILIARY_KEY));
+        }
+    }
 
-            public FailedQuestionToStore(int position, Question question) {
-                this.position = position;
-                this.question = question;
-            }
+    private static class FailedQuestionToStore {
+        private final int position;
+        private final Question question;
+
+        public FailedQuestionToStore(int position, Question question) {
+            this.position = position;
+            this.question = question;
         }
     }
 }
