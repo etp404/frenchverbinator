@@ -1,18 +1,16 @@
 package uk.co.mould.matt.frenchverbinator;
 
 import android.content.SharedPreferences;
+import android.support.annotation.NonNull;
 import android.test.AndroidTestCase;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.junit.Ignore;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -22,7 +20,6 @@ import uk.co.mould.matt.data.Persons;
 import uk.co.mould.matt.data.tenses.MoodAndTense;
 import uk.co.mould.matt.data.tenses.PresentIndicative;
 import uk.co.mould.matt.frenchverbinator.settings.MoodAndTenseFactory;
-import uk.co.mould.matt.frenchverbinator.settings.SharedPrefsUserSettings;
 import uk.co.mould.matt.questions.Question;
 
 import static org.hamcrest.Matchers.is;
@@ -96,32 +93,49 @@ public class FailedQuestionStoreTest extends AndroidTestCase {
 
         private static class JSONSerialiser {
 
-            private static final Map<String, Persons.Person> stringToPerson = new HashMap<String, Persons.Person>() {{
+            private static final Map<String, Persons.Person> STRING_TO_PERSON = new HashMap<String, Persons.Person>() {{
                 put(Persons.FIRST_PERSON_PLURAL.getPerson(), Persons.FIRST_PERSON_PLURAL);
             }};
+            private static final String PERSON_KEY = "person";
+            private static final String MOOD_AND_TEST_KEY = "moodAndTense";
+            private static final String VERB_KEY = "verb";
 
             public static String serialiseQuestion(Question question) throws JSONException {
                 JSONObject jsonObject = new JSONObject();
-                jsonObject.put("moodAndTense", question.moodAndTense.toString());
-                jsonObject.put("person", question.person.getPerson());
-                jsonObject.put("verb", serialiseVerb(question.verb));
+                jsonObject.put(MOOD_AND_TEST_KEY, question.moodAndTense.toString());
+                jsonObject.put(PERSON_KEY, question.person.getPerson());
+                jsonObject.put(VERB_KEY, VerbSerialiser.serialiseVerb(question.verb));
                 return jsonObject.toString();
             }
 
-            private static String serialiseVerb(InfinitiveVerb verb) throws JSONException {
-                JSONObject jsonObject = new JSONObject();
-                jsonObject.put("englishVerb", verb.englishVerb);
-                jsonObject.put("frenchVerb", verb.frenchVerb.toString());
-                jsonObject.put("auxiliary", verb.auxiliary.toString());
-                return jsonObject.toString();
-            }
 
-            public static Question deserializeQuestion(String serealisedQuestion) throws JSONException {
-                JSONObject jsonQuestion = new JSONObject(serealisedQuestion);
-                JSONObject jsonVerb = new JSONObject(jsonQuestion.getString("verb"));
-                InfinitiveVerb infinitiveVerb = new InfinitiveVerb(jsonVerb.getString("frenchVerb"), jsonVerb.getString("englishVerb"), jsonVerb.getString("auxiliary"));
+            public static Question deserializeQuestion(String serialisedQuestion) throws JSONException {
+                JSONObject jsonQuestion = new JSONObject(serialisedQuestion);
+                String serialisedVerb = jsonQuestion.getString(VERB_KEY);
+                InfinitiveVerb infinitiveVerb = VerbSerialiser.deserialiseVerb(serialisedVerb);
                 MoodAndTense moodAndTense = new MoodAndTenseFactory().createFromString(jsonQuestion.getString("moodAndTense"));
-                return new Question(stringToPerson.get(jsonQuestion.getString("person")), infinitiveVerb, moodAndTense);
+                return new Question(STRING_TO_PERSON.get(jsonQuestion.getString("person")), infinitiveVerb, moodAndTense);
+            }
+        }
+
+        private static class VerbSerialiser {
+
+            private static final String FRENCH_VERB_KEY = "frenchVerb";
+            private static final String ENGLISH_VERB_KEY = "englishVerb";
+            private static final String AUXILIARY_KEY = "auxiliary";
+
+            public static String serialiseVerb(InfinitiveVerb verb) throws JSONException {
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put(FRENCH_VERB_KEY, verb.frenchVerb.toString());
+                jsonObject.put(ENGLISH_VERB_KEY, verb.englishVerb);
+                jsonObject.put(AUXILIARY_KEY, verb.auxiliary.toString());
+                return jsonObject.toString();
+            }
+
+            @NonNull
+            private static InfinitiveVerb deserialiseVerb(String serialisedVerb) throws JSONException {
+                JSONObject jsonVerb = new JSONObject(serialisedVerb);
+                return new InfinitiveVerb(jsonVerb.getString(FRENCH_VERB_KEY), jsonVerb.getString(ENGLISH_VERB_KEY), jsonVerb.getString(AUXILIARY_KEY));
             }
         }
     }
