@@ -3,9 +3,12 @@ package uk.co.mould.matt.frenchverbinator;
 import android.content.SharedPreferences;
 import android.test.AndroidTestCase;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -15,6 +18,7 @@ import uk.co.mould.matt.data.InfinitiveVerb;
 import uk.co.mould.matt.data.Persons;
 import uk.co.mould.matt.data.tenses.MoodAndTense;
 import uk.co.mould.matt.data.tenses.PresentIndicative;
+import uk.co.mould.matt.frenchverbinator.settings.MoodAndTenseFactory;
 import uk.co.mould.matt.frenchverbinator.settings.SharedPrefsUserSettings;
 import uk.co.mould.matt.questions.Question;
 
@@ -51,26 +55,69 @@ public class FailedQuestionStoreTest extends AndroidTestCase {
 
         @Override
         public Question pop() {
+            Question question = null;
             Set<String> failedQuestionsAsStringset = sharedPreferences.getStringSet(FAILED_QUESTIONS, new HashSet<String>());
-            return null;
+            try {
+                question = JSONSerialiser.deserializeQuestion(failedQuestionsAsStringset.iterator().next());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return question;
         }
 
         @Override
         public boolean hasFailedQuestions() {
-            return false;
+            return !sharedPreferences.getStringSet(FAILED_QUESTIONS, new HashSet<String>()).isEmpty();
         }
 
         @Override
         public void store(Question question) {
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putStringSet(FAILED_QUESTIONS, convertToStringSet(question));
+            try {
+                editor.putStringSet(FAILED_QUESTIONS, convertToStringSet(question));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
             editor.apply();
         }
 
-        private static Set<String> convertToStringSet(Question question) {
+        private static Set<String> convertToStringSet(Question question) throws JSONException {
             Set<String> failedQuestionsAsStringSet = new HashSet<>();
-            failedQuestionsAsStringSet.add(question.toString());
+            String serialisedQuestion = JSONSerialiser.serialiseQuestion(question);
+            failedQuestionsAsStringSet.add(serialisedQuestion);
             return failedQuestionsAsStringSet;
+        }
+
+        private static class JSONSerialiser {
+            public static String serialiseQuestion(Question question) throws JSONException {
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("moodAndTense", serialiseMoodAndTense(question.moodAndTense));
+                jsonObject.put("person", question.person.getPerson());
+                jsonObject.put("verb", serialiseVerb(question.verb));
+                return jsonObject.toString();
+            }
+
+            private static String serialiseVerb(InfinitiveVerb verb) throws JSONException {
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("englishVerb", verb.englishVerb);
+                jsonObject.put("frenchVerb", verb.frenchVerb.toString());
+                jsonObject.put("auxiliary", verb.auxiliary.toString());
+                return jsonObject.toString();
+            }
+
+            private static String serialiseMoodAndTense(MoodAndTense moodAndTense) throws JSONException {
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("mood", moodAndTense.getMood());
+                jsonObject.put("tense", moodAndTense.getTense());
+                return jsonObject.toString();
+            }
+
+            public static Question deserializeQuestion(String serealisedQuestion) throws JSONException {
+                JSONObject jsonObject = new JSONObject(serealisedQuestion);
+                InfinitiveVerb infinitiveVerb = new InfinitiveVerb(jsonObject.getString("frenchVerb"), jsonObject.getString("englishVerb"), jsonObject.getString("auxiliary"));
+                MoodAndTense moodAndTense = new MoodAndTenseFactory().createFromString(jsonObject.getString("moodAndTense"));
+                return new Question(null, infinitiveVerb, moodAndTense);
+            }
         }
     }
 }
