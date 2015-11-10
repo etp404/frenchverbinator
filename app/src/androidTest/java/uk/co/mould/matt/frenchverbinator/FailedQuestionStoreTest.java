@@ -86,7 +86,7 @@ public class FailedQuestionStoreTest extends AndroidTestCase {
             Collections.sort(failedQuestions, new Comparator<FailedQuestionToStore>() {
                 @Override
                 public int compare(FailedQuestionToStore lhs, FailedQuestionToStore rhs) {
-                    return lhs.position>rhs.position ? 1 : -1;
+                    return lhs.position > rhs.position ? 1 : -1;
                 }
             });
 
@@ -107,38 +107,15 @@ public class FailedQuestionStoreTest extends AndroidTestCase {
 
         private void store(List<FailedQuestionToStore> failedQuestions) {
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            Set<String> failedQuestionsAsStringset = convertToStringSet(failedQuestions);
+            Set<String> failedQuestionsAsStringset = JSONSerialiser.convertToStringSet(failedQuestions);
             editor.putStringSet(FAILED_QUESTIONS, failedQuestionsAsStringset);
             editor.apply();
         }
 
         private List<FailedQuestionToStore> getQuestions() {
             Set<String> failedQuestionsAsStringset = sharedPreferences.getStringSet(FAILED_QUESTIONS, new HashSet<String>());
-            List<FailedQuestionToStore> failedQuestions = new ArrayList<>();
-            Iterator<String> failedQuestionsIterator = failedQuestionsAsStringset.iterator();
-            while(failedQuestionsIterator.hasNext()) {
-                try {
-                    failedQuestions.add(JSONSerialiser.deserializeQuestion(failedQuestionsIterator.next()));
-                } catch (JSONException ex) {
-                    ex.printStackTrace();
-                }
-            }
-            return failedQuestions;
+            return JSONSerialiser.deserialiseQuestions(failedQuestionsAsStringset);
         }
-
-        private static Set<String> convertToStringSet(List<FailedQuestionToStore> failedQuestionToStoreList)  {
-            Set<String> failedQuestionsAsStringSet = new HashSet<>();
-            for (FailedQuestionToStore failedQuestionToStore : failedQuestionToStoreList) {
-                try {
-                    failedQuestionsAsStringSet.add(JSONSerialiser.serialiseQuestion(failedQuestionToStore));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-            return failedQuestionsAsStringSet;
-        }
-
-
     }
 
     private static class JSONSerialiser {
@@ -152,7 +129,19 @@ public class FailedQuestionStoreTest extends AndroidTestCase {
         private static final String VERB_KEY = "verb";
         private static final String ORDER_KEY = "orderKey";
 
-        public static String serialiseQuestion(FailedQuestionToStore failedQuestionToStore) throws JSONException {
+        private static Set<String> convertToStringSet(List<FailedQuestionToStore> failedQuestionToStoreList)  {
+            Set<String> failedQuestionsAsStringSet = new HashSet<>();
+            for (FailedQuestionToStore failedQuestionToStore : failedQuestionToStoreList) {
+                try {
+                    failedQuestionsAsStringSet.add(JSONSerialiser.serialiseQuestion(failedQuestionToStore));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            return failedQuestionsAsStringSet;
+        }
+
+        private static String serialiseQuestion(FailedQuestionToStore failedQuestionToStore) throws JSONException {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put(ORDER_KEY, failedQuestionToStore.position);
             jsonObject.put(MOOD_AND_TEST_KEY, failedQuestionToStore.question.moodAndTense.toString());
@@ -162,12 +151,25 @@ public class FailedQuestionStoreTest extends AndroidTestCase {
         }
 
 
-        public static FailedQuestionToStore deserializeQuestion(String serialisedQuestion) throws JSONException {
+        private static FailedQuestionToStore deserializeQuestion(String serialisedQuestion) throws JSONException {
             JSONObject jsonQuestion = new JSONObject(serialisedQuestion);
             String serialisedVerb = jsonQuestion.getString(VERB_KEY);
             InfinitiveVerb infinitiveVerb = VerbSerialiser.deserialiseVerb(serialisedVerb);
             MoodAndTense moodAndTense = new MoodAndTenseFactory().createFromString(jsonQuestion.getString("moodAndTense"));
             return new FailedQuestionToStore(jsonQuestion.getInt(ORDER_KEY), new Question(STRING_TO_PERSON.get(jsonQuestion.getString("person")), infinitiveVerb, moodAndTense));
+        }
+
+        public static List<FailedQuestionToStore> deserialiseQuestions(Set<String> failedQuestionsAsStringset) {
+            List<FailedQuestionToStore> failedQuestions = new ArrayList<>();
+            Iterator<String> failedQuestionsIterator = failedQuestionsAsStringset.iterator();
+            while(failedQuestionsIterator.hasNext()) {
+                try {
+                    failedQuestions.add(JSONSerialiser.deserializeQuestion(failedQuestionsIterator.next()));
+                } catch (JSONException ex) {
+                    ex.printStackTrace();
+                }
+            }
+            return failedQuestions;
         }
     }
 
