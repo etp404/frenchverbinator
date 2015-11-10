@@ -9,8 +9,11 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import uk.co.mould.matt.FailedQuestionStore;
@@ -30,17 +33,18 @@ import static org.junit.Assert.assertTrue;
 public class FailedQuestionStoreTest extends AndroidTestCase {
 
     private final Persons.Person person = Persons.FIRST_PERSON_PLURAL;
-    private final InfinitiveVerb verb = new InfinitiveVerb("regarder", "to watch", null);
+    private final InfinitiveVerb verb = new InfinitiveVerb("regarder", "to watch", "avoir");
     private MoodAndTense verbMoodAndTense = new PresentIndicative();
     private Question question = new Question(person, verb, verbMoodAndTense);
 
 
     @Test
-    public void xtestThatCanStoreAndRetrieveFailedQuestions() {
+    public void testThatCanStoreAndRetrieveFailedQuestions() {
         FailedQuestionStore androidFailedQuestionStore = new AndroidFailedQuestionStore(getContext().getSharedPreferences(AndroidFailedQuestionStore.FAILED_QUESTIONS, 0));
         androidFailedQuestionStore.store(question);
         assertTrue(androidFailedQuestionStore.hasFailedQuestions());
-        assertThat(androidFailedQuestionStore.pop(), is(question));
+        Question actualQuestion = androidFailedQuestionStore.pop();
+        assertThat(actualQuestion, is(question));
         assertFalse(androidFailedQuestionStore.hasFailedQuestions());
     }
 
@@ -55,12 +59,14 @@ public class FailedQuestionStoreTest extends AndroidTestCase {
 
         @Override
         public Question pop() {
-            Question question = null;
+                Question question = null;
             Set<String> failedQuestionsAsStringset = sharedPreferences.getStringSet(FAILED_QUESTIONS, new HashSet<String>());
             try {
-                question = JSONSerialiser.deserializeQuestion(failedQuestionsAsStringset.iterator().next());
-            } catch (JSONException e) {
-                e.printStackTrace();
+                Iterator<String> failedQuestionsIterator = failedQuestionsAsStringset.iterator();
+                question = JSONSerialiser.deserializeQuestion(failedQuestionsIterator.next());
+                failedQuestionsIterator.remove();
+            } catch (JSONException ex) {
+                ex.printStackTrace();
             }
             return question;
         }
@@ -89,9 +95,14 @@ public class FailedQuestionStoreTest extends AndroidTestCase {
         }
 
         private static class JSONSerialiser {
+
+            private static final Map<String, Persons.Person> stringToPerson = new HashMap<String, Persons.Person>() {{
+                put(Persons.FIRST_PERSON_PLURAL.getPerson(), Persons.FIRST_PERSON_PLURAL);
+            }};
+
             public static String serialiseQuestion(Question question) throws JSONException {
                 JSONObject jsonObject = new JSONObject();
-                jsonObject.put("moodAndTense", serialiseMoodAndTense(question.moodAndTense));
+                jsonObject.put("moodAndTense", question.moodAndTense.toString());
                 jsonObject.put("person", question.person.getPerson());
                 jsonObject.put("verb", serialiseVerb(question.verb));
                 return jsonObject.toString();
@@ -105,18 +116,12 @@ public class FailedQuestionStoreTest extends AndroidTestCase {
                 return jsonObject.toString();
             }
 
-            private static String serialiseMoodAndTense(MoodAndTense moodAndTense) throws JSONException {
-                JSONObject jsonObject = new JSONObject();
-                jsonObject.put("mood", moodAndTense.getMood());
-                jsonObject.put("tense", moodAndTense.getTense());
-                return jsonObject.toString();
-            }
-
             public static Question deserializeQuestion(String serealisedQuestion) throws JSONException {
-                JSONObject jsonObject = new JSONObject(serealisedQuestion);
-                InfinitiveVerb infinitiveVerb = new InfinitiveVerb(jsonObject.getString("frenchVerb"), jsonObject.getString("englishVerb"), jsonObject.getString("auxiliary"));
-                MoodAndTense moodAndTense = new MoodAndTenseFactory().createFromString(jsonObject.getString("moodAndTense"));
-                return new Question(null, infinitiveVerb, moodAndTense);
+                JSONObject jsonQuestion = new JSONObject(serealisedQuestion);
+                JSONObject jsonVerb = new JSONObject(jsonQuestion.getString("verb"));
+                InfinitiveVerb infinitiveVerb = new InfinitiveVerb(jsonVerb.getString("frenchVerb"), jsonVerb.getString("englishVerb"), jsonVerb.getString("auxiliary"));
+                MoodAndTense moodAndTense = new MoodAndTenseFactory().createFromString(jsonQuestion.getString("moodAndTense"));
+                return new Question(stringToPerson.get(jsonQuestion.getString("person")), infinitiveVerb, moodAndTense);
             }
         }
     }
