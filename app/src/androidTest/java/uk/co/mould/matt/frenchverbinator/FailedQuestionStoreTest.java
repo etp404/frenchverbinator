@@ -22,6 +22,7 @@ import java.util.Set;
 import uk.co.mould.matt.FailedQuestionStore;
 import uk.co.mould.matt.data.InfinitiveVerb;
 import uk.co.mould.matt.data.Persons;
+import uk.co.mould.matt.data.SupportedPersons;
 import uk.co.mould.matt.data.tenses.MoodAndTense;
 import uk.co.mould.matt.data.tenses.PerfectIndicative;
 import uk.co.mould.matt.data.tenses.PresentIndicative;
@@ -129,12 +130,9 @@ public class FailedQuestionStoreTest extends AndroidTestCase {
     private static class JSONSerialiser {
 
         private static final Map<String, Persons.Person> STRING_TO_PERSON = new HashMap<String, Persons.Person>() {{
-            put(Persons.FIRST_PERSON_SINGULAR.getPerson(), Persons.FIRST_PERSON_SINGULAR);
-            put(Persons.SECOND_PERSON_SINGULAR.getPerson(), Persons.SECOND_PERSON_SINGULAR);
-            put(Persons.THIRD_PERSON_SINGULAR.getPerson(), Persons.THIRD_PERSON_SINGULAR);
-            put(Persons.FIRST_PERSON_PLURAL.getPerson(), Persons.FIRST_PERSON_PLURAL);
-            put(Persons.SECOND_PERSON_PLURAL.getPerson(), Persons.SECOND_PERSON_PLURAL);
-            put(Persons.THIRD_PERSON_PLURAL.getPerson(), Persons.THIRD_PERSON_PLURAL);
+            for (Persons.Person person : SupportedPersons.ALL) {
+                put(person.getPerson(), person);
+            }
         }};
         private static final String PERSON_KEY = "person";
         private static final String MOOD_AND_TEST_KEY = "moodAndTense";
