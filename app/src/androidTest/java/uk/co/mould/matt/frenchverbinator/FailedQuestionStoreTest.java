@@ -37,14 +37,11 @@ import static org.junit.Assert.assertTrue;
 public class FailedQuestionStoreTest extends AndroidTestCase {
 
     private final InfinitiveVerb verb = new InfinitiveVerb("regarder", "to watch", "avoir");
-    private MoodAndTense verbMoodAndTense = new PresentIndicative();
+    private static MoodAndTense verbMoodAndTense = new PresentIndicative();
     List<Question> questionList = new ArrayList<Question>() {{
-        add(new Question(Persons.FIRST_PERSON_SINGULAR, verb, verbMoodAndTense));
-        add(new Question(Persons.SECOND_PERSON_SINGULAR, verb, verbMoodAndTense));
-        add(new Question(Persons.THIRD_PERSON_SINGULAR, verb, verbMoodAndTense));
-        add(new Question(Persons.FIRST_PERSON_PLURAL, verb, verbMoodAndTense));
-        add(new Question(Persons.SECOND_PERSON_PLURAL, verb, verbMoodAndTense));
-        add(new Question(Persons.THIRD_PERSON_PLURAL, verb, verbMoodAndTense));
+        for (Persons.Person person : SupportedPersons.ALL) {
+            add(new Question(person, verb, verbMoodAndTense));
+        }
     }};
     private SharedPreferences sharedPreferences;
 
