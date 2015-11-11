@@ -6,7 +6,7 @@ import org.xml.sax.InputSource;
 
 import uk.co.mould.matt.FailedQuestionStore;
 import uk.co.mould.matt.conjugators.Conjugator;
-import uk.co.mould.matt.data.SupportedPersons;
+import uk.co.mould.matt.data.Persons;
 import uk.co.mould.matt.frenchverbinator.settings.SharedPrefsUserSettings;
 import uk.co.mould.matt.marking.AnswerChecker;
 import uk.co.mould.matt.parser.ConjugationParser;
@@ -27,7 +27,7 @@ class QuestionPresenterFactory {
         RandomQuestionGenerator randomQuestionGenerator = new RandomQuestionGenerator(
                 new SystemRandomNumberGenerator(),
                 verbListParser.getVerbs(),
-                SupportedPersons.ALL,
+                Persons.getAllSupportedPersons(),
                 storedUserSettings.includedTenses());
 
         new QuestionPresenter(

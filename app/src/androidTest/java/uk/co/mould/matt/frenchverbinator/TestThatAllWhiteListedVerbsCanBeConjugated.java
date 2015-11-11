@@ -9,7 +9,6 @@ import uk.co.mould.matt.conjugators.Conjugator;
 import uk.co.mould.matt.data.InfinitiveVerb;
 import uk.co.mould.matt.data.Persons;
 import uk.co.mould.matt.data.SupportedMoodsAndTenses;
-import uk.co.mould.matt.data.SupportedPersons;
 import uk.co.mould.matt.data.tenses.MoodAndTense;
 import uk.co.mould.matt.parser.ConjugationParser;
 import uk.co.mould.matt.parser.VerbListParser;
@@ -24,7 +23,7 @@ public final class TestThatAllWhiteListedVerbsCanBeConjugated extends ActivityTe
         Conjugator conjugator = new Conjugator(verbTemplateParser, conjugationParser);
 
         for (InfinitiveVerb verb : verbListParser.getVerbs()) {
-            for (Persons.Person person : SupportedPersons.ALL) {
+            for (Persons.Person person : Persons.getAllSupportedPersons()) {
                 for (MoodAndTense moodAndTense : SupportedMoodsAndTenses.ALL) {
                     try {
                         assertNotNull(String.format("Couldn't format %s form of %s", person.getPerson(), verb.frenchVerb),

@@ -5,7 +5,6 @@ import uk.co.mould.matt.FailedQuestionStore;
 import uk.co.mould.matt.ShouldUseFailedQuestion;
 import uk.co.mould.matt.data.Persons;
 import uk.co.mould.matt.data.InfinitiveVerb;
-import uk.co.mould.matt.data.SupportedPersons;
 import uk.co.mould.matt.data.tenses.MoodAndTense;
 
 public final class RandomQuestionGenerator implements QuestionGenerator {
@@ -82,7 +81,7 @@ public final class RandomQuestionGenerator implements QuestionGenerator {
 	}
 
 	private Persons.Person getRandomPerson() {
-		return personList.get(randomNumberGenerator.randomNumber(0, SupportedPersons.ALL.size()));
+		return personList.get(randomNumberGenerator.randomNumber(0, Persons.getAllSupportedPersons().size()));
 	}
 
 	private InfinitiveVerb getRandomVerb() {

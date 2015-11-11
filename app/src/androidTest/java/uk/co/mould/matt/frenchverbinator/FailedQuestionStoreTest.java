@@ -12,19 +12,15 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import uk.co.mould.matt.FailedQuestionStore;
 import uk.co.mould.matt.data.InfinitiveVerb;
 import uk.co.mould.matt.data.Persons;
-import uk.co.mould.matt.data.SupportedPersons;
 import uk.co.mould.matt.data.tenses.MoodAndTense;
-import uk.co.mould.matt.data.tenses.PerfectIndicative;
 import uk.co.mould.matt.data.tenses.PresentIndicative;
 import uk.co.mould.matt.frenchverbinator.settings.MoodAndTenseFactory;
 import uk.co.mould.matt.questions.Question;
@@ -38,7 +34,7 @@ public class FailedQuestionStoreTest extends AndroidTestCase {
 
     private final InfinitiveVerb verb = new InfinitiveVerb("regarder", "to watch", "avoir");
     private MoodAndTense verbMoodAndTense = new PresentIndicative();
-    List<Question> questionList = new ArrayList<Question>() {{
+    private List<Question> questionList = new ArrayList<Question>() {{
         add(new Question(Persons.FIRST_PERSON_SINGULAR, verb, verbMoodAndTense));
         add(new Question(Persons.SECOND_PERSON_SINGULAR, verb, verbMoodAndTense));
         add(new Question(Persons.THIRD_PERSON_SINGULAR, verb, verbMoodAndTense));
@@ -129,11 +125,6 @@ public class FailedQuestionStoreTest extends AndroidTestCase {
 
     private static class JSONSerialiser {
 
-        private static final Map<String, Persons.Person> STRING_TO_PERSON = new HashMap<String, Persons.Person>() {{
-            for (Persons.Person person : SupportedPersons.ALL) {
-                put(person.getPerson(), person);
-            }
-        }};
         private static final String PERSON_KEY = "person";
         private static final String MOOD_AND_TEST_KEY = "moodAndTense";
         private static final String VERB_KEY = "verb";
@@ -166,7 +157,7 @@ public class FailedQuestionStoreTest extends AndroidTestCase {
             String serialisedVerb = jsonQuestion.getString(VERB_KEY);
             InfinitiveVerb infinitiveVerb = VerbSerialiser.deserialiseVerb(serialisedVerb);
             MoodAndTense moodAndTense = new MoodAndTenseFactory().createFromString(jsonQuestion.getString("moodAndTense"));
-            return new FailedQuestionToStore(jsonQuestion.getInt(ORDER_KEY), new Question(STRING_TO_PERSON.get(jsonQuestion.getString("person")), infinitiveVerb, moodAndTense));
+            return new FailedQuestionToStore(jsonQuestion.getInt(ORDER_KEY), new Question(Persons.fromString(jsonQuestion.getString("person")), infinitiveVerb, moodAndTense));
         }
 
         public static List<FailedQuestionToStore> deserialiseQuestions(Set<String> failedQuestionsAsStringset) {
