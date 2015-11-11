@@ -35,10 +35,16 @@ import static org.junit.Assert.assertTrue;
 
 public class FailedQuestionStoreTest extends AndroidTestCase {
 
-    private final Persons.Person person = Persons.FIRST_PERSON_PLURAL;
     private final InfinitiveVerb verb = new InfinitiveVerb("regarder", "to watch", "avoir");
     private MoodAndTense verbMoodAndTense = new PresentIndicative();
-    private Question question = new Question(person, verb, verbMoodAndTense);
+    List<Question> questionList = new ArrayList<Question>() {{
+        add(new Question(Persons.FIRST_PERSON_SINGULAR, verb, verbMoodAndTense));
+        add(new Question(Persons.SECOND_PERSON_SINGULAR, verb, verbMoodAndTense));
+        add(new Question(Persons.THIRD_PERSON_SINGULAR, verb, verbMoodAndTense));
+        add(new Question(Persons.FIRST_PERSON_PLURAL, verb, verbMoodAndTense));
+        add(new Question(Persons.SECOND_PERSON_PLURAL, verb, verbMoodAndTense));
+        add(new Question(Persons.THIRD_PERSON_PLURAL, verb, verbMoodAndTense));
+    }};
     private SharedPreferences sharedPreferences;
 
     @Before
@@ -49,22 +55,24 @@ public class FailedQuestionStoreTest extends AndroidTestCase {
     @Test
     public void testThatCanStoreAndRetrieveFailedQuestions() {
         FailedQuestionStore androidFailedQuestionStore = new AndroidFailedQuestionStore(sharedPreferences);
-        androidFailedQuestionStore.store(question);
+        androidFailedQuestionStore.store(questionList.get(0));
         assertTrue(androidFailedQuestionStore.hasFailedQuestions());
         Question actualQuestion = androidFailedQuestionStore.pop();
-        assertThat(actualQuestion, is(question));
+        assertThat(actualQuestion, is(questionList.get(0)));
         assertFalse(androidFailedQuestionStore.hasFailedQuestions());
     }
 
     @Test
     public void testThatCanStoreAndRetrieveFailedInOrderQuestions() {
         FailedQuestionStore androidFailedQuestionStore = new AndroidFailedQuestionStore(sharedPreferences);
-        androidFailedQuestionStore.store(question);
-        Question question2 = new Question(Persons.THIRD_PERSON_PLURAL, new InfinitiveVerb("abc", "def", "ghi"), new PerfectIndicative());
-        androidFailedQuestionStore.store(question2);
-        assertThat(question, is(androidFailedQuestionStore.pop()));
-        assertThat(question2, is(androidFailedQuestionStore.pop()));
+        for (Question question : questionList) {
+            androidFailedQuestionStore.store(question);
+        }
+        for (Question question : questionList) {
+            assertThat(question, is(androidFailedQuestionStore.pop()));
+        }
     }
+
 
     private static class AndroidFailedQuestionStore implements FailedQuestionStore {
         public static final String FAILED_QUESTIONS = "failed_questions";
@@ -121,7 +129,11 @@ public class FailedQuestionStoreTest extends AndroidTestCase {
     private static class JSONSerialiser {
 
         private static final Map<String, Persons.Person> STRING_TO_PERSON = new HashMap<String, Persons.Person>() {{
+            put(Persons.FIRST_PERSON_SINGULAR.getPerson(), Persons.FIRST_PERSON_SINGULAR);
+            put(Persons.SECOND_PERSON_SINGULAR.getPerson(), Persons.SECOND_PERSON_SINGULAR);
+            put(Persons.THIRD_PERSON_SINGULAR.getPerson(), Persons.THIRD_PERSON_SINGULAR);
             put(Persons.FIRST_PERSON_PLURAL.getPerson(), Persons.FIRST_PERSON_PLURAL);
+            put(Persons.SECOND_PERSON_PLURAL.getPerson(), Persons.SECOND_PERSON_PLURAL);
             put(Persons.THIRD_PERSON_PLURAL.getPerson(), Persons.THIRD_PERSON_PLURAL);
         }};
         private static final String PERSON_KEY = "person";
