@@ -21,6 +21,7 @@ import uk.co.mould.matt.data.tenses.PerfectIndicative;
 import uk.co.mould.matt.data.tenses.PresentConditional;
 import uk.co.mould.matt.data.tenses.PresentIndicative;
 import uk.co.mould.matt.data.tenses.PresentSubjunctive;
+import uk.co.mould.matt.exceptions.CantConjugateException;
 import uk.co.mould.matt.parser.ConjugationParser;
 import uk.co.mould.matt.parser.VerbTemplateParser;
 
@@ -192,5 +193,14 @@ public final class ConjugatorTest {
                         Persons.FIRST_PERSON_PLURAL,
                         new PerfectIndicative());
         assertEquals(new ConjugatedVerbWithPronoun("Nous sommes allés"), conjugatedVerbWithPronoun);
+    }
+
+    @Test
+    public void testThatVerbWithTwoFormsForAPersonCanBeFormedCorrectly() throws CantConjugateException {
+        ConjugatedVerbWithPronoun conjugatedVerbWithPronoun = conjugator.getConjugationOf(
+                new InfinitiveVerb("pouvoir", null, null),
+                Persons.FIRST_PERSON_PLURAL,
+                new PresentIndicative());
+        assertEquals(new ConjugatedVerbWithPronoun("Nous pouvons"), conjugatedVerbWithPronoun);
     }
 }

@@ -73,7 +73,9 @@ public final class ConjugationParser {
         Element indicativeVerbNode = (Element) element.getElementsByTagName(verbMoodAndTense.getMood()).item(0);
         Element verbEndings = (Element) indicativeVerbNode.getElementsByTagName(verbMoodAndTense.getTense()).item(0);
 
-        String conjugatedEnding = verbEndings.getElementsByTagName("i").item(PERSON_TO_INDEX.get(person)).getTextContent();
+        Element endingsForPerson = (Element)verbEndings.getElementsByTagName("p").item(PERSON_TO_INDEX.get(person));
+
+        String conjugatedEnding = endingsForPerson.getElementsByTagName("i").item(0).getTextContent();
 
         return new Conjugation(frenchInfinitiveVerb.toString().replace(template.getEndingAsString(), conjugatedEnding));
     }
