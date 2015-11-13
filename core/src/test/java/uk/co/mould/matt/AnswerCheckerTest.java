@@ -80,7 +80,7 @@ public class AnswerCheckerTest {
         Question storedQuestion;
 
         @Override
-        public boolean hasFailedQuestions(FilterForTheseTenses filterForTheseTenses) {
+        public boolean hasFailedQuestions(Filter filter) {
             return false;
         }
 

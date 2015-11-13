@@ -27,9 +27,9 @@ public class AndroidFailedQuestionStore implements FailedQuestionStore {
     }
 
     @Override
-    public boolean hasFailedQuestions(FilterForTheseTenses filterForTheseTenses) {
+    public boolean hasFailedQuestions(Filter filter) {
         for (FailedQuestionToStore failedQuestionToStore : getQuestions()) {
-            if (filterForTheseTenses.match(failedQuestionToStore.question)) {
+            if (filter.match(failedQuestionToStore.question)) {
                 return true;
             }
         }

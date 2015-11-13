@@ -1,5 +1,6 @@
 package uk.co.mould.matt;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import uk.co.mould.matt.data.tenses.MoodAndTense;
@@ -8,7 +9,7 @@ import uk.co.mould.matt.questions.Question;
 public interface FailedQuestionStore {
     FailedQuestionStore NULL = new FailedQuestionStore() {
         @Override
-        public boolean hasFailedQuestions(FilterForTheseTenses filterForTheseTenses) {
+        public boolean hasFailedQuestions(Filter filter) {
             return false;
         }
 
@@ -28,12 +29,12 @@ public interface FailedQuestionStore {
         }
 
         @Override
-        public Question pop(Filter questionFilter) {
+        public Question pop(Filter filter) {
             return null;
         }
     };
 
-    boolean hasFailedQuestions(FilterForTheseTenses filterForTheseTenses);
+    boolean hasFailedQuestions(Filter filter);
 
     Question pop();
 
@@ -48,7 +49,7 @@ public interface FailedQuestionStore {
     }
 
     class FilterForTheseTenses implements Filter {
-        private List<MoodAndTense> moodAndTenses;
+        private List<MoodAndTense> moodAndTenses = new ArrayList<>();
 
         public FilterForTheseTenses(List<MoodAndTense> moodAndTenses) {
             this.moodAndTenses = moodAndTenses;
@@ -56,7 +57,7 @@ public interface FailedQuestionStore {
 
         @Override
         public boolean match(Question question) {
-            if (moodAndTenses.contains(question.moodAndTense)) {
+            if (question!=null && moodAndTenses.contains(question.moodAndTense)) {
                 return true;
             }
             return false;

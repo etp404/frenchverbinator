@@ -90,6 +90,25 @@ public class QuestionGeneratorTests {
         assertEquals(expectedQuestion, callback.question);
     }
 
+    @Test
+    public void generatesNewQuestionIfOldNewSelectorSelectsOldButThereAreNoOldQuestionsWithRightTense() {
+        Question expectedQuestion = new Question(person, verb, verbMoodAndTense);
+
+        FailedQuestionStore failedQuestionStore = new FakeFailedQuestionStore(new Question(Persons.SECOND_PERSON_PLURAL, new InfinitiveVerb(null,null,null), new PresentSubjunctive()));
+        RandomQuestionGenerator randomQuestionGenerator = new RandomQuestionGenerator(
+                new FakeRandomNumberGenerator(0),
+                Collections.singletonList(verb),
+                Collections.singletonList(person),
+                Collections.singletonList(verbMoodAndTense),
+                failedQuestionStore,
+                new FakeShouldUseFailedQuestion(true)
+        );
+
+        CapturingCallback callback = new CapturingCallback();
+        randomQuestionGenerator.getQuestion(callback);
+        assertEquals(expectedQuestion, callback.question);
+    }
+
     private static class CapturingCallback implements Callback {
         private boolean noTensesSelected = false;
         private Question question;
@@ -113,8 +132,8 @@ public class QuestionGeneratorTests {
         }
 
         @Override
-        public boolean hasFailedQuestions(FilterForTheseTenses filterForTheseTenses) {
-            return filterForTheseTenses.match(question);
+        public boolean hasFailedQuestions(Filter filter) {
+            return filter.match(question);
         }
 
         public Question pop() {
