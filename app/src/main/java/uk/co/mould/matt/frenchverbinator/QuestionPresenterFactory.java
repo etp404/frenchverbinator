@@ -41,9 +41,7 @@ class QuestionPresenterFactory {
                 new SystemRandomNumberGenerator(),
                 verbListParser.getVerbs(),
                 SupportedPersons.ALL,
-                storedUserSettings.includedTenses(),
-                failedQuestionStore,
-                returnTrue75PercentOfTime);
+                storedUserSettings.includedTenses());
 
         new QuestionPresenter(
                 questionView,
