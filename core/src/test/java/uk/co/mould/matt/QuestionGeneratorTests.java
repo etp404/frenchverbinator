@@ -54,7 +54,7 @@ public class QuestionGeneratorTests {
 
     @Test
     public void repeatsFailedQuestionFromFailedQuestionStoreIfOldNewSelectorSelectsOldAndThereIsAnOldQuestion() {
-        Question failedQuestion = new Question(Persons.SECOND_PERSON_SINGULAR, new InfinitiveVerb("bblah", "blaaahdy", "blah"), new PresentSubjunctive());
+        Question failedQuestion = new Question(Persons.SECOND_PERSON_SINGULAR, new InfinitiveVerb("bblah", "blaaahdy", "blah"), verbMoodAndTense);
 
         FailedQuestionStore failedQuestionStore = new FakeFailedQuestionStore(failedQuestion);
         RandomQuestionGenerator randomQuestionGenerator = new RandomQuestionGenerator(
@@ -112,6 +112,11 @@ public class QuestionGeneratorTests {
             this.question = question;
         }
 
+        @Override
+        public boolean hasFailedQuestions(FilterForTheseTenses filterForTheseTenses) {
+            return filterForTheseTenses.match(question);
+        }
+
         public Question pop() {
             return question;
         }
@@ -124,6 +129,14 @@ public class QuestionGeneratorTests {
         @Override
         public void store(Question question) {
 
+        }
+
+        @Override
+        public Question pop(Filter questionFilter) {
+            if (questionFilter.match(question)) {
+                return question;
+            }
+            return null;
         }
     }
 

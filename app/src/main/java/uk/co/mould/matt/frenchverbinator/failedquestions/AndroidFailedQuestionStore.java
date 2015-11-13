@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Set;
 
 import uk.co.mould.matt.FailedQuestionStore;
-import uk.co.mould.matt.data.tenses.MoodAndTense;
 import uk.co.mould.matt.questions.Question;
 
 public class AndroidFailedQuestionStore implements FailedQuestionStore {
@@ -27,6 +26,7 @@ public class AndroidFailedQuestionStore implements FailedQuestionStore {
         return !sharedPreferences.getStringSet(FAILED_QUESTIONS, new HashSet<String>()).isEmpty();
     }
 
+    @Override
     public boolean hasFailedQuestions(FilterForTheseTenses filterForTheseTenses) {
         for (FailedQuestionToStore failedQuestionToStore : getQuestions()) {
             if (filterForTheseTenses.match(failedQuestionToStore.question)) {
@@ -101,19 +101,4 @@ public class AndroidFailedQuestionStore implements FailedQuestionStore {
         sharedPreferences.edit().clear().apply();
     }
 
-    public static class FilterForTheseTenses implements Filter {
-        private List<MoodAndTense> moodAndTenses;
-
-        public FilterForTheseTenses(List<MoodAndTense> moodAndTenses) {
-            this.moodAndTenses = moodAndTenses;
-        }
-
-        @Override
-        public boolean match(Question question) {
-            if (moodAndTenses.contains(question.moodAndTense)) {
-                return true;
-            }
-            return false;
-        }
-    }
 }

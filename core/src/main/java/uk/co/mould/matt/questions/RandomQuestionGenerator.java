@@ -11,6 +11,11 @@ import uk.co.mould.matt.data.tenses.MoodAndTense;
 public final class RandomQuestionGenerator implements QuestionGenerator {
     private FailedQuestionStore failedQuestionStore = new FailedQuestionStore() {
         @Override
+        public boolean hasFailedQuestions(FilterForTheseTenses filterForTheseTenses) {
+            return false;
+        }
+
+        @Override
         public Question pop() {
             return null;
         }
@@ -72,8 +77,9 @@ public final class RandomQuestionGenerator implements QuestionGenerator {
         }
         else {
             //TODO: refactor this once moved over to this style.
-            if (failedQuestionStore.hasFailedQuestions() && shouldUseFailedQuestion.invoke()) {
-                callback.questionProvided(failedQuestionStore.pop());
+            FailedQuestionStore.Filter failedQuestionFilter = new FailedQuestionStore.FilterForTheseTenses(moodsAndTensesToSelectFrom);
+            if (shouldUseFailedQuestion.invoke() && failedQuestionStore.hasFailedQuestions()) {
+                callback.questionProvided(failedQuestionStore.pop(failedQuestionFilter));
             }
             else {
                 callback.questionProvided(new Question(getRandomPerson(), getRandomVerb(), getRandomVerbMoodAndTense()));

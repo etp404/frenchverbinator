@@ -78,6 +78,12 @@ public class AnswerCheckerTest {
 
     private class FakeFailedQuestionStore implements FailedQuestionStore {
         Question storedQuestion;
+
+        @Override
+        public boolean hasFailedQuestions(FilterForTheseTenses filterForTheseTenses) {
+            return false;
+        }
+
         @Override
         public Question pop() {
             return null;
@@ -91,6 +97,11 @@ public class AnswerCheckerTest {
         @Override
         public void store(Question question) {
             storedQuestion = question;
+        }
+
+        @Override
+        public Question pop(Filter questionFilter) {
+            return null;
         }
     }
 }
