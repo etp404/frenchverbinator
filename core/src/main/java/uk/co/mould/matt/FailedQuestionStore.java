@@ -1,5 +1,6 @@
 package uk.co.mould.matt;
 
+import uk.co.mould.matt.data.tenses.MoodAndTense;
 import uk.co.mould.matt.questions.Question;
 
 public interface FailedQuestionStore {
@@ -18,6 +19,11 @@ public interface FailedQuestionStore {
         public void store(Question question) {
 
         }
+
+        @Override
+        public Question pop(Filter questionFilter) {
+            return null;
+        }
     };
 
     Question pop();
@@ -25,4 +31,10 @@ public interface FailedQuestionStore {
     boolean hasFailedQuestions();
 
     void store(Question question);
+
+    Question pop(Filter questionFilter);
+
+    interface Filter {
+        boolean match(Question question);
+    }
 }

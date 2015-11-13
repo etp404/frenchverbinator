@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Set;
 
 import uk.co.mould.matt.FailedQuestionStore;
+import uk.co.mould.matt.data.tenses.MoodAndTense;
 import uk.co.mould.matt.questions.Question;
 
 public class AndroidFailedQuestionStore implements FailedQuestionStore {
@@ -24,6 +25,15 @@ public class AndroidFailedQuestionStore implements FailedQuestionStore {
     @Override
     public boolean hasFailedQuestions() {
         return !sharedPreferences.getStringSet(FAILED_QUESTIONS, new HashSet<String>()).isEmpty();
+    }
+
+    public boolean hasFailedQuestions(FilterForTheseTenses filterForTheseTenses) {
+        for (FailedQuestionToStore failedQuestionToStore : getQuestions()) {
+            if (filterForTheseTenses.match(failedQuestionToStore.question)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
@@ -43,6 +53,28 @@ public class AndroidFailedQuestionStore implements FailedQuestionStore {
     }
 
     @Override
+    public Question pop(Filter filter) {
+        List<FailedQuestionToStore> failedQuestions = getQuestions();
+        Collections.sort(failedQuestions, new Comparator<FailedQuestionToStore>() {
+            @Override
+            public int compare(FailedQuestionToStore lhs, FailedQuestionToStore rhs) {
+                return lhs.position > rhs.position ? 1 : -1;
+            }
+        });
+
+        FailedQuestionToStore failedQuestionToStore = null;
+
+        for (FailedQuestionToStore failedQuestion : failedQuestions) {
+            if (filter.match(failedQuestion.question)) {
+                failedQuestionToStore = failedQuestion;
+            }
+        }
+        failedQuestions.remove(failedQuestionToStore);
+        store(failedQuestions);
+        return failedQuestionToStore.question;
+    }
+
+    @Override
     public void store(Question question) {
         List<FailedQuestionToStore> failedQuestions = getQuestions();
         FailedQuestionToStore failedQuestionToStore = new FailedQuestionToStore(failedQuestions.size(), question);
@@ -50,6 +82,8 @@ public class AndroidFailedQuestionStore implements FailedQuestionStore {
         failedQuestions.add(failedQuestionToStore);
         store(failedQuestions);
     }
+
+
 
     private void store(List<FailedQuestionToStore> failedQuestions) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -65,5 +99,21 @@ public class AndroidFailedQuestionStore implements FailedQuestionStore {
 
     public void clear() {
         sharedPreferences.edit().clear().apply();
+    }
+
+    public static class FilterForTheseTenses implements Filter {
+        private List<MoodAndTense> moodAndTenses;
+
+        public FilterForTheseTenses(List<MoodAndTense> moodAndTenses) {
+            this.moodAndTenses = moodAndTenses;
+        }
+
+        @Override
+        public boolean match(Question question) {
+            if (moodAndTenses.contains(question.moodAndTense)) {
+                return true;
+            }
+            return false;
+        }
     }
 }

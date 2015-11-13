@@ -24,6 +24,11 @@ public final class RandomQuestionGenerator implements QuestionGenerator {
         public void store(Question question) {
 
         }
+
+        @Override
+        public Question pop(Filter questionFilter) {
+            return null;
+        }
     };
     private ShouldUseFailedQuestion shouldUseFailedQuestion = new ShouldUseFailedQuestion() {
         @Override
