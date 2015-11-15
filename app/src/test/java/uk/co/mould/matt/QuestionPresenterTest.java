@@ -80,7 +80,8 @@ public final class QuestionPresenterTest {
     public void testThatNoTensesSelectedWarningIsShownIfNoTensesAreSelected() {
         QuestionPresenter questionPresenter = new QuestionPresenter(
                 questionView,
-                new RandomQuestionGenerator(null, null, null, new ArrayList<MoodAndTense>()), null);
+                new FakeQuestionGenerator(null),
+                null);
                 questionPresenter.showQuestion();
         assertTrue(questionView.noTensesSelectedIsShown);
     }
@@ -118,7 +119,12 @@ public final class QuestionPresenterTest {
 
         @Override
         public void getQuestion(Callback callback) {
-            callback.questionProvided(question);
+            if (question!=null) {
+                callback.questionProvided(question);
+            }
+            else {
+                callback.noTensesSelected();
+            }
         }
 
         @Override

@@ -10,6 +10,10 @@ public class FakeFailedQuestionStore implements FailedQuestionStore {
     public Question question;
     public Question storedQuestion;
 
+    public FakeFailedQuestionStore() {
+
+    }
+
     public FakeFailedQuestionStore(Question question) {
         this.question = question;
     }

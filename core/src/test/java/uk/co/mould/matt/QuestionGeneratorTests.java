@@ -30,7 +30,9 @@ public class QuestionGeneratorTests {
                 new FakeRandomNumberGenerator(0),
                 new ArrayList< InfinitiveVerb >(),
                 new ArrayList< Persons.Person>(),
-                new ArrayList< MoodAndTense>());
+                new ArrayList< MoodAndTense>(),
+                new FakeFailedQuestionStore(),
+                new FakeShouldUseFailedQuestion(false));
 
         CapturingCallback callback = new CapturingCallback();
         randomQuestionGenerator.getQuestion(callback);
@@ -43,7 +45,10 @@ public class QuestionGeneratorTests {
         RandomQuestionGenerator randomQuestionGenerator = new RandomQuestionGenerator(new FakeRandomNumberGenerator(0),
                 Collections.singletonList(verb),
                 Collections.singletonList(person),
-                Collections.singletonList(verbMoodAndTense));
+                Collections.singletonList(verbMoodAndTense),
+                new FakeFailedQuestionStore(),
+                new FakeShouldUseFailedQuestion(false)
+                );
 
         CapturingCallback callback = new CapturingCallback();
         randomQuestionGenerator.getQuestion(callback);

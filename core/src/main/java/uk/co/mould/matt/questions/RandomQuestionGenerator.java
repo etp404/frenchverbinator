@@ -9,42 +9,7 @@ import uk.co.mould.matt.data.SupportedPersons;
 import uk.co.mould.matt.data.tenses.MoodAndTense;
 
 public final class RandomQuestionGenerator implements QuestionGenerator {
-    private FailedQuestionStore failedQuestionStore = new FailedQuestionStore() {
-        @Override
-        public boolean hasFailedQuestions(Filter filter) {
-            return false;
-        }
-
-        @Override
-        public Question pop() {
-            return null;
-        }
-
-        @Override
-        public boolean hasFailedQuestions() {
-            return false;
-        }
-
-        @Override
-        public void store(Question question) {
-
-        }
-
-        @Override
-        public Question pop(Filter questionFilter) {
-            return null;
-        }
-
-        @Override
-        public void clear() {
-
-        }
-
-        @Override
-        public void getFailedQuestion(Callback capturingCallback, List<MoodAndTense> moodAndTenses) {
-
-        }
-    };
+    private final FailedQuestionStore failedQuestionStore;
     private ShouldUseFailedQuestion shouldUseFailedQuestion = new ShouldUseFailedQuestion() {
         @Override
         public boolean invoke() {
@@ -56,26 +21,16 @@ public final class RandomQuestionGenerator implements QuestionGenerator {
 	private List<Persons.Person> personList;
 	private List<MoodAndTense> moodsAndTensesToSelectFrom;
 
-    public RandomQuestionGenerator(RandomNumberGenerator randomNumberGenerator,
-								   List<InfinitiveVerb> verbList,
-								   List<Persons.Person> personList,
-								   List<MoodAndTense> moodsAndTensesToSelectFrom) {
-		this.randomNumberGenerator = randomNumberGenerator;
-		this.verbList = verbList;
-		this.personList = personList;
-		this.moodsAndTensesToSelectFrom = moodsAndTensesToSelectFrom;
-    }
-
 	public RandomQuestionGenerator(RandomNumberGenerator randomNumberGenerator,
                                    List<InfinitiveVerb> verbList,
                                    List<Persons.Person> personList,
                                    List<MoodAndTense> moodsAndTensesToSelectFrom,
                                    FailedQuestionStore failedQuestionStore,
                                    ShouldUseFailedQuestion shouldUseFailedQuestion) {
-        this(randomNumberGenerator,
-                verbList,
-                personList,
-                moodsAndTensesToSelectFrom);
+        this.randomNumberGenerator = randomNumberGenerator;
+        this.verbList = verbList;
+        this.personList = personList;
+        this.moodsAndTensesToSelectFrom = moodsAndTensesToSelectFrom;
         this.failedQuestionStore = failedQuestionStore;
         this.shouldUseFailedQuestion = shouldUseFailedQuestion;
     }
