@@ -34,56 +34,49 @@ public class FailedQuestionStoreTest extends AndroidTestCase {
             add(new Question(person, verb, verbMoodAndTense));
         }
     }};
-    private Question actualQuestion;
+    private CapturingCallback capturingCallback;
 
     @Before
     public void setUp() {
         androidFailedQuestionStore = new AndroidFailedQuestionStore(getContext());
         androidFailedQuestionStore.clear();
+        capturingCallback = new CapturingCallback();
     }
 
     @Test
     public void testThatCanStoreAndRetrieveFailedQuestions() {
         androidFailedQuestionStore.store(questionList.get(0));
         assertTrue(androidFailedQuestionStore.hasFailedQuestions());
-        Question actualQuestion = androidFailedQuestionStore.pop();
-        assertThat(actualQuestion, is(questionList.get(0)));
-        assertFalse(androidFailedQuestionStore.hasFailedQuestions());
+        androidFailedQuestionStore.getFailedQuestion(capturingCallback, new ArrayList<MoodAndTense>(){{add(verbMoodAndTense);}});
+        assertThat(capturingCallback.question, is(questionList.get(0)));
+        androidFailedQuestionStore.getFailedQuestion(capturingCallback, new ArrayList<MoodAndTense>(){{add(verbMoodAndTense);}});
+        assertNull(capturingCallback.question);
     }
 
     @Test
-    public void testThatCheckThatThereAreQuestionsOfAGivenTypeReturnsFalseAsExpected() {
+    public void testThatCheckThatThereAreQuestionsOfAGivenTypeCallsFailureCallbackAsExpected() {
         for (Question question : questionList) {
             androidFailedQuestionStore.store(question);
         }
-        AndroidFailedQuestionStore.FilterForTheseTenses filterForTheseTenses =
-                new AndroidFailedQuestionStore.FilterForTheseTenses(
-                        new ArrayList<MoodAndTense>() {{
-                            add(new PresentSubjunctive());
-                        }});
-        assertFalse(androidFailedQuestionStore.hasFailedQuestions(filterForTheseTenses));
-    }
 
-    @Test
-    public void testThatCheckThatThereAreQuestionsOfAGivenTypeReturnsTrueAsExpected() {
-        for (Question question : questionList) {
-            androidFailedQuestionStore.store(question);
-        }
-        AndroidFailedQuestionStore.FilterForTheseTenses filterForTheseTenses =
-                new AndroidFailedQuestionStore.FilterForTheseTenses(
-                        new ArrayList<MoodAndTense>() {{
-                            add(new PresentIndicative());
-                        }});
-        assertTrue(androidFailedQuestionStore.hasFailedQuestions(filterForTheseTenses));
+        List<MoodAndTense> includedMoodsAndTenses = new ArrayList<MoodAndTense>() {{
+            add(new PresentSubjunctive());
+        }};
+
+        androidFailedQuestionStore.getFailedQuestion(capturingCallback, includedMoodsAndTenses);
+        assertNull(capturingCallback.question);
     }
 
     @Test
     public void testThatCanStoreAndRetrieveFailedInOrderQuestions() {
+        List<MoodAndTense> storedMoodsAndTenses = new ArrayList<>();
         for (Question question : questionList) {
+            storedMoodsAndTenses.add(question.moodAndTense);
             androidFailedQuestionStore.store(question);
         }
         for (Question question : questionList) {
-            assertThat(question, is(androidFailedQuestionStore.pop()));
+            androidFailedQuestionStore.getFailedQuestion(capturingCallback, storedMoodsAndTenses);
+            assertThat(capturingCallback.question, is(question));
         }
     }
 
@@ -106,10 +99,24 @@ public class FailedQuestionStoreTest extends AndroidTestCase {
         moodAndTenses.add(new PresentSubjunctive());
         moodAndTenses.add(expectedQuestion.moodAndTense);
 
-        final FailedQuestionStore.Filter questionFilter = new AndroidFailedQuestionStore.FilterForTheseTenses(moodAndTenses);
-        actualQuestion = androidFailedQuestionStore.pop(questionFilter);
-        assertThat(expectedQuestion, is(actualQuestion));
+        final FailedQuestionStore.FilterForTheseTenses questionFilter = new AndroidFailedQuestionStore.FilterForTheseTenses(moodAndTenses);
+        androidFailedQuestionStore.getFailedQuestion(capturingCallback, questionFilter);
+        assertThat(expectedQuestion, is(capturingCallback.question));
     }
 
 
+    private static class CapturingCallback implements AndroidFailedQuestionStore.Callback {
+
+        private Question question;
+
+        @Override
+        public void success(Question question) {
+            this.question = question;
+        }
+
+        @Override
+        public void failure() {
+            question = null;
+        }
+    }
 }

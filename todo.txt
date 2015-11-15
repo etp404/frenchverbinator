@@ -2,3 +2,4 @@ Get failed tenses should have callback, not precheck.
 Placement of failed tenses android code? Made repo more specific?
 Remove duplication in AndroidFailedQuestionStore.
 Second method on RandomQuestionGenerator
+Push FailedQuesitonStore into core
