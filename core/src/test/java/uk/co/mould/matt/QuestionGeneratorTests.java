@@ -4,16 +4,16 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 import uk.co.mould.matt.data.InfinitiveVerb;
 import uk.co.mould.matt.data.Persons;
 import uk.co.mould.matt.data.tenses.MoodAndTense;
 import uk.co.mould.matt.data.tenses.PresentIndicative;
 import uk.co.mould.matt.data.tenses.PresentSubjunctive;
+import uk.co.mould.matt.helpers.FakeFailedQuestionStore;
+import uk.co.mould.matt.helpers.FakeRandomNumberGenerator;
 import uk.co.mould.matt.questions.Callback;
 import uk.co.mould.matt.questions.Question;
-import uk.co.mould.matt.questions.RandomNumberGenerator;
 import uk.co.mould.matt.questions.RandomQuestionGenerator;
 
 import static org.junit.Assert.assertEquals;
@@ -122,57 +122,6 @@ public class QuestionGeneratorTests {
         @Override
         public void noTensesSelected() {
             noTensesSelected = true;
-        }
-    }
-
-    private class FakeFailedQuestionStore implements FailedQuestionStore {
-        private Question question;
-
-        private FakeFailedQuestionStore(Question question) {
-            this.question = question;
-        }
-
-        @Override
-        public boolean hasFailedQuestions(Filter filter) {
-            return filter.match(question);
-        }
-
-        public Question pop() {
-            return question;
-        }
-
-        @Override
-        public boolean hasFailedQuestions() {
-            return question!=null;
-        }
-
-        @Override
-        public void store(Question question) {
-
-        }
-
-        @Override
-        public Question pop(Filter questionFilter) {
-            if (questionFilter.match(question)) {
-                return question;
-            }
-            return null;
-        }
-
-        @Override
-        public void clear() {
-
-        }
-
-        @Override
-        public void getFailedQuestion(Callback callback, List<MoodAndTense> moodAndTenses) {
-            if (question!=null && moodAndTenses.contains(question.moodAndTense)) {
-                callback.success(question);
-            }
-            else {
-                callback.failure();
-            }
-
         }
     }
 

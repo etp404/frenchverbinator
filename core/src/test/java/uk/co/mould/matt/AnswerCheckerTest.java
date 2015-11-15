@@ -11,6 +11,8 @@ import uk.co.mould.matt.data.InfinitiveVerb;
 import uk.co.mould.matt.data.Persons;
 import uk.co.mould.matt.data.tenses.MoodAndTense;
 import uk.co.mould.matt.data.tenses.PresentIndicative;
+import uk.co.mould.matt.helpers.FakeConjugator;
+import uk.co.mould.matt.helpers.FakeFailedQuestionStore;
 import uk.co.mould.matt.marking.AnswerChecker;
 import uk.co.mould.matt.marking.AnswerChecking;
 import uk.co.mould.matt.questions.Question;
@@ -33,7 +35,7 @@ public class AnswerCheckerTest {
     @Before
     public void setUp() throws Exception {
         fakeConjugator = new FakeConjugator(person, verb, verbMoodAndTense, correctAnswer);
-        fakeFailedQuestionStore = new FakeFailedQuestionStore();
+        fakeFailedQuestionStore = new FakeFailedQuestionStore(null);
         answerChecking = new AnswerChecker(fakeConjugator, fakeFailedQuestionStore);
         capturingCallback = new CapturingCallback();
     }
@@ -74,45 +76,6 @@ public class AnswerCheckerTest {
         @Override
         public void incorrect(ConjugatedVerbWithPronoun corrrection) {
             incorrectCalledWithCorrection = corrrection;
-        }
-    }
-
-    private class FakeFailedQuestionStore implements FailedQuestionStore {
-        Question storedQuestion;
-
-        @Override
-        public boolean hasFailedQuestions(Filter filter) {
-            return false;
-        }
-
-        @Override
-        public Question pop() {
-            return null;
-        }
-
-        @Override
-        public boolean hasFailedQuestions() {
-            return false;
-        }
-
-        @Override
-        public void store(Question question) {
-            storedQuestion = question;
-        }
-
-        @Override
-        public Question pop(Filter questionFilter) {
-            return null;
-        }
-
-        @Override
-        public void clear() {
-
-        }
-
-        @Override
-        public void getFailedQuestion(Callback capturingCallback, List<MoodAndTense> moodAndTenses) {
-
         }
     }
 }

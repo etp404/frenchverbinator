@@ -1,4 +1,4 @@
-package uk.co.mould.matt;
+package uk.co.mould.matt.helpers;
 
 import uk.co.mould.matt.questions.RandomNumberGenerator;
 
