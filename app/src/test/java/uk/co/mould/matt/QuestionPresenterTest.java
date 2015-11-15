@@ -4,7 +4,6 @@ package uk.co.mould.matt;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,7 +17,6 @@ import uk.co.mould.matt.marking.Score;
 import uk.co.mould.matt.questions.Callback;
 import uk.co.mould.matt.questions.Question;
 import uk.co.mould.matt.questions.QuestionGenerator;
-import uk.co.mould.matt.questions.RandomQuestionGenerator;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertEquals;
@@ -63,11 +61,11 @@ public final class QuestionPresenterTest {
 	@Test
 	public void testThatViewCanBeToldToShowWhenAnswerIsIncorrectAnswer() {
         questionView.submitListener.submitAnswer(wrongAnswer);
-        Score score = new Score();
-        score.addIncorrect();
+        Score expectedScore = new Score();
+        expectedScore.addIncorrect();
 
         assertEquals(questionView.toldToShowIncorrectWithCorrection, correctAnswer);
-        assertThat(questionView.updatedScore, is(score));
+        assertThat(questionView.updatedScore, is(expectedScore));
     }
 
 	@Test
@@ -91,10 +89,10 @@ public final class QuestionPresenterTest {
         questionView.submitListener.submitAnswer(correctAnswer.toString());
         questionView.submitListener.submitAnswer(correctAnswer.toString());
 
-        Score score = new Score();
-        score.addCorrect();
-        score.addCorrect();
-        assertThat(questionView.updatedScore, is(score));
+        Score expectedScore = new Score();
+        expectedScore.addCorrect();
+        expectedScore.addCorrect();
+        assertThat(questionView.updatedScore, is(expectedScore));
     }
 
     @Test
@@ -103,11 +101,11 @@ public final class QuestionPresenterTest {
         questionView.submitListener.submitAnswer("wrong answer");
         questionView.submitListener.submitAnswer(correctAnswer.toString());
 
-        Score score = new Score();
-        score.addCorrect();
-        score.addIncorrect();
-        score.addIncorrect();
-        assertThat(questionView.updatedScore, is(score));
+        Score expectedScore = new Score();
+        expectedScore.addCorrect();
+        expectedScore.addIncorrect();
+        expectedScore.addIncorrect();
+        assertThat(questionView.updatedScore, is(expectedScore));
     }
 
     public class FakeQuestionGenerator implements QuestionGenerator {
@@ -127,10 +125,6 @@ public final class QuestionPresenterTest {
             }
         }
 
-        @Override
-        public void repeatFailedQuestionAfter(Question failedQuestion, int repeatAfter) {
-
-        }
     }
 
     public class FakeAnswerChecker implements AnswerChecking {

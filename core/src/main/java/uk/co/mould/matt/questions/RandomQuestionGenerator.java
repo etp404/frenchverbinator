@@ -62,12 +62,7 @@ public final class RandomQuestionGenerator implements QuestionGenerator {
         }
     }
 
-	@Override
-	public void repeatFailedQuestionAfter(Question failedQuestion, int repeatAfter) {
-
-	}
-
-	private Persons.Person getRandomPerson() {
+    private Persons.Person getRandomPerson() {
 		return personList.get(randomNumberGenerator.randomNumber(0, SupportedPersons.ALL.size()));
 	}
 
