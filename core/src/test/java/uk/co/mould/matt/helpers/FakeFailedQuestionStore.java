@@ -8,41 +8,14 @@ import uk.co.mould.matt.questions.Question;
 
 public class FakeFailedQuestionStore implements FailedQuestionStore {
     public Question question;
-    public Question storedQuestion;
 
     public FakeFailedQuestionStore() {
 
     }
 
-    public FakeFailedQuestionStore(Question question) {
-        this.question = question;
-    }
-
-    @Override
-    public boolean hasFailedQuestions(Filter filter) {
-        return filter.match(question);
-    }
-
-    public Question pop() {
-        return question;
-    }
-
-    @Override
-    public boolean hasFailedQuestions() {
-        return question!=null;
-    }
-
     @Override
     public void store(Question question) {
-        storedQuestion = question;
-    }
-
-    @Override
-    public Question pop(Filter questionFilter) {
-        if (questionFilter.match(question)) {
-            return question;
-        }
-        return null;
+        this.question = question;
     }
 
     @Override

@@ -35,7 +35,7 @@ public class AnswerCheckerTest {
     @Before
     public void setUp() throws Exception {
         fakeConjugator = new FakeConjugator(person, verb, verbMoodAndTense, correctAnswer);
-        fakeFailedQuestionStore = new FakeFailedQuestionStore(null);
+        fakeFailedQuestionStore = new FakeFailedQuestionStore();
         answerChecking = new AnswerChecker(fakeConjugator, fakeFailedQuestionStore);
         capturingCallback = new CapturingCallback();
     }
@@ -55,7 +55,7 @@ public class AnswerCheckerTest {
     @Test
     public void testThatAnswerCheckerRecordsAWrongAnswer() throws FileNotFoundException {
         answerChecking.check(question, "wrong answer", capturingCallback);
-        assertEquals(fakeFailedQuestionStore.storedQuestion, question);
+        assertEquals(fakeFailedQuestionStore.question, question);
     }
 
     @Test

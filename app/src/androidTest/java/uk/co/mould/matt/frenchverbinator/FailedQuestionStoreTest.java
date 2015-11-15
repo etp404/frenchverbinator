@@ -46,7 +46,6 @@ public class FailedQuestionStoreTest extends AndroidTestCase {
     @Test
     public void testThatCanStoreAndRetrieveFailedQuestions() {
         androidFailedQuestionStore.store(questionList.get(0));
-        assertTrue(androidFailedQuestionStore.hasFailedQuestions());
         androidFailedQuestionStore.getFailedQuestion(capturingCallback, new ArrayList<MoodAndTense>(){{add(verbMoodAndTense);}});
         assertThat(capturingCallback.question, is(questionList.get(0)));
         androidFailedQuestionStore.getFailedQuestion(capturingCallback, new ArrayList<MoodAndTense>(){{add(verbMoodAndTense);}});

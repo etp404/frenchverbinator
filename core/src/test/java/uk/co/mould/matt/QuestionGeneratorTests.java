@@ -62,7 +62,8 @@ public class QuestionGeneratorTests {
     public void repeatsFailedQuestionFromFailedQuestionStoreIfOldNewSelectorSelectsOldAndThereIsAnOldQuestion() {
         Question failedQuestion = new Question(Persons.SECOND_PERSON_SINGULAR, new InfinitiveVerb("bblah", "blaaahdy", "blah"), verbMoodAndTense);
 
-        FailedQuestionStore failedQuestionStore = new FakeFailedQuestionStore(failedQuestion);
+        FailedQuestionStore failedQuestionStore = new FakeFailedQuestionStore();
+        failedQuestionStore.store(failedQuestion);
         RandomQuestionGenerator randomQuestionGenerator = new RandomQuestionGenerator(
                 new FakeRandomNumberGenerator(0),
                 Collections.singletonList(verb),
@@ -81,7 +82,7 @@ public class QuestionGeneratorTests {
     public void generatesNewQuestionIfOldNewSelectorSelectsOldButThereAreNoOldQuestions() {
         Question expectedQuestion = new Question(person, verb, verbMoodAndTense);
 
-        FailedQuestionStore failedQuestionStore = new FakeFailedQuestionStore(null);
+        FailedQuestionStore failedQuestionStore = new FakeFailedQuestionStore();
         RandomQuestionGenerator randomQuestionGenerator = new RandomQuestionGenerator(
                 new FakeRandomNumberGenerator(0),
                 Collections.singletonList(verb),
@@ -100,7 +101,8 @@ public class QuestionGeneratorTests {
     public void generatesNewQuestionIfOldNewSelectorSelectsOldButThereAreNoOldQuestionsWithRightTense() {
         Question expectedQuestion = new Question(person, verb, verbMoodAndTense);
 
-        FailedQuestionStore failedQuestionStore = new FakeFailedQuestionStore(new Question(Persons.SECOND_PERSON_PLURAL, new InfinitiveVerb(null,null,null), new PresentSubjunctive()));
+        FailedQuestionStore failedQuestionStore = new FakeFailedQuestionStore();
+        failedQuestionStore.store(new Question(Persons.SECOND_PERSON_PLURAL, new InfinitiveVerb(null,null,null), new PresentSubjunctive()));
         RandomQuestionGenerator randomQuestionGenerator = new RandomQuestionGenerator(
                 new FakeRandomNumberGenerator(0),
                 Collections.singletonList(verb),

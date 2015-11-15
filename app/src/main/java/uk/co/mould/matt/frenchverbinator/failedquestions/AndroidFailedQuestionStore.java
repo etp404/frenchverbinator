@@ -24,59 +24,6 @@ public class AndroidFailedQuestionStore implements FailedQuestionStore {
     }
 
     @Override
-    public boolean hasFailedQuestions() {
-        return !sharedPreferences.getStringSet(FAILED_QUESTIONS, new HashSet<String>()).isEmpty();
-    }
-
-    @Override
-    public boolean hasFailedQuestions(Filter filter) {
-        for (FailedQuestionToStore failedQuestionToStore : getQuestions()) {
-            if (filter.match(failedQuestionToStore.question)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    @Override
-    public Question pop() {
-        List<FailedQuestionToStore> failedQuestions = getQuestions();
-        Collections.sort(failedQuestions, new Comparator<FailedQuestionToStore>() {
-            @Override
-            public int compare(FailedQuestionToStore lhs, FailedQuestionToStore rhs) {
-                return lhs.position > rhs.position ? 1 : -1;
-            }
-        });
-
-        FailedQuestionToStore failedQuestionToStore = failedQuestions.get(0);
-        failedQuestions.remove(failedQuestionToStore);
-        store(failedQuestions);
-        return failedQuestionToStore.question;
-    }
-
-    @Override
-    public Question pop(Filter filter) {
-        List<FailedQuestionToStore> failedQuestions = getQuestions();
-        Collections.sort(failedQuestions, new Comparator<FailedQuestionToStore>() {
-            @Override
-            public int compare(FailedQuestionToStore lhs, FailedQuestionToStore rhs) {
-                return lhs.position > rhs.position ? 1 : -1;
-            }
-        });
-
-        FailedQuestionToStore failedQuestionToStore = null;
-
-        for (FailedQuestionToStore failedQuestion : failedQuestions) {
-            if (filter.match(failedQuestion.question)) {
-                failedQuestionToStore = failedQuestion;
-            }
-        }
-        failedQuestions.remove(failedQuestionToStore);
-        store(failedQuestions);
-        return failedQuestionToStore.question;
-    }
-
-    @Override
     public void store(Question question) {
         List<FailedQuestionToStore> failedQuestions = getQuestions();
         FailedQuestionToStore failedQuestionToStore = new FailedQuestionToStore(failedQuestions.size(), question);
@@ -103,15 +50,6 @@ public class AndroidFailedQuestionStore implements FailedQuestionStore {
         sharedPreferences.edit().clear().apply();
     }
 
-    public void getFailedQuestion(Callback callback) {
-        List<FailedQuestionToStore> failedQuestionToStores = getQuestions();
-        if (failedQuestionToStores.isEmpty()) {
-            callback.failure();
-        }
-        else {
-            callback.success(pop());
-        }
-    }
 
     public void getFailedQuestion(Callback capturingCallback, List<MoodAndTense> moodsAndTenses) {
         List<FailedQuestionToStore> allFailedQuestions = getQuestions();
@@ -139,41 +77,5 @@ public class AndroidFailedQuestionStore implements FailedQuestionStore {
         }
     }
 
-    public void getFailedQuestion(Callback capturingCallback, FilterForTheseTenses filterForTheseTenses) {
-        List<FailedQuestionToStore> allFailedQuestions = getQuestions();
-        List<FailedQuestionToStore> filteredFailedQuestion =  new ArrayList<>();
-        for (FailedQuestionToStore failedQuestion : allFailedQuestions) {
-            if (filterForTheseTenses.match(failedQuestion.question)) {
-                filteredFailedQuestion.add(failedQuestion);
-            }
-        }
-
-        if (filteredFailedQuestion.isEmpty()) {
-            capturingCallback.failure();
-        }
-        else {
-            Collections.sort(filteredFailedQuestion, new Comparator<FailedQuestionToStore>() {
-                @Override
-                public int compare(FailedQuestionToStore lhs, FailedQuestionToStore rhs) {
-                    return lhs.position > rhs.position ? 1 : -1;
-                }
-            });
-            FailedQuestionToStore failedQuestionToReturn = filteredFailedQuestion.get(0);
-            allFailedQuestions.remove(failedQuestionToReturn);
-            store(allFailedQuestions);
-            capturingCallback.success(failedQuestionToReturn.question);
-        }
-    }
-
-    private List<FailedQuestionToStore> getQuestions(FilterForTheseTenses filterForTheseTenses) {
-        List<FailedQuestionToStore> questions = getQuestions();
-        List<FailedQuestionToStore> filteredFailedQuestionToStore = new ArrayList<>();
-        for (FailedQuestionToStore failedQuestionToStore : questions) {
-            if (filterForTheseTenses.match(failedQuestionToStore.question)) {
-                filteredFailedQuestionToStore.add(failedQuestionToStore);
-            }
-        }
-        return filteredFailedQuestionToStore;
-    }
 
 }
