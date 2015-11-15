@@ -24,7 +24,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
-public class FailedQuestionStoreTest extends AndroidTestCase {
+public class AndroidFailedQuestionStoreTest extends AndroidTestCase {
 
     private FailedQuestionStore androidFailedQuestionStore;
     private final InfinitiveVerb verb = new InfinitiveVerb("regarder", "to watch", "avoir");
@@ -46,10 +46,14 @@ public class FailedQuestionStoreTest extends AndroidTestCase {
     @Test
     public void testThatCanStoreAndRetrieveFailedQuestions() {
         androidFailedQuestionStore.store(questionList.get(0));
-        androidFailedQuestionStore.getFailedQuestion(capturingCallback, new ArrayList<MoodAndTense>(){{add(verbMoodAndTense);}});
+        ArrayList<MoodAndTense> supportedTenses = new ArrayList<MoodAndTense>() {{
+            add(verbMoodAndTense);
+        }};
+        androidFailedQuestionStore.getFailedQuestion(capturingCallback, supportedTenses);
         assertThat(capturingCallback.question, is(questionList.get(0)));
-        androidFailedQuestionStore.getFailedQuestion(capturingCallback, new ArrayList<MoodAndTense>(){{add(verbMoodAndTense);}});
+        androidFailedQuestionStore.getFailedQuestion(capturingCallback, supportedTenses);
         assertNull(capturingCallback.question);
+        assertTrue(capturingCallback.failureCalled);
     }
 
     @Test
@@ -106,6 +110,7 @@ public class FailedQuestionStoreTest extends AndroidTestCase {
     private static class CapturingCallback implements AndroidFailedQuestionStore.Callback {
 
         private Question question;
+        public boolean failureCalled;
 
         @Override
         public void success(Question question) {
@@ -115,6 +120,7 @@ public class FailedQuestionStoreTest extends AndroidTestCase {
         @Override
         public void failure() {
             question = null;
+            failureCalled = true;
         }
     }
 }
