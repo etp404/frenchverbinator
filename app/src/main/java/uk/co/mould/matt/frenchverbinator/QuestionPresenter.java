@@ -11,7 +11,6 @@ public class QuestionPresenter {
 	private QuestionView questionView;
     private Score score = new Score();
 	private QuestionGenerator randomQuestionGenerator;
-    private AnswerChecking answerChecking;
     private Question question;
 
     public QuestionPresenter(final QuestionView questionView,
@@ -19,7 +18,6 @@ public class QuestionPresenter {
                              final AnswerChecking answerChecking) {
 		this.questionView = questionView;
 		this.randomQuestionGenerator = randomQuestionGenerator;
-        this.answerChecking = answerChecking;
         questionView.addSubmitListener(new QuestionView.SubmitListener() {
             @Override
             public void submitAnswer(String answer) {

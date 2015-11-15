@@ -29,7 +29,7 @@ class QuestionPresenterFactory {
         Conjugator conjugator = new Conjugator(verbTemplateParser, conjugationParser);
 
         FailedQuestionStore failedQuestionStore = new AndroidFailedQuestionStore(context);
-        ShouldUseFailedQuestion returnTrue75PercentOfTime = new ShouldUseFailedQuestion() {
+        ShouldUseFailedQuestion shouldUseFailedQuestion25PercentOfTime = new ShouldUseFailedQuestion() {
             RandomNumberGenerator randomNumberGenerator = new SystemRandomNumberGenerator();
 
             @Override
@@ -43,7 +43,7 @@ class QuestionPresenterFactory {
                 SupportedPersons.ALL,
                 storedUserSettings.includedTenses(),
                 failedQuestionStore,
-                returnTrue75PercentOfTime);
+                shouldUseFailedQuestion25PercentOfTime);
 
         new QuestionPresenter(
                 questionView,
