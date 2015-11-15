@@ -43,23 +43,27 @@ public final class RandomQuestionGenerator implements QuestionGenerator {
         else {
             //TODO: refactor this once moved over to this style.
             if (shouldUseFailedQuestion.invoke()) {
-                FailedQuestionStore.Callback failedQuestionStoreCallback = new FailedQuestionStore.Callback() {
-                    @Override
-                    public void success(Question question) {
-                        callback.questionProvided(question);
-                    }
-
-                    @Override
-                    public void failure() {
-                        callback.questionProvided(new Question(getRandomPerson(), getRandomVerb(), getRandomVerbMoodAndTense()));
-                    }
-                };
-                failedQuestionStore.getFailedQuestion(failedQuestionStoreCallback, moodsAndTensesToSelectFrom);
+                tryToUseOldQuestion(callback);
             }
             else {
                 callback.questionProvided(new Question(getRandomPerson(), getRandomVerb(), getRandomVerbMoodAndTense()));
             }
         }
+    }
+
+    private void tryToUseOldQuestion(final Callback callback) {
+        FailedQuestionStore.Callback failedQuestionStoreCallback = new FailedQuestionStore.Callback() {
+            @Override
+            public void success(Question question) {
+                callback.questionProvided(question);
+            }
+
+            @Override
+            public void failure() {
+                callback.questionProvided(new Question(getRandomPerson(), getRandomVerb(), getRandomVerbMoodAndTense()));
+            }
+        };
+        failedQuestionStore.getFailedQuestion(failedQuestionStoreCallback, moodsAndTensesToSelectFrom);
     }
 
     private Persons.Person getRandomPerson() {
