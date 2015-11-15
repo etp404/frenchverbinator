@@ -41,7 +41,7 @@ public class QuestionGeneratorTests {
     }
 
     @Test
-    public void returnsQuestionFromList() {
+    public void generatesNewQuestionFromAvailableCombinationsIfShouldUseOldQuestionReturnsFalse() {
         RandomQuestionGenerator randomQuestionGenerator = new RandomQuestionGenerator(new FakeRandomNumberGenerator(0),
                 Collections.singletonList(verb),
                 Collections.singletonList(person),
@@ -76,25 +76,6 @@ public class QuestionGeneratorTests {
         CapturingCallback callback = new CapturingCallback();
         randomQuestionGenerator.getQuestion(callback);
         assertEquals(failedQuestion, callback.question);
-    }
-
-    @Test
-    public void generatesNewQuestionIfOldNewSelectorSelectsOldButThereAreNoOldQuestions() {
-        Question expectedQuestion = new Question(person, verb, verbMoodAndTense);
-
-        FailedQuestionStore failedQuestionStore = new FakeFailedQuestionStore();
-        RandomQuestionGenerator randomQuestionGenerator = new RandomQuestionGenerator(
-                new FakeRandomNumberGenerator(0),
-                Collections.singletonList(verb),
-                Collections.singletonList(person),
-                Collections.singletonList(verbMoodAndTense),
-                failedQuestionStore,
-                new FakeShouldUseFailedQuestion(true)
-        );
-
-        CapturingCallback callback = new CapturingCallback();
-        randomQuestionGenerator.getQuestion(callback);
-        assertEquals(expectedQuestion, callback.question);
     }
 
     @Test
