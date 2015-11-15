@@ -165,7 +165,13 @@ public class QuestionGeneratorTests {
         }
 
         @Override
-        public void getFailedQuestion(Callback capturingCallback, List<MoodAndTense> moodAndTenses) {
+        public void getFailedQuestion(Callback callback, List<MoodAndTense> moodAndTenses) {
+            if (question!=null && moodAndTenses.contains(question.moodAndTense)) {
+                callback.success(question);
+            }
+            else {
+                callback.failure();
+            }
 
         }
     }

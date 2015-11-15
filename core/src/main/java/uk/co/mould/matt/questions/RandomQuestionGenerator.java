@@ -81,15 +81,25 @@ public final class RandomQuestionGenerator implements QuestionGenerator {
     }
 
 	@Override
-	public void getQuestion(Callback callback) {
+	public void getQuestion(final Callback callback) {
         if (moodsAndTensesToSelectFrom.size()==0) {
             callback.noTensesSelected();
         }
         else {
             //TODO: refactor this once moved over to this style.
-            FailedQuestionStore.Filter failedQuestionFilter = new FailedQuestionStore.FilterForTheseTenses(moodsAndTensesToSelectFrom);
-            if (shouldUseFailedQuestion.invoke() && failedQuestionStore.hasFailedQuestions(failedQuestionFilter)) {
-                callback.questionProvided(failedQuestionStore.pop(failedQuestionFilter));
+            if (shouldUseFailedQuestion.invoke()) {
+                FailedQuestionStore.Callback failedQuestionStoreCallback = new FailedQuestionStore.Callback() {
+                    @Override
+                    public void success(Question question) {
+                        callback.questionProvided(question);
+                    }
+
+                    @Override
+                    public void failure() {
+                        callback.questionProvided(new Question(getRandomPerson(), getRandomVerb(), getRandomVerbMoodAndTense()));
+                    }
+                };
+                failedQuestionStore.getFailedQuestion(failedQuestionStoreCallback, moodsAndTensesToSelectFrom);
             }
             else {
                 callback.questionProvided(new Question(getRandomPerson(), getRandomVerb(), getRandomVerbMoodAndTense()));
