@@ -26,7 +26,7 @@ import static org.junit.Assert.assertTrue;
 
 public class FailedQuestionStoreTest extends AndroidTestCase {
 
-    private AndroidFailedQuestionStore androidFailedQuestionStore;
+    private FailedQuestionStore androidFailedQuestionStore;
     private final InfinitiveVerb verb = new InfinitiveVerb("regarder", "to watch", "avoir");
     private static MoodAndTense verbMoodAndTense = new PresentIndicative();
     List<Question> questionList = new ArrayList<Question>() {{
@@ -99,8 +99,7 @@ public class FailedQuestionStoreTest extends AndroidTestCase {
         moodAndTenses.add(new PresentSubjunctive());
         moodAndTenses.add(expectedQuestion.moodAndTense);
 
-        final FailedQuestionStore.FilterForTheseTenses questionFilter = new AndroidFailedQuestionStore.FilterForTheseTenses(moodAndTenses);
-        androidFailedQuestionStore.getFailedQuestion(capturingCallback, questionFilter);
+        androidFailedQuestionStore.getFailedQuestion(capturingCallback, moodAndTenses);
         assertThat(expectedQuestion, is(capturingCallback.question));
     }
 

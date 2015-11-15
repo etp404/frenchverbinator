@@ -32,6 +32,16 @@ public interface FailedQuestionStore {
         public Question pop(Filter filter) {
             return null;
         }
+
+        @Override
+        public void clear() {
+
+        }
+
+        @Override
+        public void getFailedQuestion(Callback capturingCallback, List<MoodAndTense> moodAndTenses) {
+
+        }
     };
 
     boolean hasFailedQuestions(Filter filter);
@@ -44,8 +54,17 @@ public interface FailedQuestionStore {
 
     Question pop(Filter questionFilter);
 
+    void clear();
+
+    void getFailedQuestion(Callback capturingCallback, List<MoodAndTense> moodAndTenses);
+
     interface Filter {
         boolean match(Question question);
+    }
+
+    interface Callback {
+        void success(Question question);
+        void failure();
     }
 
     class FilterForTheseTenses implements Filter {

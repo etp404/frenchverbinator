@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.FileNotFoundException;
+import java.util.List;
 
 import uk.co.mould.matt.data.ConjugatedVerbWithPronoun;
 import uk.co.mould.matt.data.InfinitiveVerb;
@@ -102,6 +103,16 @@ public class AnswerCheckerTest {
         @Override
         public Question pop(Filter questionFilter) {
             return null;
+        }
+
+        @Override
+        public void clear() {
+
+        }
+
+        @Override
+        public void getFailedQuestion(Callback capturingCallback, List<MoodAndTense> moodAndTenses) {
+
         }
     }
 }

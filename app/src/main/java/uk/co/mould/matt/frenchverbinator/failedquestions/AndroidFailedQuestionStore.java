@@ -176,8 +176,4 @@ public class AndroidFailedQuestionStore implements FailedQuestionStore {
         return filteredFailedQuestionToStore;
     }
 
-    public interface Callback {
-        void success(Question question);
-        void failure();
-    }
 }

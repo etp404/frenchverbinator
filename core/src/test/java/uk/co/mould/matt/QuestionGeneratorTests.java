@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import uk.co.mould.matt.data.InfinitiveVerb;
 import uk.co.mould.matt.data.Persons;
@@ -156,6 +157,16 @@ public class QuestionGeneratorTests {
                 return question;
             }
             return null;
+        }
+
+        @Override
+        public void clear() {
+
+        }
+
+        @Override
+        public void getFailedQuestion(Callback capturingCallback, List<MoodAndTense> moodAndTenses) {
+
         }
     }
 

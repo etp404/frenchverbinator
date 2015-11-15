@@ -34,6 +34,16 @@ public final class RandomQuestionGenerator implements QuestionGenerator {
         public Question pop(Filter questionFilter) {
             return null;
         }
+
+        @Override
+        public void clear() {
+
+        }
+
+        @Override
+        public void getFailedQuestion(Callback capturingCallback, List<MoodAndTense> moodAndTenses) {
+
+        }
     };
     private ShouldUseFailedQuestion shouldUseFailedQuestion = new ShouldUseFailedQuestion() {
         @Override
