@@ -1,13 +1,12 @@
 apply plugin: 'com.android.application'
-
 android {
-    compileSdkVersion 22
-    buildToolsVersion "22.0.1"
+    compileSdkVersion 23
+    buildToolsVersion '23.0.2'
 
     defaultConfig {
         applicationId "uk.co.mould.matt.frenchverbinator"
         minSdkVersion 16
-        targetSdkVersion 22
+        targetSdkVersion 23
         versionCode 8
         versionName "1.9"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -17,30 +16,32 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        packagingOptions {
+            exclude 'LICENSE.txt'
+        }
+        lintOptions {
+            abortOnError false
+        }
     }
-    packagingOptions {
-        exclude 'LICENSE.txt'
-    }
-    lintOptions {
-        abortOnError false
-    }
-}
 
-task runAllTests(dependsOn: ['clean',
-                             'build',
-                             'connectedAndroidTest',
-                             ':core:test',
-                             ':app:connectedAndroidTest'])
-build.mustRunAfter 'clean'
-tasks.whenTaskAdded { task ->
-    if (task.name == 'connectedAndroidTest')
-        task.dependsOn build
+    task runAllTests(dependsOn: ['clean',
+                                 'build',
+                                 'connectedAndroidTest',
+                                 ':core:test',
+                                 ':app:connectedAndroidTest'])
+    build.mustRunAfter 'clean'
+    tasks.whenTaskAdded { task ->
+        if (task.name == 'connectedAndroidTest')
+            task.dependsOn build
+    }
+
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:22.2.0'
-    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2'
+    compile 'com.android.support:appcompat-v7:23.1.1'
+    compile 'com.github.amlcurran.showcaseview:library:5.4.0'
+    androidTestCompile 'com.android.support:support-annotations:23.1.1'
+    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.1'
     androidTestCompile 'com.android.support.test:runner:0.3'
-    compile project(':core')
-}
+    compile project(':core')}
