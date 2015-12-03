@@ -9,6 +9,7 @@
         android:id="@+id/toolbar"
         app:theme="@style/Toolbar"
         android:layout_height="wrap_content"/>
+
     <uk.co.mould.matt.frenchverbinator.AndroidQuestionView xmlns:android="http://schemas.android.com/apk/res/android"
                     xmlns:tools="http://schemas.android.com/tools"
                       android:orientation="vertical"

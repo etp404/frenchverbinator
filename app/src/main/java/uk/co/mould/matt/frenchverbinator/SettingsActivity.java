@@ -2,13 +2,12 @@ package uk.co.mould.matt.frenchverbinator;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.ViewGroup;
+import android.support.v7.widget.Toolbar;
 
 import uk.co.mould.matt.frenchverbinator.settings.ui.AndroidSettingsView;
 import uk.co.mould.matt.frenchverbinator.settings.SharedPrefsUserSettings;
 import uk.co.mould.matt.frenchverbinator.settings.ui.SettingsPresenter;
 import uk.co.mould.matt.frenchverbinator.settings.ui.SettingsPresenterImpl;
-import uk.co.mould.matt.frenchverbinator.settings.ui.SettingsView;
 
 public final class SettingsActivity extends AppCompatActivity {
 
@@ -16,6 +15,9 @@ public final class SettingsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings_activity_layout);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         AndroidSettingsView settingsView = (AndroidSettingsView) findViewById(R.id.android_settings_view);
 
