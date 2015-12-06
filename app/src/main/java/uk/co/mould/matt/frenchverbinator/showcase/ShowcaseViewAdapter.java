@@ -5,7 +5,6 @@ import android.view.View;
 import com.github.amlcurran.showcaseview.targets.Target;
 
 public interface ShowcaseViewAdapter {
-    void show();
 
     void hide();
 

@@ -83,11 +83,6 @@ public class QuestionActivity extends AppCompatActivity {
         }
 
         @Override
-        public void show() {
-            showcaseView.show();
-        }
-
-        @Override
         public void hide() {
             showcaseView.hide();
         }

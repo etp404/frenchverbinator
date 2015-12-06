@@ -49,7 +49,6 @@ public class AutolaunchingQuestionViewShowcaser implements View.OnClickListener 
             add(new Runnable() {
                 @Override
                 public void run() {
-                    showcaseViewAdapter.show();
                     showcaseViewAdapter.setContentTextForView(
                             "You can select which tenses you wish to practise here.",
                             toolbarTargetFactory.createToolbarTarget((Toolbar)androidQuestionView.findViewById(R.id.toolbar), R.id.action_settings));

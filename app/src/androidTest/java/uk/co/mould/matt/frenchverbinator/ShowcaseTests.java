@@ -31,8 +31,6 @@ public class ShowcaseTests  extends AndroidTestCase {
 
         new AutolaunchingQuestionViewShowcaser(fakeTargetFactory, fakeViewTargetFactory, fakeShowcaseAdapter, questionView);
 
-        assertTrue(fakeShowcaseAdapter.showInvoked);
-
         assertTrue(fakeShowcaseAdapter.viewsTargeted.get(0) instanceof FakeToolbarTarget);
         FakeToolbarTarget fakeToolbarTarget = (FakeToolbarTarget)fakeShowcaseAdapter.viewsTargeted.get(0);
         assertThat(fakeToolbarTarget.toolbar, is(questionView.findViewById(R.id.toolbar)));
@@ -60,11 +58,6 @@ public class ShowcaseTests  extends AndroidTestCase {
         public List<Target> viewsTargeted = new ArrayList<>();
         public List<String> contentTitles = new ArrayList<>();
         public boolean hideInvoked;
-
-        @Override
-        public void show() {
-            showInvoked = true;
-        }
 
         @Override
         public void hide() {
