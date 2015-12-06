@@ -43,7 +43,6 @@ public class AndroidFailedQuestionStoreTest extends AndroidTestCase {
         capturingCallback = new CapturingCallback();
     }
 
-    @Test
     public void testThatCanStoreAndRetrieveFailedQuestions() {
         androidFailedQuestionStore.store(questionList.get(0));
         ArrayList<MoodAndTense> supportedTenses = new ArrayList<MoodAndTense>() {{
@@ -56,7 +55,19 @@ public class AndroidFailedQuestionStoreTest extends AndroidTestCase {
         assertTrue(capturingCallback.failureCalled);
     }
 
-    @Test
+    public void testDoesNotStoredAlreadyStoredFailedQuestion() {
+        androidFailedQuestionStore.store(questionList.get(0));
+        androidFailedQuestionStore.store(questionList.get(0));
+        ArrayList<MoodAndTense> supportedTenses = new ArrayList<MoodAndTense>() {{
+            add(verbMoodAndTense);
+        }};
+        androidFailedQuestionStore.getFailedQuestion(capturingCallback, supportedTenses);
+        assertThat(capturingCallback.question, is(questionList.get(0)));
+        androidFailedQuestionStore.getFailedQuestion(capturingCallback, supportedTenses);
+        assertNull(capturingCallback.question);
+        assertTrue(capturingCallback.failureCalled);
+    }
+
     public void testThatCheckThatThereAreQuestionsOfAGivenTypeCallsFailureCallbackAsExpected() {
         for (Question question : questionList) {
             androidFailedQuestionStore.store(question);
@@ -70,7 +81,6 @@ public class AndroidFailedQuestionStoreTest extends AndroidTestCase {
         assertNull(capturingCallback.question);
     }
 
-    @Test
     public void testThatCanStoreAndRetrieveFailedInOrderQuestions() {
         List<MoodAndTense> storedMoodsAndTenses = new ArrayList<>();
         for (Question question : questionList) {
@@ -83,7 +93,6 @@ public class AndroidFailedQuestionStoreTest extends AndroidTestCase {
         }
     }
 
-    @Test
     public void testThatCanStoreAndRetrieveQuestionsWithFilter() {
         for (Question question : questionList) {
             androidFailedQuestionStore.store(question);

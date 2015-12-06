@@ -24,9 +24,14 @@ public class AndroidFailedQuestionStore implements FailedQuestionStore {
     }
 
     @Override
-    public void store(Question question) {
+    public void store(Question newFailedQuestion) {
         List<FailedQuestionToStore> failedQuestions = getQuestions();
-        FailedQuestionToStore failedQuestionToStore = new FailedQuestionToStore(failedQuestions.size(), question);
+        for (FailedQuestionToStore failedQuestion : failedQuestions) {
+            if (failedQuestion.question.equals(newFailedQuestion)) {
+                return;
+            }
+        }
+        FailedQuestionToStore failedQuestionToStore = new FailedQuestionToStore(failedQuestions.size(), newFailedQuestion);
 
         failedQuestions.add(failedQuestionToStore);
         store(failedQuestions);
