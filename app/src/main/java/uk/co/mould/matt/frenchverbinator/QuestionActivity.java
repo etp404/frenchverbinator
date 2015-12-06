@@ -54,6 +54,7 @@ public class QuestionActivity extends AppCompatActivity {
     private static class QuestionActivityShowcaserBuilder {
         static AutolaunchingQuestionViewShowcaser build(Activity activity, AndroidQuestionView questionView) {
             ShowcaseView showcaseView = new ShowcaseView.Builder(activity)
+                    .setStyle(R.style.CustomShowcaseTheme)
                     .build();
             showcaseView.setDetailTextAlignment(Layout.Alignment.ALIGN_CENTER);
             AutolaunchingQuestionViewShowcaser.ToolbarTargetFactory toolbarTargetFactory = new AutolaunchingQuestionViewShowcaser.ToolbarTargetFactory() {
