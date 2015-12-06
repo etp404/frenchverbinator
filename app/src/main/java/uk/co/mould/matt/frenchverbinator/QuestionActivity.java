@@ -1,11 +1,21 @@
 package uk.co.mould.matt.frenchverbinator;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Layout;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+
+import com.github.amlcurran.showcaseview.ShowcaseView;
+import com.github.amlcurran.showcaseview.targets.ViewTarget;
+
+import uk.co.mould.matt.frenchverbinator.showcase.QuestionViewShowcaser;
+import uk.co.mould.matt.frenchverbinator.showcase.ShowcaseViewAdapter;
 
 public class QuestionActivity extends AppCompatActivity {
 
@@ -16,7 +26,10 @@ public class QuestionActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        QuestionPresenterFactory.create(getApplicationContext(), ((AndroidQuestionView) findViewById(R.id.android_question_view)));
+        AndroidQuestionView questionView = (AndroidQuestionView) findViewById(R.id.android_question_view);
+        QuestionPresenterFactory.create(getApplicationContext(), questionView);
+
+        QuestionActivityShowcaserBuilder.build(this, questionView);
     }
 
 
@@ -38,4 +51,42 @@ public class QuestionActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    private static class QuestionActivityShowcaserBuilder {
+        static QuestionViewShowcaser build(Activity activity, AndroidQuestionView questionView) {
+            ShowcaseView showcaseView = new ShowcaseView.Builder(activity)
+                    .build();
+            showcaseView.setDetailTextAlignment(Layout.Alignment.ALIGN_CENTER);
+            return new QuestionViewShowcaser(new AMLShowcaseViewAdapter(showcaseView), questionView);
+        }
+    }
+
+
+    private static class AMLShowcaseViewAdapter implements ShowcaseViewAdapter {
+        private ShowcaseView showcaseView;
+
+        public AMLShowcaseViewAdapter(ShowcaseView showcaseView) {
+            this.showcaseView = showcaseView;
+        }
+
+        @Override
+        public void show() {
+            showcaseView.show();
+        }
+
+        @Override
+        public void hide() {
+            showcaseView.hide();
+        }
+
+        @Override
+        public void overrideButtonClick(View.OnClickListener listener) {
+            showcaseView.overrideButtonClick(listener);
+        }
+
+        @Override
+        public void setContentTextForView(String contentText, View view) {
+            showcaseView.setContentText(contentText);
+            showcaseView.setTarget(new ViewTarget(view));
+        }
+    }
 }

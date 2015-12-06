@@ -4,6 +4,7 @@ import android.content.Context;
 import android.test.AndroidTestCase;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Toolbar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,14 +30,17 @@ public class ShowcaseTests  extends AndroidTestCase {
 
         assertTrue(fakeShowcaseAdapter.showInvoked);
         assertThat(fakeShowcaseAdapter.viewsTargeted.get(0).getId(), is(R.id.toolbar));
+        assertTrue(fakeShowcaseAdapter.viewsTargeted.get(0) instanceof Toolbar);
         assertThat(fakeShowcaseAdapter.contentTitles.get(0), is("You can select which tenses you wish to practise here."));
 
         fakeShowcaseAdapter.onClickListener.onClick(null);
         assertThat(fakeShowcaseAdapter.viewsTargeted.get(1).getId(), is(R.id.question));
+        assertTrue(fakeShowcaseAdapter.viewsTargeted.get(1) instanceof View);
         assertThat(fakeShowcaseAdapter.contentTitles.get(1), is("Verbinator will repeat questions that you get wrong."));
 
         fakeShowcaseAdapter.onClickListener.onClick(null);
         assertThat(fakeShowcaseAdapter.viewsTargeted.get(2).getId(), is(R.id.answer_box));
+        assertTrue(fakeShowcaseAdapter.viewsTargeted.get(2) instanceof View);
         assertThat(fakeShowcaseAdapter.contentTitles.get(2), is("Give your answer in the form 'tu regardes'."));
 
         fakeShowcaseAdapter.onClickListener.onClick(null);
