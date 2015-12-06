@@ -10,6 +10,7 @@ import com.github.amlcurran.showcaseview.targets.ViewTarget;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -35,8 +36,6 @@ public class ShowcaseTests  extends AndroidTestCase {
         questionViewShowcaser.start();
 
         assertTrue(fakeShowcaseAdapter.showInvoked);
-
-        fakeShowcaseAdapter.onClickListener.onClick(null);
         assertThat(fakeShowcaseAdapter.viewsTargeted.get(0).getId(), is(R.id.toolbar));
         assertThat(fakeShowcaseAdapter.contentTitles.get(0), is("You can select which tenses you wish to practise here."));
 
@@ -53,43 +52,61 @@ public class ShowcaseTests  extends AndroidTestCase {
     }
 
     private class QuestionViewShowcaser implements View.OnClickListener {
-        private ShowcaseViewAdapter showcaseViewAdapter;
-        private AndroidQuestionView androidQuestionView;
-        private int showcaseCount = 0;
+        private final Iterator<Runnable> runnablesIterator;
 
-        public QuestionViewShowcaser(ShowcaseViewAdapter showcaseViewAdapter,  AndroidQuestionView androidQuestionView) {
-            this.showcaseViewAdapter = showcaseViewAdapter;
-            this.androidQuestionView = androidQuestionView;
+        public QuestionViewShowcaser(final ShowcaseViewAdapter showcaseViewAdapter, final AndroidQuestionView androidQuestionView) {
+            showcaseViewAdapter.overrideButtonClick(this);
+            runnablesIterator = createRunnablesIterator(showcaseViewAdapter, androidQuestionView);
         }
 
         public void start() {
-            showcaseViewAdapter.setContentTextForView(
-                    "You can select which tenses you wish to practise here.",
-                    androidQuestionView.findViewById(R.id.toolbar));
-            showcaseViewAdapter.show();
-            showcaseViewAdapter.overrideButtonClick(this);
+            runnablesIterator.next().run();
         }
 
         @Override
         public void onClick(View v) {
-            switch (showcaseCount) {
-                case 0:
-                    showcaseViewAdapter.setContentTextForView(
-                            "Verbinator will repeat questions that you get wrong.",
-                            androidQuestionView.findViewById(R.id.question));
-                    break;
-                case 1:
-                    showcaseViewAdapter.setContentTextForView(
-                            "Give your answer in the form 'tu regardes'.",
-                            androidQuestionView.findViewById(R.id.answer_box));
-                    break;
-                case 2:
-                    showcaseViewAdapter.hide();
-                    break;
-            }
-            showcaseCount++;
-
+            runnablesIterator.next().run();
         }
+
+        private Iterator<Runnable> createRunnablesIterator(final ShowcaseViewAdapter showcaseViewAdapter, final AndroidQuestionView androidQuestionView) {
+            List<Runnable> runnables = new ArrayList<Runnable>() {{
+                add(new Runnable() {
+                    @Override
+                    public void run() {
+                        showcaseViewAdapter.show();
+                        showcaseViewAdapter.setContentTextForView(
+                                "You can select which tenses you wish to practise here.",
+                                androidQuestionView.findViewById(R.id.toolbar));
+                    }
+                });
+                add(new Runnable() {
+                    @Override
+                    public void run() {
+                        showcaseViewAdapter.setContentTextForView(
+                                "Verbinator will repeat questions that you get wrong.",
+                                androidQuestionView.findViewById(R.id.question));
+                    }
+                });
+                add(new Runnable() {
+                    @Override
+                    public void run() {
+                        showcaseViewAdapter.setContentTextForView(
+                                "Give your answer in the form 'tu regardes'.",
+                                androidQuestionView.findViewById(R.id.answer_box));
+                    }
+                });
+
+                add(new Runnable() {
+                    @Override
+                    public void run() {
+                        showcaseViewAdapter.hide();
+                    }
+                });
+
+            }};
+            return runnables.iterator();
+        }
+
     }
 
     private class FakeShowcaseViewAdapter implements ShowcaseViewAdapter {
