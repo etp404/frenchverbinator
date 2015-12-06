@@ -13,7 +13,7 @@ import java.util.List;
 import uk.co.mould.matt.frenchverbinator.AndroidQuestionView;
 import uk.co.mould.matt.frenchverbinator.R;
 
-public class QuestionViewShowcaser implements View.OnClickListener {
+public class AutolaunchingQuestionViewShowcaser implements View.OnClickListener {
     private final ToolbarTargetFactory toolbarTargetFactory;
     private ViewTargetFactory viewTargetFactory;
     private final ShowcaseViewAdapter showcaseViewAdapter;
@@ -29,16 +29,13 @@ public class QuestionViewShowcaser implements View.OnClickListener {
 
     private final Iterator<Runnable> runnablesIterator;
 
-    public QuestionViewShowcaser(ToolbarTargetFactory toolbarTargetFactory, ViewTargetFactory viewTargetFactory, final ShowcaseViewAdapter showcaseViewAdapter, final AndroidQuestionView androidQuestionView) {
+    public AutolaunchingQuestionViewShowcaser(ToolbarTargetFactory toolbarTargetFactory, ViewTargetFactory viewTargetFactory, final ShowcaseViewAdapter showcaseViewAdapter, final AndroidQuestionView androidQuestionView) {
         this.toolbarTargetFactory = toolbarTargetFactory;
         this.viewTargetFactory = viewTargetFactory;
         this.showcaseViewAdapter = showcaseViewAdapter;
         this.androidQuestionView = androidQuestionView;
         showcaseViewAdapter.overrideButtonClick(this);
         runnablesIterator = createRunnablesIterator(showcaseViewAdapter, androidQuestionView);
-    }
-
-    public void start() {
         runnablesIterator.next().run();
     }
 

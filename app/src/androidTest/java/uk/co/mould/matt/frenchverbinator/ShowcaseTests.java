@@ -5,15 +5,14 @@ import android.graphics.Point;
 import android.test.AndroidTestCase;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Toolbar;
 
 import com.github.amlcurran.showcaseview.targets.Target;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import uk.co.mould.matt.frenchverbinator.showcase.QuestionViewShowcaser;
-import uk.co.mould.matt.frenchverbinator.showcase.QuestionViewShowcaser.ViewTargetFactory;
+import uk.co.mould.matt.frenchverbinator.showcase.AutolaunchingQuestionViewShowcaser;
+import uk.co.mould.matt.frenchverbinator.showcase.AutolaunchingQuestionViewShowcaser.ViewTargetFactory;
 import uk.co.mould.matt.frenchverbinator.showcase.ShowcaseViewAdapter;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -30,9 +29,7 @@ public class ShowcaseTests  extends AndroidTestCase {
         FakeViewTargetFactory fakeViewTargetFactory = new FakeViewTargetFactory();
         FakeShowcaseViewAdapter fakeShowcaseAdapter = new FakeShowcaseViewAdapter();
 
-        QuestionViewShowcaser questionViewShowcaser = new QuestionViewShowcaser(fakeTargetFactory, fakeViewTargetFactory, fakeShowcaseAdapter, questionView);
-
-        questionViewShowcaser.start();
+        new AutolaunchingQuestionViewShowcaser(fakeTargetFactory, fakeViewTargetFactory, fakeShowcaseAdapter, questionView);
 
         assertTrue(fakeShowcaseAdapter.showInvoked);
 
@@ -87,7 +84,7 @@ public class ShowcaseTests  extends AndroidTestCase {
         }
     }
 
-    private class FakeToolbarTargetFactory implements QuestionViewShowcaser.ToolbarTargetFactory {
+    private class FakeToolbarTargetFactory implements AutolaunchingQuestionViewShowcaser.ToolbarTargetFactory {
 
         @Override
         public Target createToolbarTarget(android.support.v7.widget.Toolbar toolbar, int targetId) {
