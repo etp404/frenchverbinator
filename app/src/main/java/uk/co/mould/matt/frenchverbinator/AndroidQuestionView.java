@@ -18,6 +18,7 @@ import uk.co.mould.matt.marking.Score;
 import uk.co.mould.matt.questions.Question;
 
 public final class AndroidQuestionView extends FrameLayout implements QuestionView  {
+
     private static final String QUESTION_TEMPLATE = "What is the '%s' form of %s (%s) in the %s?";
 
     private View nextButton;

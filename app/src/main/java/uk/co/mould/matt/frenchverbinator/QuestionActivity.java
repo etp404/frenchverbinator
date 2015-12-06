@@ -15,12 +15,11 @@ import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.github.amlcurran.showcaseview.targets.Target;
 import com.github.amlcurran.showcaseview.targets.ViewTarget;
 
-public class QuestionActivity extends AppCompatActivity implements View.OnClickListener {
+public class QuestionActivity extends AppCompatActivity {
 
     private static final boolean ANIMATE_SHOWCASE = true;
+    private AndroidQuestionView androidQuestionView;
 
-    private ShowcaseView showcaseView;
-    private int showcaseCount = 0;
 
     @Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -30,16 +29,11 @@ public class QuestionActivity extends AppCompatActivity implements View.OnClickL
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        QuestionPresenterFactory.create(getApplicationContext(), ((AndroidQuestionView) findViewById(R.id.android_question_view)));
+        androidQuestionView = (AndroidQuestionView)findViewById(R.id.android_question_view);
+        QuestionPresenterFactory.create(getApplicationContext(), androidQuestionView);
 
-        showcaseView = new ShowcaseView.Builder(this)
-                .setStyle(R.style.CustomShowcaseTheme2)
-                .setTarget(new ToolbarActionItemTarget(toolbar, R.id.action_settings))
-                .setContentText("You can select which tenses you wish to be tested on here.")
-                .setOnClickListener(this)
-                .build();
-        showcaseView.setDetailTextAlignment(Layout.Alignment.ALIGN_CENTER);
-        showcaseView.show();
+        QuestionActivityShowcaserBuilder.build(QuestionActivity.this).start();
+
     }
 
     @Override
@@ -59,38 +53,70 @@ public class QuestionActivity extends AppCompatActivity implements View.OnClickL
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (showcaseCount) {
-            case 0:
-                showcaseView.setContentText("Verbinator will repeat questions that you get wrong.");
-                showcaseView.setShowcase(new ViewTarget(findViewById(R.id.question)), ANIMATE_SHOWCASE);
-                break;
-            case 1:
-                showcaseView.setContentText("Give your answer in the form 'tu regardes'.");
-                showcaseView.setShowcase(new ViewTarget(findViewById(R.id.answer_box)), ANIMATE_SHOWCASE);
-                break;
-            case 2:
-                showcaseView.hide();
-                break;
+
+
+    private static class QuestionActivityShowcaserBuilder {
+        static QuestionActivityShowcaser build(QuestionActivity activityToShowcase) {
+            ShowcaseView showcaseView = new ShowcaseView.Builder(activityToShowcase)
+                    .setStyle(R.style.CustomShowcaseTheme2)
+                    .build();
+            showcaseView.setDetailTextAlignment(Layout.Alignment.ALIGN_CENTER);
+            return new QuestionActivityShowcaser(showcaseView, activityToShowcase);
         }
-        showcaseCount++;
     }
 
-    public class ToolbarActionItemTarget implements Target {
+    private static class QuestionActivityShowcaser implements View.OnClickListener {
 
-        private final Toolbar toolbar;
-        private final int menuItemId;
+        private ShowcaseView showcaseView;
+        private int showcaseCount = 0;
+        private QuestionActivity activity;
 
-        public ToolbarActionItemTarget(Toolbar toolbar, @IdRes int itemId) {
-            this.toolbar = toolbar;
-            this.menuItemId = itemId;
+        public QuestionActivityShowcaser(ShowcaseView showcaseView, QuestionActivity activity) {
+            this.activity = activity;
+            this.showcaseView = showcaseView;
+        }
+
+        public void start() {
+            showcaseView.overrideButtonClick(this);
+            showcaseView.show();
+            showcaseView.setContentText("You can select which tenses you wish to be tested on here.");
+            Toolbar toolbar = (Toolbar)activity.findViewById(R.id.toolbar);
+            showcaseView.setShowcase(new ToolbarActionItemTarget(toolbar, R.id.action_settings), ANIMATE_SHOWCASE);
+
+        }
+        public class ToolbarActionItemTarget implements Target {
+
+            private final Toolbar toolbar;
+            private final int menuItemId;
+
+            public ToolbarActionItemTarget(Toolbar toolbar, @IdRes int itemId) {
+                this.toolbar = toolbar;
+                this.menuItemId = itemId;
+            }
+
+            @Override
+            public Point getPoint() {
+                return new ViewTarget(toolbar.findViewById(menuItemId)).getPoint();
+            }
+
         }
 
         @Override
-        public Point getPoint() {
-            return new ViewTarget(toolbar.findViewById(menuItemId)).getPoint();
+        public void onClick(View v) {
+            switch (showcaseCount) {
+                case 0:
+                    showcaseView.setContentText("Verbinator will repeat questions that you get wrong.");
+                    showcaseView.setShowcase(new ViewTarget(activity.findViewById(R.id.question)), ANIMATE_SHOWCASE);
+                    break;
+                case 1:
+                    showcaseView.setContentText("Give your answer in the form 'tu regardes'.");
+                    showcaseView.setShowcase(new ViewTarget(activity.findViewById(R.id.answer_box)), ANIMATE_SHOWCASE);
+                    break;
+                case 2:
+                    showcaseView.hide();
+                    break;
+            }
+            showcaseCount++;
         }
-
     }
 }
