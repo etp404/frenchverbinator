@@ -3,7 +3,6 @@ package uk.co.mould.matt.frenchverbinator;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Layout;
@@ -12,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.github.amlcurran.showcaseview.ShowcaseView;
+import com.github.amlcurran.showcaseview.targets.Target;
 import com.github.amlcurran.showcaseview.targets.ViewTarget;
 
 import uk.co.mould.matt.frenchverbinator.showcase.QuestionViewShowcaser;
@@ -56,7 +56,7 @@ public class QuestionActivity extends AppCompatActivity {
             ShowcaseView showcaseView = new ShowcaseView.Builder(activity)
                     .build();
             showcaseView.setDetailTextAlignment(Layout.Alignment.ALIGN_CENTER);
-            return new QuestionViewShowcaser(new AMLShowcaseViewAdapter(showcaseView), questionView);
+            return new QuestionViewShowcaser(null, null, new AMLShowcaseViewAdapter(showcaseView), questionView);
         }
     }
 
@@ -84,9 +84,9 @@ public class QuestionActivity extends AppCompatActivity {
         }
 
         @Override
-        public void setContentTextForView(String contentText, View view) {
+        public void setContentTextForView(String contentText, Target view) {
             showcaseView.setContentText(contentText);
-            showcaseView.setTarget(new ViewTarget(view));
+            showcaseView.setTarget(view);
         }
     }
 }

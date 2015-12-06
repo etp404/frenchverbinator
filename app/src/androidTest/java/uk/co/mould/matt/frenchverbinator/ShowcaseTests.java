@@ -1,15 +1,19 @@
 package uk.co.mould.matt.frenchverbinator;
 
 import android.content.Context;
+import android.graphics.Point;
 import android.test.AndroidTestCase;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toolbar;
 
+import com.github.amlcurran.showcaseview.targets.Target;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import uk.co.mould.matt.frenchverbinator.showcase.QuestionViewShowcaser;
+import uk.co.mould.matt.frenchverbinator.showcase.QuestionViewShowcaser.ViewTargetFactory;
 import uk.co.mould.matt.frenchverbinator.showcase.ShowcaseViewAdapter;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -22,25 +26,31 @@ public class ShowcaseTests  extends AndroidTestCase {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         AndroidQuestionView questionView = (AndroidQuestionView) layoutInflater.inflate(R.layout.question_layout, null);
 
+        FakeToolbarTargetFactory fakeTargetFactory = new FakeToolbarTargetFactory();
+        FakeViewTargetFactory fakeViewTargetFactory = new FakeViewTargetFactory();
         FakeShowcaseViewAdapter fakeShowcaseAdapter = new FakeShowcaseViewAdapter();
 
-        QuestionViewShowcaser questionViewShowcaser = new QuestionViewShowcaser(fakeShowcaseAdapter, questionView);
+        QuestionViewShowcaser questionViewShowcaser = new QuestionViewShowcaser(fakeTargetFactory, fakeViewTargetFactory, fakeShowcaseAdapter, questionView);
 
         questionViewShowcaser.start();
 
         assertTrue(fakeShowcaseAdapter.showInvoked);
-        assertThat(fakeShowcaseAdapter.viewsTargeted.get(0).getId(), is(R.id.toolbar));
-        assertTrue(fakeShowcaseAdapter.viewsTargeted.get(0) instanceof Toolbar);
-        assertThat(fakeShowcaseAdapter.contentTitles.get(0), is("You can select which tenses you wish to practise here."));
+
+        assertTrue(fakeShowcaseAdapter.viewsTargeted.get(0) instanceof FakeToolbarTarget);
+        FakeToolbarTarget fakeToolbarTarget = (FakeToolbarTarget)fakeShowcaseAdapter.viewsTargeted.get(0);
+        assertThat(fakeToolbarTarget.toolbar, is(questionView.findViewById(R.id.toolbar)));
+        assertThat(fakeToolbarTarget.targetId, is(R.id.action_settings));
 
         fakeShowcaseAdapter.onClickListener.onClick(null);
-        assertThat(fakeShowcaseAdapter.viewsTargeted.get(1).getId(), is(R.id.question));
-        assertTrue(fakeShowcaseAdapter.viewsTargeted.get(1) instanceof View);
+        assertTrue(fakeShowcaseAdapter.viewsTargeted.get(1) instanceof FakeViewTarget);
+        FakeViewTarget fakeViewTarget1 = (FakeViewTarget)fakeShowcaseAdapter.viewsTargeted.get(1);
+        assertThat(fakeViewTarget1.targetView.getId(), is(R.id.question));
         assertThat(fakeShowcaseAdapter.contentTitles.get(1), is("Verbinator will repeat questions that you get wrong."));
 
         fakeShowcaseAdapter.onClickListener.onClick(null);
-        assertThat(fakeShowcaseAdapter.viewsTargeted.get(2).getId(), is(R.id.answer_box));
-        assertTrue(fakeShowcaseAdapter.viewsTargeted.get(2) instanceof View);
+        assertTrue(fakeShowcaseAdapter.viewsTargeted.get(2) instanceof FakeViewTarget);
+        FakeViewTarget fakeViewTarget2 = (FakeViewTarget)fakeShowcaseAdapter.viewsTargeted.get(2);
+        assertThat(fakeViewTarget2.targetView.getId(), is(R.id.answer_box));
         assertThat(fakeShowcaseAdapter.contentTitles.get(2), is("Give your answer in the form 'tu regardes'."));
 
         fakeShowcaseAdapter.onClickListener.onClick(null);
@@ -50,7 +60,7 @@ public class ShowcaseTests  extends AndroidTestCase {
     private class FakeShowcaseViewAdapter implements ShowcaseViewAdapter {
         public boolean showInvoked;
         private View.OnClickListener onClickListener;
-        public List<View> viewsTargeted = new ArrayList<>();
+        public List<Target> viewsTargeted = new ArrayList<>();
         public List<String> contentTitles = new ArrayList<>();
         public boolean hideInvoked;
 
@@ -70,11 +80,56 @@ public class ShowcaseTests  extends AndroidTestCase {
         }
 
         @Override
-        public void setContentTextForView(String contentTitle, View view) {
-            viewsTargeted.add(view);
+        public void setContentTextForView(String contentTitle, Target viewTarget) {
+            viewsTargeted.add(viewTarget);
             contentTitles.add(contentTitle);
 
         }
     }
 
+    private class FakeToolbarTargetFactory implements QuestionViewShowcaser.ToolbarTargetFactory {
+
+        @Override
+        public Target createToolbarTarget(android.support.v7.widget.Toolbar toolbar, int targetId) {
+            return new FakeToolbarTarget(toolbar, targetId);
+        }
+    }
+
+    private class FakeToolbarTarget implements Target {
+
+        private final android.support.v7.widget.Toolbar toolbar;
+        private final int targetId;
+
+        public FakeToolbarTarget(android.support.v7.widget.Toolbar toolbar, int targetId) {
+
+            this.toolbar = toolbar;
+            this.targetId = targetId;
+        }
+
+        @Override
+        public Point getPoint() {
+            return null;
+        }
+    }
+
+
+    private class FakeViewTargetFactory implements ViewTargetFactory {
+        public Target createTarget(View targetView) {
+            return new FakeViewTarget(targetView);
+        }
+    }
+
+    private class FakeViewTarget implements Target {
+
+        private View targetView;
+
+        public FakeViewTarget(View targetView) {
+            this.targetView = targetView;
+        }
+
+        @Override
+        public Point getPoint() {
+            return null;
+        }
+    }
 }

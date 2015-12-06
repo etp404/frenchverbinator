@@ -1,6 +1,10 @@
 package uk.co.mould.matt.frenchverbinator.showcase;
 
+import android.support.v7.widget.Toolbar;
 import android.view.View;
+
+import com.github.amlcurran.showcaseview.targets.Target;
+import com.github.amlcurran.showcaseview.targets.ViewTarget;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -10,9 +14,26 @@ import uk.co.mould.matt.frenchverbinator.AndroidQuestionView;
 import uk.co.mould.matt.frenchverbinator.R;
 
 public class QuestionViewShowcaser implements View.OnClickListener {
+    private final ToolbarTargetFactory toolbarTargetFactory;
+    private ViewTargetFactory viewTargetFactory;
+    private final ShowcaseViewAdapter showcaseViewAdapter;
+    private final AndroidQuestionView androidQuestionView;
+
+    public interface ToolbarTargetFactory {
+        Target createToolbarTarget(Toolbar toolbar, int targetId);
+    }
+
+    public interface ViewTargetFactory {
+        Target createTarget(View targetView);
+    }
+
     private final Iterator<Runnable> runnablesIterator;
 
-    public QuestionViewShowcaser(final ShowcaseViewAdapter showcaseViewAdapter, final AndroidQuestionView androidQuestionView) {
+    public QuestionViewShowcaser(ToolbarTargetFactory toolbarTargetFactory, ViewTargetFactory viewTargetFactory, final ShowcaseViewAdapter showcaseViewAdapter, final AndroidQuestionView androidQuestionView) {
+        this.toolbarTargetFactory = toolbarTargetFactory;
+        this.viewTargetFactory = viewTargetFactory;
+        this.showcaseViewAdapter = showcaseViewAdapter;
+        this.androidQuestionView = androidQuestionView;
         showcaseViewAdapter.overrideButtonClick(this);
         runnablesIterator = createRunnablesIterator(showcaseViewAdapter, androidQuestionView);
     }
@@ -34,7 +55,7 @@ public class QuestionViewShowcaser implements View.OnClickListener {
                     showcaseViewAdapter.show();
                     showcaseViewAdapter.setContentTextForView(
                             "You can select which tenses you wish to practise here.",
-                            androidQuestionView.findViewById(R.id.toolbar));
+                            toolbarTargetFactory.createToolbarTarget((Toolbar)androidQuestionView.findViewById(R.id.toolbar), R.id.action_settings));
                 }
             });
             add(new Runnable() {
@@ -42,7 +63,7 @@ public class QuestionViewShowcaser implements View.OnClickListener {
                 public void run() {
                     showcaseViewAdapter.setContentTextForView(
                             "Verbinator will repeat questions that you get wrong.",
-                            androidQuestionView.findViewById(R.id.question));
+                            viewTargetFactory.createTarget(androidQuestionView.findViewById(R.id.question)));
                 }
             });
             add(new Runnable() {
@@ -50,7 +71,7 @@ public class QuestionViewShowcaser implements View.OnClickListener {
                 public void run() {
                     showcaseViewAdapter.setContentTextForView(
                             "Give your answer in the form 'tu regardes'.",
-                            androidQuestionView.findViewById(R.id.answer_box));
+                    viewTargetFactory.createTarget(androidQuestionView.findViewById(R.id.answer_box)));
                 }
             });
 
