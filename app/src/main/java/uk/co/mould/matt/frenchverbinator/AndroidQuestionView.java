@@ -11,13 +11,14 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import uk.co.mould.matt.data.ConjugatedVerbWithPronoun;
 import uk.co.mould.matt.marking.Score;
 import uk.co.mould.matt.questions.Question;
 
-public final class AndroidQuestionView extends FrameLayout implements QuestionView  {
+public final class AndroidQuestionView extends LinearLayout implements QuestionView  {
     private static final String QUESTION_TEMPLATE = "What is the '%s' form of %s (%s) in the %s?";
 
     private View nextButton;
