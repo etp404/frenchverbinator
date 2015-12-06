@@ -47,6 +47,9 @@ public class ShowcaseTests  extends AndroidTestCase {
         fakeShowcaseAdapter.onClickListener.onClick(null);
         assertThat(fakeShowcaseAdapter.viewsTargeted.get(2).getId(), is(R.id.answer_box));
         assertThat(fakeShowcaseAdapter.contentTitles.get(2), is("Give your answer in the form 'tu regardes'."));
+
+        fakeShowcaseAdapter.onClickListener.onClick(null);
+        assertTrue(fakeShowcaseAdapter.hideInvoked);
     }
 
     private class QuestionViewShowcaser implements View.OnClickListener {
@@ -80,6 +83,9 @@ public class ShowcaseTests  extends AndroidTestCase {
                             "Give your answer in the form 'tu regardes'.",
                             androidQuestionView.findViewById(R.id.answer_box));
                     break;
+                case 2:
+                    showcaseViewAdapter.hide();
+                    break;
             }
             showcaseCount++;
 
@@ -91,10 +97,16 @@ public class ShowcaseTests  extends AndroidTestCase {
         private View.OnClickListener onClickListener;
         public List<View> viewsTargeted = new ArrayList<>();
         public List<String> contentTitles = new ArrayList<>();
+        public boolean hideInvoked;
 
         @Override
         public void show() {
             showInvoked = true;
+        }
+
+        @Override
+        public void hide() {
+            hideInvoked = true;
         }
 
         @Override
@@ -112,6 +124,8 @@ public class ShowcaseTests  extends AndroidTestCase {
 
     private interface ShowcaseViewAdapter {
         void show();
+
+        void hide();
 
         void overrideButtonClick(View.OnClickListener listener);
 
