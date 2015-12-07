@@ -42,6 +42,8 @@ public final class ConjugationParser {
         put(Persons.THIRD_PERSON_PLURAL, 1);
     }};
 
+    private final Map<FrenchInfinitiveVerb, PerfectParticipleGetter> auxiliaryToPerfectParticipleGetter = new HashMap<>();
+
 
     private final HashMap<VerbTemplate, Element> templateToNode = new HashMap<>();
 
@@ -60,6 +62,9 @@ public final class ConjugationParser {
 						VerbTemplate.fromString(item.getAttribute("name")),
 						item);
 			}
+
+            auxiliaryToPerfectParticipleGetter.put(FrenchInfinitiveVerb.fromString("être"), new AgreeingPerfectParticipleGetter(templateToNode));
+            auxiliaryToPerfectParticipleGetter.put(FrenchInfinitiveVerb.fromString("avoir"), new NonAgreeingPerfectParticipleGetter(templateToNode));
 		} catch (ParserConfigurationException|SAXException|IOException e) {
 			throw new RuntimeException("Could not initiate conjugation stream");
 		}
@@ -80,21 +85,65 @@ public final class ConjugationParser {
         return new Conjugation(frenchInfinitiveVerb.toString().replace(template.getEndingAsString(), conjugatedEnding));
     }
 
-    public Conjugation getPerfectParticiple(FrenchInfinitiveVerb frenchInfinitiveVerb, VerbTemplate template, Persons.Person person) throws CantConjugateException {
-        Element element = templateToNode.get(template);
-        if (element == null) {
-            throw new CantConjugateException("Could not conjugate " + frenchInfinitiveVerb.toString());
-        }
-        Element indicativeVerbNode = (Element) element.getElementsByTagName("participle").item(0);
-        Element verbEndings = (Element) indicativeVerbNode.getElementsByTagName("past-participle").item(0);
+    public Conjugation getPerfectParticiple(FrenchInfinitiveVerb auxiliary, FrenchInfinitiveVerb frenchInfinitiveVerb, VerbTemplate template, Persons.Person person) throws CantConjugateException {
+        return auxiliaryToPerfectParticipleGetter.get(auxiliary).getPerfectParticiple(frenchInfinitiveVerb, template, person);
+    }
 
-        Node pastParticipleElement = verbEndings.getElementsByTagName("i").item(
-                PERSON_TO_PARTICIPLE_INDEX.get(person));
-        if (pastParticipleElement == null) {
-            pastParticipleElement = verbEndings.getElementsByTagName("i").item(0);
-        }
-        String conjugatedEnding = pastParticipleElement.getTextContent();
+    private interface PerfectParticipleGetter {
+        Conjugation getPerfectParticiple(FrenchInfinitiveVerb frenchInfinitiveVerb, VerbTemplate template, Persons.Person person) throws CantConjugateException;
+    }
 
-        return new Conjugation(frenchInfinitiveVerb.toString().replace(template.getEndingAsString(), conjugatedEnding));
+    private static class AgreeingPerfectParticipleGetter implements PerfectParticipleGetter {
+
+        private HashMap<VerbTemplate, Element> templateToNode;
+
+        public AgreeingPerfectParticipleGetter(HashMap<VerbTemplate, Element> templateToNode) {
+
+            this.templateToNode = templateToNode;
+        }
+
+        @Override
+        public Conjugation getPerfectParticiple(FrenchInfinitiveVerb frenchInfinitiveVerb, VerbTemplate template, Persons.Person person) throws CantConjugateException {
+            Element element = templateToNode.get(template);
+            if (element == null) {
+                throw new CantConjugateException("Could not conjugate " + frenchInfinitiveVerb.toString());
+            }
+            Element indicativeVerbNode = (Element) element.getElementsByTagName("participle").item(0);
+            Element verbEndings = (Element) indicativeVerbNode.getElementsByTagName("past-participle").item(0);
+
+            Node pastParticipleElement = verbEndings.getElementsByTagName("i").item(
+                    PERSON_TO_PARTICIPLE_INDEX.get(person));
+            if (pastParticipleElement == null) {
+                pastParticipleElement = verbEndings.getElementsByTagName("i").item(0);
+            }
+            String conjugatedEnding = pastParticipleElement.getTextContent();
+
+            return new Conjugation(frenchInfinitiveVerb.toString().replace(template.getEndingAsString(), conjugatedEnding));
+        }
+    }
+
+    private static class NonAgreeingPerfectParticipleGetter implements PerfectParticipleGetter {
+
+        private HashMap<VerbTemplate, Element> templateToNode;
+
+        public NonAgreeingPerfectParticipleGetter(HashMap<VerbTemplate, Element> templateToNode) {
+
+            this.templateToNode = templateToNode;
+        }
+
+        @Override
+        public Conjugation getPerfectParticiple(FrenchInfinitiveVerb frenchInfinitiveVerb, VerbTemplate template, Persons.Person person) throws CantConjugateException {
+            Element element = templateToNode.get(template);
+            if (element == null) {
+                throw new CantConjugateException("Could not conjugate " + frenchInfinitiveVerb.toString());
+            }
+            Element indicativeVerbNode = (Element) element.getElementsByTagName("participle").item(0);
+            Element verbEndings = (Element) indicativeVerbNode.getElementsByTagName("past-participle").item(0);
+
+            Node pastParticipleElement = verbEndings.getElementsByTagName("i").item(0);
+            String conjugatedEnding = pastParticipleElement.getTextContent();
+
+            return new Conjugation(frenchInfinitiveVerb.toString().replace(template.getEndingAsString(), conjugatedEnding));
+        }
     }
 }

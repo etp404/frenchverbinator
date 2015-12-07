@@ -204,7 +204,7 @@ public final class ConjugatorTest {
         assertEquals(new ConjugatedVerbWithPronoun("Nous pouvons"), conjugatedVerbWithPronoun);
     }
 
-//    @Test
+    @Test
     public void testThatCanConjugatePerfectTense() throws CantConjugateException {
         ConjugatedVerbWithPronoun conjugatedVerbWithPronoun = conjugator.getConjugationOf(
                 new InfinitiveVerb("pouvoir", null, "avoir"),
