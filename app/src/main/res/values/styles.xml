@@ -15,7 +15,7 @@
     <style name="Toolbar">
         <item name="android:background">?attr/colorPrimary</item>
         <item name="theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
-        <item name="android:textColorPrimary">#ffffff</item>
+        <item name="android:textColorPrimary">@color/action_bar_text</item>
     </style>
 
     <style name="font_style">

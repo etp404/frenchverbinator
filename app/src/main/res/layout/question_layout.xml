@@ -10,7 +10,8 @@
         android:layout_width="match_parent"
         android:id="@+id/toolbar"
         app:theme="@style/Toolbar"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:elevation="6dp"/>
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
                  xmlns:tools="http://schemas.android.com/tools"
                  android:orientation="vertical"
@@ -31,7 +32,7 @@
                 android:id="@+id/question_view_group"
                 android:layout_margin="32dp"
                 android:elevation="6dp"
-                android:background="@color/question_background"
+                android:background="@color/card_background"
                 android:padding="16dp">
 
                 <TextView

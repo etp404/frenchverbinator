@@ -28,7 +28,7 @@
             android:weightSum="1"
             android:layout_margin="32dp"
             android:elevation="6dp"
-            android:background="@color/question_background"
+            android:background="@color/card_background"
             android:padding="16dp"
             android:textAppearance="?android:attr/textAppearanceLarge">
             <TextView
