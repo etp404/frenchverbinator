@@ -203,4 +203,13 @@ public final class ConjugatorTest {
                 new PresentIndicative());
         assertEquals(new ConjugatedVerbWithPronoun("Nous pouvons"), conjugatedVerbWithPronoun);
     }
+
+//    @Test
+    public void testThatCanConjugatePerfectTense() throws CantConjugateException {
+        ConjugatedVerbWithPronoun conjugatedVerbWithPronoun = conjugator.getConjugationOf(
+                new InfinitiveVerb("pouvoir", null, "avoir"),
+                Persons.FIRST_PERSON_PLURAL,
+                new PerfectIndicative());
+        assertEquals(new ConjugatedVerbWithPronoun("Nous avons pu"), conjugatedVerbWithPronoun);
+    }
 }
