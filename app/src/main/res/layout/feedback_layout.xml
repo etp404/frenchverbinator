@@ -37,10 +37,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:gravity="left"
+                android:gravity="center_horizontal"
                 style="@style/font_style"
                 android:paddingBottom="10dp" />
-
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"/>
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
