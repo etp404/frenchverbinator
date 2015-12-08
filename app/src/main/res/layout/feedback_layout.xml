@@ -20,6 +20,18 @@
                  tools:context=".QuestionActivity"
                  android:background="@color/background_color"
         >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/feedback_details"
+            android:text="@string/feedback_blurb"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Button"
+            android:id="@+id/feedback_button"
+            android:layout_gravity="center_horizontal|top"/>
 
     </FrameLayout>
 </uk.co.mould.matt.frenchverbinator.settings.ui.AndroidFeedbackView>

@@ -3,4 +3,6 @@
     <item name="question" type="id" />
     <item name="question_activity_showcase_id" type="id">42</item>
     <item name="feedback_form" type="id">feedback_form</item>
+    <item name="feedback_details" type="id">feedback_details</item>
+    <item name="feedback_button" type="id">feedback_button</item>
 </resources>
