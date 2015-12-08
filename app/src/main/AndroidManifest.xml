@@ -20,6 +20,11 @@
             android:name=".SettingsActivity"
             android:parentActivityName=".QuestionActivity"
             android:label="Settings"/>
+
+        <activity
+            android:name=".FeedbackActivity"
+            android:parentActivityName=".QuestionActivity"
+            android:label="Feedback"/>
     </application>
 
 </manifest>

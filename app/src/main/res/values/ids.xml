@@ -2,4 +2,5 @@
 <resources>
     <item name="question" type="id" />
     <item name="question_activity_showcase_id" type="id">42</item>
+    <item name="feedback_form" type="id">feedback_form</item>
 </resources>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<uk.co.mould.matt.frenchverbinator.settings.ui.AndroidFeedbackView xmlns:android="http://schemas.android.com/apk/res/android"
+                                                                   android:layout_width="fill_parent"
+                                                                   android:layout_height="fill_parent"
+                                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                                   android:orientation="vertical"
+                                                                   android:id="@+id/android_settings_view">
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:id="@+id/toolbar"
+        app:theme="@style/Toolbar"
+        android:layout_height="wrap_content"/>
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                 xmlns:tools="http://schemas.android.com/tools"
+                 android:orientation="vertical"
+                 android:layout_width="fill_parent"
+                 android:layout_height="fill_parent"
+                 android:weightSum="1"
+                 tools:context=".QuestionActivity"
+                 android:background="@color/background_color"
+        >
+
+    </FrameLayout>
+</uk.co.mould.matt.frenchverbinator.settings.ui.AndroidFeedbackView>

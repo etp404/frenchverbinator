@@ -42,6 +42,9 @@ public class QuestionActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
             startActivity(new Intent(this, SettingsActivity.class));
         }
+        else if (id == R.id.feedback_form) {
+            startActivity(new Intent(this, FeedbackActivity.class));
+        }
 
         return super.onOptionsItemSelected(item);
     }
