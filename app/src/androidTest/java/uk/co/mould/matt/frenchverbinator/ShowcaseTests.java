@@ -29,7 +29,7 @@ public class ShowcaseTests  extends AndroidTestCase {
         FakeViewTargetFactory fakeViewTargetFactory = new FakeViewTargetFactory();
         FakeShowcaseViewAdapter fakeShowcaseAdapter = new FakeShowcaseViewAdapter();
 
-        new AutolaunchingQuestionViewShowcaser(fakeTargetFactory, fakeViewTargetFactory, fakeShowcaseAdapter, questionView);
+        new AutolaunchingQuestionViewShowcaser(getContext(), fakeTargetFactory, fakeViewTargetFactory, fakeShowcaseAdapter, questionView);
 
         assertTrue(fakeShowcaseAdapter.viewsTargeted.get(0) instanceof FakeToolbarTarget);
         FakeToolbarTarget fakeToolbarTarget = (FakeToolbarTarget)fakeShowcaseAdapter.viewsTargeted.get(0);
@@ -49,11 +49,17 @@ public class ShowcaseTests  extends AndroidTestCase {
         assertThat(fakeShowcaseAdapter.contentTitles.get(2), is("Give your answer in the form 'tu regardes'."));
 
         fakeShowcaseAdapter.onClickListener.onClick(null);
+        assertTrue(fakeShowcaseAdapter.viewsTargeted.get(3) instanceof FakeToolbarTarget);
+        FakeToolbarTarget fakeToolbarTarget2 = (FakeToolbarTarget)fakeShowcaseAdapter.viewsTargeted.get(3);
+        assertThat(fakeToolbarTarget2.toolbar, is(questionView.findViewById(R.id.toolbar)));
+        assertThat(fakeToolbarTarget2.targetId, is(R.id.feedback_form_menu_button));
+        assertThat(fakeShowcaseAdapter.contentTitles.get(3), is(getContext().getString(R.string.feedback_blurb)));
+
+        fakeShowcaseAdapter.onClickListener.onClick(null);
         assertTrue(fakeShowcaseAdapter.hideInvoked);
     }
 
     private class FakeShowcaseViewAdapter implements ShowcaseViewAdapter {
-        public boolean showInvoked;
         private View.OnClickListener onClickListener;
         public List<Target> viewsTargeted = new ArrayList<>();
         public List<String> contentTitles = new ArrayList<>();

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".QuestionActivity">
 
-    <item   android:id="@+id/feedback_form"
+    <item   android:id="@+id/feedback_form_menu_button"
             android:title="@string/feedback_form"
             android:orderInCategory="100"
             android:icon="@android:drawable/ic_dialog_email"

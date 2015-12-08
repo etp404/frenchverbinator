@@ -32,6 +32,6 @@ public class QuestionActivityShowcaserBuilder {
                 return new ViewTarget(targetView);
             }
         };
-        return new AutolaunchingQuestionViewShowcaser(toolbarTargetFactory, viewTargetFactory, new AMLShowcaseViewAdapter(showcaseView), questionView);
+        return new AutolaunchingQuestionViewShowcaser(activity.getApplicationContext(), toolbarTargetFactory, viewTargetFactory, new AMLShowcaseViewAdapter(showcaseView), questionView);
     }
 }

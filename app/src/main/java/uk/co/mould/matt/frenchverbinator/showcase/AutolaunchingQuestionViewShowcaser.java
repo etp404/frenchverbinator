@@ -1,5 +1,6 @@
 package uk.co.mould.matt.frenchverbinator.showcase;
 
+import android.content.Context;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
@@ -14,6 +15,7 @@ import uk.co.mould.matt.frenchverbinator.AndroidQuestionView;
 import uk.co.mould.matt.frenchverbinator.R;
 
 public class AutolaunchingQuestionViewShowcaser implements View.OnClickListener {
+    private Context context;
     private final ToolbarTargetFactory toolbarTargetFactory;
     private ViewTargetFactory viewTargetFactory;
     private final ShowcaseViewAdapter showcaseViewAdapter;
@@ -29,7 +31,8 @@ public class AutolaunchingQuestionViewShowcaser implements View.OnClickListener 
 
     private final Iterator<Runnable> runnablesIterator;
 
-    public AutolaunchingQuestionViewShowcaser(ToolbarTargetFactory toolbarTargetFactory, ViewTargetFactory viewTargetFactory, final ShowcaseViewAdapter showcaseViewAdapter, final AndroidQuestionView androidQuestionView) {
+    public AutolaunchingQuestionViewShowcaser(Context context, ToolbarTargetFactory toolbarTargetFactory, ViewTargetFactory viewTargetFactory, final ShowcaseViewAdapter showcaseViewAdapter, final AndroidQuestionView androidQuestionView) {
+        this.context = context;
         this.toolbarTargetFactory = toolbarTargetFactory;
         this.viewTargetFactory = viewTargetFactory;
         this.showcaseViewAdapter = showcaseViewAdapter;
@@ -68,6 +71,15 @@ public class AutolaunchingQuestionViewShowcaser implements View.OnClickListener 
                     showcaseViewAdapter.setContentTextForView(
                             "Give your answer in the form 'tu regardes'.",
                     viewTargetFactory.createTarget(androidQuestionView.findViewById(R.id.answer_box)));
+                }
+            });
+
+            add(new Runnable() {
+                @Override
+                public void run() {
+                    showcaseViewAdapter.setContentTextForView(
+                            context.getString(R.string.feedback_blurb),
+                            toolbarTargetFactory.createToolbarTarget((Toolbar)androidQuestionView.findViewById(R.id.toolbar), R.id.feedback_form_menu_button));
                 }
             });
 
