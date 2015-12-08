@@ -15,6 +15,7 @@ public class FeedbackEmailLauncher implements FeedbackLauncher {
     public void launch() {
         Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", "matthewsimonmould@gmail.com", null));
         emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Feedback for Verbinator");
+        emailIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(emailIntent);
     }
 

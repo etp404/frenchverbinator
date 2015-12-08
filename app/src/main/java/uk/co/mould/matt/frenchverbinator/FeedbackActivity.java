@@ -18,7 +18,7 @@ public class FeedbackActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        AndroidFeedbackView feedbackView = (AndroidFeedbackView) findViewById(R.id.feedback_form);
+        AndroidFeedbackView feedbackView = (AndroidFeedbackView) findViewById(R.id.android_feedback_form);
         new FeedbackFormPresenter(feedbackView, new FeedbackEmailLauncher(getApplicationContext()));
     }
 }

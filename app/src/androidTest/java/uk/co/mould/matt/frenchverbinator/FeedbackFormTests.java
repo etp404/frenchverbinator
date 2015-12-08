@@ -38,6 +38,8 @@ public class FeedbackFormTests extends AndroidTestCase {
         assertThat(intent.getAction(), is(Intent.ACTION_SENDTO));
         assertThat(intent.getData(), is(Uri.fromParts("mailto", "matthewsimonmould@gmail.com", null)));
         assertThat(intent.getStringExtra(Intent.EXTRA_SUBJECT), is("Feedback for Verbinator"));
+        assertThat(intent.getFlags(), is(Intent.FLAG_ACTIVITY_NEW_TASK));
+
     }
 
     public void testThatDetailsAreIncludedAsIntended() {
