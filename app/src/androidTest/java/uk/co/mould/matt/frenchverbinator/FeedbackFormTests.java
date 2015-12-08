@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import org.junit.Before;
 
+import uk.co.mould.matt.frenchverbinator.feedback.FeedbackEmailLauncher;
 import uk.co.mould.matt.frenchverbinator.settings.ui.AndroidFeedbackView;
 import uk.co.mould.matt.frenchverbinator.settings.ui.FeedbackView;
 
@@ -32,7 +33,7 @@ public class FeedbackFormTests extends AndroidTestCase {
 
     public void testThatEmailIntentIsLaunchedAsIntended() {
         FakeContext fakeContext = new FakeContext();
-        FeedbackEmailLauncher.launch(fakeContext);
+        new FeedbackEmailLauncher(fakeContext).launch();
         Intent intent = fakeContext.startActivityCalledWith;
         assertThat(intent.getAction(), is(Intent.ACTION_SENDTO));
         assertThat(intent.getData(), is(Uri.fromParts("mailto", "matthewsimonmould@gmail.com", null)));
@@ -70,11 +71,4 @@ public class FeedbackFormTests extends AndroidTestCase {
         }
     }
 
-    private static class FeedbackEmailLauncher {
-        public static void launch(Context context) {
-            Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", "matthewsimonmould@gmail.com", null));
-            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Feedback for Verbinator");
-            context.startActivity(emailIntent);
-        }
-    }
 }

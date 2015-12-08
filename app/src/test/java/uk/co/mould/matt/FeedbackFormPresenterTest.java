@@ -14,7 +14,7 @@ public class FeedbackFormPresenterTest {
     public void testThatFeedbackSenderIsInvokedWhenButtonIsPressed() {
         FakeFeedbackLauncher fakeFeedbackLauncher = new FakeFeedbackLauncher();
         FakeFeedbackView fakeFeedbackView = new FakeFeedbackView();
-        new FeedbackFormPresenter(fakeFeedbackLauncher, fakeFeedbackView);
+        new FeedbackFormPresenter(fakeFeedbackView, fakeFeedbackLauncher);
         fakeFeedbackView.sendFeedbackListener.sendFeedback();
         assertTrue(fakeFeedbackLauncher.launched);
     }
