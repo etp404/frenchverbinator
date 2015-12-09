@@ -42,6 +42,12 @@ public class FeedbackFormTests extends AndroidTestCase {
 
     }
 
+    public void testThatToastIsShownIfEmailIsNotEnabled() {
+//        FakeContext fakeContext = new UnLaunching();
+//        new FeedbackEmailLauncher(fakeContext).launch();
+
+    }
+
     public void testThatDetailsAreIncludedAsIntended() {
         TextView feedbackDetails = (TextView)feedbackLayout.findViewById(R.id.feedback_details);
         assertThat(feedbackDetails.getText().toString(),

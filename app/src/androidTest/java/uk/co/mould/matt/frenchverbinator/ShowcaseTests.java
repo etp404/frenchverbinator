@@ -31,22 +31,23 @@ public class ShowcaseTests  extends AndroidTestCase {
 
         new AutolaunchingQuestionViewShowcaser(getContext(), fakeTargetFactory, fakeViewTargetFactory, fakeShowcaseAdapter, questionView);
 
-        assertTrue(fakeShowcaseAdapter.viewsTargeted.get(0) instanceof FakeToolbarTarget);
-        FakeToolbarTarget fakeToolbarTarget = (FakeToolbarTarget)fakeShowcaseAdapter.viewsTargeted.get(0);
-        assertThat(fakeToolbarTarget.toolbar, is(questionView.findViewById(R.id.toolbar)));
-        assertThat(fakeToolbarTarget.targetId, is(R.id.action_settings));
+        assertTrue(fakeShowcaseAdapter.viewsTargeted.get(0) instanceof FakeViewTarget);
+        FakeViewTarget fakeViewTarget1 = (FakeViewTarget)fakeShowcaseAdapter.viewsTargeted.get(0);
+        assertThat(fakeViewTarget1.targetView.getId(), is(R.id.question));
+        assertThat(fakeShowcaseAdapter.contentTitles.get(0), is("Verbinator will repeat questions that you get wrong."));
 
         fakeShowcaseAdapter.onClickListener.onClick(null);
         assertTrue(fakeShowcaseAdapter.viewsTargeted.get(1) instanceof FakeViewTarget);
-        FakeViewTarget fakeViewTarget1 = (FakeViewTarget)fakeShowcaseAdapter.viewsTargeted.get(1);
-        assertThat(fakeViewTarget1.targetView.getId(), is(R.id.question));
-        assertThat(fakeShowcaseAdapter.contentTitles.get(1), is("Verbinator will repeat questions that you get wrong."));
+        FakeViewTarget fakeViewTarget2 = (FakeViewTarget)fakeShowcaseAdapter.viewsTargeted.get(1);
+        assertThat(fakeViewTarget2.targetView.getId(), is(R.id.answer_box));
+        assertThat(fakeShowcaseAdapter.contentTitles.get(1), is("Give your answer in the form 'tu regardes'."));
 
         fakeShowcaseAdapter.onClickListener.onClick(null);
-        assertTrue(fakeShowcaseAdapter.viewsTargeted.get(2) instanceof FakeViewTarget);
-        FakeViewTarget fakeViewTarget2 = (FakeViewTarget)fakeShowcaseAdapter.viewsTargeted.get(2);
-        assertThat(fakeViewTarget2.targetView.getId(), is(R.id.answer_box));
-        assertThat(fakeShowcaseAdapter.contentTitles.get(2), is("Give your answer in the form 'tu regardes'."));
+        assertTrue(fakeShowcaseAdapter.viewsTargeted.get(2) instanceof FakeToolbarTarget);
+        FakeToolbarTarget fakeToolbarTarget = (FakeToolbarTarget)fakeShowcaseAdapter.viewsTargeted.get(2);
+        assertThat(fakeToolbarTarget.toolbar, is(questionView.findViewById(R.id.toolbar)));
+        assertThat(fakeToolbarTarget.targetId, is(R.id.action_settings));
+        assertThat(fakeShowcaseAdapter.contentTitles.get(2), is(getContext().getString(R.string.settings_showcase_detail)));
 
         fakeShowcaseAdapter.onClickListener.onClick(null);
         assertTrue(fakeShowcaseAdapter.viewsTargeted.get(3) instanceof FakeToolbarTarget);

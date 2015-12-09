@@ -49,14 +49,7 @@ public class AutolaunchingQuestionViewShowcaser implements View.OnClickListener 
 
     private Iterator<Runnable> createRunnablesIterator(final ShowcaseViewAdapter showcaseViewAdapter, final AndroidQuestionView androidQuestionView) {
         List<Runnable> runnables = new ArrayList<Runnable>() {{
-            add(new Runnable() {
-                @Override
-                public void run() {
-                    showcaseViewAdapter.setContentTextForView(
-                            "You can select which tenses you wish to practise here.",
-                            toolbarTargetFactory.createToolbarTarget((Toolbar)androidQuestionView.findViewById(R.id.toolbar), R.id.action_settings));
-                }
-            });
+
             add(new Runnable() {
                 @Override
                 public void run() {
@@ -71,6 +64,15 @@ public class AutolaunchingQuestionViewShowcaser implements View.OnClickListener 
                     showcaseViewAdapter.setContentTextForView(
                             "Give your answer in the form 'tu regardes'.",
                     viewTargetFactory.createTarget(androidQuestionView.findViewById(R.id.answer_box)));
+                }
+            });
+
+            add(new Runnable() {
+                @Override
+                public void run() {
+                    showcaseViewAdapter.setContentTextForView(
+                            context.getString(R.string.settings_showcase_detail),
+                            toolbarTargetFactory.createToolbarTarget((Toolbar)androidQuestionView.findViewById(R.id.toolbar), R.id.action_settings));
                 }
             });
 
