@@ -27,6 +27,6 @@ public class FeedbackActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         AndroidFeedbackView feedbackView = (AndroidFeedbackView) findViewById(R.id.android_feedback_form);
-        new FeedbackFormPresenter(feedbackView, new FeedbackEmailLauncher(getApplicationContext()));
+        new FeedbackFormPresenter(feedbackView, new FeedbackEmailLauncher(getApplicationContext(), null));
     }
 }

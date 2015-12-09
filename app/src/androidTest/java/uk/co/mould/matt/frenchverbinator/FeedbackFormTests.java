@@ -1,5 +1,6 @@
 package uk.co.mould.matt.frenchverbinator;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -8,6 +9,7 @@ import android.test.mock.MockContext;
 import android.view.LayoutInflater;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.junit.Before;
 
@@ -33,7 +35,7 @@ public class FeedbackFormTests extends AndroidTestCase {
 
     public void testThatEmailIntentIsLaunchedAsIntended() {
         FakeContext fakeContext = new FakeContext();
-        new FeedbackEmailLauncher(fakeContext).launch();
+        new FeedbackEmailLauncher(fakeContext, null).launch();
         Intent intent = fakeContext.startActivityCalledWith;
         assertThat(intent.getAction(), is(Intent.ACTION_SENDTO));
         assertThat(intent.getData(), is(Uri.fromParts("mailto", "matthewsimonmould@gmail.com", null)));
@@ -43,9 +45,9 @@ public class FeedbackFormTests extends AndroidTestCase {
     }
 
     public void testThatToastIsShownIfEmailIsNotEnabled() {
-//        FakeContext fakeContext = new UnLaunching();
-//        new FeedbackEmailLauncher(fakeContext).launch();
-
+        FakeToaster fakeToaster = new FakeToaster();
+        new FeedbackEmailLauncher(getContext(), fakeToaster).launch();
+        assertThat(fakeToaster.toastText, is(getContext().getString(R.string.email_client_not_available)));
     }
 
     public void testThatDetailsAreIncludedAsIntended() {
@@ -79,4 +81,30 @@ public class FeedbackFormTests extends AndroidTestCase {
         }
     }
 
+    private class FakeContextWithNoEmail extends MockContext {
+        @Override
+        public void startActivity(Intent intent) {
+            throw new ActivityNotFoundException();
+        }
+    }
+
+    private class FakeToaster implements Toaster {
+
+        private String toastText;
+
+        @Override
+        public void toast(Context context, String text) {
+            this.toastText = text;
+        }
+    }
+
+    private class AndroidToaster implements Toaster {
+
+        public void toast(Context context, String text) {
+            Toast toast = new Toast(context);
+            toast.setText(text);
+            toast.setDuration(Toast.LENGTH_LONG);
+            toast.show();
+        }
+    }
 }
