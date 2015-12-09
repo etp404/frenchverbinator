@@ -56,6 +56,7 @@ public final class AndroidQuestionView extends LinearLayout implements QuestionV
         questionBox = (TextView)findViewById(R.id.question);
         greenTick = (ImageView)findViewById(R.id.green_tick);
         redCross = (ImageView) findViewById(R.id.red_cross);
+        scoreBox = (TextView) findViewById(R.id.score);
     }
 
     @Override
@@ -174,7 +175,6 @@ public final class AndroidQuestionView extends LinearLayout implements QuestionV
 
     @Override
     public void showScore(Score score) {
-        scoreBox = (TextView) findViewById(R.id.score);
         scoreBox.setVisibility(VISIBLE);
         scoreBox.setText(score.toString());
     }
