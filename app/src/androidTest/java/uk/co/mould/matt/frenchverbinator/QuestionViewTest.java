@@ -165,6 +165,7 @@ public final class QuestionViewTest extends AndroidTestCase {
         assertEquals(nextButton.getVisibility(), View.GONE);
         assertEquals(correctionBox.getVisibility(), View.GONE);
         assertEquals(resultBox.getVisibility(), View.GONE);
+        assertEquals(scoreBox.getVisibility(), View.GONE);
         assertEquals(noTenseSelectedWarning.getVisibility(), View.VISIBLE);
     }
 

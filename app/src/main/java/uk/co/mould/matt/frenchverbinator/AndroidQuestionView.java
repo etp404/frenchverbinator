@@ -168,6 +168,7 @@ public final class AndroidQuestionView extends LinearLayout implements QuestionV
         nextButton.setVisibility(View.GONE);
         correctionBox.setVisibility(View.GONE);
         resultBox.setVisibility(View.GONE);
+        scoreBox.setVisibility(View.GONE);
         noTensesSelectedWarning.setVisibility(View.VISIBLE);
     }
 
