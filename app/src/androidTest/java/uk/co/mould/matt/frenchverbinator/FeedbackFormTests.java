@@ -3,9 +3,14 @@ package uk.co.mould.matt.frenchverbinator;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.AssetManager;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.test.AndroidTestCase;
 import android.test.mock.MockContext;
+import android.test.mock.MockResources;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.widget.Button;
 import android.widget.TextView;
@@ -45,8 +50,9 @@ public class FeedbackFormTests extends AndroidTestCase {
 
     public void testThatToastIsShownIfEmailIsNotEnabled() {
         FakeToaster fakeToaster = new FakeToaster();
-        new FeedbackEmailLauncher(new FakeContextWithNoEmail(), fakeToaster).launch();
-        assertThat(fakeToaster.toastText, is(getContext().getString(R.string.email_client_not_available)));
+        String emailMessageNotAvailableMessage = "email client not available message";
+        new FeedbackEmailLauncher(new FakeContextWithNoEmail(new FakeResources(emailMessageNotAvailableMessage)), fakeToaster).launch();
+        assertThat(fakeToaster.toastText, is(emailMessageNotAvailableMessage));
     }
 
     public void testThatDetailsAreIncludedAsIntended() {
@@ -82,13 +88,34 @@ public class FeedbackFormTests extends AndroidTestCase {
     }
 
     private class FakeContextWithNoEmail extends MockContext {
+        private final FakeResources fakeResources;
 
-        public FakeContextWithNoEmail() {
+        public FakeContextWithNoEmail(FakeResources fakeResources) {
+            this.fakeResources = fakeResources;
+        }
+
+        @Override
+        public Resources getResources() {
+            return fakeResources;
         }
 
         @Override
         public void startActivity(Intent intent) {
             throw new ActivityNotFoundException();
+        }
+    }
+
+    private static class FakeResources extends MockResources {
+
+        private final String someString;
+
+        public FakeResources(String someString) {
+            this.someString = someString;
+        }
+
+        @Override
+        public String getString(int id) throws NotFoundException {
+            return someString;
         }
     }
 
