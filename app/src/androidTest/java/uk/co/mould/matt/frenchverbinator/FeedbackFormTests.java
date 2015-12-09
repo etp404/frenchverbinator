@@ -9,7 +9,6 @@ import android.test.mock.MockContext;
 import android.view.LayoutInflater;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.junit.Before;
 
@@ -46,7 +45,7 @@ public class FeedbackFormTests extends AndroidTestCase {
 
     public void testThatToastIsShownIfEmailIsNotEnabled() {
         FakeToaster fakeToaster = new FakeToaster();
-        new FeedbackEmailLauncher(getContext(), fakeToaster).launch();
+        new FeedbackEmailLauncher(new FakeContextWithNoEmail(), fakeToaster).launch();
         assertThat(fakeToaster.toastText, is(getContext().getString(R.string.email_client_not_available)));
     }
 
@@ -73,6 +72,7 @@ public class FeedbackFormTests extends AndroidTestCase {
     }
 
     private class FakeContext extends MockContext {
+
         public Intent startActivityCalledWith;
 
         @Override
@@ -82,6 +82,10 @@ public class FeedbackFormTests extends AndroidTestCase {
     }
 
     private class FakeContextWithNoEmail extends MockContext {
+
+        public FakeContextWithNoEmail() {
+        }
+
         @Override
         public void startActivity(Intent intent) {
             throw new ActivityNotFoundException();
@@ -92,19 +96,13 @@ public class FeedbackFormTests extends AndroidTestCase {
 
         private String toastText;
 
+        public FakeToaster() {
+        }
+
         @Override
-        public void toast(Context context, String text) {
+        public void toast(String text) {
             this.toastText = text;
         }
     }
 
-    private class AndroidToaster implements Toaster {
-
-        public void toast(Context context, String text) {
-            Toast toast = new Toast(context);
-            toast.setText(text);
-            toast.setDuration(Toast.LENGTH_LONG);
-            toast.show();
-        }
-    }
 }

@@ -3,5 +3,5 @@ package uk.co.mould.matt.frenchverbinator;
 import android.content.Context;
 
 public interface Toaster {
-    void toast(Context context, String text);
+    void toast(String text);
 }

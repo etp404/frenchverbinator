@@ -26,7 +26,7 @@ public class FeedbackEmailLauncher implements FeedbackLauncher {
             context.startActivity(emailIntent);
         }
         catch (ActivityNotFoundException ex) {
-            toaster.toast(context, context.getString(R.string.email_client_not_available));
+            toaster.toast(context.getString(R.string.email_client_not_available));
         }
     }
 
