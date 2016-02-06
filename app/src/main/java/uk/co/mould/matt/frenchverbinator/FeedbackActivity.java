@@ -29,4 +29,10 @@ public class FeedbackActivity extends AppCompatActivity {
         AndroidFeedbackView feedbackView = (AndroidFeedbackView) findViewById(R.id.android_feedback_form);
         new FeedbackFormPresenter(feedbackView, new FeedbackEmailLauncher(getApplicationContext(), new AndroidToaster(getApplicationContext())));
     }
+
+    @Override
+    protected void onPause() {
+        overridePendingTransition(R.anim.activity_open_translate, R.anim.subactivity_close_translate);
+        super.onPause();
+    }
 }

@@ -46,6 +46,8 @@ public class QuestionActivity extends AppCompatActivity {
             startActivity(new Intent(this, FeedbackActivity.class));
         }
 
+        overridePendingTransition(R.anim.subactivity_open_translate, R.anim.activity_close_translate);
+
         return super.onOptionsItemSelected(item);
     }
 

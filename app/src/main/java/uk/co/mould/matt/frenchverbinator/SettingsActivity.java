@@ -6,13 +6,11 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.ViewGroup;
 
 import uk.co.mould.matt.frenchverbinator.settings.ui.AndroidSettingsView;
 import uk.co.mould.matt.frenchverbinator.settings.SharedPrefsUserSettings;
 import uk.co.mould.matt.frenchverbinator.settings.ui.SettingsPresenter;
 import uk.co.mould.matt.frenchverbinator.settings.ui.SettingsPresenterImpl;
-import uk.co.mould.matt.frenchverbinator.settings.ui.SettingsView;
 
 public final class SettingsActivity extends AppCompatActivity {
 
@@ -39,4 +37,9 @@ public final class SettingsActivity extends AppCompatActivity {
         settingsPresenter.updateView();
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        overridePendingTransition(R.anim.activity_open_translate, R.anim.subactivity_close_translate);
+    }
 }
