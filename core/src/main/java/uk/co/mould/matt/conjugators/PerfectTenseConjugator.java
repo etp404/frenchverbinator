@@ -29,6 +29,6 @@ class PerfectTenseConjugator implements VerbConjugator {
                 person,
                 new PresentIndicative());
         Conjugation participle = conjugationParser.getPerfectParticiple(infinitiveVerb.auxiliary, infinitiveVerb.frenchVerb, template, person);
-        return new Conjugation(auxiliaryConjugation.toString() + " " + participle.toString());
+        return new Conjugation(String.format("%s %s", auxiliaryConjugation, participle));
     }
 }

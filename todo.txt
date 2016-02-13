@@ -1,5 +1,5 @@
-Get failed tenses should have callback, not precheck.
-Placement of failed tenses android code? Made repo more specific?
-Remove duplication in AndroidFailedQuestionStore.
-Second method on RandomQuestionGenerator
-Push FailedQuesitonStore into core
+No need for OptionsCheckBox. I assume this had some purpose earlier on, but there's no obvious need for it now.
+Settings view shouldn't know baout presenter. Should be able to list for adding or removal of tenses.
+I'd like to get rid of 'Build.VERSION.SDK_INT' from QuestionView.
+Animates when closing app from settings view, which seems a bit odd.
+Could put the parsing stuff on the application and pull in the service from there. Otherwise there's work done in QuestionActivity every time it's created.
