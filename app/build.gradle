@@ -8,8 +8,8 @@ android {
         applicationId "uk.co.mould.matt.frenchverbinator"
         minSdkVersion 16
         targetSdkVersion 22
-        versionCode 13
-        versionName "1.14"
+        versionCode 14
+        versionName "1.15"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
