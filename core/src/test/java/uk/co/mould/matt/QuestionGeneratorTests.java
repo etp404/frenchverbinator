@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import uk.co.mould.matt.data.InfinitiveVerb;
 import uk.co.mould.matt.data.Persons;
@@ -13,6 +14,7 @@ import uk.co.mould.matt.data.tenses.PresentSubjunctive;
 import uk.co.mould.matt.helpers.FakeFailedQuestionStore;
 import uk.co.mould.matt.helpers.FakeRandomNumberGenerator;
 import uk.co.mould.matt.questions.Callback;
+import uk.co.mould.matt.questions.IncludedTensesProvider;
 import uk.co.mould.matt.questions.Question;
 import uk.co.mould.matt.questions.RandomQuestionGenerator;
 
@@ -30,7 +32,12 @@ public class QuestionGeneratorTests {
                 new FakeRandomNumberGenerator(0),
                 new ArrayList< InfinitiveVerb >(),
                 new ArrayList< Persons.Person>(),
-                new ArrayList< MoodAndTense>(),
+                new IncludedTensesProvider(){
+                    @Override
+                    public List<MoodAndTense> getIncludedTenses() {
+                        return new ArrayList<>();
+                    }
+                },
                 new FakeFailedQuestionStore(),
                 new FakeShouldUseFailedQuestion(false));
 
@@ -45,7 +52,7 @@ public class QuestionGeneratorTests {
         RandomQuestionGenerator randomQuestionGenerator = new RandomQuestionGenerator(new FakeRandomNumberGenerator(0),
                 Collections.singletonList(verb),
                 Collections.singletonList(person),
-                Collections.singletonList(verbMoodAndTense),
+                new PreloadedIncludedTensesProvider(Collections.singletonList(verbMoodAndTense)),
                 new FakeFailedQuestionStore(),
                 new FakeShouldUseFailedQuestion(false)
                 );
@@ -68,7 +75,7 @@ public class QuestionGeneratorTests {
                 new FakeRandomNumberGenerator(0),
                 Collections.singletonList(verb),
                 Collections.singletonList(person),
-                Collections.singletonList(verbMoodAndTense),
+                new PreloadedIncludedTensesProvider(Collections.singletonList(verbMoodAndTense)),
                 failedQuestionStore,
                 new FakeShouldUseFailedQuestion(true)
         );
@@ -88,7 +95,7 @@ public class QuestionGeneratorTests {
                 new FakeRandomNumberGenerator(0),
                 Collections.singletonList(verb),
                 Collections.singletonList(person),
-                Collections.singletonList(verbMoodAndTense),
+                new PreloadedIncludedTensesProvider(Collections.singletonList(verbMoodAndTense)),
                 failedQuestionStore,
                 new FakeShouldUseFailedQuestion(true)
         );
@@ -122,6 +129,19 @@ public class QuestionGeneratorTests {
 
         public boolean invoke() {
             return bool;
+        }
+    }
+
+    private class PreloadedIncludedTensesProvider implements IncludedTensesProvider {
+        private List<MoodAndTense> includedMoodsAndTenses;
+
+        public PreloadedIncludedTensesProvider(List<MoodAndTense> includedMoodsAndTenses) {
+            this.includedMoodsAndTenses = includedMoodsAndTenses;
+        }
+
+        @Override
+        public List<MoodAndTense> getIncludedTenses() {
+            return includedMoodsAndTenses;
         }
     }
 }

@@ -24,16 +24,31 @@ public final class RandomQuestionGenerator implements QuestionGenerator {
 	public RandomQuestionGenerator(RandomNumberGenerator randomNumberGenerator,
                                    List<InfinitiveVerb> verbList,
                                    List<Persons.Person> personList,
-                                   List<MoodAndTense> moodsAndTensesToSelectFrom,
+                                   List<MoodAndTense> moodsAndTensesToSelectFromProvider,
                                    FailedQuestionStore failedQuestionStore,
                                    ShouldUseFailedQuestion shouldUseFailedQuestion) {
         this.randomNumberGenerator = randomNumberGenerator;
         this.verbList = verbList;
         this.personList = personList;
-        this.moodsAndTensesToSelectFrom = moodsAndTensesToSelectFrom;
+        this.moodsAndTensesToSelectFrom = moodsAndTensesToSelectFromProvider;
         this.failedQuestionStore = failedQuestionStore;
         this.shouldUseFailedQuestion = shouldUseFailedQuestion;
     }
+
+    public RandomQuestionGenerator(RandomNumberGenerator randomNumberGenerator,
+                                   List<InfinitiveVerb> verbList,
+                                   List<Persons.Person> personList,
+                                   IncludedTensesProvider moodsAndTensesToSelectFromProvider,
+                                   FailedQuestionStore failedQuestionStore,
+                                   ShouldUseFailedQuestion shouldUseFailedQuestion) {
+        this.randomNumberGenerator = randomNumberGenerator;
+        this.verbList = verbList;
+        this.personList = personList;
+        this.moodsAndTensesToSelectFrom = moodsAndTensesToSelectFromProvider.getIncludedTenses();
+        this.failedQuestionStore = failedQuestionStore;
+        this.shouldUseFailedQuestion = shouldUseFailedQuestion;
+    }
+
 
 	@Override
 	public void getQuestion(final Callback callback) {
