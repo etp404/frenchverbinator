@@ -65,6 +65,11 @@ public class VerbinatorApplication  extends Application {
                     public List<MoodAndTense> getIncludedTenses() {
                         return storedUserSettings.includedTenses();
                     }
+
+                    @Override
+                    public int includedTensesCount() {
+                        return storedUserSettings.includedTenses().size();
+                    }
                 },
                 failedQuestionStore,
                 shouldUseFailedQuestion25PercentOfTime);

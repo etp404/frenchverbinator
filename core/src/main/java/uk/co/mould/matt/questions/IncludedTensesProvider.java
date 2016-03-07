@@ -9,4 +9,6 @@ import uk.co.mould.matt.data.tenses.MoodAndTense;
  */
 public interface IncludedTensesProvider {
     List<MoodAndTense> getIncludedTenses();
+
+    int includedTensesCount();
 }

@@ -19,21 +19,7 @@ public final class RandomQuestionGenerator implements QuestionGenerator {
     private RandomNumberGenerator randomNumberGenerator;
 	private List<InfinitiveVerb> verbList;
 	private List<Persons.Person> personList;
-	private List<MoodAndTense> moodsAndTensesToSelectFrom;
-
-	public RandomQuestionGenerator(RandomNumberGenerator randomNumberGenerator,
-                                   List<InfinitiveVerb> verbList,
-                                   List<Persons.Person> personList,
-                                   List<MoodAndTense> moodsAndTensesToSelectFromProvider,
-                                   FailedQuestionStore failedQuestionStore,
-                                   ShouldUseFailedQuestion shouldUseFailedQuestion) {
-        this.randomNumberGenerator = randomNumberGenerator;
-        this.verbList = verbList;
-        this.personList = personList;
-        this.moodsAndTensesToSelectFrom = moodsAndTensesToSelectFromProvider;
-        this.failedQuestionStore = failedQuestionStore;
-        this.shouldUseFailedQuestion = shouldUseFailedQuestion;
-    }
+	private IncludedTensesProvider moodsAndTensesToSelectFromProvider;
 
     public RandomQuestionGenerator(RandomNumberGenerator randomNumberGenerator,
                                    List<InfinitiveVerb> verbList,
@@ -44,7 +30,7 @@ public final class RandomQuestionGenerator implements QuestionGenerator {
         this.randomNumberGenerator = randomNumberGenerator;
         this.verbList = verbList;
         this.personList = personList;
-        this.moodsAndTensesToSelectFrom = moodsAndTensesToSelectFromProvider.getIncludedTenses();
+        this.moodsAndTensesToSelectFromProvider = moodsAndTensesToSelectFromProvider;
         this.failedQuestionStore = failedQuestionStore;
         this.shouldUseFailedQuestion = shouldUseFailedQuestion;
     }
@@ -52,7 +38,7 @@ public final class RandomQuestionGenerator implements QuestionGenerator {
 
 	@Override
 	public void getQuestion(final Callback callback) {
-        if (moodsAndTensesToSelectFrom.size()==0) {
+        if (moodsAndTensesToSelectFromProvider.includedTensesCount() == 0) {
             callback.noTensesSelected();
         }
         else {
@@ -78,7 +64,7 @@ public final class RandomQuestionGenerator implements QuestionGenerator {
                 callback.questionProvided(new Question(getRandomPerson(), getRandomVerb(), getRandomVerbMoodAndTense()));
             }
         };
-        failedQuestionStore.getFailedQuestion(failedQuestionStoreCallback, moodsAndTensesToSelectFrom);
+        failedQuestionStore.getFailedQuestion(failedQuestionStoreCallback, moodsAndTensesToSelectFromProvider.getIncludedTenses());
     }
 
     private Persons.Person getRandomPerson() {
@@ -90,7 +76,7 @@ public final class RandomQuestionGenerator implements QuestionGenerator {
 	}
 
 	private MoodAndTense getRandomVerbMoodAndTense() {
-		return moodsAndTensesToSelectFrom.get(randomNumberGenerator.randomNumber(0, moodsAndTensesToSelectFrom.size()));
+		return moodsAndTensesToSelectFromProvider.getIncludedTenses().get(randomNumberGenerator.randomNumber(0, moodsAndTensesToSelectFromProvider.includedTensesCount()));
 	}
 
 

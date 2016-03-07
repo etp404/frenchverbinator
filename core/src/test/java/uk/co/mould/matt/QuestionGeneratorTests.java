@@ -32,12 +32,7 @@ public class QuestionGeneratorTests {
                 new FakeRandomNumberGenerator(0),
                 new ArrayList< InfinitiveVerb >(),
                 new ArrayList< Persons.Person>(),
-                new IncludedTensesProvider(){
-                    @Override
-                    public List<MoodAndTense> getIncludedTenses() {
-                        return new ArrayList<>();
-                    }
-                },
+                new EmptyIncludedTensesProvider(),
                 new FakeFailedQuestionStore(),
                 new FakeShouldUseFailedQuestion(false));
 
@@ -56,6 +51,28 @@ public class QuestionGeneratorTests {
                 new FakeFailedQuestionStore(),
                 new FakeShouldUseFailedQuestion(false)
                 );
+
+        CapturingCallback callback = new CapturingCallback();
+        randomQuestionGenerator.getQuestion(callback);
+
+        Question expectedQuestion = new Question(person, verb, verbMoodAndTense);
+
+        assertEquals(expectedQuestion, callback.question);
+    }
+
+    @Test
+    public void generatesNewQuestionFromAvailableCombinationsIfIncludedTensesHasChanged() {
+        MoodAndTense presentSubjunctive = new PresentSubjunctive();
+        PreloadedIncludedTensesProvider moodsAndTensesToSelectFromProvider = new PreloadedIncludedTensesProvider(Collections.singletonList(presentSubjunctive));
+        RandomQuestionGenerator randomQuestionGenerator = new RandomQuestionGenerator(new FakeRandomNumberGenerator(0),
+                Collections.singletonList(verb),
+                Collections.singletonList(person),
+                moodsAndTensesToSelectFromProvider,
+                new FakeFailedQuestionStore(),
+                new FakeShouldUseFailedQuestion(false)
+        );
+
+        moodsAndTensesToSelectFromProvider.includedMoodsAndTenses = Collections.singletonList(verbMoodAndTense);
 
         CapturingCallback callback = new CapturingCallback();
         randomQuestionGenerator.getQuestion(callback);
@@ -120,6 +137,18 @@ public class QuestionGeneratorTests {
         }
     }
 
+    private static class EmptyIncludedTensesProvider implements IncludedTensesProvider {
+        @Override
+        public List<MoodAndTense> getIncludedTenses() {
+            return new ArrayList<>();
+        }
+
+        @Override
+        public int includedTensesCount() {
+            return 0;
+        }
+    }
+
     private class FakeShouldUseFailedQuestion implements ShouldUseFailedQuestion {
         private boolean bool;
 
@@ -142,6 +171,11 @@ public class QuestionGeneratorTests {
         @Override
         public List<MoodAndTense> getIncludedTenses() {
             return includedMoodsAndTenses;
+        }
+
+        @Override
+        public int includedTensesCount() {
+            return includedMoodsAndTenses.size();
         }
     }
 }
