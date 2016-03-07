@@ -4,10 +4,13 @@ import android.app.Application;
 
 import org.xml.sax.InputSource;
 
+import java.util.List;
+
 import uk.co.mould.matt.FailedQuestionStore;
 import uk.co.mould.matt.ShouldUseFailedQuestion;
 import uk.co.mould.matt.conjugators.Conjugator;
 import uk.co.mould.matt.data.SupportedPersons;
+import uk.co.mould.matt.data.tenses.MoodAndTense;
 import uk.co.mould.matt.frenchverbinator.failedquestions.AndroidFailedQuestionStore;
 import uk.co.mould.matt.frenchverbinator.settings.SharedPrefsUserSettings;
 import uk.co.mould.matt.marking.AnswerChecker;
@@ -15,6 +18,7 @@ import uk.co.mould.matt.marking.AnswerChecking;
 import uk.co.mould.matt.parser.ConjugationParser;
 import uk.co.mould.matt.parser.VerbListParser;
 import uk.co.mould.matt.parser.VerbTemplateParser;
+import uk.co.mould.matt.questions.IncludedTensesProvider;
 import uk.co.mould.matt.questions.QuestionGenerator;
 import uk.co.mould.matt.questions.RandomNumberGenerator;
 import uk.co.mould.matt.questions.RandomQuestionGenerator;
@@ -39,7 +43,7 @@ public class VerbinatorApplication  extends Application {
         FailedQuestionStore failedQuestionStore = new AndroidFailedQuestionStore(this);
 
         answerChecking = new AnswerChecker(conjugator, failedQuestionStore);
-        SharedPrefsUserSettings storedUserSettings = new SharedPrefsUserSettings(getSharedPreferences(SharedPrefsUserSettings.SETTINGS, 0));
+        final SharedPrefsUserSettings storedUserSettings = new SharedPrefsUserSettings(getSharedPreferences(SharedPrefsUserSettings.SETTINGS, 0));
         VerbListParser verbListParser = new VerbListParser(new InputSource(getResources().openRawResource(R.raw.verb_list)));
 
 
@@ -56,7 +60,12 @@ public class VerbinatorApplication  extends Application {
                 new SystemRandomNumberGenerator(),
                 verbListParser.getVerbs(),
                 SupportedPersons.ALL,
-                storedUserSettings.includedTenses(),
+                new IncludedTensesProvider() {
+                    @Override
+                    public List<MoodAndTense> getIncludedTenses() {
+                        return storedUserSettings.includedTenses();
+                    }
+                },
                 failedQuestionStore,
                 shouldUseFailedQuestion25PercentOfTime);
     }
