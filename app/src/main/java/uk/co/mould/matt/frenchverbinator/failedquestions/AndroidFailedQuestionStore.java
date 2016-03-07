@@ -56,7 +56,7 @@ public class AndroidFailedQuestionStore implements FailedQuestionStore {
     }
 
 
-    public void getFailedQuestion(Callback capturingCallback, List<MoodAndTense> moodsAndTenses) {
+    public void getFailedQuestion(Callback callback, List<MoodAndTense> moodsAndTenses) {
         List<FailedQuestionToStore> allFailedQuestions = getQuestions();
         List<FailedQuestionToStore> filteredFailedQuestion =  new ArrayList<>();
         for (FailedQuestionToStore failedQuestion : allFailedQuestions) {
@@ -66,7 +66,7 @@ public class AndroidFailedQuestionStore implements FailedQuestionStore {
         }
 
         if (filteredFailedQuestion.isEmpty()) {
-            capturingCallback.failure();
+            callback.failure();
         }
         else {
             Collections.sort(filteredFailedQuestion, new Comparator<FailedQuestionToStore>() {
@@ -78,7 +78,7 @@ public class AndroidFailedQuestionStore implements FailedQuestionStore {
             FailedQuestionToStore failedQuestionToReturn = filteredFailedQuestion.get(0);
             allFailedQuestions.remove(failedQuestionToReturn);
             store(allFailedQuestions);
-            capturingCallback.success(failedQuestionToReturn.question);
+            callback.success(failedQuestionToReturn.question);
         }
     }
 

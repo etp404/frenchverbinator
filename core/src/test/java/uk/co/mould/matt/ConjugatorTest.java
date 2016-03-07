@@ -44,7 +44,7 @@ public final class ConjugatorTest {
     @Test
     public void testThat_Aimer_Present_FirstPersonSingularIsConjugatedAsExpected() throws uk.co.mould.matt.exceptions.CantConjugateException {
         assertEquals(new ConjugatedVerbWithPronoun("J'aime"),
-                conjugator.getConjugationOf(new InfinitiveVerb("aimer", null, "avoid"),
+                conjugator.getConjugationOf(new InfinitiveVerb("aimer", null, "avoir"),
                         Persons.FIRST_PERSON_SINGULAR,
                         new PresentIndicative()));
     }
@@ -52,7 +52,7 @@ public final class ConjugatorTest {
     @Test
     public void testThat_Aimer_Present_SecondPersonSingularIsConjugatedAsExpected() throws uk.co.mould.matt.exceptions.CantConjugateException {
         assertEquals(new ConjugatedVerbWithPronoun("Tu aimes"),
-                conjugator.getConjugationOf(new InfinitiveVerb("aimer", null, "avoid"),
+                conjugator.getConjugationOf(new InfinitiveVerb("aimer", null, "avoir"),
                         Persons.SECOND_PERSON_SINGULAR,
                         new PresentIndicative()));
     }
@@ -60,7 +60,7 @@ public final class ConjugatorTest {
     @Test
     public void testThat_Aimer_Present_ThirdPersonSingularIsConjugatedAsExpected() throws uk.co.mould.matt.exceptions.CantConjugateException {
         assertEquals(new ConjugatedVerbWithPronoun("Il aime"),
-                conjugator.getConjugationOf(new InfinitiveVerb("aimer", null, "avoid"),
+                conjugator.getConjugationOf(new InfinitiveVerb("aimer", null, "avoir"),
                         Persons.THIRD_PERSON_SINGULAR,
                         new PresentIndicative()));
     }
