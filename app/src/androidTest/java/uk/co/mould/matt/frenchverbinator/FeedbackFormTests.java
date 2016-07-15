@@ -7,7 +7,10 @@ import android.content.res.AssetManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.net.Uri;
+import android.support.test.InstrumentationRegistry;
+import android.support.test.runner.AndroidJUnit4;
 import android.test.AndroidTestCase;
+import android.test.AndroidTestRunner;
 import android.test.mock.MockContext;
 import android.test.mock.MockResources;
 import android.util.DisplayMetrics;
@@ -16,6 +19,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import uk.co.mould.matt.frenchverbinator.feedback.FeedbackEmailLauncher;
 import uk.co.mould.matt.frenchverbinator.settings.ui.AndroidFeedbackView;
@@ -23,21 +28,23 @@ import uk.co.mould.matt.frenchverbinator.settings.ui.FeedbackView;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertTrue;
 
-public class FeedbackFormTests extends AndroidTestCase {
+@RunWith(AndroidJUnit4.class)
+public class FeedbackFormTests {
 
     private AndroidFeedbackView feedbackLayout;
+    private Context context;
 
     @Before
     public void setUp() throws Exception {
-        super.setUp();
-
-        Context context = getContext();
+        context = InstrumentationRegistry.getTargetContext();
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         feedbackLayout = (AndroidFeedbackView) layoutInflater.inflate(R.layout.feedback_layout, null);
     }
 
-    public void testThatEmailIntentIsLaunchedAsIntended() {
+    @Test
+    public void thatEmailIntentIsLaunchedAsIntended() {
         FakeContext fakeContext = new FakeContext();
         new FeedbackEmailLauncher(fakeContext, null).launch();
         Intent intent = fakeContext.startActivityCalledWith;
@@ -48,6 +55,7 @@ public class FeedbackFormTests extends AndroidTestCase {
 
     }
 
+    @Test
     public void testThatToastIsShownIfEmailIsNotEnabled() {
         FakeToaster fakeToaster = new FakeToaster();
         String emailMessageNotAvailableMessage = "email client not available message";
@@ -58,7 +66,7 @@ public class FeedbackFormTests extends AndroidTestCase {
     public void testThatDetailsAreIncludedAsIntended() {
         TextView feedbackDetails = (TextView)feedbackLayout.findViewById(R.id.feedback_details);
         assertThat(feedbackDetails.getText().toString(),
-                is(getContext().getResources().getString(R.string.feedback_blurb)));
+                is(context.getResources().getString(R.string.feedback_blurb)));
     }
 
     public void testThatListenersAreToldWhenFeedbackButtonPressed() {

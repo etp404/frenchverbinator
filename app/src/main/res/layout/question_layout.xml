@@ -21,13 +21,10 @@
                  tools:context=".QuestionActivity"
                  android:background="@color/background_color"
         >
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
+                android:layout_height="wrap_content"
                 android:weightSum="1"
                 android:id="@+id/question_view_group"
                 android:layout_margin="32dp"
@@ -125,5 +122,4 @@
                 android:visibility="gone"
                 android:padding="16dp"/>
         </FrameLayout>
-    </FrameLayout>
 </uk.co.mould.matt.frenchverbinator.AndroidQuestionView>
