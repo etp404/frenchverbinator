@@ -7,9 +7,9 @@ android {
     defaultConfig {
         applicationId "uk.co.mould.matt.frenchverbinator"
         minSdkVersion 16
-        targetSdkVersion 22
-        versionCode 14
-        versionName "1.15"
+        targetSdkVersion 23
+        versionCode 15
+        versionName "1.16"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
