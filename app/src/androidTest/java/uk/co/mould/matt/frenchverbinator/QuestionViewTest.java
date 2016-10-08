@@ -79,7 +79,7 @@ public final class QuestionViewTest extends AndroidTestCase {
             public void run() {
                 questionView.setResultToCorrect();
 
-                assertEquals("Correct", questionView.resultText.get());
+                assertEquals("Correct", questionView.resultBox.getText());
                 assertEquals(View.VISIBLE, resultBox.getVisibility());
                 assertFalse(answerBox.isEnabled());
                 assertEquals(correctionBox.getVisibility(), View.GONE);
@@ -100,7 +100,7 @@ public final class QuestionViewTest extends AndroidTestCase {
             public void run() {
                 questionView.setResultToIncorrect(new ConjugatedVerbWithPronoun(someVerbWithPronoun));
 
-                assertEquals("Incorrect", questionView.resultText.get());
+                assertEquals("Incorrect", questionView.resultBox.getText());
                 assertEquals(resultBox.getVisibility(), View.VISIBLE);
 
                 assertFalse(answerBox.isEnabled());

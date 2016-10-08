@@ -76,7 +76,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/result_box"
-                        android:text="@{questionViewModel.question}"
+                        android:text="@{questionViewModel.resultBox.text}"
                         android:layout_gravity="center_horizontal"
                         style="@style/font_style" />
                     <TextView
