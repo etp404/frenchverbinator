@@ -22,7 +22,6 @@ public final class QuestionViewTest extends AndroidTestCase {
     private View submitButton;
     private View nextButton;
     private TextView answerBox;
-    private TextView questionBox;
     private TextView resultBox;
     private TextView correctionBox;
     private View noTenseSelectedWarning;
@@ -40,7 +39,6 @@ public final class QuestionViewTest extends AndroidTestCase {
         submitButton = questionView.findViewById(R.id.submit_button);
         nextButton = questionView.findViewById(R.id.next_button);
         answerBox = (TextView)questionView.findViewById(R.id.answer_box);
-        questionBox = (TextView) questionView.findViewById(R.id.question);
         resultBox = (TextView)questionView.findViewById(R.id.result_box);
         correctionBox = (TextView)questionView.findViewById(R.id.correction_box);
         noTenseSelectedWarning = questionView.findViewById(R.id.no_tenses_selected);
@@ -70,7 +68,7 @@ public final class QuestionViewTest extends AndroidTestCase {
 
         assertTrue(nextButton.isEnabled());
         assertTrue(answerBox.isEnabled());
-        assertEquals(expectedQuestion, questionBox.getText());
+        assertEquals(expectedQuestion, questionView.question.get());
         assertEquals(resultBox.getVisibility(), View.GONE);
 
     }
@@ -81,7 +79,7 @@ public final class QuestionViewTest extends AndroidTestCase {
             public void run() {
                 questionView.setResultToCorrect();
 
-                assertEquals("Correct", resultBox.getText());
+                assertEquals("Correct", questionView.resultText.get());
                 assertEquals(View.VISIBLE, resultBox.getVisibility());
                 assertFalse(answerBox.isEnabled());
                 assertEquals(correctionBox.getVisibility(), View.GONE);
@@ -102,7 +100,7 @@ public final class QuestionViewTest extends AndroidTestCase {
             public void run() {
                 questionView.setResultToIncorrect(new ConjugatedVerbWithPronoun(someVerbWithPronoun));
 
-                assertEquals("Incorrect", resultBox.getText());
+                assertEquals("Incorrect", questionView.resultText.get());
                 assertEquals(resultBox.getVisibility(), View.VISIBLE);
 
                 assertFalse(answerBox.isEnabled());

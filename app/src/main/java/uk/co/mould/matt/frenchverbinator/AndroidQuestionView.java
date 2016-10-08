@@ -1,6 +1,7 @@
 package uk.co.mould.matt.frenchverbinator;
 
 import android.content.Context;
+import android.databinding.ObservableField;
 import android.graphics.drawable.AnimatedVectorDrawable;
 import android.os.Build;
 import android.util.AttributeSet;
@@ -20,6 +21,9 @@ import uk.co.mould.matt.questions.Question;
 
 public final class AndroidQuestionView extends LinearLayout implements QuestionView  {
     private static final String QUESTION_TEMPLATE = "What is the '%s' form of %s (%s) in the %s?";
+
+    public final ObservableField<String> question = new ObservableField<>();
+    public final ObservableField<String> resultText = new ObservableField<>();
 
     private View nextButton;
     private ImageView greenTick;
@@ -72,7 +76,7 @@ public final class AndroidQuestionView extends LinearLayout implements QuestionV
         redCross.setVisibility(GONE);
 
         greenTick.setVisibility(GONE);
-        questionBox.setText(
+        this.question.set(
                 String.format(
                         QUESTION_TEMPLATE,
                         question.person.getPerson(),
@@ -84,7 +88,7 @@ public final class AndroidQuestionView extends LinearLayout implements QuestionV
 
     @Override
     public void setResultToCorrect() {
-        resultBox.setText("Correct");
+        resultText.set("Correct");
         resultBox.setVisibility(VISIBLE);
         answerBox.setEnabled(false);
         correctionBox.setVisibility(GONE);
@@ -150,7 +154,7 @@ public final class AndroidQuestionView extends LinearLayout implements QuestionV
     @Override
     public void setResultToIncorrect(ConjugatedVerbWithPronoun correctAnswer) {
         answerBox.setEnabled(false);
-        resultBox.setText("Incorrect");
+        resultText.set("Incorrect");
         resultBox.setVisibility(VISIBLE);
         correctionBox.setText(correctAnswer.toString());
         correctionBox.setVisibility(VISIBLE);

@@ -1,6 +1,7 @@
 package uk.co.mould.matt.frenchverbinator;
 
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -22,7 +23,11 @@ public class QuestionActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
         AndroidQuestionView questionView = (AndroidQuestionView) findViewById(R.id.android_question_view);
+
+        uk.co.mould.matt.frenchverbinator.databinding.QuestionLayoutBinding viewDataBinding = DataBindingUtil.setContentView(this, R.layout.question_layout);
+        viewDataBinding.setQuestionViewModel(questionView);
         QuestionPresenterFactory.create(getApplicationContext(), questionView);
 
         QuestionActivityShowcaserBuilder.build(this, questionView);
