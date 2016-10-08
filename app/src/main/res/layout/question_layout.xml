@@ -3,6 +3,7 @@
 
     <data>
         <variable name="questionViewModel" type="uk.co.mould.matt.frenchverbinator.AndroidQuestionView"/>
+        <import type="android.view.View" />
     </data>
 
     <uk.co.mould.matt.frenchverbinator.AndroidQuestionView
@@ -62,7 +63,10 @@
                         android:hint="Answer"
                         android:gravity="center_horizontal"
                         style="@style/CustomTextStyle"
-                        android:inputType="textVisiblePassword|textNoSuggestions" />
+                        android:inputType="textVisiblePassword|textNoSuggestions"
+                        android:visibility="@{questionViewModel.answerBox.visible ? View.VISIBLE : View.GONE}"
+                        android:enabled="@{questionViewModel.answerBox.enabled}"
+                        android:text="@={questionViewModel.answerBox.text}"/>
 
                     <Button
                         android:layout_width="match_parent"

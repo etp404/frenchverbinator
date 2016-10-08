@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import uk.co.mould.matt.data.ConjugatedVerbWithPronoun;
+import uk.co.mould.matt.frenchverbinator.databinding.AnswerBox;
 import uk.co.mould.matt.frenchverbinator.databinding.ResultBox;
 import uk.co.mould.matt.marking.Score;
 import uk.co.mould.matt.questions.Question;
@@ -24,6 +25,7 @@ public final class AndroidQuestionView extends LinearLayout implements QuestionV
 
     public final ObservableField<String> question = new ObservableField<>();
     public final ResultBox resultBox = new ResultBox();
+    public final AnswerBox answerBox = new AnswerBox();
 
     private View nextButton;
     private ImageView greenTick;
@@ -34,7 +36,6 @@ public final class AndroidQuestionView extends LinearLayout implements QuestionV
     private TextView scoreBox;
     private TextView correctionBox;
     private TextView questionBox;
-    private TextView answerBox;
     private SubmitListener submitListener;
 
     public AndroidQuestionView(Context context) {
@@ -52,7 +53,6 @@ public final class AndroidQuestionView extends LinearLayout implements QuestionV
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-        answerBox = ((TextView) findViewById(R.id.answer_box));
         submitButton = (Button)findViewById(R.id.submit_button);
         nextButton = findViewById(R.id.next_button);
         resultBoxLegacy = ((TextView) findViewById(R.id.result_box));
@@ -71,7 +71,7 @@ public final class AndroidQuestionView extends LinearLayout implements QuestionV
         resultBoxLegacy.setVisibility(View.GONE);
         submitButton.setVisibility(View.VISIBLE);
         nextButton.setVisibility(View.GONE);
-        answerBox.setVisibility(View.VISIBLE);
+        answerBox.setVisibility(true);
         answerBox.setEnabled(true);
         answerBox.setText("");
         redCross.setVisibility(GONE);
@@ -169,7 +169,7 @@ public final class AndroidQuestionView extends LinearLayout implements QuestionV
     @Override
     public void showNoTensesSelected() {
         questionBox.setVisibility(View.GONE);
-        answerBox.setVisibility(View.GONE);
+        answerBox.setVisibility(false);
         submitButton.setVisibility(View.GONE);
         nextButton.setVisibility(View.GONE);
         correctionBox.setVisibility(View.GONE);
