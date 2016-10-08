@@ -21,7 +21,6 @@ public final class QuestionViewTest extends AndroidTestCase {
     private TextView scoreBox;
     private View submitButton;
     private View nextButton;
-    private TextView resultBox;
     private TextView correctionBox;
     private View noTenseSelectedWarning;
     private Question question = new Question(Persons.SECOND_PERSON_SINGULAR, new InfinitiveVerb("some_verb_in_french", "some_verb_in_english", null), new PresentIndicative());
@@ -37,7 +36,6 @@ public final class QuestionViewTest extends AndroidTestCase {
         scoreBox = (TextView) questionView.findViewById(R.id.score);
         submitButton = questionView.findViewById(R.id.submit_button);
         nextButton = questionView.findViewById(R.id.next_button);
-        resultBox = (TextView)questionView.findViewById(R.id.result_box);
         correctionBox = (TextView)questionView.findViewById(R.id.correction_box);
         noTenseSelectedWarning = questionView.findViewById(R.id.no_tenses_selected);
         greenTick = questionView.findViewById(R.id.green_tick);
@@ -67,7 +65,7 @@ public final class QuestionViewTest extends AndroidTestCase {
         assertTrue(nextButton.isEnabled());
         assertTrue(questionView.answerBox.isEnabled());
         assertEquals(expectedQuestion, questionView.question.get());
-        assertEquals(resultBox.getVisibility(), View.GONE);
+        assertFalse(questionView.resultBox.isVisible());
 
     }
 
@@ -78,7 +76,7 @@ public final class QuestionViewTest extends AndroidTestCase {
                 questionView.setResultToCorrect();
 
                 assertEquals("Correct", questionView.resultBox.getText());
-                assertEquals(View.VISIBLE, resultBox.getVisibility());
+                assertTrue(questionView.resultBox.isVisible());
                 assertFalse(questionView.answerBox.isEnabled());
                 assertEquals(correctionBox.getVisibility(), View.GONE);
                 assertEquals(greenTick.getVisibility(), View.VISIBLE);
@@ -99,7 +97,7 @@ public final class QuestionViewTest extends AndroidTestCase {
                 questionView.setResultToIncorrect(new ConjugatedVerbWithPronoun(someVerbWithPronoun));
 
                 assertEquals("Incorrect", questionView.resultBox.getText());
-                assertEquals(resultBox.getVisibility(), View.VISIBLE);
+                assertTrue(questionView.resultBox.isVisible());
 
                 assertFalse(questionView.answerBox.isEnabled());
                 assertEquals(someVerbWithPronoun, correctionBox.getText());
@@ -161,7 +159,7 @@ public final class QuestionViewTest extends AndroidTestCase {
         assertEquals(submitButton.getVisibility(), View.GONE);
         assertEquals(nextButton.getVisibility(), View.GONE);
         assertEquals(correctionBox.getVisibility(), View.GONE);
-        assertEquals(resultBox.getVisibility(), View.GONE);
+        assertFalse(questionView.resultBox.isVisible());
         assertEquals(scoreBox.getVisibility(), View.GONE);
         assertFalse(questionView.answerBox.isVisible());
         assertEquals(noTenseSelectedWarning.getVisibility(), View.VISIBLE);

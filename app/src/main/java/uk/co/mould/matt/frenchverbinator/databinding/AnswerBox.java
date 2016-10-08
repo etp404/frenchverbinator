@@ -1,6 +1,7 @@
 package uk.co.mould.matt.frenchverbinator.databinding;
 
 import android.databinding.BaseObservable;
+import android.databinding.Bindable;
 
 public class AnswerBox extends BaseObservable {
     private String text;
@@ -11,10 +12,12 @@ public class AnswerBox extends BaseObservable {
         return text;
     }
 
+    @Bindable
     public void setText(String text) {
         this.text = text;
     }
 
+    @Bindable
     public boolean isEnabled() {
         return enabled;
     }
@@ -23,6 +26,7 @@ public class AnswerBox extends BaseObservable {
         this.enabled = enabled;
     }
 
+    @Bindable
     public boolean isVisible() {
         return visibility;
     }

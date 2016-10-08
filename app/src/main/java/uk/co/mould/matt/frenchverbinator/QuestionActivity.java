@@ -28,6 +28,7 @@ public class QuestionActivity extends AppCompatActivity {
 
         uk.co.mould.matt.frenchverbinator.databinding.QuestionLayoutBinding viewDataBinding = DataBindingUtil.setContentView(this, R.layout.question_layout);
         viewDataBinding.setQuestionViewModel(questionView);
+        viewDataBinding.setResultBox(questionView.resultBox);
         QuestionPresenterFactory.create(getApplicationContext(), questionView);
 
         QuestionActivityShowcaserBuilder.build(this, questionView);

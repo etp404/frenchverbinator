@@ -20,7 +20,7 @@ import uk.co.mould.matt.frenchverbinator.databinding.ResultBox;
 import uk.co.mould.matt.marking.Score;
 import uk.co.mould.matt.questions.Question;
 
-public final class AndroidQuestionView extends LinearLayout implements QuestionView  {
+public final class AndroidQuestionView extends LinearLayout implements QuestionView {
     private static final String QUESTION_TEMPLATE = "What is the '%s' form of %s (%s) in the %s?";
 
     public final ObservableField<String> question = new ObservableField<>();
@@ -31,7 +31,6 @@ public final class AndroidQuestionView extends LinearLayout implements QuestionV
     private ImageView greenTick;
     private ImageView redCross;
     private Button submitButton;
-    private TextView resultBoxLegacy;
     private TextView noTensesSelectedWarning;
     private TextView scoreBox;
     private TextView correctionBox;
@@ -55,7 +54,6 @@ public final class AndroidQuestionView extends LinearLayout implements QuestionV
         super.onFinishInflate();
         submitButton = (Button)findViewById(R.id.submit_button);
         nextButton = findViewById(R.id.next_button);
-        resultBoxLegacy = ((TextView) findViewById(R.id.result_box));
         noTensesSelectedWarning = (TextView) findViewById(R.id.no_tenses_selected);
         correctionBox = (TextView) findViewById(R.id.correction_box);
         questionBox = (TextView)findViewById(R.id.question);
@@ -68,7 +66,7 @@ public final class AndroidQuestionView extends LinearLayout implements QuestionV
     public void setQuestion(Question question) {
         noTensesSelectedWarning.setVisibility(View.GONE);
         correctionBox.setVisibility(View.GONE);
-        resultBoxLegacy.setVisibility(View.GONE);
+        resultBox.setVisible(false);
         submitButton.setVisibility(View.VISIBLE);
         nextButton.setVisibility(View.GONE);
         answerBox.setVisibility(true);
@@ -90,7 +88,7 @@ public final class AndroidQuestionView extends LinearLayout implements QuestionV
     @Override
     public void setResultToCorrect() {
         resultBox.setText("Correct");
-        resultBoxLegacy.setVisibility(VISIBLE);
+        resultBox.setVisible(true);
         answerBox.setEnabled(false);
         correctionBox.setVisibility(GONE);
         nextButton.setVisibility(VISIBLE);
@@ -156,7 +154,7 @@ public final class AndroidQuestionView extends LinearLayout implements QuestionV
     public void setResultToIncorrect(ConjugatedVerbWithPronoun correctAnswer) {
         answerBox.setEnabled(false);
         resultBox.setText("Incorrect");
-        resultBoxLegacy.setVisibility(VISIBLE);
+        resultBox.setVisible(true);
         correctionBox.setText(correctAnswer.toString());
         correctionBox.setVisibility(VISIBLE);
         nextButton.setVisibility(View.VISIBLE);
@@ -173,7 +171,7 @@ public final class AndroidQuestionView extends LinearLayout implements QuestionV
         submitButton.setVisibility(View.GONE);
         nextButton.setVisibility(View.GONE);
         correctionBox.setVisibility(View.GONE);
-        resultBoxLegacy.setVisibility(View.GONE);
+        resultBox.setVisible(false);
         scoreBox.setVisibility(View.GONE);
         noTensesSelectedWarning.setVisibility(View.VISIBLE);
     }

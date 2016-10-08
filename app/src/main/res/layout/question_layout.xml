@@ -3,6 +3,7 @@
 
     <data>
         <variable name="questionViewModel" type="uk.co.mould.matt.frenchverbinator.AndroidQuestionView"/>
+        <variable name="resultBox" type="uk.co.mould.matt.frenchverbinator.databinding.ResultBox"/>
         <import type="android.view.View" />
     </data>
 
@@ -81,7 +82,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/result_box"
-                        android:text="@{questionViewModel.resultBox.text}"
+                        android:text="@{resultBox.text}"
+                        android:visibility="@{resultBox.visible ? View.VISIBLE : View.GONE}"
                         android:layout_gravity="center_horizontal"
                         style="@style/font_style" />
                     <TextView
