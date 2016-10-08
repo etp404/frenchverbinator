@@ -70,7 +70,8 @@
                         android:text="CHECK"
                         android:id="@+id/submit_button"
                         android:elevation="6dp"
-                        style="@style/buttonFontColour" />
+                        style="@style/buttonFontColour"
+                        android:onClick="@{() -> questionViewModel.onSubmitAnswer()}"/>
 
                     <TextView
                         android:layout_width="wrap_content"

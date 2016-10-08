@@ -35,6 +35,7 @@ public final class AndroidQuestionView extends LinearLayout implements QuestionV
     private TextView correctionBox;
     private TextView questionBox;
     private TextView answerBox;
+    private SubmitListener submitListener;
 
     public AndroidQuestionView(Context context) {
         super(context);
@@ -183,14 +184,13 @@ public final class AndroidQuestionView extends LinearLayout implements QuestionV
         scoreBox.setText(score.toString());
     }
 
+    public void onSubmitAnswer() {
+        submitListener.submitAnswer(answerBox.getText().toString());
+    }
+
     @Override
     public void addSubmitListener(final SubmitListener submitListener) {
-        submitButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                submitListener.submitAnswer(answerBox.getText().toString());
-            }
-        });
+        this.submitListener = submitListener;
     }
 
     @Override

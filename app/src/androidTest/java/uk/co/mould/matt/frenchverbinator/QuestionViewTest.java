@@ -178,7 +178,7 @@ public final class QuestionViewTest extends AndroidTestCase {
         questionView.addSubmitListener(submitListener);
         String answer = "some_answer";
         answerBox.setText(answer);
-        submitButton.performClick();
+        questionView.onSubmitAnswer();
         assertEquals(submitListener.invokedWith, answer);
     }
 
