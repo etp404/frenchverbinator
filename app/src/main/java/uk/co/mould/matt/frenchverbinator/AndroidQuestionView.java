@@ -26,16 +26,17 @@ public final class AndroidQuestionView extends LinearLayout implements QuestionV
     public final ObservableField<Boolean> submitButtonVisibility = new ObservableField<>();
     public final ObservableField<String> scoreBoxText = new ObservableField<>();
     public final ObservableField<Boolean> scoreBoxVisibility = new ObservableField<>();
+    public final ObservableField<Integer> nextButtonVisibility = new ObservableField<>();
 
     public final ResultBox resultBox = new ResultBox();
     public final AnswerBox answerBox = new AnswerBox();
-    private View nextButton;
     private ImageView greenTick;
     private ImageView redCross;
     private TextView noTensesSelectedWarning;
     private TextView correctionBox;
     private TextView questionBox;
     private SubmitListener submitListener;
+    private NextQuestionListener nextQuestionListener;
 
     public AndroidQuestionView(Context context) {
         super(context);
@@ -52,7 +53,6 @@ public final class AndroidQuestionView extends LinearLayout implements QuestionV
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-        nextButton = findViewById(R.id.next_button);
         noTensesSelectedWarning = (TextView) findViewById(R.id.no_tenses_selected);
         correctionBox = (TextView) findViewById(R.id.correction_box);
         questionBox = (TextView)findViewById(R.id.question);
@@ -66,7 +66,7 @@ public final class AndroidQuestionView extends LinearLayout implements QuestionV
         correctionBox.setVisibility(View.GONE);
         resultBox.setVisible(false);
         submitButtonVisibility.set(true);
-        nextButton.setVisibility(View.GONE);
+        nextButtonVisibility.set(View.GONE);
         answerBox.setVisibility(true);
         answerBox.setEnabled(true);
         answerBox.setText("");
@@ -89,8 +89,7 @@ public final class AndroidQuestionView extends LinearLayout implements QuestionV
         resultBox.setVisible(true);
         answerBox.setEnabled(false);
         correctionBox.setVisibility(GONE);
-        nextButton.setVisibility(VISIBLE);
-        nextButton.setEnabled(true);
+        nextButtonVisibility.set(VISIBLE);
         submitButtonVisibility.set(false);
         showGreenTick();
     }
@@ -155,8 +154,7 @@ public final class AndroidQuestionView extends LinearLayout implements QuestionV
         resultBox.setVisible(true);
         correctionBox.setText(correctAnswer.toString());
         correctionBox.setVisibility(VISIBLE);
-        nextButton.setVisibility(View.VISIBLE);
-        nextButton.setEnabled(true);
+        nextButtonVisibility.set(View.VISIBLE);
         submitButtonVisibility.set(false);
         greenTick.setVisibility(View.GONE);
         showRedCross();
@@ -167,7 +165,7 @@ public final class AndroidQuestionView extends LinearLayout implements QuestionV
         questionBox.setVisibility(View.GONE);
         answerBox.setVisibility(false);
         submitButtonVisibility.set(false);
-        nextButton.setVisibility(View.GONE);
+        nextButtonVisibility.set(View.GONE);
         correctionBox.setVisibility(View.GONE);
         resultBox.setVisible(false);
         scoreBoxVisibility.set(false);
@@ -181,7 +179,11 @@ public final class AndroidQuestionView extends LinearLayout implements QuestionV
     }
 
     public void onSubmitAnswer() {
-        submitListener.submitAnswer(answerBox.getText().toString());
+        submitListener.submitAnswer(answerBox.getText());
+    }
+
+    public void onRequestNextQuestion() {
+        nextQuestionListener.requestNextQuestion();
     }
 
     @Override
@@ -190,13 +192,7 @@ public final class AndroidQuestionView extends LinearLayout implements QuestionV
     }
 
     @Override
-    public void addNextQuestionListener(final NextQuestionListener nextQuestionListener) {
-        nextButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                nextQuestionListener.requestNextQuestion();
-            }
-        });
+    public void addNextQuestionListener(NextQuestionListener nextQuestionListener) {
+        this.nextQuestionListener = nextQuestionListener;
     }
-
 }

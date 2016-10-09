@@ -107,10 +107,11 @@
                         android:layout_height="wrap_content"
                         android:text="Next"
                         android:id="@+id/next_button"
-                        android:visibility="gone"
+                        android:visibility="@{questionViewModel.nextButtonVisibility}"
                         android:layout_gravity="center_horizontal"
                         android:elevation="6dp"
-                        style="@style/buttonFontColour" />
+                        style="@style/buttonFontColour"
+                        android:onClick="@{() -> questionViewModel.onRequestNextQuestion()}"/>
                 </LinearLayout>
 
 
