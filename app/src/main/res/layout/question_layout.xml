@@ -69,7 +69,6 @@
                         android:visibility="@{questionViewModel.answerBox.visible ? View.VISIBLE : View.GONE}"
                         android:enabled="@{questionViewModel.answerBox.enabled}"
                         android:text="@={questionViewModel.answerBox.text}"/>
-
                     <Button
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -79,7 +78,27 @@
                         android:elevation="6dp"
                         style="@style/buttonFontColour"
                         android:onClick="@{() -> questionViewModel.onSubmitAnswer()}"/>
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Next"
+                        android:id="@+id/next_button"
+                        android:visibility="@{questionViewModel.nextButtonVisibility}"
+                        android:layout_gravity="center_horizontal"
+                        android:elevation="6dp"
+                        style="@style/buttonFontColour"
+                        android:onClick="@{() -> questionViewModel.onRequestNextQuestion()}"/>
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:id="@+id/score"
+                        android:visibility="@{questionViewModel.scoreBoxVisibility}"
+                        android:text="@{questionViewModel.scoreBoxText}"
+                        tools:text="0/0"
+                        android:textStyle="italic"
+                        android:layout_gravity="center_horizontal" />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -97,24 +116,7 @@
                         android:text="@{questionViewModel.correctionBoxText}"
                         style="@style/font_style"
                         tools:text="correctAnswer"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:id="@+id/score"
-                        android:text="0/0"
-                        android:textStyle="italic"
-                        android:layout_gravity="center_horizontal" />
-                    <Button
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Next"
-                        android:id="@+id/next_button"
-                        android:visibility="@{questionViewModel.nextButtonVisibility}"
-                        android:layout_gravity="center_horizontal"
-                        android:elevation="6dp"
-                        style="@style/buttonFontColour"
-                        android:onClick="@{() -> questionViewModel.onRequestNextQuestion()}"/>
+
                 </LinearLayout>
 
 

@@ -16,6 +16,9 @@ import uk.co.mould.matt.data.tenses.PresentIndicative;
 import uk.co.mould.matt.marking.Score;
 import uk.co.mould.matt.questions.Question;
 
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
+
 public final class QuestionViewTest extends AndroidTestCase {
     public AndroidQuestionView questionView;
     private String someVerbWithPronoun = "someVerbWithPronoun";
@@ -39,7 +42,7 @@ public final class QuestionViewTest extends AndroidTestCase {
         Score score = new Score();
         questionView.showScore(score);
         assertEquals(score.toString(), questionView.scoreBoxText.get());
-        assertTrue(questionView.scoreBoxVisibility.get());
+        assertEquals(questionView.scoreBoxVisibility.get(), (Integer)VISIBLE);
     }
 
     public void testThatQuestionDisplayedCorrectly() {
@@ -69,7 +72,7 @@ public final class QuestionViewTest extends AndroidTestCase {
                 assertEquals("Correct", questionView.resultBox.getText());
                 assertTrue(questionView.resultBox.isVisible());
                 assertFalse(questionView.answerBox.isEnabled());
-                assertEquals(questionView.correctionBoxVisibility.get(), (Integer)View.GONE);
+                assertEquals(questionView.correctionBoxVisibility.get(), (Integer) GONE);
                 assertEquals(greenTick.getVisibility(), View.VISIBLE);
 
                 assertFalse(questionView.submitButtonVisibility.get());
@@ -92,7 +95,7 @@ public final class QuestionViewTest extends AndroidTestCase {
                 assertFalse(questionView.answerBox.isEnabled());
                 assertEquals(someVerbWithPronoun, questionView.correctionBoxText.get());
                 assertEquals(questionView.correctionBoxVisibility.get(), (Integer)View.VISIBLE);
-                assertEquals(greenTick.getVisibility(), View.GONE);
+                assertEquals(greenTick.getVisibility(), GONE);
                 assertEquals(redCross.getVisibility(), View.VISIBLE);
 
                 assertFalse(questionView.submitButtonVisibility.get());
@@ -111,10 +114,10 @@ public final class QuestionViewTest extends AndroidTestCase {
                 questionView.answerBox.setText("some answer");
                 questionView.setQuestion(question);
 
-                assertEquals(questionView.correctionBoxVisibility.get(), (Integer)View.GONE);
+                assertEquals(questionView.correctionBoxVisibility.get(), (Integer) GONE);
                 assertTrue(questionView.submitButtonVisibility.get());
-                assertEquals(questionView.nextButtonVisibility.get(), (Integer)View.GONE);
-                assertEquals(redCross.getVisibility(), View.GONE);
+                assertEquals(questionView.nextButtonVisibility.get(), (Integer) GONE);
+                assertEquals(redCross.getVisibility(), GONE);
                 assertTrue(questionView.answerBox.isEnabled());
                 assertEquals(0, questionView.answerBox.getText().length());
             }});
@@ -127,10 +130,10 @@ public final class QuestionViewTest extends AndroidTestCase {
                 questionView.setResultToCorrect();
                 questionView.setQuestion(question);
 
-                assertEquals(questionView.correctionBoxVisibility.get(), (Integer)View.GONE);
+                assertEquals(questionView.correctionBoxVisibility.get(), (Integer) GONE);
                 assertTrue(questionView.submitButtonVisibility.get());
-                assertEquals(questionView.nextButtonVisibility.get(), (Integer)View.GONE);
-                assertEquals(greenTick.getVisibility(), View.GONE);
+                assertEquals(questionView.nextButtonVisibility.get(), (Integer) GONE);
+                assertEquals(greenTick.getVisibility(), GONE);
                 assertTrue(questionView.answerBox.isEnabled());
                 assertTrue(questionView.answerBox.isVisible());
                 assertEquals(0, questionView.answerBox.getText().length());
@@ -142,12 +145,12 @@ public final class QuestionViewTest extends AndroidTestCase {
         questionView.showNoTensesSelected();
 
         assertFalse(questionView.answerBox.isVisible());
-        assertEquals(questionView.questionVisibility.get(), (Integer)View.GONE);
+        assertEquals(questionView.questionVisibility.get(), (Integer) GONE);
         assertFalse(questionView.submitButtonVisibility.get());
-        assertEquals(questionView.nextButtonVisibility.get(), (Integer)View.GONE);
-        assertEquals(questionView.correctionBoxVisibility.get(), (Integer)View.GONE);
+        assertEquals(questionView.nextButtonVisibility.get(), (Integer) GONE);
+        assertEquals(questionView.correctionBoxVisibility.get(), (Integer) GONE);
         assertFalse(questionView.resultBox.isVisible());
-        assertFalse(questionView.scoreBoxVisibility.get());
+        assertEquals(questionView.scoreBoxVisibility.get(), (Integer)GONE);
         assertFalse(questionView.answerBox.isVisible());
         assertEquals(questionView.noTensesSelectedWarningVisibility.get(), (Integer)View.VISIBLE);
     }
@@ -155,7 +158,7 @@ public final class QuestionViewTest extends AndroidTestCase {
     public void testThatNoTensesSelectedWarningIsRemoved_WhenQuestionIsShown() {
         questionView.showNoTensesSelected();
         questionView.setQuestion(question);
-        assertEquals(questionView.noTensesSelectedWarningVisibility.get(), (Integer)View.GONE);
+        assertEquals(questionView.noTensesSelectedWarningVisibility.get(), (Integer) GONE);
     }
 
     public void testThatPressingSubmitInvokesListener() {

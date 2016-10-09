@@ -26,7 +26,7 @@ public final class AndroidQuestionView extends LinearLayout implements QuestionV
     public final ObservableField<Integer> questionVisibility = new ObservableField<>();
     public final ObservableField<Boolean> submitButtonVisibility = new ObservableField<>();
     public final ObservableField<String> scoreBoxText = new ObservableField<>();
-    public final ObservableField<Boolean> scoreBoxVisibility = new ObservableField<>();
+    public final ObservableField<Integer> scoreBoxVisibility = new ObservableField<>();
     public final ObservableField<Integer> nextButtonVisibility = new ObservableField<>();
     public final ObservableField<Integer> noTensesSelectedWarningVisibility = new ObservableField<>();
     public final ObservableField<String> correctionBoxText = new ObservableField<>();
@@ -36,7 +36,6 @@ public final class AndroidQuestionView extends LinearLayout implements QuestionV
     public final AnswerBox answerBox = new AnswerBox();
     private ImageView greenTick;
     private ImageView redCross;
-    private TextView questionBox;
     private SubmitListener submitListener;
     private NextQuestionListener nextQuestionListener;
 
@@ -55,7 +54,6 @@ public final class AndroidQuestionView extends LinearLayout implements QuestionV
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-        questionBox = (TextView)findViewById(R.id.question);
         greenTick = (ImageView)findViewById(R.id.green_tick);
         redCross = (ImageView) findViewById(R.id.red_cross);
     }
@@ -169,13 +167,13 @@ public final class AndroidQuestionView extends LinearLayout implements QuestionV
         nextButtonVisibility.set(View.GONE);
         correctionBoxVisibility.set(GONE);
         resultBox.setVisible(false);
-        scoreBoxVisibility.set(false);
+        scoreBoxVisibility.set(GONE);
         noTensesSelectedWarningVisibility.set(View.VISIBLE);
     }
 
     @Override
     public void showScore(Score score) {
-        scoreBoxVisibility.set(true);
+        scoreBoxVisibility.set(VISIBLE);
         scoreBoxText.set(score.toString());
     }
 
