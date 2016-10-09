@@ -27,13 +27,14 @@ public final class AndroidQuestionView extends LinearLayout implements QuestionV
     public final ObservableField<String> scoreBoxText = new ObservableField<>();
     public final ObservableField<Boolean> scoreBoxVisibility = new ObservableField<>();
     public final ObservableField<Integer> nextButtonVisibility = new ObservableField<>();
+    public final ObservableField<Integer> noTensesSelectedWarningVisibility = new ObservableField<>();
+    public final ObservableField<String> correctionBoxText = new ObservableField<>();
+    public final ObservableField<Integer> correctionBoxVisibility = new ObservableField<>();
 
     public final ResultBox resultBox = new ResultBox();
     public final AnswerBox answerBox = new AnswerBox();
     private ImageView greenTick;
     private ImageView redCross;
-    private TextView noTensesSelectedWarning;
-    private TextView correctionBox;
     private TextView questionBox;
     private SubmitListener submitListener;
     private NextQuestionListener nextQuestionListener;
@@ -53,8 +54,6 @@ public final class AndroidQuestionView extends LinearLayout implements QuestionV
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-        noTensesSelectedWarning = (TextView) findViewById(R.id.no_tenses_selected);
-        correctionBox = (TextView) findViewById(R.id.correction_box);
         questionBox = (TextView)findViewById(R.id.question);
         greenTick = (ImageView)findViewById(R.id.green_tick);
         redCross = (ImageView) findViewById(R.id.red_cross);
@@ -62,8 +61,8 @@ public final class AndroidQuestionView extends LinearLayout implements QuestionV
 
     @Override
     public void setQuestion(Question question) {
-        noTensesSelectedWarning.setVisibility(View.GONE);
-        correctionBox.setVisibility(View.GONE);
+        noTensesSelectedWarningVisibility.set(View.GONE);
+        correctionBoxVisibility.set(View.GONE);
         resultBox.setVisible(false);
         submitButtonVisibility.set(true);
         nextButtonVisibility.set(View.GONE);
@@ -88,7 +87,7 @@ public final class AndroidQuestionView extends LinearLayout implements QuestionV
         resultBox.setText("Correct");
         resultBox.setVisible(true);
         answerBox.setEnabled(false);
-        correctionBox.setVisibility(GONE);
+        correctionBoxVisibility.set(GONE);
         nextButtonVisibility.set(VISIBLE);
         submitButtonVisibility.set(false);
         showGreenTick();
@@ -152,8 +151,8 @@ public final class AndroidQuestionView extends LinearLayout implements QuestionV
         answerBox.setEnabled(false);
         resultBox.setText("Incorrect");
         resultBox.setVisible(true);
-        correctionBox.setText(correctAnswer.toString());
-        correctionBox.setVisibility(VISIBLE);
+        correctionBoxText.set(correctAnswer.toString());
+        correctionBoxVisibility.set(VISIBLE);
         nextButtonVisibility.set(View.VISIBLE);
         submitButtonVisibility.set(false);
         greenTick.setVisibility(View.GONE);
@@ -166,10 +165,10 @@ public final class AndroidQuestionView extends LinearLayout implements QuestionV
         answerBox.setVisibility(false);
         submitButtonVisibility.set(false);
         nextButtonVisibility.set(View.GONE);
-        correctionBox.setVisibility(View.GONE);
+        correctionBoxVisibility.set(GONE);
         resultBox.setVisible(false);
         scoreBoxVisibility.set(false);
-        noTensesSelectedWarning.setVisibility(View.VISIBLE);
+        noTensesSelectedWarningVisibility.set(View.VISIBLE);
     }
 
     @Override
