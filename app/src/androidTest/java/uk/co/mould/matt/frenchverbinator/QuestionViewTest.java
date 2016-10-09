@@ -2,11 +2,9 @@ package uk.co.mould.matt.frenchverbinator;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
-import android.support.v7.widget.ActivityChooserView;
 import android.test.AndroidTestCase;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.TextView;
 
 import uk.co.mould.matt.data.ConjugatedVerbWithPronoun;
 import uk.co.mould.matt.data.InfinitiveVerb;
@@ -23,8 +21,6 @@ public final class QuestionViewTest extends AndroidTestCase {
     public AndroidQuestionView questionView;
     private String someVerbWithPronoun = "someVerbWithPronoun";
     private Question question = new Question(Persons.SECOND_PERSON_SINGULAR, new InfinitiveVerb("some_verb_in_french", "some_verb_in_english", null), new PresentIndicative());
-    private View greenTick;
-    private View redCross;
 
     @Override
     public void setUp() throws Exception {
@@ -32,8 +28,6 @@ public final class QuestionViewTest extends AndroidTestCase {
         Context context = getContext();
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         questionView = (AndroidQuestionView)layoutInflater.inflate(R.layout.question_layout, null);
-        greenTick = questionView.findViewById(R.id.green_tick);
-        redCross = questionView.findViewById(R.id.red_cross);
 
         questionView.setQuestion(question);
     }
@@ -73,7 +67,7 @@ public final class QuestionViewTest extends AndroidTestCase {
                 assertTrue(questionView.resultBox.isVisible());
                 assertFalse(questionView.answerBox.isEnabled());
                 assertEquals(questionView.correctionBoxVisibility.get(), (Integer) GONE);
-                assertEquals(greenTick.getVisibility(), View.VISIBLE);
+                assertEquals(questionView.greenTickVisibility.get(), (Integer)View.VISIBLE);
 
                 assertFalse(questionView.submitButtonVisibility.get());
 
@@ -95,8 +89,8 @@ public final class QuestionViewTest extends AndroidTestCase {
                 assertFalse(questionView.answerBox.isEnabled());
                 assertEquals(someVerbWithPronoun, questionView.correctionBoxText.get());
                 assertEquals(questionView.correctionBoxVisibility.get(), (Integer)View.VISIBLE);
-                assertEquals(greenTick.getVisibility(), GONE);
-                assertEquals(redCross.getVisibility(), View.VISIBLE);
+                assertEquals(questionView.greenTickVisibility.get(), (Integer)View.GONE);
+                assertEquals(questionView.redCrossVisibility.get(), (Integer)View.VISIBLE);
 
                 assertFalse(questionView.submitButtonVisibility.get());
 
@@ -117,7 +111,7 @@ public final class QuestionViewTest extends AndroidTestCase {
                 assertEquals(questionView.correctionBoxVisibility.get(), (Integer) GONE);
                 assertTrue(questionView.submitButtonVisibility.get());
                 assertEquals(questionView.nextButtonVisibility.get(), (Integer) GONE);
-                assertEquals(redCross.getVisibility(), GONE);
+                assertEquals(questionView.redCrossVisibility.get(), (Integer)GONE);
                 assertTrue(questionView.answerBox.isEnabled());
                 assertEquals(0, questionView.answerBox.getText().length());
             }});
@@ -132,8 +126,8 @@ public final class QuestionViewTest extends AndroidTestCase {
 
                 assertEquals(questionView.correctionBoxVisibility.get(), (Integer) GONE);
                 assertTrue(questionView.submitButtonVisibility.get());
-                assertEquals(questionView.nextButtonVisibility.get(), (Integer) GONE);
-                assertEquals(greenTick.getVisibility(), GONE);
+                assertEquals(questionView.nextButtonVisibility.get(), (Integer)GONE);
+                assertEquals(questionView.greenTickVisibility.get(), (Integer)GONE);
                 assertTrue(questionView.answerBox.isEnabled());
                 assertTrue(questionView.answerBox.isVisible());
                 assertEquals(0, questionView.answerBox.getText().length());

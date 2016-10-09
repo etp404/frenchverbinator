@@ -31,6 +31,8 @@ public final class AndroidQuestionView extends LinearLayout implements QuestionV
     public final ObservableField<Integer> noTensesSelectedWarningVisibility = new ObservableField<>();
     public final ObservableField<String> correctionBoxText = new ObservableField<>();
     public final ObservableField<Integer> correctionBoxVisibility = new ObservableField<>();
+    public final ObservableField<Integer> greenTickVisibility = new ObservableField<>();
+    public final ObservableField<Integer> redCrossVisibility = new ObservableField<>();
 
     public final ResultBox resultBox = new ResultBox();
     public final AnswerBox answerBox = new AnswerBox();
@@ -68,9 +70,9 @@ public final class AndroidQuestionView extends LinearLayout implements QuestionV
         answerBox.setVisibility(true);
         answerBox.setEnabled(true);
         answerBox.setText("");
-        redCross.setVisibility(GONE);
+        redCrossVisibility.set(GONE);
 
-        greenTick.setVisibility(GONE);
+        greenTickVisibility.set(GONE);
         this.questionText.set(
                 String.format(
                         QUESTION_TEMPLATE,
@@ -97,7 +99,7 @@ public final class AndroidQuestionView extends LinearLayout implements QuestionV
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             AnimatedVectorDrawable drawableGreenTick = (AnimatedVectorDrawable) getContext().getDrawable(R.drawable.drawable_green_tick);
             greenTick.setImageDrawable(drawableGreenTick);
-            greenTick.setVisibility(VISIBLE);
+            greenTickVisibility.set(VISIBLE);
             drawableGreenTick.start();
         }
         else {
@@ -109,7 +111,7 @@ public final class AndroidQuestionView extends LinearLayout implements QuestionV
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             AnimatedVectorDrawable drawableRedCross = (AnimatedVectorDrawable) getContext().getDrawable(R.drawable.drawable_red_cross);
             redCross.setImageDrawable(drawableRedCross);
-            redCross.setVisibility(VISIBLE);
+            redCrossVisibility.set(VISIBLE);
             drawableRedCross.start();
         }
         else {

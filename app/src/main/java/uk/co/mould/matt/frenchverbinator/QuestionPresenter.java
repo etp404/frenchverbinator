@@ -21,19 +21,20 @@ public class QuestionPresenter {
         questionView.addSubmitListener(new QuestionView.SubmitListener() {
             @Override
             public void submitAnswer(String answer) {
-                answerChecking.check(question, answer, new AnswerChecking.Callback() {
-                    @Override
-                    public void correct() {
-                        score.addCorrect();
-                        questionView.setResultToCorrect();
-                    }
-
-                    @Override
-                    public void incorrect(ConjugatedVerbWithPronoun corrrection) {
-                        score.addIncorrect();
-                        questionView.setResultToIncorrect(corrrection);
-                    }
-                });
+                                        questionView.setResultToCorrect();
+//                answerChecking.check(question, answer, new AnswerChecking.Callback() {
+//                    @Override
+//                    public void correct() {
+//                        score.addCorrect();
+//                        questionView.setResultToCorrect();
+//                    }
+//
+//                    @Override
+//                    public void incorrect(ConjugatedVerbWithPronoun corrrection) {
+//                        score.addIncorrect();
+//                        questionView.setResultToIncorrect(corrrection);
+//                    }
+//                });
             }
         });
 

@@ -127,7 +127,7 @@
                     app:srcCompat="@drawable/red_cross"
                     android:elevation="12dp"
                     android:layout_gravity="center"
-                    android:visibility="gone"
+                    android:visibility="@{questionViewModel.redCrossVisibility}"
                     android:padding="40dp" />
 
                 <ImageView
@@ -137,7 +137,7 @@
                     app:srcCompat="@drawable/green_tick"
                     android:elevation="12dp"
                     android:layout_gravity="center"
-                    android:visibility="gone"
+                    android:visibility="@{questionViewModel.greenTickVisibility}"
                     android:padding="16dp"/>
             </FrameLayout>
     </uk.co.mould.matt.frenchverbinator.AndroidQuestionView>
