@@ -19,8 +19,6 @@ import uk.co.mould.matt.questions.Question;
 public final class QuestionViewTest extends AndroidTestCase {
     public AndroidQuestionView questionView;
     private String someVerbWithPronoun = "someVerbWithPronoun";
-    private View nextButtonLegacy;
-    private TextView correctionBox;
     private Question question = new Question(Persons.SECOND_PERSON_SINGULAR, new InfinitiveVerb("some_verb_in_french", "some_verb_in_english", null), new PresentIndicative());
     private View greenTick;
     private View redCross;
@@ -31,8 +29,6 @@ public final class QuestionViewTest extends AndroidTestCase {
         Context context = getContext();
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         questionView = (AndroidQuestionView)layoutInflater.inflate(R.layout.question_layout, null);
-        nextButtonLegacy = questionView.findViewById(R.id.next_button);
-        correctionBox = (TextView)questionView.findViewById(R.id.correction_box);
         greenTick = questionView.findViewById(R.id.green_tick);
         redCross = questionView.findViewById(R.id.red_cross);
 
@@ -58,7 +54,8 @@ public final class QuestionViewTest extends AndroidTestCase {
         assertTrue(questionView.submitButtonVisibility.get());
 
         assertTrue(questionView.answerBox.isEnabled());
-        assertEquals(expectedQuestion, questionView.question.get());
+        assertEquals(expectedQuestion, questionView.questionText.get());
+        assertEquals(questionView.questionVisibility.get(), (Integer)View.VISIBLE);
         assertFalse(questionView.resultBox.isVisible());
 
     }
@@ -101,7 +98,6 @@ public final class QuestionViewTest extends AndroidTestCase {
                 assertFalse(questionView.submitButtonVisibility.get());
 
                 assertEquals(questionView.nextButtonVisibility.get(), (Integer)View.VISIBLE);
-                assertTrue(nextButtonLegacy.isEnabled());
             }});
 
     }
@@ -146,7 +142,7 @@ public final class QuestionViewTest extends AndroidTestCase {
         questionView.showNoTensesSelected();
 
         assertFalse(questionView.answerBox.isVisible());
-        assertEquals(questionView.findViewById(R.id.question).getVisibility(), View.GONE);
+        assertEquals(questionView.questionVisibility.get(), (Integer)View.GONE);
         assertFalse(questionView.submitButtonVisibility.get());
         assertEquals(questionView.nextButtonVisibility.get(), (Integer)View.GONE);
         assertEquals(questionView.correctionBoxVisibility.get(), (Integer)View.GONE);

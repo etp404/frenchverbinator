@@ -42,7 +42,8 @@
                         android:id="@+id/question"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@{questionViewModel.question}"
+                        android:text="@{questionViewModel.questionText}"
+                        android:visibility="@{questionViewModel.questionVisibility}"
                         android:layout_gravity="center_horizontal"
                         android:gravity="center_horizontal"
                         style="@style/font_style" />
