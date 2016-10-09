@@ -24,6 +24,8 @@ public final class AndroidQuestionView extends LinearLayout implements QuestionV
 
     public final ObservableField<String> question = new ObservableField<>();
     public final ObservableField<Boolean> submitButtonVisibility = new ObservableField<>();
+    public final ObservableField<String> scoreBoxText = new ObservableField<>();
+    public final ObservableField<Boolean> scoreBoxVisibility = new ObservableField<>();
 
     public final ResultBox resultBox = new ResultBox();
     public final AnswerBox answerBox = new AnswerBox();
@@ -31,7 +33,6 @@ public final class AndroidQuestionView extends LinearLayout implements QuestionV
     private ImageView greenTick;
     private ImageView redCross;
     private TextView noTensesSelectedWarning;
-    private TextView scoreBox;
     private TextView correctionBox;
     private TextView questionBox;
     private SubmitListener submitListener;
@@ -57,7 +58,6 @@ public final class AndroidQuestionView extends LinearLayout implements QuestionV
         questionBox = (TextView)findViewById(R.id.question);
         greenTick = (ImageView)findViewById(R.id.green_tick);
         redCross = (ImageView) findViewById(R.id.red_cross);
-        scoreBox = (TextView) findViewById(R.id.score);
     }
 
     @Override
@@ -170,14 +170,14 @@ public final class AndroidQuestionView extends LinearLayout implements QuestionV
         nextButton.setVisibility(View.GONE);
         correctionBox.setVisibility(View.GONE);
         resultBox.setVisible(false);
-        scoreBox.setVisibility(View.GONE);
+        scoreBoxVisibility.set(false);
         noTensesSelectedWarning.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void showScore(Score score) {
-        scoreBox.setVisibility(VISIBLE);
-        scoreBox.setText(score.toString());
+        scoreBoxVisibility.set(true);
+        scoreBoxText.set(score.toString());
     }
 
     public void onSubmitAnswer() {

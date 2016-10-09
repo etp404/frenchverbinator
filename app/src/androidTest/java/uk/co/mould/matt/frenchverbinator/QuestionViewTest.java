@@ -18,7 +18,6 @@ import uk.co.mould.matt.questions.Question;
 public final class QuestionViewTest extends AndroidTestCase {
     public AndroidQuestionView questionView;
     private String someVerbWithPronoun = "someVerbWithPronoun";
-    private TextView scoreBox;
     private View nextButton;
     private TextView correctionBox;
     private View noTenseSelectedWarning;
@@ -32,7 +31,6 @@ public final class QuestionViewTest extends AndroidTestCase {
         Context context = getContext();
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         questionView = (AndroidQuestionView)layoutInflater.inflate(R.layout.question_layout, null);
-        scoreBox = (TextView) questionView.findViewById(R.id.score);
         nextButton = questionView.findViewById(R.id.next_button);
         correctionBox = (TextView)questionView.findViewById(R.id.correction_box);
         noTenseSelectedWarning = questionView.findViewById(R.id.no_tenses_selected);
@@ -45,7 +43,8 @@ public final class QuestionViewTest extends AndroidTestCase {
     public void testThatScoreIsShownAsExpected() {
         Score score = new Score();
         questionView.showScore(score);
-        assertEquals(score.toString(), scoreBox.getText());
+        assertEquals(score.toString(), questionView.scoreBoxText.get());
+        assertTrue(questionView.scoreBoxVisibility.get());
     }
 
     public void testThatQuestionDisplayedCorrectly() {
@@ -157,7 +156,7 @@ public final class QuestionViewTest extends AndroidTestCase {
         assertEquals(nextButton.getVisibility(), View.GONE);
         assertEquals(correctionBox.getVisibility(), View.GONE);
         assertFalse(questionView.resultBox.isVisible());
-        assertEquals(scoreBox.getVisibility(), View.GONE);
+        assertFalse(questionView.scoreBoxVisibility.get());
         assertFalse(questionView.answerBox.isVisible());
         assertEquals(noTenseSelectedWarning.getVisibility(), View.VISIBLE);
     }
