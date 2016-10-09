@@ -22,7 +22,8 @@ import uk.co.mould.matt.questions.Question;
 public final class AndroidQuestionView extends LinearLayout implements QuestionView {
     private static final String QUESTION_TEMPLATE = "What is the '%s' form of %s (%s) in the %s?";
 
-    public final ObservableField<String> question = new ObservableField<>();
+    public final ObservableField<String> questionText = new ObservableField<>();
+    public final ObservableField<Integer> questionVisibility = new ObservableField<>();
     public final ObservableField<Boolean> submitButtonVisibility = new ObservableField<>();
     public final ObservableField<String> scoreBoxText = new ObservableField<>();
     public final ObservableField<Boolean> scoreBoxVisibility = new ObservableField<>();
@@ -72,13 +73,14 @@ public final class AndroidQuestionView extends LinearLayout implements QuestionV
         redCross.setVisibility(GONE);
 
         greenTick.setVisibility(GONE);
-        this.question.set(
+        this.questionText.set(
                 String.format(
                         QUESTION_TEMPLATE,
                         question.person.getPerson(),
                         question.verb.frenchVerb,
                         question.verb.englishVerb,
                         question.moodAndTense.toString()));
+        this.questionVisibility.set(VISIBLE);
         clearAnimation();
     }
 
@@ -161,7 +163,7 @@ public final class AndroidQuestionView extends LinearLayout implements QuestionV
 
     @Override
     public void showNoTensesSelected() {
-        questionBox.setVisibility(View.GONE);
+        questionVisibility.set(View.GONE);
         answerBox.setVisibility(false);
         submitButtonVisibility.set(false);
         nextButtonVisibility.set(View.GONE);
