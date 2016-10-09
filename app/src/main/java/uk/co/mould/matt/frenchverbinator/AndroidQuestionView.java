@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -24,13 +23,13 @@ public final class AndroidQuestionView extends LinearLayout implements QuestionV
     private static final String QUESTION_TEMPLATE = "What is the '%s' form of %s (%s) in the %s?";
 
     public final ObservableField<String> question = new ObservableField<>();
+    public final ObservableField<Boolean> submitButtonVisibility = new ObservableField<>();
+
     public final ResultBox resultBox = new ResultBox();
     public final AnswerBox answerBox = new AnswerBox();
-
     private View nextButton;
     private ImageView greenTick;
     private ImageView redCross;
-    private Button submitButton;
     private TextView noTensesSelectedWarning;
     private TextView scoreBox;
     private TextView correctionBox;
@@ -52,7 +51,6 @@ public final class AndroidQuestionView extends LinearLayout implements QuestionV
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-        submitButton = (Button)findViewById(R.id.submit_button);
         nextButton = findViewById(R.id.next_button);
         noTensesSelectedWarning = (TextView) findViewById(R.id.no_tenses_selected);
         correctionBox = (TextView) findViewById(R.id.correction_box);
@@ -67,7 +65,7 @@ public final class AndroidQuestionView extends LinearLayout implements QuestionV
         noTensesSelectedWarning.setVisibility(View.GONE);
         correctionBox.setVisibility(View.GONE);
         resultBox.setVisible(false);
-        submitButton.setVisibility(View.VISIBLE);
+        submitButtonVisibility.set(true);
         nextButton.setVisibility(View.GONE);
         answerBox.setVisibility(true);
         answerBox.setEnabled(true);
@@ -93,7 +91,7 @@ public final class AndroidQuestionView extends LinearLayout implements QuestionV
         correctionBox.setVisibility(GONE);
         nextButton.setVisibility(VISIBLE);
         nextButton.setEnabled(true);
-        submitButton.setVisibility(GONE);
+        submitButtonVisibility.set(false);
         showGreenTick();
     }
 
@@ -159,7 +157,7 @@ public final class AndroidQuestionView extends LinearLayout implements QuestionV
         correctionBox.setVisibility(VISIBLE);
         nextButton.setVisibility(View.VISIBLE);
         nextButton.setEnabled(true);
-        submitButton.setVisibility(View.GONE);
+        submitButtonVisibility.set(false);
         greenTick.setVisibility(View.GONE);
         showRedCross();
     }
@@ -168,7 +166,7 @@ public final class AndroidQuestionView extends LinearLayout implements QuestionV
     public void showNoTensesSelected() {
         questionBox.setVisibility(View.GONE);
         answerBox.setVisibility(false);
-        submitButton.setVisibility(View.GONE);
+        submitButtonVisibility.set(false);
         nextButton.setVisibility(View.GONE);
         correctionBox.setVisibility(View.GONE);
         resultBox.setVisible(false);

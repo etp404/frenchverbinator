@@ -74,6 +74,7 @@
                         android:layout_height="wrap_content"
                         android:text="CHECK"
                         android:id="@+id/submit_button"
+                        android:visibility="@{questionViewModel.submitButtonVisibility ? View.VISIBLE : View.GONE}"
                         android:elevation="6dp"
                         style="@style/buttonFontColour"
                         android:onClick="@{() -> questionViewModel.onSubmitAnswer()}"/>
